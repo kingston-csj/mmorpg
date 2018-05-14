@@ -1,7 +1,8 @@
 ## 项目介绍　　
-mmorpg，是一个用java编写的轻量级高性能手游服务端框架。项目提供各种支持快速二次开发的组件，以及对生产环境的服务进行管理的工具。同时，为了使用户能够快速上手，项目提供了若干常用业务功能作为演示。
+mmorpg，是一个用java编写的轻量级高性能mmorpg手游服务端框架。项目提供各种支持快速二次开发的组件，以及对生产环境的服务进行管理的工具。同时，为了使用户能够快速上手，项目提供了若干常用业务功能作为演示。
 
 ## 项目特点  
+* 使用状态同步实现pk技能同步  
 * 支持socket/websocket接入，兼容手游/页游服务端架构    
 * 有独立http后台网站，为游戏运维/运营提供支持  
 * 框架提供多种组件，可以直接二次开发业务逻辑  
@@ -16,7 +17,7 @@ Netty | nio socket 框架 | [http://netty.io/](http://netty.io/)
 groovy | 基于类替换的热更新 | [http://www.groovy-lang.org/](http://www.groovy-lang.org/)　　  
 hibernate | 强大的orm框架 | [http://hibernate.org/orm/](http://hibernate.org/orm/) 
 slf4j+log4j | 日志系统 | [https://www.slf4j.org/](https://www.slf4j.org/)  
-Gradle | 依赖管理及项目构建 | [https://gradle.org/](https://gradle.org/)  
+gradle | 依赖管理及项目构建 | [https://gradle.org/](https://gradle.org/)  
 
 
 ## ToDoList  
@@ -24,7 +25,6 @@ Gradle | 依赖管理及项目构建 | [https://gradle.org/](https://gradle.org/
 * 场景寻路及分屏算法  
 * 主动技能/被动技能实现  
 * buff系统  
-* 登录服工程  
 * 更多基础设施与业务演示  
 
 ## 与jforgame项目的主要不同之处  
