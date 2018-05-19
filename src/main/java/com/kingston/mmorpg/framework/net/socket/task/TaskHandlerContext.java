@@ -36,7 +36,7 @@ public class TaskHandlerContext {
 		return instance;
 	}
 
-	public void initialize() {
+	private void initialize() {
 		for (int i=0; i<CORE_SIZE; i++) {
 			ThreadFactory threadFactory = new NamedThreadFactory("message-task-handler");
 			workerPool[i] = Executors.newSingleThreadExecutor(threadFactory);

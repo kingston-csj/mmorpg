@@ -45,7 +45,6 @@ public final class CmdTask extends BaseTask {
 			logger.error("message task execute failed ", e);
 			e.printStackTrace();
 		}
-
 	}
 
 	public long getPlayerId() {

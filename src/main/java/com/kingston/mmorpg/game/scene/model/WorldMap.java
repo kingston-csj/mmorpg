@@ -15,5 +15,7 @@ public class WorldMap {
 	/** 地图模型id */
 	private int modelId;
 	
+	
+	
 
 }
