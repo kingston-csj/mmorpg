@@ -7,6 +7,7 @@ import com.kingston.mmorpg.game.logs.LoggerUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import io.netty.util.ReferenceCountUtil;
 
 public class PacketDecoder extends LengthFieldBasedFrameDecoder {
 
@@ -35,6 +36,8 @@ public class PacketDecoder extends LengthFieldBasedFrameDecoder {
 			return message;
 		} catch (Exception e) {
 			LoggerUtils.error("读取消息出错,模块号{}，类型{},异常{}", new Object[]{module, cmd ,e});
+			// 消息不往下传，手动释放下引用
+			ReferenceCountUtil.release(in);
 		}
 		return null;
 	}
