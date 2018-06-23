@@ -47,7 +47,7 @@ public class MessageDispatcher {
 		Object controller = cmdExecutor.getHandler();
 
 		IDispatch dipatcher = session.getDipatcher();
-		TaskHandlerContext.getInstance().acceptTask(
+		TaskHandlerContext.INSTANCE.acceptTask(
 				CmdTask.valueOf(dipatcher.dispatchMap(), dipatcher.dispatchLine(), 
 						controller, cmdExecutor.getMethod(), params));
 	}
@@ -81,6 +81,5 @@ public class MessageDispatcher {
 	private String buildKey(short module, short cmd) {
 		return module + "_" + cmd;
 	}
-
 
 }
