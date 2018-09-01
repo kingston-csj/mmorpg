@@ -22,54 +22,52 @@ import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.timeout.IdleStateHandler;
 
 public class GameServer {
-	
+
 	private Logger logger = LoggerFactory.getLogger(GameServer.class);
 
-	//避免使用默认线程数参数
+	// 避免使用默认线程数参数
 	private EventLoopGroup bossGroup = new NioEventLoopGroup(1);
-	private	EventLoopGroup workerGroup = new NioEventLoopGroup(Runtime.getRuntime().availableProcessors());
+	private EventLoopGroup workerGroup = new NioEventLoopGroup(Runtime.getRuntime().availableProcessors());
 
-	public void bind(int port) throws IOException {
-		logger.info("服务端已启动，正在监听用户的请求......");
-		try{
+	public void bind(int port) {
+		logger.info("socket服务端已启动，正在监听用户的请求@port:"+port+"......");
+		try {
 			ServerBootstrap b = new ServerBootstrap();
-			b.group(bossGroup,workerGroup)
-			.channel(NioServerSocketChannel.class)
-			.option(ChannelOption.SO_BACKLOG, 1024)
-			.childHandler(new ChildChannelHandler());
+			b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class).option(ChannelOption.SO_BACKLOG, 1024)
+					.childHandler(new ChildChannelHandler());
 
-			ChannelFuture f = b.bind(new InetSocketAddress(port))
-					.sync();
+			ChannelFuture f = b.bind(new InetSocketAddress(port)).sync();
 			f.channel().closeFuture().sync();
-		}catch(Exception e){
-			e.printStackTrace();
-		}finally{
+		} catch (Exception e) {
+			logger.error("", e);
+			System.exit(-1);
+		} finally {
 			bossGroup.shutdownGracefully();
 			workerGroup.shutdownGracefully();
 		}
 	}
 
 	public void close() {
-		try{
+		try {
 			if (bossGroup != null) {
 				bossGroup.shutdownGracefully();
 			}
 			if (workerGroup != null) {
 				workerGroup.shutdownGracefully();
 			}
-		}catch(Exception e){
-
+		} catch (Exception e) {
+			logger.error("", e);
 		}
 	}
 
-	private class ChildChannelHandler extends ChannelInitializer<SocketChannel>{
+	private class ChildChannelHandler extends ChannelInitializer<SocketChannel> {
 		@Override
 		protected void initChannel(SocketChannel arg0) throws Exception {
 			ChannelPipeline pipeline = arg0.pipeline();
-			pipeline.addLast(new PacketDecoder(1024*4,0,4,0,4));
+			pipeline.addLast(new PacketDecoder(1024 * 4, 0, 4, 0, 4));
 			pipeline.addLast(new LengthFieldPrepender(4));
 			pipeline.addLast(new PacketEncoder());
-			//客户端300秒没收发包，便会触发UserEventTriggered事件到MessageTransportHandler
+			// 客户端300秒没收发包，便会触发UserEventTriggered事件到MessageTransportHandler
 			pipeline.addLast("idleStateHandler", new IdleStateHandler(0, 0, 300));
 			pipeline.addLast(new IoEventHandler());
 		}

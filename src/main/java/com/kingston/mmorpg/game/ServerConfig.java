@@ -6,6 +6,8 @@ public class ServerConfig {
 	private String serverIp;
 	/** 服务器端口 */
 	private int serverPort;
+	/** webSocket端口 */
+	private int webSocketPort;
 	/** 后台服务端口 */
 	private int httpPort;
 	
@@ -26,6 +28,12 @@ public class ServerConfig {
 	}
 	public void setHttpPort(int httpPort) {
 		this.httpPort = httpPort;
+	}
+	public int getWebSocketPort() {
+		return webSocketPort;
+	}
+	public void setWebSocketPort(int webSocketPort) {
+		this.webSocketPort = webSocketPort;
 	}
 	
 	

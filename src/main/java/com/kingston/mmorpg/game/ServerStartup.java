@@ -6,8 +6,10 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.kingston.mmorpg.framework.net.socket.transport.GameServer;
+import com.kingston.mmorpg.framework.net.socket.transport.WebSocketServer;
 import com.kingston.mmorpg.game.base.SpringContext;
 import com.kingston.mmorpg.game.http.HttpServer;
+import com.kingston.mmorpg.game.util.NamedThreadFactory;
 
 public class ServerStartup {
 
@@ -34,7 +36,16 @@ public class ServerStartup {
 		ServerConfig serverConfig = SpringContext.getServerConfig();
 		
 //		httpServer.start(serverConfig.getHttpPort());
-		new GameServer().bind(serverConfig.getServerPort());
+		new NamedThreadFactory("socket-server").newThread(new Thread(() -> {
+			new GameServer().bind(serverConfig.getServerPort());
+		}
+		)).start();
+		
+		new NamedThreadFactory("webSocket-server").newThread(new Thread(() -> {
+			new WebSocketServer().bind(serverConfig.getWebSocketPort());
+		}
+		)).start();
+		
 	}
 
 

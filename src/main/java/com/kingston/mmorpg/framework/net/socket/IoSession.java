@@ -6,11 +6,14 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.gson.Gson;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
+import com.kingston.mmorpg.framework.net.socket.message.WebSocketFrame;
 import com.kingston.mmorpg.framework.net.socket.task.IDispatch;
 import com.kingston.mmorpg.game.scene.actor.Player;
 
 import io.netty.channel.Channel;
+import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 
 /**
  * 链接的会话
@@ -34,12 +37,14 @@ public class IoSession {
 	
 	/** 拓展用，保存一些个人数据  */
 	private Map<String, Object> attrs = new HashMap<>();
+	
+	private ChannelType channelType;
 
 	public IoSession() {
 
 	}
 
-	public IoSession(Channel channel) {
+	public IoSession(Channel channel, ChannelType channeType) {
 		this.channel = channel;
 		this.ipAddr = ChannelUtils.getIp(channel);
 		this.dipatcher = anoymousDispatcher;
@@ -53,8 +58,11 @@ public class IoSession {
 		if (packet == null) {
 			return;
 		}
-		if (channel != null) {
+		if (channelType == ChannelType.SOCKET) {
 			channel.writeAndFlush(packet);
+		} else {
+			WebSocketFrame frame = WebSocketFrame.valueOf(packet);
+			channel.writeAndFlush(new TextWebSocketFrame(new Gson().toJson(frame)));
 		}
 	}
 

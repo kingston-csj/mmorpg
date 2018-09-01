@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>WebSocket 客户端</title>
+<script type="text/javascript">
+	var websocket;
+
+	//如果浏览器支持WebSocket
+	if (window.WebSocket) {
+		websocket = new WebSocket("ws://localhost:8989/ws"); 
+
+		//当有消息过来的时候触发
+		websocket.onmessage = function(event) {
+			var respMessage = document.getElementById("respMessage");
+			respMessage.value = respMessage.value + "\n" + event.data;
+		}
+
+		//连接关闭的时候触发
+		websocket.onclose = function(event) {
+			var respMessage = document.getElementById("respMessage");
+			respMessage.value = respMessage.value + "\n断开连接";
+		}
+
+		//连接打开的时候触发
+		websocket.onopen = function(event) {
+			var respMessage = document.getElementById("respMessage");
+			respMessage.value = "建立连接";
+		}
+	} else {
+		alert("浏览器不支持WebSocket");
+	}
+
+	function sendMsg(msg) { //发送消息 
+		if (window.WebSocket) {
+			if (websocket.readyState == WebSocket.OPEN) {
+				var msg = {
+					playerId : 1
+				};
+				var req = {
+					"module" : 102,
+					"cmd" : 1,
+					"msg" : JSON.stringify(msg)
+				}
+				websocket.send(JSON.stringify(req)); 
+			}
+		}
+	}
+</script>
+</head>
+<body>
+	<form onsubmit="return false">
+		<textarea style="width: 300px; height: 200px;" name="message"></textarea>
+		<input type="button" onclick="sendMsg(this.form.message.value)"
+			value="发送"><br>
+		<h3>信息</h3>
+		<textarea style="width: 300px; height: 200px;" id="respMessage"></textarea>
+		<input type="button" value="清空"
+			onclick="javascript:document.getElementById('respMessage').value = ''">
+	</form>
+</body>
+</html>

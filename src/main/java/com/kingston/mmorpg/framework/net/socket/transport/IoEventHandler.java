@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.kingston.mmorpg.framework.net.socket.ChannelType;
 import com.kingston.mmorpg.framework.net.socket.ChannelUtils;
 import com.kingston.mmorpg.framework.net.socket.IoSession;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
@@ -22,7 +23,8 @@ public class IoEventHandler extends ChannelInboundHandlerAdapter {
 	
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		if (!ChannelUtils.addChannelSession(ctx.channel(), new IoSession(ctx.channel()))) {
+		if (!ChannelUtils.addChannelSession(ctx.channel(), 
+				new IoSession(ctx.channel(), ChannelType.SOCKET))) {
 			ctx.channel().close();
 			logger.error("Duplicate session,IP=[{}]",ChannelUtils.getIp(ctx.channel()));
 		}

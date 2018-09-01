@@ -18,6 +18,8 @@ spring-test/test-output/
 argfile*
 pom.xml
 
+logs/
+
 classes/
 /build
 buildSrc/build

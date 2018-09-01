@@ -14,8 +14,9 @@ repositories {
 // In this section you declare the dependencies for your production and test code
 dependencies {
     compile 'org.slf4j:slf4j-api:1.7.21'
-	compile 'log4j:slf4j-api:1.2.17'
-	compile 'org.slf4j:slf4j-api:1.7.21'
+	compile 'org.slf4j:slf4j-log4j12:1.7.21'
+	compile 'log4j:log4j:1.2.17'
+	compile 'log4j:apache-log4j-extras:1.2.17'
 
 	compile 'com.google.code.gson:gson:2.8.0'
 

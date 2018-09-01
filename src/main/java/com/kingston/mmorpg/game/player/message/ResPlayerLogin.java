@@ -7,5 +7,16 @@ import com.kingston.mmorpg.game.player.service.PlayerService;
 
 @MessageMeta(module = Modules.PLAYER, cmd = PlayerService.CMD_RES_LOGIN)
 public class ResPlayerLogin extends Message {
+	
+	private byte status;
+
+	public byte getStatus() {
+		return status;
+	}
+
+	public void setStatus(byte status) {
+		this.status = status;
+	}
+	
 
 }

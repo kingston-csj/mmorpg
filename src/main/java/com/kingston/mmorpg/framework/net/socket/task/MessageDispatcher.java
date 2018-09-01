@@ -47,7 +47,7 @@ public class MessageDispatcher {
 		Object controller = cmdExecutor.getHandler();
 
 		IDispatch dipatcher = session.getDipatcher();
-		TaskHandlerContext.getInstance().acceptTask(
+		GameExector.getInstance().acceptTask(
 				CmdTask.valueOf(dipatcher.dispatchMap(), dipatcher.dispatchLine(), 
 						controller, cmdExecutor.getMethod(), params));
 	}

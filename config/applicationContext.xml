@@ -34,6 +34,7 @@
 		<property name="serverIp" value="${socket.serverIp}"></property>
 		<property name="serverPort" value="${socket.port}"></property>
 		<property name="httpPort" value="${http.port}"></property>
+		<property name="webSocketPort" value="${webSocket.port}"></property>
 	</bean>
 
 
