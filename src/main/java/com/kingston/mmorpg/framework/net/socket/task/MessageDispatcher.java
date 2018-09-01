@@ -82,5 +82,4 @@ public class MessageDispatcher {
 		return module + "_" + cmd;
 	}
 
-
 }
