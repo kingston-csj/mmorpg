@@ -49,7 +49,7 @@ public class MessageCodecTest {
 		buf.readShort();
 		buf.readShort();
 		
-		Class<?> clazz = SpringContext.getMessageFactory().createMessage(module, cmd);
+		Class<?> clazz = SpringContext.getMessageFactory().getMessageMeta(module, cmd);
 		
 		Serializer serializer = Serializer.getSerializer(clazz);
 		

@@ -35,7 +35,7 @@ public class PacketEncoder extends MessageToByteEncoder<Message> {
 		out.writeShort(module);
 		//写入cmd类型
 		out.writeShort(cmd);
-		Class<?> msgClazz = SpringContext.getMessageFactory().createMessage(module, cmd);
+		Class<?> msgClazz = SpringContext.getMessageFactory().getMessageMeta(module, cmd);
 		try {
 			Serializer messageCodec = Serializer.getSerializer(msgClazz);
 			messageCodec.encode(out, message, null);

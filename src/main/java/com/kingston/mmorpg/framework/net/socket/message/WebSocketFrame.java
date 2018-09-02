@@ -4,34 +4,27 @@ import com.google.gson.Gson;
 
 public class WebSocketFrame {
 	
-	private short module;
+//	private short module;
+//	
+//	private short cmd;
 	
-	private short cmd;
+	private String id;
 	
 	private String msg;
 	
 	public static WebSocketFrame valueOf(Message message) {
 		WebSocketFrame frame = new WebSocketFrame();
-		frame.module = message.getModule();
-		frame.cmd = message.getCmd();
+		frame.id = message.getModule() + "_" +  message.getCmd();
 		frame.msg = new Gson().toJson(message);
 		return frame;
 	}
 
-	public short getModule() {
-		return module;
+	public String getId() {
+		return id;
 	}
 
-	public void setModule(short module) {
-		this.module = module;
-	}
-
-	public short getCmd() {
-		return cmd;
-	}
-
-	public void setCmd(short cmd) {
-		this.cmd = cmd;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getMsg() {

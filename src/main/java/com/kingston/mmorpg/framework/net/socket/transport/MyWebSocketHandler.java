@@ -27,7 +27,7 @@ public class MyWebSocketHandler extends SimpleChannelInboundHandler<TextWebSocke
 		System.out.println(channel.remoteAddress() + ": " + msg.text());
 		WebSocketFrame frame = new Gson().fromJson(msg.text(), WebSocketFrame.class);
 		
-		Class<?> clazz = SpringContext.getMessageFactory().createMessage(frame.getModule(), frame.getCmd());
+		Class<?> clazz = SpringContext.getMessageFactory().getMessageMeta(frame.getId());
 		Message message = (Message) new Gson().fromJson(frame.getMsg(), clazz);
 		System.err.println(message);
 		

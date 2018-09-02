@@ -40,8 +40,18 @@ public class MessageFactory implements ApplicationContextAware {
 		}
 	}
 	
-	public Class<? extends Message> createMessage(short module, short cmd) {
+	/**
+	 * 返回消息的模板class
+	 * @param module
+	 * @param cmd
+	 * @return
+	 */
+	public Class<? extends Message> getMessageMeta(short module, short cmd) {
 		String key = getKey(module, cmd);
+		return getMessageMeta(key);
+	}
+	
+	public Class<? extends Message> getMessageMeta(String key) {
 		Class<? extends Message> clazz = message2Class.get(key);
 		return clazz;
 	}

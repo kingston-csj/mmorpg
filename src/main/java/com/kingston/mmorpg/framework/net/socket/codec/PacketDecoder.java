@@ -29,7 +29,7 @@ public class PacketDecoder extends LengthFieldBasedFrameDecoder {
 	}
 	
 	private Message readMessage(short module, short cmd, ByteBuf in) {
-		Class<?> msgClazz = SpringContext.getMessageFactory().createMessage(module, cmd);
+		Class<?> msgClazz = SpringContext.getMessageFactory().getMessageMeta(module, cmd);
 		try {
 			Serializer messageCodec = Serializer.getSerializer(msgClazz);
 			Message message = (Message) messageCodec.decode(in, msgClazz, null);
