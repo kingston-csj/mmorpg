@@ -2,6 +2,7 @@ package com.kingston.mmorpg.game.scene.actor;
 
 import com.kingston.mmorpg.game.ai.Scene;
 import com.kingston.mmorpg.game.buff.model.BuffContainer;
+import com.kingston.mmorpg.game.scene.model.Life;
 
 /**
  * 生物体，就是会动的场景演员
@@ -11,11 +12,12 @@ public abstract class Creature extends SceneActor {
 	
 	private BuffContainer buffContainer;
 	
+	private Life life;
+	
 	protected long hp;
 	
 	protected int attack;
 	
-	private Scene scene;
 	
 	public long getHp() {
 		return hp;
@@ -35,14 +37,6 @@ public abstract class Creature extends SceneActor {
 
 	public void setAttack(int attack) {
 		this.attack = attack;
-	}
-	
-	public Scene getScene() {
-		return scene;
-	}
-
-	public void setScene(Scene scene) {
-		this.scene = scene;
 	}
 	
 	public boolean isDie() {
