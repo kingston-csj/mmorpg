@@ -3,6 +3,10 @@ package com.kingston.mmorpg.framework.net.socket.transport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.kingston.mmorpg.framework.net.socket.ServerNode;
+import com.kingston.mmorpg.game.ServerConfig;
+import com.kingston.mmorpg.game.base.SpringContext;
+
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -18,7 +22,7 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
 
-public class WebSocketServer {
+public class WebSocketServer implements ServerNode {
 
 	private Logger logger = LoggerFactory.getLogger(GameServer.class);
 
@@ -26,24 +30,43 @@ public class WebSocketServer {
 	private EventLoopGroup bossGroup = new NioEventLoopGroup(1);
 	private EventLoopGroup workerGroup = new NioEventLoopGroup(Runtime.getRuntime().availableProcessors());
 
-	public void bind(int port) {
+	private int port;
+
+	@Override
+	public void init() {
+		ServerConfig serverConfig = SpringContext.getServerConfig();
+		this.port = serverConfig.getWebSocketPort();
+	}
+
+	@Override
+	public void start() throws Exception {
+		logger.info("webSocket服务端已启动，正在监听用户的请求@port:" + port + "......");
 		try {
-			logger.info("webSocket服务端已启动，正在监听用户的请求@port:" + port + "......");
 			ServerBootstrap serverBootstrap = new ServerBootstrap();
 			serverBootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
 					.handler(new LoggingHandler(LogLevel.INFO)).childHandler(new WebSocketChannelInitializer());
 
-			ChannelFuture channelFuture = serverBootstrap.bind(port).sync();
-			channelFuture.channel().closeFuture().sync();
+			serverBootstrap.bind(port).sync();
 		} catch (Exception e) {
 			logger.error("", e);
-			System.exit(-1);
-		} finally {
+
 			bossGroup.shutdownGracefully();
 			workerGroup.shutdownGracefully();
+
+			throw e;
 		}
 	}
 
+	@Override
+	public void shutDown() throws Exception {
+		if (bossGroup != null) {
+			bossGroup.shutdownGracefully();
+		}
+		if (workerGroup != null) {
+			workerGroup.shutdownGracefully();
+		}
+	}
+	
 	private class WebSocketChannelInitializer extends ChannelInitializer<SocketChannel> {
 		@Override
 		protected void initChannel(SocketChannel arg0) throws Exception {

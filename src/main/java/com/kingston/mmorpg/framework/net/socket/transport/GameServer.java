@@ -1,13 +1,15 @@
 package com.kingston.mmorpg.framework.net.socket.transport;
 
-import java.io.IOException;
 import java.net.InetSocketAddress;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.kingston.mmorpg.framework.net.socket.ServerNode;
 import com.kingston.mmorpg.framework.net.socket.codec.PacketDecoder;
 import com.kingston.mmorpg.framework.net.socket.codec.PacketEncoder;
+import com.kingston.mmorpg.game.ServerConfig;
+import com.kingston.mmorpg.game.base.SpringContext;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -21,7 +23,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.timeout.IdleStateHandler;
 
-public class GameServer {
+public class GameServer implements ServerNode {
 
 	private Logger logger = LoggerFactory.getLogger(GameServer.class);
 
@@ -29,37 +31,44 @@ public class GameServer {
 	private EventLoopGroup bossGroup = new NioEventLoopGroup(1);
 	private EventLoopGroup workerGroup = new NioEventLoopGroup(Runtime.getRuntime().availableProcessors());
 
-	public void bind(int port) {
-		logger.info("socket服务端已启动，正在监听用户的请求@port:"+port+"......");
+	private int port;
+
+	@Override
+	public void init() {
+		ServerConfig serverConfig = SpringContext.getServerConfig();
+		this.port = serverConfig.getServerPort();
+	}
+
+	@Override
+	public void start() throws Exception {
+		logger.info("socket服务端已启动，正在监听用户的请求@port:" + port + "......");
 		try {
 			ServerBootstrap b = new ServerBootstrap();
 			b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class).option(ChannelOption.SO_BACKLOG, 1024)
 					.childHandler(new ChildChannelHandler());
 
-			ChannelFuture f = b.bind(new InetSocketAddress(port)).sync();
-			f.channel().closeFuture().sync();
+			b.bind(new InetSocketAddress(port)).sync();
+//			f.channel().closeFuture().sync();
 		} catch (Exception e) {
 			logger.error("", e);
-			System.exit(-1);
-		} finally {
+
 			bossGroup.shutdownGracefully();
+			workerGroup.shutdownGracefully();
+
+			throw e;
+		}
+	}
+
+	@Override
+	public void shutDown() throws Exception {
+		if (bossGroup != null) {
+			bossGroup.shutdownGracefully();
+		}
+		if (workerGroup != null) {
 			workerGroup.shutdownGracefully();
 		}
 	}
-
-	public void close() {
-		try {
-			if (bossGroup != null) {
-				bossGroup.shutdownGracefully();
-			}
-			if (workerGroup != null) {
-				workerGroup.shutdownGracefully();
-			}
-		} catch (Exception e) {
-			logger.error("", e);
-		}
-	}
-
+	
 	private class ChildChannelHandler extends ChannelInitializer<SocketChannel> {
 		@Override
 		protected void initChannel(SocketChannel arg0) throws Exception {
