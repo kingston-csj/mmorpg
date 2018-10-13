@@ -11,7 +11,8 @@ public class ClientStartup {
 
 	public static void main(String[] args) throws Exception {
 		ApplicationContext context = new FileSystemXmlApplicationContext("config/applicationContext.xml");
-		new SocketClient().start();
+		SocketClient client = new SocketClient();
+		client.start();
 	}
 
 }

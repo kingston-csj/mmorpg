@@ -44,10 +44,11 @@ public class IoSession {
 
 	}
 
-	public IoSession(Channel channel, ChannelType channeType) {
+	public IoSession(Channel channel, ChannelType channelType) {
 		this.channel = channel;
 		this.ipAddr = ChannelUtils.getIp(channel);
 		this.dipatcher = anoymousDispatcher;
+		this.channelType = channelType;
 	}
 	
 	/**

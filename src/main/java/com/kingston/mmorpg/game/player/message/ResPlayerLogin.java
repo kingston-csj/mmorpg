@@ -17,6 +17,12 @@ public class ResPlayerLogin extends Message {
 	public void setStatus(byte status) {
 		this.status = status;
 	}
+
+	@Override
+	public String toString() {
+		return "角色登录 [status=" + status + "]";
+	}
+	
 	
 
 }

@@ -1,5 +1,6 @@
 package com.kingston.mmorpg.client.net;
 
+import com.kingston.mmorpg.client.IoSession;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
 import com.kingston.mmorpg.game.player.message.ReqPlayerLogin;
 
@@ -16,18 +17,19 @@ public class ClientTransportHandler extends ChannelInboundHandlerAdapter {
 
 	@Override
 	public void channelActive(ChannelHandlerContext ctx){
-		Channel channel = ctx.channel();
+		IoSession session = new IoSession(ctx.channel());
+		SessionManager.getInstance().registerSession(session);
 		
-		ReqPlayerLogin login = new ReqPlayerLogin();
-		login.setPlayerId(123456L);
-		channel.writeAndFlush(login);
+		ReqPlayerLogin reqLogin = new ReqPlayerLogin();
+		reqLogin.setPlayerId(123456L);
+		SessionManager.getInstance().sendMessage(reqLogin);
 	}
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg)
 			throws Exception {
 		Message packet = (Message)msg;
-		System.err.println("---receive----" + packet);
+		System.err.println("收到响应-->" + packet);
 	}
 
 	@Override

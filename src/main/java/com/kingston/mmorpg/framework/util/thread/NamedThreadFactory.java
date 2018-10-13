@@ -1,4 +1,4 @@
-package com.kingston.mmorpg.game.util;
+package com.kingston.mmorpg.framework.util.thread;
 
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
