@@ -1,4 +1,4 @@
-package com.kingston.mmorpg.game.util;
+package com.kingston.mmorpg.framework.util;
 
 import java.util.AbstractSet;
 import java.util.ConcurrentModificationException;

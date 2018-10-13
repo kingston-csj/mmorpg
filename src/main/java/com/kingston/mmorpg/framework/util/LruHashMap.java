@@ -1,4 +1,4 @@
-package com.kingston.mmorpg.game.util;
+package com.kingston.mmorpg.framework.util;
 
 import java.util.LinkedHashMap;
 import java.util.concurrent.locks.Lock;
