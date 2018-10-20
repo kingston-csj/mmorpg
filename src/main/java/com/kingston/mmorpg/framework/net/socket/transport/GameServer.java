@@ -12,7 +12,6 @@ import com.kingston.mmorpg.game.ServerConfig;
 import com.kingston.mmorpg.game.base.SpringContext;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.ChannelPipeline;
