@@ -4,6 +4,8 @@ import java.util.LinkedHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import com.kingston.mmorpg.framework.util.thread.NotThreadSafe;
+
 /**
  * LruHashMap is an extension of Java's HashMap, which has a bounded size();
  * When it reaches that size, each time a new element is added, the least recently used (LRU) entry is removed.
@@ -13,6 +15,7 @@ import java.util.concurrent.locks.ReentrantLock;
  *
  * @author kingston
  */
+@NotThreadSafe
 public class LruHashMap<K, V> extends LinkedHashMap<K, V> {
 
     private static final long serialVersionUID = -5167631809472116969L;
