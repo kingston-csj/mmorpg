@@ -14,6 +14,7 @@ import com.kingston.mmorpg.framework.net.socket.MessageFactory;
 import com.kingston.mmorpg.framework.net.socket.task.MessageDispatcher;
 import com.kingston.mmorpg.game.ServerConfig;
 import com.kingston.mmorpg.game.buff.service.BuffService;
+import com.kingston.mmorpg.game.player.service.PlayerService;
 
 public class SpringContext implements ApplicationContextAware {
 	
@@ -51,6 +52,13 @@ public class SpringContext implements ApplicationContextAware {
 	
 	public final static SessionManager getSessionManager() {
 		return self.sessionManager;
+	}
+	
+	@Resource
+	private PlayerService playerService;
+	
+	public static PlayerService getPlayerService() {
+		return self.playerService;
 	}
 	
 	@Resource
