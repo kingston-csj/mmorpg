@@ -1,11 +1,20 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
+    }
+}
 
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
 
+apply plugin: 'org.springframework.boot'
+
+
 // In this section you declare where to find the dependencies of your project
 repositories {
-    // Use 'jcenter' for resolving your dependencies.
-    // You can declare any Maven/Ivy/file repository here.
     jcenter()
     mavenLocal()
     mavenCentral()
@@ -13,10 +22,10 @@ repositories {
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
-    compile 'org.slf4j:slf4j-api:1.7.21'
+   /** compile 'org.slf4j:slf4j-api:1.7.21'
 	compile 'org.slf4j:slf4j-log4j12:1.7.21'
 	compile 'log4j:log4j:1.2.17'
-	compile 'log4j:apache-log4j-extras:1.2.17'
+	compile 'log4j:apache-log4j-extras:1.2.17' */
 
 	compile 'com.google.code.gson:gson:2.8.0'
 
@@ -37,12 +46,27 @@ dependencies {
 	
 	compile 'org.codehaus.groovy:groovy-all:2.4.11'
 	
+	compile ('org.springframework.boot:spring-boot-starter:1.5.2.RELEASE') {
+	 	//exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	}
+	
 	// 本地系统依赖
 	compile fileTree(dir:'libs',include:['*.jar'])
 	
     testCompile 'junit:junit:4.12'
 }
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 tasks.withType(JavaCompile) {  
     options.encoding = "UTF-8"  
 }
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.0'
+}
+
+// task wrapper(type: Wrapper) {
+//     gradleVersion = '3.0'
+// }

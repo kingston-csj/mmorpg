@@ -11,13 +11,6 @@
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
-	<bean id="propertyConfigurerForAnalysis"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location">
-			<value>config/server.properties</value>
-		</property>
-	</bean>
-
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
@@ -30,16 +23,8 @@
 	<!-- 注册spring上下文环境 -->
 	<bean id="context" class="com.kingston.mmorpg.game.base.SpringContext" />
 
-	<bean id="serverConfig" class="com.kingston.mmorpg.game.ServerConfig">
-		<property name="serverIp" value="${socket.serverIp}"></property>
-		<property name="serverPort" value="${socket.port}"></property>
-		<property name="httpPort" value="${http.port}"></property>
-		<property name="webSocketPort" value="${webSocket.port}"></property>
-	</bean>
-
-
-	<!-- 自动扫描该包下所有组件 -->
-	<context:component-scan base-package="com.kingston.mmorpg" />
+	<!-- 自动扫描该包下所有组件 
+	<context:component-scan base-package="com.kingston.mmorpg" /> -->
 
 	<context:component-scan base-package="com.kingston.mmorpg">
 		<context:include-filter type="annotation"

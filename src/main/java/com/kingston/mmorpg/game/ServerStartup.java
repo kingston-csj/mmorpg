@@ -6,15 +6,20 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.Banner;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.kingston.mmorpg.framework.net.socket.ServerNode;
 import com.kingston.mmorpg.framework.net.socket.transport.GameServer;
 import com.kingston.mmorpg.framework.net.socket.transport.WebSocketServer;
 import com.kingston.mmorpg.game.http.HttpServer;
 
-public class ServerStartup {
+@SpringBootApplication
+public class ServerStartup implements CommandLineRunner {
 
 	private static Logger logger = LoggerFactory.getLogger(ServerStartup.class);
 
@@ -23,19 +28,15 @@ public class ServerStartup {
 	private List<ServerNode> servers = new ArrayList<>();
 
 	public static void main(String[] args) throws Exception {
-		final ServerStartup server = new ServerStartup();
-		server.start();
 
-		Runtime.getRuntime().addShutdownHook(new Thread() {
-			@Override
-			public void run() {
-				server.stop();
-			}
-		});
+		SpringApplication app = new SpringApplication(ServerStartup.class);
+		app.setBannerMode(Banner.Mode.OFF);
+		app.run(args);
+
 	}
 
 	public void start() throws Exception {
-		context = new FileSystemXmlApplicationContext("config/applicationContext.xml");
+		context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
 		ServerNode socketServer = new GameServer();
 		servers.add(socketServer);
@@ -64,6 +65,19 @@ public class ServerStartup {
 			logger.error("", e);
 		}
 
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		final ServerStartup server = new ServerStartup();
+		server.start();
+
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+			@Override
+			public void run() {
+				server.stop();
+			}
+		});
 	}
 
 }

@@ -7,15 +7,11 @@ import static java.lang.management.ManagementFactory.getThreadMXBean;
 
 import java.lang.management.BufferPoolMXBean;
 import java.lang.management.GarbageCollectorMXBean;
-import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
@@ -27,22 +23,10 @@ import com.kingston.mmorpg.game.base.SpringContext;
 import com.kingston.mmorpg.game.logs.LoggerUtils;
 
 @Component
+//@ManagedResource(objectName = "GameMXBean:name=gameMonitor")
 public class GameMonitor implements GameMonitorMBean {
 	
 	private Logger logger = LoggerFactory.getLogger(getClass());
-
-	@PostConstruct
-	private void init() {
-		// mbean监控
-		MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-		GameMonitorMBean controller = new GameMonitor();
-		try {
-			mbs.registerMBean(controller, new ObjectName("GameMXBean:name=GameMonitor"));
-		} catch (Exception e) {
-			logger.error("", e);
-			System.exit(-1);
-		}
-	}
 
 	@Override
 	public int getOnlinePlayerSum() {
