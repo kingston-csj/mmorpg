@@ -6,6 +6,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.springframework.stereotype.Component;
+
 /**
  * The annotation type is used in {@link Message com.kingston.net.Message}
  * to specify module and cmd of the given message.
@@ -14,6 +16,7 @@ import java.lang.annotation.Target;
 @Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
+@Component
 public @interface MessageMeta {
 
 	short module() default 0;

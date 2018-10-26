@@ -1,5 +1,5 @@
 
-package com.kingston.mmorpg.game;
+package com.kingston.mmorpg;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +10,6 @@ import org.springframework.boot.Banner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.kingston.mmorpg.framework.net.socket.ServerNode;
 import com.kingston.mmorpg.framework.net.socket.transport.GameServer;
@@ -23,21 +21,15 @@ public class ServerStartup implements CommandLineRunner {
 
 	private static Logger logger = LoggerFactory.getLogger(ServerStartup.class);
 
-	private static ConfigurableApplicationContext context;
-
 	private List<ServerNode> servers = new ArrayList<>();
 
 	public static void main(String[] args) throws Exception {
-
 		SpringApplication app = new SpringApplication(ServerStartup.class);
 		app.setBannerMode(Banner.Mode.OFF);
 		app.run(args);
-
 	}
 
 	public void start() throws Exception {
-		context = new ClassPathXmlApplicationContext("applicationContext.xml");
-
 		ServerNode socketServer = new GameServer();
 		servers.add(socketServer);
 
@@ -55,8 +47,6 @@ public class ServerStartup implements CommandLineRunner {
 	}
 
 	public void stop() {
-		context.close();
-
 		try {
 			for (ServerNode node : servers) {
 				node.shutDown();

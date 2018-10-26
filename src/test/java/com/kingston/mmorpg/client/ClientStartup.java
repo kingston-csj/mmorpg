@@ -10,7 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class ClientStartup {
 
 	public static void main(String[] args) throws Exception {
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("clientApp.xml");
 		SocketClient client = new SocketClient();
 		client.start();
 	}

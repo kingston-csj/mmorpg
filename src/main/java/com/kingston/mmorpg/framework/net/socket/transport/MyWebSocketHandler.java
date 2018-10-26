@@ -9,7 +9,6 @@ import com.kingston.mmorpg.framework.net.socket.ChannelUtils;
 import com.kingston.mmorpg.framework.net.socket.IoSession;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
 import com.kingston.mmorpg.framework.net.socket.message.WebSocketFrame;
-import com.kingston.mmorpg.game.ServerStartup;
 import com.kingston.mmorpg.game.base.SpringContext;
 
 import io.netty.channel.Channel;
@@ -19,7 +18,7 @@ import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 
 public class MyWebSocketHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
 	
-	private static Logger logger = LoggerFactory.getLogger(ServerStartup.class);
+	private static Logger logger = LoggerFactory.getLogger(MyWebSocketHandler.class);
 	
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) throws Exception {

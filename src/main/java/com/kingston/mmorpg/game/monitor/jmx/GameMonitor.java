@@ -17,23 +17,27 @@ import javax.script.ScriptEngineManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jmx.export.annotation.ManagedOperation;
+import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.stereotype.Component;
 
 import com.kingston.mmorpg.game.base.SpringContext;
 import com.kingston.mmorpg.game.logs.LoggerUtils;
 
 @Component
-//@ManagedResource(objectName = "GameMXBean:name=gameMonitor")
+@ManagedResource(objectName = "GameMXBean:name=gameMonitor")
 public class GameMonitor implements GameMonitorMBean {
 	
 	private Logger logger = LoggerFactory.getLogger(getClass());
-
+	
 	@Override
+	@ManagedOperation
 	public int getOnlinePlayerSum() {
 		return SpringContext.getPlayerService().getOnlienPlayers().size();
 	}
 
 	@Override
+	@ManagedOperation
 	public String printServerState() {
 		final long ONE_MB = 1024 * 1024;
 		String newLine = "\n";
@@ -99,6 +103,7 @@ public class GameMonitor implements GameMonitorMBean {
 	}
 
 	@Override
+	@ManagedOperation(description="执行groovy脚本")
 	public String execGroovyScript(String groovyCode) {
 		String msg = "执行成功";
 		try {

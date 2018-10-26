@@ -11,14 +11,6 @@
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url"
-			value="jdbc:mysql://localhost:3306/game_user?zeroDateTimeBehavior=convertToNull&amp;transformedBitIsBoolean=true&amp;autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8" />
-		<property name="username" value="root" />
-		<property name="password" value="123456" />
-	</bean>
 
 	<!-- 注册spring上下文环境 -->
 	<bean id="context" class="com.kingston.mmorpg.game.base.SpringContext" />
@@ -31,11 +23,5 @@
 			expression="com.kingston.mmorpg.framework.net.socket.annotation.MessageMeta" />
 	</context:component-scan>
 
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource" />
-	</bean>
-
-	<tx:annotation-driven transaction-manager="transactionManager" />
 
 </beans>

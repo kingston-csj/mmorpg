@@ -17,31 +17,29 @@ import io.netty.buffer.ByteBuf;
 @Component
 public class MessageFactory implements ApplicationContextAware {
 
-	/** spring容器上下文 */
-	private static ApplicationContext applicationContext = null;
-	
 	private Map<String, Class<? extends Message>> message2Class = new HashMap<>();
-	
+
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		Map<String, Object> aa = applicationContext.getBeansWithAnnotation(MessageMeta.class);
-		
-		for (Map.Entry<String, Object> entry:aa.entrySet()) {
+		Map<String, Object> beans = applicationContext.getBeansWithAnnotation(MessageMeta.class);
+
+		for (Map.Entry<String, Object> entry : beans.entrySet()) {
 			Object message = entry.getValue();
 			Class clazz = message.getClass();
-			MessageMeta annotation = (MessageMeta)clazz.getAnnotation(MessageMeta.class);
+			MessageMeta annotation = (MessageMeta) clazz.getAnnotation(MessageMeta.class);
 			short module = annotation.module();
 			short cmd = annotation.cmd();
 			String key = getKey(module, cmd);
 			if (message2Class.containsKey(key)) {
-				throw new IllegalStateException("模块号["+ key +"]冲突");
+				throw new IllegalStateException("模块号[" + key + "]冲突");
 			}
 			message2Class.put(key, clazz);
 		}
 	}
-	
+
 	/**
 	 * 返回消息的模板class
+	 * 
 	 * @param module
 	 * @param cmd
 	 * @return
@@ -50,24 +48,24 @@ public class MessageFactory implements ApplicationContextAware {
 		String key = getKey(module, cmd);
 		return getMessageMeta(key);
 	}
-	
+
 	public Class<? extends Message> getMessageMeta(String key) {
 		Class<? extends Message> clazz = message2Class.get(key);
 		return clazz;
 	}
-	
+
 	public void writeMessage(ByteBuf out, Message message) throws Exception {
 		Class<?> clazz = message.getClass();
-		MessageMeta annotation = (MessageMeta)clazz.getAnnotation(MessageMeta.class);
+		MessageMeta annotation = (MessageMeta) clazz.getAnnotation(MessageMeta.class);
 		short module = annotation.module();
 		short cmd = annotation.cmd();
 		out.writeShort(module);
 		out.writeShort(cmd);
-		
+
 		Serializer serializer = Serializer.getSerializer(message.getClass());
 		serializer.encode(out, message, null);
 	}
-	
+
 	private String getKey(short module, short cmd) {
 		String key = module + "_" + cmd;
 		return key;
