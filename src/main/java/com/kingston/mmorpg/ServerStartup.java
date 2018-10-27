@@ -16,6 +16,12 @@ import com.kingston.mmorpg.framework.net.socket.transport.GameServer;
 import com.kingston.mmorpg.framework.net.socket.transport.WebSocketServer;
 import com.kingston.mmorpg.game.http.HttpServer;
 
+/**
+ * sprint-boot的自动bean扫描只能扫描启动类的子目录，所以该类的包路径不能太深
+ * 
+ * @author kingston
+ *
+ */
 @SpringBootApplication
 public class ServerStartup implements CommandLineRunner {
 
@@ -54,7 +60,6 @@ public class ServerStartup implements CommandLineRunner {
 		} catch (Exception e) {
 			logger.error("", e);
 		}
-
 	}
 
 	@Override

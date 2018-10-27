@@ -16,7 +16,7 @@ public abstract class SceneActor extends GameObject implements IDispatch {
 	private Scene scene;
 	
 	private ActorType type;
-
+	
 	@Override
 	public int dispatchMap() {
 		return mapId;
@@ -37,6 +37,10 @@ public abstract class SceneActor extends GameObject implements IDispatch {
 
 	public void setScene(Scene scene) {
 		this.scene = scene;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 }

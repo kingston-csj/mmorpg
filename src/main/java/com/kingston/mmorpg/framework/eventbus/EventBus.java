@@ -6,10 +6,21 @@ import java.util.concurrent.Executors;
 
 import javax.annotation.PostConstruct;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+/**
+ * 事件总线
+ * 从guava-eventbus精简而来
+ * 
+ * @author kingston
+ *
+ */
 @Component
 public class EventBus {
+	
+	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	private Executor executor;
 
@@ -45,7 +56,7 @@ public class EventBus {
 			try {
 				subscriber.handleEvent(event);
 			} catch (Exception e) {
-
+				logger.error("", e);
 			}
 		});
 	}

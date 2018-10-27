@@ -3,8 +3,17 @@ package com.kingston.mmorpg.framework.eventbus;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class Subscriber {
+/**
+ * 具体事件订阅者
+ * 
+ * @author kingston
+ *
+ */
+class Subscriber {
 
+	/**
+	 * 事件处理者
+	 */
 	private Object listener;
 
 	private Method method;

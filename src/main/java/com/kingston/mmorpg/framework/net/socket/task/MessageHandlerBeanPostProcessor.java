@@ -18,7 +18,7 @@ import com.kingston.mmorpg.framework.net.socket.message.Message;
 
 @Component
 public class MessageHandlerBeanPostProcessor 
-implements BeanPostProcessor, ApplicationContextAware, Ordered {
+	implements BeanPostProcessor, ApplicationContextAware, Ordered {
 
 	/** [module_cmd, CmdExecutor] */
 	private static final Map<String, CmdExecutor> MODULE_CMD_HANDLERS = new HashMap<>();

@@ -45,7 +45,6 @@ class SubscriberRegistry {
 			if (method.isAnnotationPresent(Subscribe.class)) {
 				Class<?>[] parameterTypes = method.getParameterTypes();
 				if (parameterTypes.length != 1) {
-
 					throw new IllegalArgumentException(
 							"Method " + method.getName() + " has @Subscribe annotation but has" + parameterTypes.length
 									+ " parameters." + "Subscriber methods must have exactly 1 parameter.");
