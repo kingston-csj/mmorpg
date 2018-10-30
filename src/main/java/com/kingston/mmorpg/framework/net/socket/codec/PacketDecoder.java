@@ -23,6 +23,12 @@ public class PacketDecoder extends LengthFieldBasedFrameDecoder {
 		if (frame == null) {
 			return null;
 		}
+		
+		//----------------消息协议格式-------------------------
+		// packetLength | moduleId | cmd   |  body
+		//       short       short     short    byte[]
+		// 其中 packetLength长度占2位，被上层父类LengthFieldBasedFrameDecoder消费了 
+		// @see new PacketDecoder(1024 * 10, 0, 2, 0, 2)
 		if(frame.readableBytes() <= 4) return null ;
 		
 		short module = frame.readShort();

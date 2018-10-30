@@ -29,6 +29,11 @@ public class PacketEncoder extends MessageToByteEncoder<Message> {
 
 
 	private void _encode(ChannelHandlerContext ctx, Message message, ByteBuf out) throws Exception {
+		//----------------消息协议格式-------------------------
+		// packetLength | moduleId | cmd   |  body
+		//       short       short     short    byte[]
+		// 其中 packetLength长度占2位，由编码链 LengthFieldPrepender(2) 提供 
+
 		short module = message.getModule();
 		short cmd = message.getCmd();
 		//写入module类型
