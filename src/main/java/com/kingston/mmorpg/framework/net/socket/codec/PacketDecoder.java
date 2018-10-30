@@ -20,13 +20,18 @@ public class PacketDecoder extends LengthFieldBasedFrameDecoder {
 
 	public Object decode(ChannelHandlerContext ctx, ByteBuf in) throws Exception {
 		ByteBuf frame = (ByteBuf) super.decode(ctx, in);
-		if(frame.readableBytes() <= 0) return null ;
+		if (frame == null) {
+			return null;
+		}
+		if(frame.readableBytes() <= 4) return null ;
 		
 		short module = frame.readShort();
 		short cmd = frame.readShort();
 
 		return readMessage(module, cmd, frame);
 	}
+	
+	
 	
 	private Message readMessage(short module, short cmd, ByteBuf in) {
 		Class<?> msgClazz = SpringContext.getMessageFactory().getMessageMeta(module, cmd);

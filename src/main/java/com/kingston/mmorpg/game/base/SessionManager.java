@@ -85,8 +85,10 @@ public class SessionManager {
 			return;
 		}
 		IoSession session = ChannelUtils.getSessionBy(context);
-		Long userId = session2Players.remove(session);
-		player2Sessions.remove(userId);
+		Long playerId = session2Players.remove(session);
+		if (playerId != null) {
+			player2Sessions.remove(playerId);
+		}
 		if (session != null) {
 			session.close(SessionCloseReason.OVER_TIME);
 		}

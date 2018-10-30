@@ -75,7 +75,7 @@ public class GameServer implements ServerNode {
 			pipeline.addLast(new PacketDecoder(1024 * 4, 0, 4, 0, 4));
 			pipeline.addLast(new LengthFieldPrepender(4));
 			pipeline.addLast(new PacketEncoder());
-			// 客户端300秒没收发包，便会触发UserEventTriggered事件到MessageTransportHandler
+			// 客户端300秒没收发包，便会触发UserEventTriggered事件到IoEventHandler
 			pipeline.addLast("idleStateHandler", new IdleStateHandler(0, 0, 300));
 			pipeline.addLast(new IoEventHandler());
 		}
