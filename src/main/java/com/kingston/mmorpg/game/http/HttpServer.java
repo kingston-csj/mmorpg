@@ -32,16 +32,6 @@ public class HttpServer implements ServerNode {
 	private int port;
 
 	@Override
-	public void shutDown() throws Exception {
-		if (bossGroup != null) {
-			bossGroup.shutdownGracefully();
-		}
-		if (workerGroup != null) {
-			workerGroup.shutdownGracefully();
-		}
-	}
-
-	@Override
 	public void init() {
 		ServerConfig serverConfig = SpringContext.getServerConfig();
 		this.port = serverConfig.getHttpPort();
@@ -49,8 +39,12 @@ public class HttpServer implements ServerNode {
 
 	@Override
 	public void start() throws Exception {
+		if (this.port <= 0) {
+			logger.info("http服务暂不开放对外服务");
+			return;
+		}
 		try {
-			logger.info("http服务端已启动，正在监听用户的请求@port:" + port + "......");
+			logger.info("http服务已启动，正在监听用户的请求@port:" + port + "......");
 			bossGroup = new NioEventLoopGroup(1);
 			workerGroup = new NioEventLoopGroup(1);
 			ServerBootstrap b = new ServerBootstrap();
@@ -76,6 +70,16 @@ public class HttpServer implements ServerNode {
 			ch.pipeline().addLast("http-aggregator", new HttpObjectAggregator(512 * 1024));
 			ch.pipeline().addLast("http-encoder", new HttpResponseEncoder());
 			ch.pipeline().addLast("serve-handler", new HttpServerHandler());
+		}
+	}
+	
+	@Override
+	public void shutDown() throws Exception {
+		if (bossGroup != null) {
+			bossGroup.shutdownGracefully();
+		}
+		if (workerGroup != null) {
+			workerGroup.shutdownGracefully();
 		}
 	}
 

@@ -23,7 +23,7 @@ import io.netty.handler.stream.ChunkedWriteHandler;
 
 public class WebSocketServer implements ServerNode {
 
-	private Logger logger = LoggerFactory.getLogger(GameServer.class);
+	private Logger logger = LoggerFactory.getLogger(WebSocketServer.class);
 
 	// 避免使用默认线程数参数
 	private EventLoopGroup bossGroup = new NioEventLoopGroup(1);
@@ -39,7 +39,11 @@ public class WebSocketServer implements ServerNode {
 
 	@Override
 	public void start() throws Exception {
-		logger.info("webSocket服务端已启动，正在监听用户的请求@port:" + port + "......");
+		if (this.port <= 0) {
+			logger.info("webSocket服务暂不开放对外服务");
+			return;
+		}
+		logger.info("webSocket服务已启动，正在监听用户的请求@port:" + port + "......");
 		try {
 			ServerBootstrap serverBootstrap = new ServerBootstrap();
 			serverBootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)

@@ -40,7 +40,7 @@ public class GameServer implements ServerNode {
 
 	@Override
 	public void start() throws Exception {
-		logger.info("socket服务端已启动，正在监听用户的请求@port:" + port + "......");
+		logger.info("socket服务已启动，正在监听用户的请求@port:" + port + "......");
 		try {
 			ServerBootstrap b = new ServerBootstrap();
 			b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class).option(ChannelOption.SO_BACKLOG, 1024)
