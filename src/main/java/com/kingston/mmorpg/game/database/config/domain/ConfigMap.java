@@ -1,4 +1,4 @@
-package com.kingston.mmorpg.game.database.config.bean;
+package com.kingston.mmorpg.game.database.config.domain;
 
 /**
  * 地图资源

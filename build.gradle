@@ -38,9 +38,9 @@ dependencies {
 		
 	compile 'mysql:mysql-connector-java:5.1.6'	
 	
-	compile 'javax.persistence:persistence-api:1.0.2'	
+	/**compile 'javax.persistence:persistence-api:1.0.2'	
 	compile 'org.hibernate:hibernate-annotations:3.4.0.GA'	
-	compile 'org.hibernate:hibernate-core:3.3.2.GA'	
+	compile 'org.hibernate:hibernate-core:3.3.2.GA'	 */
 	
 	compile 'org.apache.commons:commons-lang3:3.1'	
 	
@@ -49,6 +49,11 @@ dependencies {
 	compile ('org.springframework.boot:spring-boot-starter:1.5.2.RELEASE') {
 	 	//exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
 	}
+	
+	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+	
+	compile 'org.springframework.boot:spring-boot-starter-test'
+	
 	
 	// 本地系统依赖
 	compile fileTree(dir:'libs',include:['*.jar'])

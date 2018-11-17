@@ -4,19 +4,32 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 
-import com.kingston.mmorpg.game.database.config.bean.ConfigMap;
+import com.kingston.mmorpg.game.database.config.domain.ConfigMap;
+import com.kingston.mmorpg.game.scene.actor.GameObject;
 
-public class Scene {
+public class Scene extends GameObject {
+	
+	private static AtomicLong idFactory = new AtomicLong();
 	
 	/** 母地图 */
 	private WorldMap parent;
+	
+	/**
+	 * 场景分线号
+	 */
+	private int lineId;
 	
 	/** 场景分屏 */
 	private Map<Integer, Area> areas = new HashMap<>();
 	
 	/** 当前场景的动态阻挡 */
 	private Set<Integer> dynamicBlocks = new HashSet<>();
+	
+	public Scene() {
+		this.id = idFactory.getAndIncrement();
+	}
 	
 	
 	public void init() {
@@ -44,5 +57,10 @@ public class Scene {
 	public void closeDynamicBlocks(int blockId) {
 		this.dynamicBlocks.remove(blockId);
 	}
-
+	
+	@Override
+	public Long getId() {
+		return id;
+	}
+	
 }

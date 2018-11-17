@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.kingston.mmorpg.game.database.config.bean.ConfigMap;
+import com.kingston.mmorpg.game.database.config.domain.ConfigMap;
 
 public class ConfigMapContainer {
 	

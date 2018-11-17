@@ -95,5 +95,5 @@ public class SpringContext implements ApplicationContextAware {
 	public final static <T> T getBean(String name, Class<T> requiredType) {
 		return applicationContext.getBean(name, requiredType);
 	}
-
+	
 }
