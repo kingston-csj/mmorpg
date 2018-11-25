@@ -5,6 +5,7 @@ import java.net.InetSocketAddress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.kingston.mmorpg.framework.net.socket.MessageFactory;
 import com.kingston.mmorpg.framework.net.socket.ServerNode;
 import com.kingston.mmorpg.framework.net.socket.codec.PacketDecoder;
 import com.kingston.mmorpg.framework.net.socket.codec.PacketEncoder;
@@ -36,6 +37,9 @@ public class GameServer implements ServerNode {
 	public void init() {
 		ServerConfig serverConfig = SpringContext.getServerConfig();
 		this.port = serverConfig.getServerPort();
+		
+		// 初始化协议表
+		MessageFactory.getInstance().init();
 	}
 
 	@Override

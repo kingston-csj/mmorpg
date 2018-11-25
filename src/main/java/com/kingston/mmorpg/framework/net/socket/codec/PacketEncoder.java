@@ -3,9 +3,9 @@ package com.kingston.mmorpg.framework.net.socket.codec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.kingston.mmorpg.framework.net.socket.MessageFactory;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
 import com.kingston.mmorpg.framework.net.socket.serializer.Serializer;
-import com.kingston.mmorpg.game.base.SpringContext;
 import com.kingston.mmorpg.game.logs.LoggerUtils;
 
 import io.netty.buffer.ByteBuf;
@@ -40,7 +40,7 @@ public class PacketEncoder extends MessageToByteEncoder<Message> {
 		out.writeShort(module);
 		//写入cmd类型
 		out.writeShort(cmd);
-		Class<?> msgClazz = SpringContext.getMessageFactory().getMessageMeta(module, cmd);
+		Class<?> msgClazz = MessageFactory.getInstance().getMessageMeta(module, cmd);
 		try {
 			Serializer messageCodec = Serializer.getSerializer(msgClazz);
 			messageCodec.encode(out, message, null);

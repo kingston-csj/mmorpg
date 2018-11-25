@@ -11,7 +11,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
-import com.kingston.mmorpg.framework.net.socket.MessageFactory;
 import com.kingston.mmorpg.framework.net.socket.task.MessageDispatcher;
 import com.kingston.mmorpg.game.ServerConfig;
 import com.kingston.mmorpg.game.buff.service.BuffService;
@@ -33,13 +32,6 @@ public class SpringContext implements ApplicationContextAware {
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		SpringContext.applicationContext = applicationContext;
-	}
-	
-	@Autowired
-	private MessageFactory messageFactory;
-	
-	public final static MessageFactory getMessageFactory() {
-		return self.messageFactory;
 	}
 	
 	@Resource

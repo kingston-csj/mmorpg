@@ -13,10 +13,11 @@ mmorpg，是一个用java编写的轻量级高性能mmorpg手游服务端框架�
 ## 第三方技术栈 
 名称 | 用途 | 官网  
 ----|------|----     
-Netty | nio socket 框架 | [http://netty.io/](http://netty.io/)   
+Netty | nio socket 框架 | [http://netty.io/](http://netty.io/)  
+spring | 依赖注入 | [spring](https://github.com/spring-projects/spring-framework) 
+springboot | 快速搭建spring应用 | [spring-boot](https://github.com/spring-projects/spring-boot)  
 groovy | 基于类替换的热更新 | [http://www.groovy-lang.org/](http://www.groovy-lang.org/)　　  
 hibernate | 强大的orm框架 | [http://hibernate.org/orm/](http://hibernate.org/orm/) 
-slf4j+log4j | 日志系统 | [https://www.slf4j.org/](https://www.slf4j.org/)  
 gradle | 依赖管理及项目构建 | [https://gradle.org/](https://gradle.org/)  
 
 
@@ -30,7 +31,8 @@ gradle | 依赖管理及项目构建 | [https://gradle.org/](https://gradle.org/
 ## 与jforgame项目的主要不同之处  
 * 网络io选用了Netty, 依赖管理选用了gradle
 * 使用了spring管理对象注入  
-* 重点用于演示场景及技能系统
+* 重点用于演示场景及技能系统  
+* spring-boot全家桶自带	hibernate,logback等第三方库
 
 
 ## 快速开始  

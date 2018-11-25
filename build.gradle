@@ -22,25 +22,11 @@ repositories {
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
-   /** compile 'org.slf4j:slf4j-api:1.7.21'
-	compile 'org.slf4j:slf4j-log4j12:1.7.21'
-	compile 'log4j:log4j:1.2.17'
-	compile 'log4j:apache-log4j-extras:1.2.17' */
-
 	compile 'com.google.code.gson:gson:2.8.0'
 
 	compile 'io.netty:netty-all:4.0.23.Final'
 	
-	compile 'org.springframework:spring-context:4.3.7.RELEASE'
-    compile 'org.springframework:spring-jdbc:4.3.7.RELEASE'
-	compile 'org.springframework:spring-orm:4.3.7.RELEASE'	
-	compile 'org.springframework:spring-test:4.3.7.RELEASE'
-		
 	compile 'mysql:mysql-connector-java:5.1.6'	
-	
-	/**compile 'javax.persistence:persistence-api:1.0.2'	
-	compile 'org.hibernate:hibernate-annotations:3.4.0.GA'	
-	compile 'org.hibernate:hibernate-core:3.3.2.GA'	 */
 	
 	compile 'org.apache.commons:commons-lang3:3.1'	
 	

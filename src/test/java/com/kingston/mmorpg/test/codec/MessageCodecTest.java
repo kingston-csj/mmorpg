@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
+import com.kingston.mmorpg.framework.net.socket.MessageFactory;
 import com.kingston.mmorpg.framework.net.socket.annotation.MessageMeta;
 import com.kingston.mmorpg.framework.net.socket.serializer.Serializer;
 import com.kingston.mmorpg.game.base.SpringContext;
@@ -41,7 +42,7 @@ public class MessageCodecTest {
 		
 		ByteBuf buf =  Unpooled.buffer();
 		
-		SpringContext.getMessageFactory().writeMessage(buf, oldMsg);
+		MessageFactory.getInstance().writeMessage(buf, oldMsg);
 		
 		MessageMeta annotation = (MessageMeta)oldMsg.getClass().getAnnotation(MessageMeta.class);
 		short module = annotation.module();
@@ -49,7 +50,7 @@ public class MessageCodecTest {
 		buf.readShort();
 		buf.readShort();
 		
-		Class<?> clazz = SpringContext.getMessageFactory().getMessageMeta(module, cmd);
+		Class<?> clazz = MessageFactory.getInstance().getMessageMeta(module, cmd);
 		
 		Serializer serializer = Serializer.getSerializer(clazz);
 		

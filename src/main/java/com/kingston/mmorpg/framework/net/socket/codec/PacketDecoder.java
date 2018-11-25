@@ -1,7 +1,7 @@
 package com.kingston.mmorpg.framework.net.socket.codec;
+import com.kingston.mmorpg.framework.net.socket.MessageFactory;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
 import com.kingston.mmorpg.framework.net.socket.serializer.Serializer;
-import com.kingston.mmorpg.game.base.SpringContext;
 import com.kingston.mmorpg.game.logs.LoggerUtils;
 
 import io.netty.buffer.ByteBuf;
@@ -37,10 +37,8 @@ public class PacketDecoder extends LengthFieldBasedFrameDecoder {
 		return readMessage(module, cmd, frame);
 	}
 	
-	
-	
 	private Message readMessage(short module, short cmd, ByteBuf in) {
-		Class<?> msgClazz = SpringContext.getMessageFactory().getMessageMeta(module, cmd);
+		Class<?> msgClazz = MessageFactory.getInstance().getMessageMeta(module, cmd);
 		try {
 			Serializer messageCodec = Serializer.getSerializer(msgClazz);
 			Message message = (Message) messageCodec.decode(in, msgClazz, null);
