@@ -22,7 +22,4 @@ public class ReqPlayerLogin extends Message {
 	public String toString() {
 		return "ReqPlayerLogin [playerId=" + playerId + "]";
 	}
-	
-	
-
 }

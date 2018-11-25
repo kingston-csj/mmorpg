@@ -5,7 +5,7 @@ import java.net.InetSocketAddress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.kingston.mmorpg.framework.net.socket.ServerNode;
+import com.kingston.mmorpg.framework.net.ServerNode;
 import com.kingston.mmorpg.game.ServerConfig;
 import com.kingston.mmorpg.game.base.SpringContext;
 

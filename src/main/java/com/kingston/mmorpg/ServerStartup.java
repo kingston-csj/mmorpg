@@ -11,7 +11,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.kingston.mmorpg.framework.net.socket.ServerNode;
+import com.kingston.mmorpg.framework.net.ServerNode;
 import com.kingston.mmorpg.framework.net.socket.transport.GameServer;
 import com.kingston.mmorpg.framework.net.socket.transport.WebSocketServer;
 import com.kingston.mmorpg.game.http.HttpServer;
@@ -50,17 +50,6 @@ public class ServerStartup implements CommandLineRunner {
 			node.init();
 			node.start();
 		}
-
-	}
-
-	public void stop() {
-		try {
-			for (ServerNode node : servers) {
-				node.shutDown();
-			}
-		} catch (Exception e) {
-			logger.error("", e);
-		}
 	}
 
 	@Override
@@ -74,6 +63,16 @@ public class ServerStartup implements CommandLineRunner {
 				server.stop();
 			}
 		});
+	}
+	
+	public void stop() {
+		try {
+			for (ServerNode node : servers) {
+				node.shutDown();
+			}
+		} catch (Exception e) {
+			logger.error("", e);
+		}
 	}
 
 }

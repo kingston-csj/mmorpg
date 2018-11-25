@@ -22,7 +22,4 @@ public class ResPlayerLogin extends Message {
 	public String toString() {
 		return "角色登录 [status=" + status + "]";
 	}
-	
-	
-
 }

@@ -22,17 +22,18 @@ gradle | 依赖管理及项目构建 | [https://gradle.org/](https://gradle.org/
 
 
 ## ToDoList  
-* 玩家数据及配置数据管理  
+* 玩家数据缓存及持久化策略  
 * 场景寻路及分屏算法  
 * 主动技能/被动技能实现  
 * buff系统  
 * 更多基础设施与业务演示  
 
-## 与jforgame项目的主要不同之处  
+## 与jforgame项目的主要不同之处 
+* 使用spring-boot集大成框架，力求最大限度重用其组件
 * 网络io选用了Netty, 依赖管理选用了gradle
 * 使用了spring管理对象注入  
 * 重点用于演示场景及技能系统  
-* spring-boot全家桶自带	hibernate,logback等第三方库
+* hibernate,logback等第三方库由spring-boot全家桶
 
 
 ## 快速开始  

@@ -49,5 +49,4 @@ public class ServerConfig {
 		this.webSocketPort = webSocketPort;
 	}
 	
-	
 }

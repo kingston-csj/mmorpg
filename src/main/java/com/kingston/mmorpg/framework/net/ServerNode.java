@@ -1,9 +1,9 @@
-package com.kingston.mmorpg.framework.net.socket;
+package com.kingston.mmorpg.framework.net;
 
 /**
  * 
+ * 各类对外服务节点
  * @author kingston
- *
  *
  */
 public interface ServerNode {
