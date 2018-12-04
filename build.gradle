@@ -12,6 +12,14 @@ apply plugin: 'java'
 
 apply plugin: 'org.springframework.boot'
 
+ext {
+    profile = System.getProperty("env") ?: "dev"
+    println "[current profile]:" + profile
+}
+
+
+
+
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -36,19 +44,36 @@ dependencies {
 	 	//exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
 	}
 	
-	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+	compile ('org.springframework.boot:spring-boot-starter-data-jpa')
 	
-	compile 'org.springframework.boot:spring-boot-starter-test'
+	testCompile ('org.springframework.boot:spring-boot-starter-test')
+	
+	//compile ('org.springframework.boot:spring-boot-starter-actuator')
+	
+	//compile ('org.springframework.boot:spring-boot-starter-web')
+	
+	compile ('org.springframework.boot:spring-boot-devtools')
 	
 	
 	// 本地系统依赖
 	compile fileTree(dir:'libs',include:['*.jar'])
 	
     testCompile 'junit:junit:4.12'
+
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+compileJava {
+	sourceCompatibility = 1.8  // can be switched to 11 for testing
+	targetCompatibility = 1.8
+	options.encoding = "UTF-8"
+}
+
+compileTestJava {
+	sourceCompatibility = 1.8  // can be switched to 11 for testing
+	targetCompatibility = 1.8
+	options.encoding = "UTF-8"
+	options.compilerArgs += "-parameters"
+}
 
 tasks.withType(JavaCompile) {  
     options.encoding = "UTF-8"  
@@ -58,6 +83,21 @@ task wrapper(type: Wrapper) {
     gradleVersion = '3.0'
 }
 
-// task wrapper(type: Wrapper) {
-//     gradleVersion = '3.0'
-// }
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["src/main/resources", "env/$profile"]
+        }
+    }
+}
+
+jar {
+    baseName = 'mmorpg'
+    version = '1.1.0'
+    manifest {
+        attributes "Manifest-Version": 1.0,
+                   'Main-Class': 'com.kingston.mmorpg.ServerStartup',
+                   'Class-Path': 'resource/'
+    }
+}
+

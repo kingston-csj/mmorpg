@@ -17,7 +17,7 @@ public class DataSourcesConfig {
 	@Primary
 	@ConfigurationProperties(prefix = "spring.datasource.configdb")
 	public DataSource primaryDataSource() {
-		System.out.println("primary db built");
+		System.out.println("静态数据源建立链接");
 		return DataSourceBuilder.create().build();
 	}
 
@@ -25,7 +25,7 @@ public class DataSourcesConfig {
 	@Qualifier("userDataSource")
 	@ConfigurationProperties(prefix = "spring.datasource.userdb")
 	public DataSource secondaryDataSource() {
-		System.out.println("secondary db built");
+		System.out.println("动态数据源建立链接");
 		return DataSourceBuilder.create().build();
 	}
 }
