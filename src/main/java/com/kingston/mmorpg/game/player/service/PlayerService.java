@@ -5,9 +5,10 @@ import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
+import com.kingston.mmorpg.framework.eventbus.EventBus;
 import com.kingston.mmorpg.framework.net.socket.IoSession;
 import com.kingston.mmorpg.framework.util.ConcurrentHashSet;
-import com.kingston.mmorpg.game.logs.LoggerUtils;
+import com.kingston.mmorpg.game.player.event.PlayerLevelUpEvent;
 import com.kingston.mmorpg.game.player.message.ResPlayerLogin;
 import com.kingston.mmorpg.game.scene.actor.Player;
 
@@ -32,4 +33,10 @@ public class PlayerService {
 	public Set<Long> getOnlienPlayers() {
 		return new HashSet<>(this.onlines);
 	}
+	
+	public void addExp(Player player, long exp) {
+		
+		EventBus.getInstance().post(new PlayerLevelUpEvent(player));
+	}
+	
 }

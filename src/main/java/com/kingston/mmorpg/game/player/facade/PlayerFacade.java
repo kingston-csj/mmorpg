@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import com.kingston.mmorpg.framework.eventbus.EventBus;
 import com.kingston.mmorpg.framework.net.socket.IoSession;
 import com.kingston.mmorpg.framework.net.socket.annotation.RequestMapping;
+import com.kingston.mmorpg.game.base.SpringContext;
 import com.kingston.mmorpg.game.player.event.PlayerLoginEvent;
 import com.kingston.mmorpg.game.player.message.ReqPlayerLogin;
 import com.kingston.mmorpg.game.player.message.ResPlayerLogin;
@@ -23,6 +24,8 @@ public class PlayerFacade {
 		Player player = new Player();
 		player.setId(playerId);
 		EventBus.getInstance().post(new PlayerLoginEvent(player));
+		
+		SpringContext.getPlayerService().addExp(player, 100);
 	}
 	
 }

@@ -56,7 +56,7 @@ class SubscriberRegistry {
 		return result;
 	}
 
-	Set<Subscriber> getSubscribersForTesting(Class<? extends BaseEvent> eventType) {
+	public Set<Subscriber> getSubscribersForEvent(Class<? extends BaseEvent> eventType) {
 		if (!subscribers.containsKey(eventType)) {
 			return Collections.EMPTY_SET;
 		}

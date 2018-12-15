@@ -13,6 +13,9 @@ public class ConfigSkill {
 
 	@Column
 	private String name;
+	
+	@Column
+	private int needLevel;
 
 	/**
 	 * 技能效果说明
@@ -43,7 +46,13 @@ public class ConfigSkill {
 	public void setEffect(String effect) {
 		this.effect = effect;
 	}
-	
-	
+
+	public int getNeedLevel() {
+		return needLevel;
+	}
+
+	public void setNeedLevel(int needLevel) {
+		this.needLevel = needLevel;
+	}
 
 }

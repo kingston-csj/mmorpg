@@ -50,7 +50,7 @@ public class EventBus {
 	 */
 	public void post(BaseEvent event) {
 		Class<? extends BaseEvent> eventType = event.getClass();
-		Set<Subscriber> subscribers = registry.getSubscribersForTesting(eventType);
+		Set<Subscriber> subscribers = registry.getSubscribersForEvent(eventType);
 
 		subscribers.forEach((subscriber) -> {
 			try {
