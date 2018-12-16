@@ -21,7 +21,7 @@ public class MessageDispatcher {
 	private static final Map<String, CmdExecutor> MODULE_CMD_HANDLERS = new HashMap<>();
 
 
-	public static void registerMethodInvoke(String key, CmdExecutor executor) {
+	public void registerMethodInvoke(String key, CmdExecutor executor) {
 		if (MODULE_CMD_HANDLERS.containsKey(key)) {
 			throw new RuntimeException(String.format("module[%s] duplicated", key));
 		}

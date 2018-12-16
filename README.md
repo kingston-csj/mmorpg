@@ -33,7 +33,7 @@ gradle | 依赖管理及项目构建 | [https://gradle.org/](https://gradle.org/
 * 网络io选用了Netty, 依赖管理选用了gradle
 * 使用了spring管理对象注入  
 * 重点用于演示场景及技能系统  
-* hibernate,logback等第三方库由spring-boot全家桶
+* hibernate,logback等第三方库由spring-boot全家桶提供
 
 
 ## 快速开始  

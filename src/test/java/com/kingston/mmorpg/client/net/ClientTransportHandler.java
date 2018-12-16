@@ -2,6 +2,7 @@ package com.kingston.mmorpg.client.net;
 
 import com.kingston.mmorpg.client.IoSession;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
+import com.kingston.mmorpg.game.gm.message.ReqGmCommand;
 import com.kingston.mmorpg.game.player.message.ReqPlayerLogin;
 
 import io.netty.channel.Channel;
@@ -9,7 +10,6 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
 public class ClientTransportHandler extends ChannelInboundHandlerAdapter {
-
 
 	public ClientTransportHandler(){
 
@@ -23,6 +23,10 @@ public class ClientTransportHandler extends ChannelInboundHandlerAdapter {
 		ReqPlayerLogin reqLogin = new ReqPlayerLogin();
 		reqLogin.setPlayerId(123456L);
 		SessionManager.getInstance().sendMessage(reqLogin);
+		
+		ReqGmCommand reqGm = new ReqGmCommand();
+		reqGm.setParams("level 10");
+		SessionManager.getInstance().sendMessage(reqGm);
 	}
 
 	@Override

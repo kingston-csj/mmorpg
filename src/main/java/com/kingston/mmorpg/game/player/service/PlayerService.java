@@ -36,7 +36,7 @@ public class PlayerService {
 	
 	public void addExp(Player player, long exp) {
 		
-		EventBus.getInstance().post(new PlayerLevelUpEvent(player));
+		
 	}
 	
 }

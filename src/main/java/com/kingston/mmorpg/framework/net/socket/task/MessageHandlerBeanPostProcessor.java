@@ -1,10 +1,9 @@
 package com.kingston.mmorpg.framework.net.socket.task;
 
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -20,13 +19,11 @@ import com.kingston.mmorpg.framework.net.socket.message.Message;
 public class MessageHandlerBeanPostProcessor 
 	implements BeanPostProcessor, ApplicationContextAware, Ordered {
 
-	/** [module_cmd, CmdExecutor] */
-	private static final Map<String, CmdExecutor> MODULE_CMD_HANDLERS = new HashMap<>();
-
+	@Autowired
+	private MessageDispatcher messageDispatcher;
+	
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -50,7 +47,7 @@ public class MessageHandlerBeanPostProcessor
 
 					CmdExecutor cmdExecutor = CmdExecutor.valueOf(method, method.getParameterTypes(), bean);
 
-					MessageDispatcher.registerMethodInvoke(key, cmdExecutor);
+					messageDispatcher.registerMethodInvoke(key, cmdExecutor);
 				}
 			}
 		}catch(Exception e) {
