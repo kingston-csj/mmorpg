@@ -14,11 +14,12 @@ public class GmFacade {
 	
 	@Autowired
 	private GmDispatcher gmDispatcher; 
+
 	
 	@RequestMapping
 	public void reqGmExec(IoSession session, ReqGmCommand req) {
 		Player player = session.getPlayer();
-		String[] params = req.getParams().split(" ");
+		String[] params = req.getParams().split("\\s+");
 		gmDispatcher.dispatch(player, params);
 	}
 
