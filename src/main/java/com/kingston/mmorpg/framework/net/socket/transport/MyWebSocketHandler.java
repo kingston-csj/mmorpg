@@ -10,6 +10,7 @@ import com.kingston.mmorpg.framework.net.socket.IoSession;
 import com.kingston.mmorpg.framework.net.socket.MessageFactory;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
 import com.kingston.mmorpg.framework.net.socket.message.WebSocketFrame;
+import com.kingston.mmorpg.framework.util.NumberUtil;
 import com.kingston.mmorpg.game.base.SpringContext;
 
 import io.netty.channel.Channel;
@@ -27,7 +28,7 @@ public class MyWebSocketHandler extends SimpleChannelInboundHandler<TextWebSocke
 		System.out.println(channel.remoteAddress() + ": " + msg.text());
 		WebSocketFrame frame = new Gson().fromJson(msg.text(), WebSocketFrame.class);
 		
-		Class<?> clazz = MessageFactory.getInstance().getMessageMeta(frame.getId());
+		Class<?> clazz = MessageFactory.getInstance().getMessageMeta(NumberUtil.intValue(frame.getId()));
 		Message message = (Message) new Gson().fromJson(frame.getMsg(), clazz);
 		System.err.println(message);
 		

@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.kingston.mmorpg.framework.net.socket.annotation.MessageMeta;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
+import com.kingston.mmorpg.framework.net.socket.serializer.ByteBuffUtils;
 import com.kingston.mmorpg.framework.net.socket.serializer.Serializer;
 import com.kingston.mmorpg.framework.util.ClassScanner;
 
@@ -13,51 +14,38 @@ import io.netty.buffer.ByteBuf;
 
 public class MessageFactory {
 
-	private Map<String, Class<? extends Message>> message2Class = new HashMap<>();
-	
-	private static MessageFactory instance = new MessageFactory();
-	
-	private Map<String, Class<? extends Message>> id2Clazz = new HashMap<>();
+	private Map<Integer, Class<? extends Message>> message2Class = new HashMap<>();
 
-	private Map<Class<?>, String> clazz2Id = new HashMap<>();
+	private static MessageFactory instance = new MessageFactory();
+
+	private Map<Integer, Class<? extends Message>> id2Clazz = new HashMap<>();
+
+	private Map<Class<?>, Integer> clazz2Id = new HashMap<>();
 	
+
+
 	public static MessageFactory getInstance() {
 		return instance;
 	}
-	
+
 	public void init() {
-		Set<Class<?>> messages = ClassScanner.listAllSubclasses("com.kingston.mmorpg.game", Message.class);
-		for (Class<?> clazz: messages) {
+		Set<Class<?>> messages = ClassScanner.listAllSubclasses("com.kingston.mmorpg", Message.class);
+		for (Class<?> clazz : messages) {
 			MessageMeta meta = clazz.getAnnotation(MessageMeta.class);
 			if (meta == null) {
-				throw new RuntimeException("messages["+clazz.getSimpleName()+"] missed MessageMeta annotation");
+				throw new RuntimeException("messages[" + clazz.getSimpleName() + "] missed MessageMeta annotation");
 			}
-			String key = buildKey(meta.module() , meta.cmd());
+			Integer key = buildKey(meta.module(), meta.cmd());
 			if (id2Clazz.containsKey(key)) {
-				throw new RuntimeException("message meta ["+key+"] duplicate！！");
+				throw new RuntimeException("message meta [" + key + "] duplicate！！");
 			}
-			id2Clazz.put(key,(Class<? extends Message>) clazz);
 			clazz2Id.put(clazz, key);
+			id2Clazz.put(key, (Class<? extends Message>) clazz);
+			Serializer.registerClass(clazz, key);
 		}
 	}
-
-//	@Override
-//	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-//		Map<String, Object> beans = applicationContext.getBeansWithAnnotation(MessageMeta.class);
-//
-//		for (Map.Entry<String, Object> entry : beans.entrySet()) {
-//			Object message = entry.getValue();
-//			Class clazz = message.getClass();
-//			MessageMeta annotation = (MessageMeta) clazz.getAnnotation(MessageMeta.class);
-//			short module = annotation.module();
-//			short cmd = annotation.cmd();
-//			String key = getKey(module, cmd);
-//			if (message2Class.containsKey(key)) {
-//				throw new IllegalStateException("模块号[" + key + "]冲突");
-//			}
-//			message2Class.put(key, clazz);
-//		}
-//	}
+	
+	
 
 	/**
 	 * 返回消息的模板class
@@ -67,12 +55,21 @@ public class MessageFactory {
 	 * @return
 	 */
 	public Class<? extends Message> getMessageMeta(short module, short cmd) {
-		String key = buildKey(module, cmd);
+		Integer key = buildKey(module, cmd);
 		return getMessageMeta(key);
 	}
 
-	public Class<? extends Message> getMessageMeta(String key) {
+	public Class<? extends Message> getMessageMeta(Integer key) {
 		return id2Clazz.get(key);
+	}
+
+	public int getMessageId(Class<?> clazz) {
+		return clazz2Id.get(clazz);
+	}
+	
+	public void writeClass(ByteBuf out, Message message) {
+		SerializerMeta meta = Serializer.getSerializerMeta(message.getClass());
+		ByteBuffUtils.writeInt(out, meta.getId());
 	}
 
 	public void writeMessage(ByteBuf out, Message message) throws Exception {
@@ -84,11 +81,11 @@ public class MessageFactory {
 		out.writeShort(cmd);
 
 		Serializer serializer = Serializer.getSerializer(message.getClass());
-		serializer.encode(out, message, null);
+		serializer.encode(out, message);
 	}
 
-	private String buildKey(short module, short cmd) {
-		String key = module + "_" + cmd;
+	private int buildKey(short module, short cmd) {
+		int key = module * 10000 + cmd;
 		return key;
 	}
 

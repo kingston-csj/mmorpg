@@ -30,10 +30,13 @@ public class MessageCodecTest {
 		oldMsg.setName("sdf");
 		List<Long> ids = Arrays.asList(1L, 2L, 3L);
 		oldMsg.setIds(ids);
+		
+		long[] money = new long[] {199, 200};
+		oldMsg.setMoney(money);
 
-		List<PlayerVo> vos = new ArrayList<>();
+		List<BaseVo> vos = new ArrayList<>();
 		vos.add(new PlayerVo(11, "hello"));
-		vos.add(new PlayerVo(22, "world"));
+		vos.add(new MonsterVo(220));
 		oldMsg.setVos(vos);
 
 		ByteBuf buf = Unpooled.buffer();
@@ -48,9 +51,9 @@ public class MessageCodecTest {
 
 		Class<?> clazz = MessageFactory.getInstance().getMessageMeta(module, cmd);
 
-		Serializer serializer = Serializer.getSerializer(clazz);
+		Serializer serializer = Serializer.getSerializer(ReqSelectePlayer.class);
 
-		Object newMsg = serializer.decode(buf, clazz, null);
+		Object newMsg = serializer.decode(buf, clazz);
 		System.err.println(newMsg);
 		Assert.assertTrue(oldMsg.equals(newMsg));
 	}

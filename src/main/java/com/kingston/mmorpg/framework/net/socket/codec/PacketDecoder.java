@@ -41,7 +41,7 @@ public class PacketDecoder extends LengthFieldBasedFrameDecoder {
 		Class<?> msgClazz = MessageFactory.getInstance().getMessageMeta(module, cmd);
 		try {
 			Serializer messageCodec = Serializer.getSerializer(msgClazz);
-			Message message = (Message) messageCodec.decode(in, msgClazz, null);
+			Message message = (Message) messageCodec.decode(in, msgClazz);
 			return message;
 		} catch (Exception e) {
 			LoggerUtils.error("读取消息出错,模块号{}，类型{},异常{}", new Object[]{module, cmd ,e});

@@ -5,13 +5,13 @@ import io.netty.buffer.ByteBuf;
 public class LongSerializer extends Serializer {
 
 	@Override
-	public Long decode(ByteBuf in, Class type, Class wrapper) {
+	public Long decode(ByteBuf in, Class type) {
 		return Long.valueOf(in.readLong());
 	}
 	
 
 	@Override
-	public void encode(ByteBuf out, Object value, Class wrapper) {
+	public void encode(ByteBuf out, Object value) {
 		out.writeLong((long)value);
 	}
 	

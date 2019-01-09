@@ -1,6 +1,9 @@
 package com.kingston.mmorpg.test.codec;
 
-public class PlayerVo {
+import com.kingston.mmorpg.framework.net.socket.annotation.MessageMeta;
+
+@MessageMeta(cmd = 2)
+public class PlayerVo extends BaseVo {
 	
 	private int age;
 	
@@ -14,6 +17,7 @@ public class PlayerVo {
 		super();
 		this.age = age;
 		this.name = name;
+		this.id = System.currentTimeMillis();
 	}
 
 	public int getAge() {
@@ -63,6 +67,6 @@ public class PlayerVo {
 
 	@Override
 	public String toString() {
-		return "PlayerVo [age=" + age + ", name=" + name + "]";
+		return "PlayerVo [age=" + age + ", name=" + name + ", id=" + id + "]";
 	}
 }

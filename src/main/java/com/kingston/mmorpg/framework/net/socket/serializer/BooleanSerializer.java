@@ -5,12 +5,12 @@ import io.netty.buffer.ByteBuf;
 public class BooleanSerializer extends Serializer {
 
 	@Override
-	public Boolean decode(ByteBuf in, Class<?> type, Class<?> wrapper) {
+	public Boolean decode(ByteBuf in, Class<?> type) {
 		return in.readBoolean();
 	}
 
 	@Override
-	public void encode(ByteBuf out, Object value, Class<?> wrapper) {
+	public void encode(ByteBuf out, Object value) {
 		out.writeBoolean((boolean) value);
 	}
 

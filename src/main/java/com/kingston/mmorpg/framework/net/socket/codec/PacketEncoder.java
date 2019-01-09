@@ -43,7 +43,7 @@ public class PacketEncoder extends MessageToByteEncoder<Message> {
 		Class<?> msgClazz = MessageFactory.getInstance().getMessageMeta(module, cmd);
 		try {
 			Serializer messageCodec = Serializer.getSerializer(msgClazz);
-			messageCodec.encode(out, message, null);
+			messageCodec.encode(out, message);
 		} catch (Exception e) {
 			LoggerUtils.error("读取消息出错,模块号{}，类型{},异常{}", new Object[]{module, cmd ,e});
 		}

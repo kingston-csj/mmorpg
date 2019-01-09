@@ -1,19 +1,27 @@
 package com.kingston.mmorpg.framework.net.socket.serializer;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+
+import com.kingston.mmorpg.framework.net.socket.MessageFactory;
+import com.kingston.mmorpg.framework.net.socket.SerializerMeta;
 
 import io.netty.buffer.ByteBuf;
 
 public abstract class Serializer {
 
 	private static Map<Class<?>, Serializer> class2Serializers = new ConcurrentHashMap<>();
+
+	private final static MessageSerializer messageSerializer = new MessageSerializer();
+
+	public static Map<Integer, SerializerMeta> idMetas = new HashMap<>();
+
+	public static Map<Class<?>, SerializerMeta> classMetas = new HashMap<>();
+
+	private static int nextId = -1;
 
 	static {
 		register(Boolean.TYPE, new BooleanSerializer());
@@ -33,41 +41,79 @@ public abstract class Serializer {
 		register(String.class, new StringSerializer());
 		register(List.class, new CollectionSerializer());
 		register(Set.class, new CollectionSerializer());
+		register(Object[].class, new ArraySerializer());
 	}
 
 	public static void register(Class<?> clazz, Serializer serializer) {
-		class2Serializers.put(clazz, serializer);
+		int id = nextId();
+		registerClassAndId(id, clazz, serializer);
+	}
+
+	private static synchronized int nextId() {
+		return nextId--;
 	}
 
 	public static Serializer getSerializer(Class<?> clazz) {
 		if (class2Serializers.containsKey(clazz)) {
 			return class2Serializers.get(clazz);
 		}
-		if (clazz.isArray()) {
-			return class2Serializers.get(Object[].class);
-		}
-		Field[] fields = clazz.getDeclaredFields();
-		LinkedHashMap<Field, Class<?>> sortedFields = new LinkedHashMap<>();
-		List<FieldCodecMeta> fieldsMeta = new ArrayList<>();
-		for (Field field: fields) {
-			int modifier = field.getModifiers();
-			if (Modifier.isFinal(modifier) || Modifier.isStatic(modifier) || Modifier.isTransient(modifier)) {
-				continue;
-			}
-			field.setAccessible(true);
-			sortedFields.put(field, field.getType());
-			Class<?> type = field.getType();
-			Serializer serializer = Serializer.getSerializer(type);
-
-			fieldsMeta.add(FieldCodecMeta.valueOf(field, serializer));
-		}
-		Serializer messageCodec = MessageSerializer.valueOf(fieldsMeta);
-		Serializer.register(clazz, messageCodec);
-		return messageCodec;
+		return getSerializerMeta(clazz).getSerializer();
 	}
 
-	public abstract Object decode(ByteBuf in, Class<?> type, Class<?> wrapper);
+	public static SerializerMeta getSerializerMeta(Class<?> clazz) {
+		if (classMetas.containsKey(clazz)) {
+			return classMetas.get(clazz);
+		}
+		if (clazz.isArray()) {
+			return classMetas.get(Object[].class);
+		}
+		int id = MessageFactory.getInstance().getMessageId(clazz);
+		return registerClassAndId(id, clazz, messageSerializer);
+	}
 
-	public abstract void encode(ByteBuf out, Object value, Class<?> wrapper);
+	public static SerializerMeta registerClassAndId(int id, Class<?> clazz, Serializer serializer) {
+		SerializerMeta meta = new SerializerMeta(serializer, clazz, id);
+		idMetas.put(id, meta);
+		classMetas.put(clazz, meta);
+		serializer.onRegister(clazz);
+		return meta;
+	}
+
+	public abstract Object decode(ByteBuf in, Class<?> type);
+
+	public abstract void encode(ByteBuf out, Object value);
+
+	public void onRegister(Class<?> clazz) {
+
+	}
+
+	public static void registerClass(Class<?> clazz, int id) {
+		registerClass(clazz, id, messageSerializer);
+	}
+
+	public static void registerClass(Class<?> clazz, int id, Serializer serializer) {
+		registerClassAndId(id, clazz, serializer);
+	}
+
+	public static SerializerMeta readClass(ByteBuf in) {
+		int id = ByteBuffUtils.readInt(in);
+		return idMetas.get(id);
+	}
+
+	public static Object readClassAndObject(ByteBuf in) {
+		SerializerMeta meta = readClass(in);
+		return meta.getSerializer().decode(in, meta.getType());
+	}
+
+	public static SerializerMeta writeClass(ByteBuf out, Class<?> clazz) {
+		SerializerMeta meta = classMetas.get(clazz);
+		ByteBuffUtils.writeInt(out, meta.getId());
+		return meta;
+	}
+
+	public static void writeClassAndObject(ByteBuf out, Object object) {
+		SerializerMeta meta = writeClass(out, object.getClass());
+		meta.getSerializer().encode(out, object);
+	}
 
 }
