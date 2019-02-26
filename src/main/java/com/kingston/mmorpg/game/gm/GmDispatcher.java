@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +17,8 @@ import com.kingston.mmorpg.game.scene.actor.Player;
 public class GmDispatcher {
 	
 	
-	@Autowired
+	@Autowired()
+	@Qualifier("gameConversion")
 	private ConversionService conversionService;
 	
 	/** [methodName, CmdExecutor] */
