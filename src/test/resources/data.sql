@@ -1,27 +1,40 @@
--- MySQL dump 10.13  Distrib 5.6.41, for macos10.13 (x86_64)
---
--- Host: localhost    Database: game_data_001
--- ------------------------------------------------------
--- Server version	5.6.41
+/*
+Navicat MySQL Data Transfer
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+Source Server         : localhost
+Source Server Version : 50717
+Source Host           : localhost:3306
+Source Database       : game_data_001
 
---
--- Table structure for table `configconstant`
---
+Target Server Type    : MYSQL
+Target Server Version : 50717
+File Encoding         : 65001
 
+Date: 2019-03-11 14:11:38
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for configactivity
+-- ----------------------------
+DROP TABLE IF EXISTS `configactivity`;
+CREATE TABLE `configactivity` (
+  `id` int(11) NOT NULL,
+  `type` int(255) DEFAULT NULL,
+  `name` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of configactivity
+-- ----------------------------
+INSERT INTO `configactivity` VALUES ('1', '1', '首充送好礼');
+
+-- ----------------------------
+-- Table structure for configconstant
+-- ----------------------------
 DROP TABLE IF EXISTS `configconstant`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `configconstant` (
   `id` int(11) NOT NULL,
   `intValue` int(255) DEFAULT NULL,
@@ -29,25 +42,16 @@ CREATE TABLE `configconstant` (
   `descrpition` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `configconstant`
---
+-- ----------------------------
+-- Records of configconstant
+-- ----------------------------
+INSERT INTO `configconstant` VALUES ('1', '500', '11;22', '玩家最高等级');
 
-LOCK TABLES `configconstant` WRITE;
-/*!40000 ALTER TABLE `configconstant` DISABLE KEYS */;
-INSERT INTO `configconstant` VALUES (1,500,'11;22','玩家最高等级');
-/*!40000 ALTER TABLE `configconstant` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `configfunction`
---
-
+-- ----------------------------
+-- Table structure for configfunction
+-- ----------------------------
 DROP TABLE IF EXISTS `configfunction`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `configfunction` (
   `id` int(11) NOT NULL,
   `name` varchar(64) DEFAULT NULL,
@@ -55,24 +59,15 @@ CREATE TABLE `configfunction` (
   `openTarget` int(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `configfunction`
---
+-- ----------------------------
+-- Records of configfunction
+-- ----------------------------
 
-LOCK TABLES `configfunction` WRITE;
-/*!40000 ALTER TABLE `configfunction` DISABLE KEYS */;
-/*!40000 ALTER TABLE `configfunction` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `confignotice`
---
-
+-- ----------------------------
+-- Table structure for confignotice
+-- ----------------------------
 DROP TABLE IF EXISTS `confignotice`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `confignotice` (
   `id` int(11) NOT NULL,
   `module` varchar(255) DEFAULT NULL,
@@ -80,49 +75,32 @@ CREATE TABLE `confignotice` (
   `content` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `confignotice`
---
+-- ----------------------------
+-- Records of confignotice
+-- ----------------------------
+INSERT INTO `confignotice` VALUES ('1001', '基础', '0', '功能暂未开放');
 
-LOCK TABLES `confignotice` WRITE;
-/*!40000 ALTER TABLE `confignotice` DISABLE KEYS */;
-INSERT INTO `confignotice` VALUES (1001,'基础',0,'功能暂未开放');
-/*!40000 ALTER TABLE `confignotice` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `configplayerlevel`
---
-
+-- ----------------------------
+-- Table structure for configplayerlevel
+-- ----------------------------
 DROP TABLE IF EXISTS `configplayerlevel`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `configplayerlevel` (
   `level` int(11) DEFAULT NULL,
   `needExp` bigint(20) DEFAULT NULL,
   `vitality` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `configplayerlevel`
---
+-- ----------------------------
+-- Records of configplayerlevel
+-- ----------------------------
+INSERT INTO `configplayerlevel` VALUES ('1', '2345', '100');
+INSERT INTO `configplayerlevel` VALUES ('2', '23450', '105');
 
-LOCK TABLES `configplayerlevel` WRITE;
-/*!40000 ALTER TABLE `configplayerlevel` DISABLE KEYS */;
-INSERT INTO `configplayerlevel` VALUES (1,2345,100),(2,23450,105);
-/*!40000 ALTER TABLE `configplayerlevel` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `configskill`
---
-
+-- ----------------------------
+-- Table structure for configskill
+-- ----------------------------
 DROP TABLE IF EXISTS `configskill`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `configskill` (
   `id` int(11) NOT NULL,
   `name` varchar(64) DEFAULT NULL,
@@ -130,25 +108,10 @@ CREATE TABLE `configskill` (
   `needLevel` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `configskill`
---
-
-LOCK TABLES `configskill` WRITE;
-/*!40000 ALTER TABLE `configskill` DISABLE KEYS */;
-INSERT INTO `configskill` VALUES (1,'飞龙探云手','偷取敌人东西或金钱',1),(2,'逍遥神剑','李逍遥自创的绝招 敌方全体',1),(3,'泰山压顶','土系高级法术',10);
-/*!40000 ALTER TABLE `configskill` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2018-12-15 20:18:13
+-- ----------------------------
+-- Records of configskill
+-- ----------------------------
+INSERT INTO `configskill` VALUES ('1', '飞龙探云手', '偷取敌人东西或金钱', '1');
+INSERT INTO `configskill` VALUES ('2', '逍遥神剑', '李逍遥自创的绝招 敌方全体', '1');
+INSERT INTO `configskill` VALUES ('3', '泰山压顶', '土系高级法术', '10');
