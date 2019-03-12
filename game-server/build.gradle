@@ -1,0 +1,99 @@
+
+
+group = "com.kingston.mmorpg.game"
+archivesBaseName = 'game'
+
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
+    }
+}
+
+
+repositories {
+    jcenter()
+    mavenLocal()
+    mavenCentral()
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+
+// In this section you declare the dependencies for your production and test code
+dependencies {
+	compile(project(":game-common"))
+	
+	compile 'com.google.code.gson:gson:2.8.0'
+
+	compile 'io.netty:netty-all:4.0.23.Final'
+	
+	compile 'mysql:mysql-connector-java:5.1.6'	
+	
+	compile 'org.apache.commons:commons-lang3:3.1'	
+	
+	compile 'org.codehaus.groovy:groovy-all:2.4.11'
+	
+	compile ('org.springframework.boot:spring-boot-starter:1.5.2.RELEASE') {
+	 	//exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	}
+	
+	compile ('org.springframework.boot:spring-boot-starter-data-jpa')
+	
+	testCompile ('org.springframework.boot:spring-boot-starter-test')
+	
+	compile ('org.springframework.boot:spring-boot-starter-actuator')
+	
+	compile ('org.springframework.boot:spring-boot-starter-web')
+	
+	compile ('org.springframework.boot:spring-boot-devtools')
+	
+	
+	compile fileTree(dir:'libs',include:['*.jar'])
+	
+    testCompile 'junit:junit:4.12'
+
+}
+
+compileJava {
+	sourceCompatibility = 1.8  // can be switched to 11 for testing
+	targetCompatibility = 1.8
+	options.encoding = "UTF-8"
+}
+
+compileTestJava {
+	sourceCompatibility = 1.8  // can be switched to 11 for testing
+	targetCompatibility = 1.8
+	options.encoding = "UTF-8"
+	options.compilerArgs += "-parameters"
+}
+
+tasks.withType(JavaCompile) {  
+    options.encoding = "UTF-8"  
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.0'
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["src/main/resources", "env/$profile"]
+        }
+    }
+}
+
+jar {
+    baseName = 'mmorpg'
+    version = '1.1.0'
+    manifest {
+        attributes "Manifest-Version": 1.0,
+                   'Main-Class': 'com.kingston.mmorpg.ServerStartup',
+                   'Class-Path': 'resource/'
+    }
+}
