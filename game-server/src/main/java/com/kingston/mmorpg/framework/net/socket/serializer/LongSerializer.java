@@ -5,7 +5,7 @@ import io.netty.buffer.ByteBuf;
 public class LongSerializer extends Serializer {
 
 	@Override
-	public Long decode(ByteBuf in, Class type) {
+	public Long decode(ByteBuf in, Class<?> type) {
 		return Long.valueOf(in.readLong());
 	}
 	

@@ -33,6 +33,7 @@ class SubscriberRegistry {
 		Class<?> clazz = listener.getClass();
 		for (Method method : getAnnotatedMethods(clazz)) {
 			Class<?>[] parameterTypes = method.getParameterTypes();
+			@SuppressWarnings("unchecked")
 			Class<? extends BaseEvent> eventType = (Class<? extends BaseEvent>) parameterTypes[0];
 			methodsInListener.put(eventType, new Subscriber(listener, method));
 		}
@@ -58,7 +59,7 @@ class SubscriberRegistry {
 
 	public Set<Subscriber> getSubscribersForEvent(Class<? extends BaseEvent> eventType) {
 		if (!subscribers.containsKey(eventType)) {
-			return Collections.EMPTY_SET;
+			return Collections.emptySet();
 		}
 		return subscribers.get(eventType);
 	}

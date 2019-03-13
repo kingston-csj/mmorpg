@@ -64,7 +64,7 @@ public class GameMonitor implements GameMonitorMBean {
 			result.append(String.format("nonHeap memory usage: %s", memoryMXBean.getNonHeapMemoryUsage()))
 					.append(newLine);
 
-			List<BufferPoolMXBean> buffMXBeans = (List<BufferPoolMXBean>) getPlatformMXBeans(BufferPoolMXBean.class);
+			List<BufferPoolMXBean> buffMXBeans = getPlatformMXBeans(BufferPoolMXBean.class);
 			for (BufferPoolMXBean buffMXBean : buffMXBeans) {
 				result.append(String.format("buffer pool[%s]: used %s mb, total %s mb", buffMXBean.getName(),
 						buffMXBean.getMemoryUsed() / ONE_MB, buffMXBean.getTotalCapacity() / ONE_MB)).append(newLine);

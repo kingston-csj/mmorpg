@@ -1,64 +1,80 @@
 
 
-subprojects {
-    apply plugin: 'java'
-    // apply plugin: 'eclipse'
-    apply plugin: 'idea'
-
-    version = '1.0'
-
-    // JVM 版本号要求
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
-
-    // java编译的时候缺省状态下会因为中文字符而失败
-    [compileJava,compileTestJava,javadoc]*.options*.encoding = 'UTF-8'
-
-
-}
-
-// Apply the java plugin to add support for Java
-apply plugin: 'java'
-
-
-
 ext {
     profile = System.getProperty("env") ?: "dev"
     println "[current profile]:" + profile
 
-    springBootVersion = '1.5.2.RELEASE'
+	nettyVersion         = "4.1.33.Final"
+    springBootVersion 	 = '1.5.2.RELEASE'
+    gsonVersion 		 = "2.8.0"
+    mysqlVersion 		 = "5.1.6"
 }
 
 
-dependencies {
-	compile 'com.google.code.gson:gson:2.8.0'
+configure(allprojects) { project ->
+	group = "com.kingston.mmorpg"
+	version = 1.0
 
-	compile 'io.netty:netty-all:4.0.23.Final'
-	
-	compile 'mysql:mysql-connector-java:5.1.6'	
-	
-	compile 'org.apache.commons:commons-lang3:3.1'	
-	
-	compile 'org.codehaus.groovy:groovy-all:2.4.11'
-	
-	compile ('org.springframework.boot:spring-boot-starter:${springBootVersion}') {
-	 	//exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	apply plugin: "java"
+
+	def commonCompilerArgs =
+			["-Xlint:serial", "-Xlint:cast", "-Xlint:classfile", "-Xlint:dep-ann",
+			 "-Xlint:divzero", "-Xlint:empty", "-Xlint:finally", "-Xlint:overrides",
+			 "-Xlint:path", "-Xlint:processing", "-Xlint:static", "-Xlint:try", "-Xlint:-options"]
+
+	//"-Xlint:deprecation", "-Werror"
+	compileJava.options*.compilerArgs = commonCompilerArgs +
+			["-Xlint:varargs", "-Xlint:fallthrough", "-Xlint:rawtypes",
+			  "-Xlint:unchecked"]
+
+	compileTestJava.options*.compilerArgs = commonCompilerArgs +
+			["-Xlint:-varargs", "-Xlint:-fallthrough", "-Xlint:-rawtypes",
+			 "-Xlint:-deprecation", "-Xlint:-unchecked"]
+
+	compileJava {
+		sourceCompatibility = 1.8  // can be switched to 11 for testing
+		targetCompatibility = 1.8
+		options.encoding = "UTF-8"
 	}
-	
-	compile ('org.springframework.boot:spring-boot-starter-data-jpa')
-	
-	testCompile ('org.springframework.boot:spring-boot-starter-test')
-	
-	compile ('org.springframework.boot:spring-boot-starter-actuator')
-	
-	compile ('org.springframework.boot:spring-boot-starter-web')
-	
-	compile ('org.springframework.boot:spring-boot-devtools')
-	
-	
-	compile fileTree(dir:'libs',include:['*.jar'])
-	
-    testCompile 'junit:junit:4.12'
+
+	compileTestJava {
+		sourceCompatibility = 1.8  // can be switched to 11 for testing
+		targetCompatibility = 1.8
+		options.encoding = "UTF-8"
+		options.compilerArgs += "-parameters"
+	}
+
+	repositories {
+	  	jcenter()
+	    mavenLocal()
+	    mavenCentral()
+	}
+
+	dependencies {
+		compile ("com.google.code.gson:gson:${gsonVersion}")
+
+		compile ("io.netty:netty-all:${nettyVersion}")
+		
+		compile ("mysql:mysql-connector-java:${mysqlVersion}")	
+		
+		compile 'org.apache.commons:commons-lang3:3.1'	
+		
+		compile 'org.codehaus.groovy:groovy-all:2.4.11'
+		
+		compile ("org.springframework.boot:spring-boot-starter:${springBootVersion}")
+		
+		compile ('org.springframework.boot:spring-boot-starter-data-jpa')
+		
+		testCompile ('org.springframework.boot:spring-boot-starter-test')
+		
+		compile ('org.springframework.boot:spring-boot-starter-actuator')
+		
+		compile ('org.springframework.boot:spring-boot-starter-web')
+		
+		compile ('org.springframework.boot:spring-boot-devtools')
+		
+	    testCompile 'junit:junit:4.12'
+	}
 
 }
 

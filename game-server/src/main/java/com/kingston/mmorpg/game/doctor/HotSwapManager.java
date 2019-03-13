@@ -53,7 +53,7 @@ public class HotSwapManager {
 		try {
 			String filePath = "hotswap/CommonScript.java";
 			String clazzFile = FileUtil.readText(filePath);
-			@SuppressWarnings("resource")
+			@SuppressWarnings({ "resource", "unchecked" })
 			Class<IScript> clazz = new GroovyClassLoader().parseClass(clazzFile);
 			clazz.newInstance();
 		} catch (Exception e) {

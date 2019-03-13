@@ -14,8 +14,6 @@ import io.netty.buffer.ByteBuf;
 
 public class MessageFactory {
 
-	private Map<Integer, Class<? extends Message>> message2Class = new HashMap<>();
-
 	private static MessageFactory instance = new MessageFactory();
 
 	private Map<Integer, Class<? extends Message>> id2Clazz = new HashMap<>();
@@ -28,6 +26,7 @@ public class MessageFactory {
 		return instance;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void init() {
 		Set<Class<?>> messages = ClassScanner.listAllSubclasses("com.kingston.mmorpg", Message.class);
 		for (Class<?> clazz : messages) {
@@ -74,7 +73,7 @@ public class MessageFactory {
 
 	public void writeMessage(ByteBuf out, Message message) throws Exception {
 		Class<?> clazz = message.getClass();
-		MessageMeta annotation = (MessageMeta) clazz.getAnnotation(MessageMeta.class);
+		MessageMeta annotation = clazz.getAnnotation(MessageMeta.class);
 		short module = annotation.module();
 		short cmd = annotation.cmd();
 		out.writeShort(module);

@@ -11,6 +11,7 @@ import io.netty.buffer.ByteBuf;
 
 public class CollectionSerializer extends Serializer {
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object decode(ByteBuf in, Class<?> type) {
 		int size = in.readShort();
@@ -25,7 +26,7 @@ public class CollectionSerializer extends Serializer {
 			}
 		} else {
 			try {
-				result = (Collection) type.newInstance();
+				result = (Collection<Object>) type.newInstance();
 			} catch (Exception e) {
 				e.printStackTrace();
 				result = new ArrayList<>();
@@ -46,6 +47,7 @@ public class CollectionSerializer extends Serializer {
 			in.writeShort(0);
 			return;
 		}
+		@SuppressWarnings("unchecked")
 		Collection<Object> collection = (Collection) value;
 		int size = collection.size();
 		in.writeShort(size);
