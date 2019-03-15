@@ -46,5 +46,6 @@ gradle | 依赖管理及项目构建 | [https://gradle.org/](https://gradle.org/
 欢迎star/fork，欢迎学习/使用，期待一起贡献代码！！
 
 ## 一起交流
-如果您发现bug，或者有任何疑问，请提交issue !!
+如果您发现bug，或者有任何疑问，请提交issue !!  
+或者加入交流QQ群：780465774
 
