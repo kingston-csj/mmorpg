@@ -2,8 +2,6 @@
 group = "com.kingston.mmorpg.game"
 archivesBaseName = 'game'
 
-
-
 apply plugin: 'org.springframework.boot'
 
 dependencies {
@@ -43,11 +41,40 @@ sourceSets {
 }
 
 jar {
+	//configurations.runtime.each { println it.path }
+
     baseName = 'mmorpg'
     version = '1.1.0'
     manifest {
         attributes "Manifest-Version": 1.0,
                    'Main-Class': 'com.kingston.mmorpg.ServerStartup',
-                   'Class-Path': 'resource/'
+                   "Class-Path": "configs/ " + configurations.runtime.collect { "libs/${it.name}" }.join(' ')
     }
+
+    excludes = ['server.properties']
+
+    // from {
+    //     //添加依懒到打包文件
+    //     //configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    //     configurations.runtime.collect { zipTree(it) }
+    // }
+
+}
+
+task clearJar(type: Delete) {
+    delete 'build/libs/lib'
+}
+
+task copyJar(type: Copy) {
+    from configurations.runtime
+    into('build/libs/lib')
+}
+
+task copyConfigs(type: Copy) {
+    from 'src/main/resources/server.properties'
+    into('build/libs/configs')
+}
+
+task release(type: Copy, dependsOn: [build, clearJar, copyJar, copyConfigs]) {
+
 }
