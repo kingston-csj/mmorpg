@@ -1,0 +1,10 @@
+apply plugin: 'checkstyle'
+
+ext.checkstyleConfigDir = "$configDir/gradle"
+
+checkstyle {
+	toolVersion = '5.6'
+	configFile = new File(checkstyleConfigDir, "sun_checks.xml")
+	//ignoreFailures = true
+	//ignoreViolations = false
+}

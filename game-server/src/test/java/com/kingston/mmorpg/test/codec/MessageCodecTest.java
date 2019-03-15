@@ -43,7 +43,7 @@ public class MessageCodecTest {
 
 		MessageFactory.getInstance().writeMessage(buf, oldMsg);
 
-		MessageMeta annotation = (MessageMeta) oldMsg.getClass().getAnnotation(MessageMeta.class);
+		MessageMeta annotation = oldMsg.getClass().getAnnotation(MessageMeta.class);
 		short module = annotation.module();
 		short cmd = annotation.cmd();
 		buf.readShort();

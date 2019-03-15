@@ -2,14 +2,7 @@
 group = "com.kingston.mmorpg.game"
 archivesBaseName = 'game'
 
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
-    }
-}
+
 
 apply plugin: 'org.springframework.boot'
 

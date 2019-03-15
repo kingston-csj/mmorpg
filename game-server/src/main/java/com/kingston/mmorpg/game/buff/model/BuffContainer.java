@@ -1,5 +1,10 @@
 package com.kingston.mmorpg.game.buff.model;
 
-public class BuffContainer {
+import java.util.HashMap;
+import java.util.Map;
 
+public class BuffContainer {
+	
+	private Map<Long, Buff> buffs = new HashMap<>();
+	
 }

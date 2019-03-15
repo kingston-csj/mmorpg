@@ -10,10 +10,20 @@ ext {
     mysqlVersion 		 = "5.1.6"
 }
 
-
-configure(allprojects) { project ->
+allprojects {
 	group = "com.kingston.mmorpg"
 	version = 1.0
+	apply plugin: "eclipse"
+}
+
+subprojects {
+	ext.configDir = new File(rootDir, "config")
+	//apply from: "$rootDir/config/checkstyle/checkstyle.gradle"
+	apply from: "$rootDir/config/pmd/pmd.gradle"
+}
+
+
+configure(allprojects) { project ->
 
 	apply plugin: "java"
 
@@ -50,6 +60,22 @@ configure(allprojects) { project ->
 	    mavenCentral()
 	}
 
+	eclipse {
+	    classpath {
+	        downloadJavadoc = true
+	        downloadSources = true
+	    }
+	}
+
+	buildscript {
+	    repositories {
+	        jcenter()
+	    }
+	    dependencies {
+	        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
+	    }
+	}
+
 	dependencies {
 		compile ("com.google.code.gson:gson:${gsonVersion}")
 
@@ -74,6 +100,22 @@ configure(allprojects) { project ->
 		compile ('org.springframework.boot:spring-boot-devtools')
 		
 	    testCompile 'junit:junit:4.12'
+	}
+
+
+	apply plugin: 'findbugs'
+
+	findbugs {
+		toolVersion == '2.0.1'
+		ignoreFailures = true
+		effort = 'max'
+	}
+
+	tasks.withType(FindBugs) {
+		reports {
+			xml.enabled = false
+			html.enabled = true
+		}
 	}
 
 }

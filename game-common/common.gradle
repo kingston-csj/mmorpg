@@ -1,16 +1,7 @@
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
-    }
-}
-
 
 apply plugin: 'org.springframework.boot'
 
- gradle.taskGraph.whenReady {
+gradle.taskGraph.whenReady {
     tasks.each { task ->
         if (task.name.contains("bootRepackage") 
             || task.name.contains("findMainClass")) {

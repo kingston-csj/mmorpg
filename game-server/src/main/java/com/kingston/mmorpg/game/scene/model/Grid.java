@@ -7,7 +7,7 @@ package com.kingston.mmorpg.game.scene.model;
 public class Grid {
 	
 	/** 宽度为25像素 */
-	public final int WIDTH = 25;
+	public static final int WIDTH = 25;
 	/** 掩码 */
 	private int code;
 	

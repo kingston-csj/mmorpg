@@ -42,5 +42,13 @@ public abstract class SceneActor extends GameObject implements IDispatch {
 	public void setId(long id) {
 		this.id = id;
 	}
+
+	public ActorType getType() {
+		return type;
+	}
+
+	public void setType(ActorType type) {
+		this.type = type;
+	}
 	
 }

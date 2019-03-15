@@ -9,7 +9,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.kingston.mmorpg.common.util.thread.ThreadSafe;
 
 @ThreadSafe
-public class ConcurrentHashSet<E> extends AbstractSet<E> implements Set<E>, java.io.Serializable {
+public class ConcurrentHashSet<E> extends AbstractSet<E> 
+	implements Set<E>, java.io.Serializable {
 
     private static final long serialVersionUID = -8672117787651310382L;
 
