@@ -18,9 +18,7 @@ allprojects {
 subprojects {
 	ext.configDir = new File(rootDir, "check")
 	//apply from: "$rootDir/check/checkstyle/checkstyle.gradle"
-	apply from: "$rootDir/check/pmd/pmd.gradle"
-
-	
+	//apply from: "$rootDir/check/pmd/pmd.gradle"
 }
 
 

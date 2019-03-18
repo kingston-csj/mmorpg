@@ -1,7 +1,6 @@
 package com.kingston.mmorpg.common.util;
 
 import java.util.AbstractSet;
-import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -106,5 +105,4 @@ public class ConcurrentHashSet<E> extends AbstractSet<E>
     public void clear() {
         map.clear();
     }
-
 }

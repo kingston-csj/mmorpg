@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
-import com.kingston.mmorpg.common.util.NumberUtil;
 import com.kingston.mmorpg.framework.net.socket.ChannelType;
 import com.kingston.mmorpg.framework.net.socket.ChannelUtils;
 import com.kingston.mmorpg.framework.net.socket.IoSession;
@@ -28,7 +27,10 @@ public class MyWebSocketHandler extends SimpleChannelInboundHandler<TextWebSocke
 		System.out.println(channel.remoteAddress() + ": " + msg.text());
 		WebSocketFrame frame = new Gson().fromJson(msg.text(), WebSocketFrame.class);
 		
-		Class<?> clazz = MessageFactory.getInstance().getMessageMeta(NumberUtil.intValue(frame.getId()));
+		String[] meta = frame.getId().split("_");
+		short module = Short.valueOf(meta[0]);
+		short cmd = Short.valueOf(meta[1]);
+		Class<?> clazz = MessageFactory.getInstance().getMessageMeta(module, cmd);
 		Message message = (Message) new Gson().fromJson(frame.getMsg(), clazz);
 		System.err.println(message);
 		

@@ -5,6 +5,9 @@ package com.kingston.mmorpg.common.util;
  */
 public final class NumberUtil {
 
+	private NumberUtil() {
+	}
+
 	public static boolean booleanValue(Object object) {
 		return booleaneValue(object, Boolean.FALSE);
 	}

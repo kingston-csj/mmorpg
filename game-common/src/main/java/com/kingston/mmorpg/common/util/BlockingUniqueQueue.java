@@ -10,6 +10,7 @@ import com.kingston.mmorpg.common.util.thread.ThreadSafe;
 
 /**
  * LinkedBlockingQueue的增强版（队伍内未消费的元素保证是不重复的）
+ * 
  * @author kingston
  */
 @ThreadSafe
@@ -25,18 +26,18 @@ public class BlockingUniqueQueue<E> extends LinkedBlockingQueue<E> {
 	}
 
 	@Override
-	 public boolean containsAll(Collection<?> c) {
+	public boolean containsAll(Collection<?> c) {
 		return datas.containsAll(c);
 	}
 
 	@Override
 	public E take() {
-		//该方法千万不要用 synchronized 修饰，不然一旦take()方法被阻塞了，另外一条线程就永远不能add了
+		// 该方法千万不要用 synchronized 修饰，不然一旦take()方法被阻塞了，另外一条线程就永远不能add了
 		E head = null;
-		try{
+		try {
 			head = super.take();
-		}catch(Exception e){
-
+		} catch (Exception e) {
+			// ignore
 		}
 		datas.remove(head);
 		return head;
@@ -70,7 +71,7 @@ public class BlockingUniqueQueue<E> extends LinkedBlockingQueue<E> {
 
 	@Override
 	public synchronized boolean removeAll(Collection<?> c) {
-		for (Object e:c) {
+		for (Object e : c) {
 			datas.remove(e);
 		}
 		return super.removeAll(c);
@@ -104,7 +105,7 @@ public class BlockingUniqueQueue<E> extends LinkedBlockingQueue<E> {
 
 		@Override
 		public void remove() {
-			synchronized(BlockingUniqueQueue.this) {
+			synchronized (BlockingUniqueQueue.this) {
 				this.it.remove();
 				BlockingUniqueQueue.this.datas.remove(this.curr);
 			}
