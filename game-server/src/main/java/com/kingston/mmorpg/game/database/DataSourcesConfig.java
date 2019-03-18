@@ -3,8 +3,8 @@ package com.kingston.mmorpg.game.database;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -18,6 +18,7 @@ public class DataSourcesConfig {
 	@ConfigurationProperties(prefix = "spring.datasource.configdb")
 	public DataSource primaryDataSource() {
 		System.out.println("静态数据源建立链接");
+		
 		return DataSourceBuilder.create().build();
 	}
 

@@ -42,7 +42,7 @@ public class UserDbConfig {
 	@Bean(name = "userEntityManagerFactory")
 	public LocalContainerEntityManagerFactoryBean userEntityManagerFactory(EntityManagerFactoryBuilder builder) {
 		return builder.dataSource(userDataSource).properties(getVendorProperties(userDataSource))
-				.packages("com.kingston.mmorpg.game.database.user") // 设置实体类所在位置
+				.packages("com.kingston.mmorpg.game.database.user")
 				.persistenceUnit("userPersistenceUnit").build();
 	}
 
@@ -50,7 +50,7 @@ public class UserDbConfig {
 	private JpaProperties jpaProperties;
 
 	private Map<String, String> getVendorProperties(DataSource dataSource) {
-		return jpaProperties.getHibernateProperties(dataSource);
+		return jpaProperties.getProperties();
 	}
 
 	@Bean(name = "userTransactionManager")

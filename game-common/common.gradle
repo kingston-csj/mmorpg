@@ -1,5 +1,7 @@
 
-apply plugin: 'org.springframework.boot'
+
+//apply plugin: 'io.spring.dependency-management'
+//apply plugin: 'org.springframework.boot'
 
 gradle.taskGraph.whenReady {
     tasks.each { task ->
@@ -15,6 +17,4 @@ dependencies {
 	compile 'com.google.code.gson:gson'
 	
 	compile 'org.apache.commons:commons-lang3'	
-	
-	compile ("org.springframework.boot:spring-boot-starter")
 }

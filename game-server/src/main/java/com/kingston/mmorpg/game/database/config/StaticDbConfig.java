@@ -45,7 +45,7 @@ public class StaticDbConfig {
 	@Bean(name = "configEntityManagerFactory")
 	public LocalContainerEntityManagerFactoryBean configEntityManagerFactory(EntityManagerFactoryBuilder builder) {
 		return builder.dataSource(configDataSource).properties(getVendorProperties(configDataSource))
-				.packages("com.kingston.mmorpg.game.database.config") // 设置实体类所在位置
+				.packages("com.kingston.mmorpg.game.database.config")
 				.persistenceUnit("primaryPersistenceUnit").build();
 	}
 
@@ -53,7 +53,7 @@ public class StaticDbConfig {
 	private JpaProperties jpaProperties;
 
 	private Map<String, String> getVendorProperties(DataSource dataSource) {
-		return jpaProperties.getHibernateProperties(dataSource);
+		return jpaProperties.getProperties();
 	}
 
 	@Primary

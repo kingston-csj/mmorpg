@@ -19,6 +19,8 @@ subprojects {
 	ext.configDir = new File(rootDir, "check")
 	//apply from: "$rootDir/check/checkstyle/checkstyle.gradle"
 	apply from: "$rootDir/check/pmd/pmd.gradle"
+
+	
 }
 
 
@@ -61,19 +63,11 @@ configure(allprojects) { project ->
 
 	eclipse {
 	    classpath {
-	        downloadJavadoc = true
+	        downloadJavadoc = false
 	        downloadSources = true
 	    }
 	}
 
-	buildscript {
-	    repositories {
-	        jcenter()
-	    }
-	    dependencies {
-	        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
-	    }
-	}
 
 	dependencies {
 		compile ("com.google.code.gson:gson:${gsonVersion}")
@@ -85,18 +79,6 @@ configure(allprojects) { project ->
 		compile 'org.apache.commons:commons-lang3:3.1'	
 		
 		compile 'org.codehaus.groovy:groovy-all:2.4.11'
-		
-		compile ("org.springframework.boot:spring-boot-starter:${springBootVersion}")
-		
-		compile ('org.springframework.boot:spring-boot-starter-data-jpa')
-		
-		testCompile ('org.springframework.boot:spring-boot-starter-test')
-		
-		compile ('org.springframework.boot:spring-boot-starter-actuator')
-		
-		compile ('org.springframework.boot:spring-boot-starter-web')
-		
-		compile ('org.springframework.boot:spring-boot-devtools')
 		
 	    testCompile 'junit:junit:4.12'
 	}

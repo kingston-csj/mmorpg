@@ -2,7 +2,19 @@
 group = "com.kingston.mmorpg.game"
 archivesBaseName = 'game'
 
+apply plugin: 'io.spring.dependency-management'
 apply plugin: 'org.springframework.boot'
+
+
+buildscript {
+    repositories {
+        jcenter()
+        maven { url 'https://repo.spring.io/libs-milestone' }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.3.RELEASE")
+    }
+}
 
 dependencies {
 	compile(project(":game-common"))
@@ -40,27 +52,6 @@ sourceSets {
     }
 }
 
-jar {
-	//configurations.runtime.each { println it.path }
-
-    baseName = 'mmorpg'
-    version = '1.1.0'
-    manifest {
-        attributes "Manifest-Version": 1.0,
-                   'Main-Class': 'com.kingston.mmorpg.ServerStartup',
-                   "Class-Path": "configs/ " + configurations.runtime.collect { "libs/${it.name}" }.join(' ')
-    }
-
-    excludes = ['server.properties']
-
-    // from {
-    //     //添加依懒到打包文件
-    //     //configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-    //     configurations.runtime.collect { zipTree(it) }
-    // }
-
-}
-
 task clearJar(type: Delete) {
     delete 'build/libs/lib'
 }
@@ -75,6 +66,30 @@ task copyConfigs(type: Copy) {
     into('build/libs/configs')
 }
 
-task release(type: Copy, dependsOn: [build, clearJar, copyJar, copyConfigs]) {
+
+bootJar {
+	//configurations.runtime.each { println it.path }
+    baseName = 'mmorpg'
+    version = '1.1.0'
+    manifest {
+        attributes "Manifest-Version": 1.0,
+                   'Start-Class': 'com.kingston.mmorpg.ServerStartup',
+                   // 'Spring-Boot-Classes': 'lib',
+                   "Class-Path":"configs/ " + configurations.runtime.collect { "lib/${it.name}" }.join(' ')
+    }
+
+	//enabled = true
+
+    excludes = ['server.properties', "*.jar"]
+
+    dependsOn clearJar
+    dependsOn copyJar
+    dependsOn copyConfigs
 
 }
+
+
+
+// task release(type: Copy, dependsOn: [build, clearJar, copyJar, copyConfigs]) {
+
+// }
