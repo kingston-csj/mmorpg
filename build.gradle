@@ -13,6 +13,7 @@ allprojects {
 	group = "com.kingston.mmorpg"
 	version = 1.0
 	apply plugin: "eclipse"
+	apply plugin: "idea"
 }
 
 subprojects {
