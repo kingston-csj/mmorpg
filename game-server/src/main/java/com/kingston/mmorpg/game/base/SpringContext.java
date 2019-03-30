@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.kingston.mmorpg.framework.net.socket.task.MessageDispatcher;
 import com.kingston.mmorpg.game.ServerConfig;
+import com.kingston.mmorpg.game.account.AccountService;
 import com.kingston.mmorpg.game.buff.service.BuffService;
 import com.kingston.mmorpg.game.player.service.PlayerService;
 
@@ -53,6 +54,13 @@ public class SpringContext implements ApplicationContextAware {
 	
 	public static PlayerService getPlayerService() {
 		return self.playerService;
+	}
+	
+	@Resource
+	private AccountService accountService;
+	
+	public static AccountService getAccountService() {
+		return self.accountService;
 	}
 	
 	@Resource

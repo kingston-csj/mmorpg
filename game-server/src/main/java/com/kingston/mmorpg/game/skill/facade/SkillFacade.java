@@ -3,7 +3,7 @@ package com.kingston.mmorpg.game.skill.facade;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import com.kingston.mmorpg.framework.eventbus.Subscribe;
 import com.kingston.mmorpg.game.database.config.container.ConfigSkillContainer;
@@ -12,7 +12,7 @@ import com.kingston.mmorpg.game.player.event.PlayerLevelUpEvent;
 import com.kingston.mmorpg.game.player.event.PlayerLoginEvent;
 import com.kingston.mmorpg.game.scene.actor.Player;
 
-@Component
+@Controller
 public class SkillFacade {
 	
 	@Autowired

@@ -1,34 +1,15 @@
 package com.kingston.mmorpg.game.player.facade;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import com.kingston.mmorpg.framework.eventbus.EventBus;
-import com.kingston.mmorpg.framework.net.socket.IoSession;
-import com.kingston.mmorpg.framework.net.socket.annotation.RequestMapping;
 import com.kingston.mmorpg.game.gm.GmCommands;
 import com.kingston.mmorpg.game.gm.GmHandler;
 import com.kingston.mmorpg.game.player.event.PlayerLevelUpEvent;
-import com.kingston.mmorpg.game.player.event.PlayerLoginEvent;
-import com.kingston.mmorpg.game.player.message.ReqPlayerLogin;
-import com.kingston.mmorpg.game.player.message.ResPlayerLogin;
 import com.kingston.mmorpg.game.scene.actor.Player;
 
-@Component
+@Controller
 public class PlayerFacade {
-	
-	@RequestMapping
-	public void reqPlayerLogin(IoSession session, ReqPlayerLogin request) {
-		long playerId = request.getPlayerId();
-		System.out.println("角色[" + playerId + "]登录");
-		
-		session.sendPacket(new ResPlayerLogin());
-		
-		Player player = new Player();
-		player.setId(playerId);
-		session.setPlayer(player);
-		
-		EventBus.getInstance().post(new PlayerLoginEvent(player));
-	}
 	
 	
 	@GmHandler(cmd = GmCommands.LEVEL)

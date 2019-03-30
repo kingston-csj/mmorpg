@@ -1,11 +1,11 @@
-package com.kingston.mmorpg.game.player.message;
+package com.kingston.mmorpg.game.login.message;
 
 import com.kingston.mmorpg.framework.net.socket.annotation.MessageMeta;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
 import com.kingston.mmorpg.game.Modules;
 import com.kingston.mmorpg.game.player.service.PlayerService;
 
-@MessageMeta(module = Modules.PLAYER, cmd = PlayerService.CMD_REQ_LOGIN)
+@MessageMeta(module = Modules.PLAYER, cmd = PlayerService.CMD_REQ_PLAYER_LOGIN)
 public class ReqPlayerLogin extends Message {
 	
 	private long playerId;

@@ -98,6 +98,10 @@ public class IoSession {
 	public void bindDipatcher(IDispatch dipatcher) {
 		this.dipatcher = dipatcher;
 	}
+	
+	public void updateAttr(String key, Object value) {
+		this.attrs.put(key, value);
+	}
 
 	public boolean isClose() {
 		if (channel == null) {

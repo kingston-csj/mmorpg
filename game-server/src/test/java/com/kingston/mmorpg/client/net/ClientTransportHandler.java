@@ -3,7 +3,9 @@ package com.kingston.mmorpg.client.net;
 import com.kingston.mmorpg.client.IoSession;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
 import com.kingston.mmorpg.game.gm.message.ReqGmCommand;
-import com.kingston.mmorpg.game.player.message.ReqPlayerLogin;
+import com.kingston.mmorpg.game.login.message.ReqAccontLogin;
+import com.kingston.mmorpg.game.player.message.ReqCreateNewPlayer;
+import com.kingston.mmorpg.game.player.message.ReqSelectPlayer;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -20,13 +22,32 @@ public class ClientTransportHandler extends ChannelInboundHandlerAdapter {
 		IoSession session = new IoSession(ctx.channel());
 		SessionManager.getInstance().registerSession(session);
 		
-		ReqPlayerLogin reqLogin = new ReqPlayerLogin();
-		reqLogin.setPlayerId(123456L);
-		SessionManager.getInstance().sendMessage(reqLogin);
+		login();
+		selectedPlayer(10000L);
 		
 		ReqGmCommand reqGm = new ReqGmCommand();
 		reqGm.setParams("level 10");
 		SessionManager.getInstance().sendMessage(reqGm);
+	}
+	
+	public void createNew() {
+		ReqCreateNewPlayer req = new ReqCreateNewPlayer();
+		req.setName("Happy");
+		SessionManager.getInstance().sendMessage(req);
+	}
+
+	public void login() {
+		ReqAccontLogin req = new ReqAccontLogin();
+		req.setPassword("kingston");
+		req.setAccountId(123L);
+		SessionManager.getInstance().sendMessage(req);
+	}
+
+
+	public void selectedPlayer(long playerId) {
+		ReqSelectPlayer req = new ReqSelectPlayer();
+		req.setPlayerId(playerId);
+		SessionManager.getInstance().sendMessage(req);
 	}
 
 	@Override

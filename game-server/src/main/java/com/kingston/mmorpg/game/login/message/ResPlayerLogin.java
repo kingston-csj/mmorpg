@@ -1,4 +1,5 @@
-package com.kingston.mmorpg.game.player.message;
+package com.kingston.mmorpg.game.login.message;
+
 
 import com.kingston.mmorpg.framework.net.socket.annotation.MessageMeta;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
