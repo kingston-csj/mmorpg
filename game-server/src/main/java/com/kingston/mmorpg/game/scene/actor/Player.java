@@ -1,6 +1,13 @@
 package com.kingston.mmorpg.game.scene.actor;
 
+import com.kingston.mmorpg.game.database.user.entity.PlayerEnt;
+
 public class Player extends Creature {
+	
+	/**
+	 * 数据载体
+	 */
+	private PlayerEnt playerEnt;
 	
 	
 	public Player(long hp, int attack) {
@@ -10,6 +17,22 @@ public class Player extends Creature {
 	
 	public Player() {
 		
+	}
+	
+	public PlayerEnt getPlayerEnt() {
+		return playerEnt;
+	}
+
+	public void setPlayerEnt(PlayerEnt playerEnt) {
+		this.playerEnt = playerEnt;
+	}
+	
+	public void setLevel(int level) {
+		this.playerEnt.setLevel(level);
+	}
+	
+	public int getLevel() {
+		return playerEnt.getLevel();
 	}
 
 	@Override

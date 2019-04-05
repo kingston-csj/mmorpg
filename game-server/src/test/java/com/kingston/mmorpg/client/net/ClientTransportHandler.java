@@ -26,7 +26,7 @@ public class ClientTransportHandler extends ChannelInboundHandlerAdapter {
 		selectedPlayer(10000L);
 		
 		ReqGmCommand reqGm = new ReqGmCommand();
-		reqGm.setParams("level 10");
+		reqGm.setParams("level 99");
 		SessionManager.getInstance().sendMessage(reqGm);
 	}
 	

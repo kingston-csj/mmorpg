@@ -15,58 +15,72 @@ import com.kingston.mmorpg.game.account.model.AccountProfile;
 import com.kingston.mmorpg.game.base.SpringContext;
 import com.kingston.mmorpg.game.database.user.dao.PlayerDao;
 import com.kingston.mmorpg.game.database.user.entity.Account;
+import com.kingston.mmorpg.game.database.user.entity.PlayerEnt;
 import com.kingston.mmorpg.game.login.message.ResPlayerLogin;
 import com.kingston.mmorpg.game.player.model.PlayerProfile;
 import com.kingston.mmorpg.game.scene.actor.Player;
 
 @Service
 public class PlayerService {
-	
+
 	public static final short CMD_REQ_ACCOUNT_LOGIN = 1;
-	
+
 	public static final short CMD_REQ_CREATE_NEW = 2;
-	
+
 	public static final short CMD_REQ_PLAYER_LOGIN = 3;
-	
+
 	public static final short CMD_REQ_SELECT_PLAYER = 4;
-	
+
 	public static final short CMD_RES_ACCOUNT_LOGIN = 201;
-	
+
 	public static final short CMD_RES_LOGIN = 202;
-	
+
 	/**
 	 * 在线玩家列表
 	 */
 	private Set<Long> onlines = new ConcurrentHashSet<>();
-	
 
 	/** 全服所有角色的简况 */
 	private ConcurrentMap<Long, PlayerProfile> playerProfiles = new ConcurrentHashMap<>();
 
 	/** 全服所有账号的简况 */
 	private ConcurrentMap<Long, AccountProfile> accountProfiles = new ConcurrentHashMap<>();
-	
+
 	@Autowired
 	private PlayerDao playerDao;
-	
+
+	public void loadAllPlayerProfiles() {
+
+	}
 
 	@Cacheable(cacheNames = "player")
 	public Player getPlayer(long id) {
-		Player player = new Player();
-		player.setId(id);
-		return player;
+		PlayerEnt playerEnt = playerDao.getOne(id);
+		if (playerEnt != null) {
+			Player player = new Player();
+			player.setId(id);
+			player.setPlayerEnt(playerEnt);
+			return player;
+		} else {
+			return null;
+		}
 	}
 	
+	public void savePlayer(Player player) {
+		PlayerEnt playerEnt = player.getPlayerEnt();
+		playerDao.save(playerEnt);
+	}
+
 	public ResPlayerLogin login(IoSession session, long playerId) {
 		Player player = new Player();
 		session.bindDipatcher(player);
 		return new ResPlayerLogin();
 	}
-	
+
 	public Set<Long> getOnlienPlayers() {
 		return new HashSet<>(this.onlines);
 	}
-	
+
 	private void addPlayerProfile(PlayerProfile baseInfo) {
 		playerProfiles.put(baseInfo.getId(), baseInfo);
 
@@ -101,10 +115,9 @@ public class PlayerService {
 		accountProfile.setAccountId(accountId);
 		accountProfiles.put(accountId, accountProfile);
 	}
-	
+
 	public void addExp(Player player, long exp) {
-		
-		
+
 	}
-	
+
 }

@@ -1,6 +1,7 @@
 package com.kingston.mmorpg.game.account;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,14 @@ public class AccountService {
 	@Cacheable(cacheNames = "account")
 	public Account getAccount(long id) {
 		Account account = accountDao.getOne(id);
-		SpringContext.getPlayerService().addAccountProfile(account);
+		if (account != null) {
+			SpringContext.getPlayerService().addAccountProfile(account);
+		}
+		return account;
+	}
+	
+	@CachePut(cacheNames = "account")
+	public Account createNew(Account account) {
 		return account;
 	}
 

@@ -34,6 +34,11 @@ public class LoginService {
 	 */
 	public void handleAccountLogin(IoSession session, long accountId, String password) {
 		Account account = accountService.getAccount(accountId);
+		if (account == null) {
+			account = new Account();
+			account.setId(accountId);
+			accountService.createNew(account);
+		}
 //		session.setAttribute(SessionProperties.ACCOUNT, accountId);
 		
 		List<PlayerLoginVo> players = new ArrayList<>();
