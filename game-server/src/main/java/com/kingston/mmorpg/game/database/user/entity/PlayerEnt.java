@@ -16,26 +16,26 @@ import com.kingston.mmorpg.game.database.user.dao.PlayerDao;
 @Table(name = "PlayerEnt")
 @Proxy(lazy = false)
 public class PlayerEnt implements BaseEntity {
-	
+
 	@Id
 	@Column
 	private long playerId;
-	
+
 	/**
 	 * 所属账号id
 	 */
 	@Column
 	private long accountId;
-	
+
 	@Column
 	private String name;
-	
+
 	@Column
 	private int level;
-	
+
 	@Column
 	private String data;
-	
+
 	public long getPlayerId() {
 		return playerId;
 	}
@@ -67,7 +67,7 @@ public class PlayerEnt implements BaseEntity {
 	public void setLevel(int level) {
 		this.level = level;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -80,5 +80,5 @@ public class PlayerEnt implements BaseEntity {
 	public CrudRepository<PlayerEnt, Long> getCrudRepository() {
 		return SpringContext.getBean(PlayerDao.class);
 	}
-	
+
 }

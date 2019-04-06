@@ -71,9 +71,10 @@ public class PlayerService {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * 保存玩家数据
+	 * 
 	 * @param player
 	 */
 	public void savePlayer(Player player) {
@@ -89,7 +90,7 @@ public class PlayerService {
 	public Set<Long> getOnlienPlayers() {
 		return new HashSet<>(this.onlines);
 	}
-	
+
 	private void addPlayerProfile(PlayerProfile baseInfo) {
 		playerProfiles.put(baseInfo.getPlayerId(), baseInfo);
 

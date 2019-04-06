@@ -11,7 +11,7 @@ public class ShortSerializer extends Serializer {
 
 	@Override
 	public void encode(ByteBuf out, Object value) {
-		out.writeShort((short)value);
+		out.writeShort((short) value);
 	}
 
 }

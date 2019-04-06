@@ -11,7 +11,7 @@ public class IntSerializer extends Serializer {
 
 	@Override
 	public void encode(ByteBuf out, Object value) {
-		out.writeInt((int)value);
+		out.writeInt((int) value);
 	}
 
 }

@@ -8,7 +8,7 @@ public class CmdExecutor {
 	private Method method;
 	/** arguments passed to method */
 	private Class<?>[] params;
-	/** logic controller  */
+	/** logic controller */
 	private Object handler;
 
 	public static CmdExecutor valueOf(Method method, Class<?>[] params, Object handler) {

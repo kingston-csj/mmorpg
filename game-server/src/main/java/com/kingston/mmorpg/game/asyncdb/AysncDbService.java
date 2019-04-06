@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.PostConstruct;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.kingston.mmorpg.common.util.BlockingUniqueQueue;
 import com.kingston.mmorpg.common.util.thread.NamedThreadFactory;
@@ -15,7 +15,7 @@ import com.kingston.mmorpg.game.logs.LoggerUtils;
 /**
  * 异步持久化服务
  */
-@Component
+@Service
 public class AysncDbService {
 
 	private BlockingQueue<BaseEntity> queue = new BlockingUniqueQueue<>();

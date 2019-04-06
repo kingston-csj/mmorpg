@@ -6,7 +6,7 @@ import com.kingston.mmorpg.game.Modules;
 
 @MessageMeta(module = Modules.GM, cmd = 1)
 public class ReqGmCommand extends Message {
-	
+
 	private String params;
 
 	public String getParams() {
@@ -21,6 +21,5 @@ public class ReqGmCommand extends Message {
 	public String toString() {
 		return "ReqGmCommand [params=" + params + "]";
 	}
-	
 
 }

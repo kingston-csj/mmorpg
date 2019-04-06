@@ -9,8 +9,9 @@ import java.lang.annotation.Target;
 import org.springframework.stereotype.Component;
 
 /**
- * The annotation type is used in {@link Message com.kingston.net.Message}
- * to specify module and cmd of the given message.
+ * The annotation type is used in {@link Message com.kingston.net.Message} to
+ * specify module and cmd of the given message.
+ * 
  * @author kingston
  */
 @Documented

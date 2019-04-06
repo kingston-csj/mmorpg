@@ -20,28 +20,27 @@ public final class CmdTask extends BaseTask {
 	private Object handler;
 	/** target method of the controller */
 	private Method method;
-	/**arguments passed to the method */
+	/** arguments passed to the method */
 	private Object[] params;
 
-	public static CmdTask valueOf(int dispatchMap, int dispatchLine, Object handler,
-			Method method, Object[] params) {
+	public static CmdTask valueOf(int dispatchMap, int dispatchLine, Object handler, Method method, Object[] params) {
 		CmdTask msgTask = new CmdTask();
 		msgTask.dispatchMap = dispatchMap;
 		msgTask.handler = handler;
-		msgTask.method  = method;
-		msgTask.params  = params;
+		msgTask.method = method;
+		msgTask.params = params;
 
 		return msgTask;
 	}
 
 	@Override
 	public void action() {
-		try{
+		try {
 			Object response = method.invoke(handler, params);
 			if (response != null) {
-				MessagePusher.pushMessage(playerId, (Message)response);
+				MessagePusher.pushMessage(playerId, (Message) response);
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			logger.error("message task execute failed ", e);
 			e.printStackTrace();
 		}

@@ -14,10 +14,10 @@ public class Atttack2PatrolTransition extends Transition {
 
 	@Override
 	public boolean meetCondition(Creature creature) {
-		Player player = (Player)creature;
+		Player player = (Player) creature;
 		Scene scene = player.getScene();
 		Monster monster = scene.getMonster();
-		
+
 		return monster.isDie();
 	}
 

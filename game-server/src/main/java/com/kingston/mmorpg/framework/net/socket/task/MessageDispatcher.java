@@ -20,7 +20,6 @@ public class MessageDispatcher {
 	/** [module_cmd, CmdExecutor] */
 	private static final Map<String, CmdExecutor> MODULE_CMD_HANDLERS = new HashMap<>();
 
-
 	public void registerMethodInvoke(String key, CmdExecutor executor) {
 		if (MODULE_CMD_HANDLERS.containsKey(key)) {
 			throw new RuntimeException(String.format("module[%s] duplicated", key));
@@ -30,12 +29,13 @@ public class MessageDispatcher {
 
 	/**
 	 * message entrance, in which io thread dispatch messages
+	 * 
 	 * @param session
 	 * @param message
 	 */
 	public void dispatch(IoSession session, Message message) {
 		short module = message.getModule();
-		short cmd    = message.getCmd();
+		short cmd = message.getCmd();
 
 		CmdExecutor cmdExecutor = MODULE_CMD_HANDLERS.get(buildKey(module, cmd));
 		if (cmdExecutor == null) {
@@ -47,30 +47,30 @@ public class MessageDispatcher {
 		Object controller = cmdExecutor.getHandler();
 
 		IDispatch dipatcher = session.getDipatcher();
-		GameExector.getInstance().acceptTask(
-				CmdTask.valueOf(dipatcher.dispatchMap(), dipatcher.dispatchLine(), 
-						controller, cmdExecutor.getMethod(), params));
+		GameExector.getInstance().acceptTask(CmdTask.valueOf(dipatcher.dispatchMap(), dipatcher.dispatchLine(),
+				controller, cmdExecutor.getMethod(), params));
 	}
 
 	/**
 	 * 将各种参数转为被RequestMapper注解的方法的实参
+	 * 
 	 * @param session
 	 * @param methodParams
 	 * @param message
 	 * @return
 	 */
 	private Object[] convertToMethodParams(IoSession session, Class<?>[] methodParams, Message message) {
-		Object[] result = new Object[methodParams==null?0:methodParams.length];
+		Object[] result = new Object[methodParams == null ? 0 : methodParams.length];
 
-		for (int i=0;i<result.length;i++) {
+		for (int i = 0; i < result.length; i++) {
 			Class<?> param = methodParams[i];
 			if (IoSession.class.isAssignableFrom(param)) {
 				result[i] = session;
-			}else if (Long.class.isAssignableFrom(param)) {
+			} else if (Long.class.isAssignableFrom(param)) {
 				result[i] = session;
-			}else if (long.class.isAssignableFrom(param)) {
+			} else if (long.class.isAssignableFrom(param)) {
 				result[i] = SpringContext.getSessionManager().getPlayerIdBy(session);
-			}else if (Message.class.isAssignableFrom(param)) {
+			} else if (Message.class.isAssignableFrom(param)) {
 				result[i] = message;
 			}
 		}

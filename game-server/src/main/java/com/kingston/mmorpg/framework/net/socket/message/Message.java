@@ -6,10 +6,10 @@ import com.kingston.mmorpg.framework.net.socket.annotation.MessageMeta;
  * 抽象消息定义
  */
 public abstract class Message {
-	
 
 	/**
 	 * messageMeta, module of message
+	 * 
 	 * @return
 	 */
 	public short getModule() {
@@ -22,6 +22,7 @@ public abstract class Message {
 
 	/**
 	 * messageMeta, subType of message
+	 * 
 	 * @return
 	 */
 	public short getCmd() {
@@ -60,7 +61,5 @@ public abstract class Message {
 			return false;
 		return true;
 	}
-	
-	
 
 }

@@ -11,7 +11,7 @@ public class ByteSerializer extends Serializer {
 
 	@Override
 	public void encode(ByteBuf out, Object value) {
-		out.writeByte((byte)value);
+		out.writeByte((byte) value);
 	}
 
 }

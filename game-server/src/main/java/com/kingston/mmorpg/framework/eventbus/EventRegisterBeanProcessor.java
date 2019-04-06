@@ -9,12 +9,11 @@ import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EventRegisterBeanProcessor implements BeanPostProcessor, 
-	ApplicationContextAware, Ordered {
+public class EventRegisterBeanProcessor implements BeanPostProcessor, ApplicationContextAware, Ordered {
 
 	@Autowired
 	private EventBus eventBus;
-	
+
 	@Override
 	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
 		eventBus.register(bean);
@@ -33,7 +32,7 @@ public class EventRegisterBeanProcessor implements BeanPostProcessor,
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		
+
 	}
 
 }

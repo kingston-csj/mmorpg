@@ -6,14 +6,14 @@ import com.kingston.mmorpg.framework.net.socket.message.Message;
 import com.kingston.mmorpg.game.base.SpringContext;
 
 public class MessagePusher {
-	
+
 	public static void pushMessage(long playerId, Message message) {
 		IoSession session = SpringContext.getSessionManager().getSessionBy(playerId);
 		pushMessage(session, message);
 	}
 
 	public static void pushMessage(Collection<Long> playerIds, Message message) {
-		for (long playerId:playerIds) {
+		for (long playerId : playerIds) {
 			pushMessage(playerId, message);
 		}
 	}

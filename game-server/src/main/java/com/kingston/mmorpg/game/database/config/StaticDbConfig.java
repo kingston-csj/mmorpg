@@ -26,9 +26,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(entityManagerFactoryRef = "configEntityManagerFactory",
-	transactionManagerRef = "configDbTransactionManager", 
-	basePackages = {"com.kingston.mmorpg.game.database.config" })
+@EnableJpaRepositories(entityManagerFactoryRef = "configEntityManagerFactory", transactionManagerRef = "configDbTransactionManager", basePackages = {
+		"com.kingston.mmorpg.game.database.config" })
 public class StaticDbConfig {
 
 	@Autowired
@@ -45,8 +44,7 @@ public class StaticDbConfig {
 	@Bean(name = "configEntityManagerFactory")
 	public LocalContainerEntityManagerFactoryBean configEntityManagerFactory(EntityManagerFactoryBuilder builder) {
 		return builder.dataSource(configDataSource).properties(getVendorProperties(configDataSource))
-				.packages("com.kingston.mmorpg.game.database.config")
-				.persistenceUnit("primaryPersistenceUnit").build();
+				.packages("com.kingston.mmorpg.game.database.config").persistenceUnit("primaryPersistenceUnit").build();
 	}
 
 	@Autowired

@@ -6,10 +6,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public final class SchedulerManager {
-	
-	
+
 	public ScheduledFuture<?> schedule(Runnable task, long delay) {
-		
+
 		return null;
 	}
 

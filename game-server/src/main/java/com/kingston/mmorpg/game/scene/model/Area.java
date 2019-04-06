@@ -9,13 +9,13 @@ import com.kingston.mmorpg.game.scene.actor.Player;
 import com.kingston.mmorpg.game.scene.actor.SceneActor;
 
 /**
- * 基于网格的AOI算法
- * 将场景划分为等大的小区域
+ * 基于网格的AOI算法 将场景划分为等大的小区域
+ * 
  * @author kingston
  *
  */
 public class Area {
-	
+
 	private int id;
 
 	/** 区域宽度（单位为像素） */
@@ -26,7 +26,7 @@ public class Area {
 	private ConcurrentMap<Long, SceneActor> actors = new ConcurrentHashMap<>();
 
 	private AtomicInteger playerSum = new AtomicInteger(0);
-	
+
 	public Area(int id) {
 		this.id = id;
 	}

@@ -5,18 +5,19 @@ import com.kingston.mmorpg.game.ai.Scene;
 
 /**
  * 场景里的各种演员
+ * 
  * @author kingston
  */
 public abstract class SceneActor extends GameObject implements IDispatch {
 
 	protected int mapId;
-	
+
 	protected int lineId;
-	
+
 	private Scene scene;
-	
+
 	private ActorType type;
-	
+
 	@Override
 	public int dispatchMap() {
 		return mapId;
@@ -26,11 +27,11 @@ public abstract class SceneActor extends GameObject implements IDispatch {
 	public int dispatchLine() {
 		return lineId;
 	}
-	
+
 	public ActorType getActorType() {
 		return type;
 	}
-	
+
 	public Scene getScene() {
 		return scene;
 	}
@@ -50,5 +51,5 @@ public abstract class SceneActor extends GameObject implements IDispatch {
 	public void setType(ActorType type) {
 		this.type = type;
 	}
-	
+
 }

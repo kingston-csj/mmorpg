@@ -9,7 +9,7 @@ public class PlayerProfile {
 	private String name;
 
 	private int level;
-	
+
 	public PlayerProfile(long playerId, long accountId, String name, int level) {
 		super();
 		this.playerId = playerId;
@@ -52,8 +52,8 @@ public class PlayerProfile {
 
 	@Override
 	public String toString() {
-		return "PlayerBaseInfo [id=" + playerId + ", accountId=" + accountId + ", name=" + name  + ", level="
-				+ level + "]";
+		return "PlayerBaseInfo [id=" + playerId + ", accountId=" + accountId + ", name=" + name + ", level=" + level
+				+ "]";
 	}
 
 }

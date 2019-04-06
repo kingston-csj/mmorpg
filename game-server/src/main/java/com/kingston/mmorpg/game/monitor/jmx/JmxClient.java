@@ -41,7 +41,8 @@ public class JmxClient {
 		MBeanServerConnection mBeanConnection = connector.getMBeanServerConnection();
 
 		connector.connect();
-		ObjectName objectName = new ObjectName("com.kingston.mmorpg.game.monitor.jmx:name=gameMonitor,type=GameMonitor");
+		ObjectName objectName = new ObjectName(
+				"com.kingston.mmorpg.game.monitor.jmx:name=gameMonitor,type=GameMonitor");
 		final GameMonitorMBean mBean = JMX.newMBeanProxy(mBeanConnection, objectName, GameMonitorMBean.class);
 
 		String script = FileUtil.readText("hotswap/groovy.txt");

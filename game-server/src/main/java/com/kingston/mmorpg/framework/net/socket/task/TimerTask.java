@@ -3,7 +3,7 @@ package com.kingston.mmorpg.framework.net.socket.task;
 public final class TimerTask extends BaseTask {
 
 	private int currLoop;
-	/** indicate loop task when it is smaller than 0*/
+	/** indicate loop task when it is smaller than 0 */
 	private int maxLoop;
 
 	public TimerTask(int dispatchMap, int dispatchLine) {
@@ -30,6 +30,6 @@ public final class TimerTask extends BaseTask {
 	@Override
 	public void action() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

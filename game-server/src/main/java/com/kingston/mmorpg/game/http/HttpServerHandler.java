@@ -36,9 +36,8 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
 	}
 
 	@Override
-	public void channelRead(ChannelHandlerContext context,Object msg)
-			throws Exception {
-		FullHttpRequest httpRequest = (FullHttpRequest)msg;
+	public void channelRead(ChannelHandlerContext context, Object msg) throws Exception {
+		FullHttpRequest httpRequest = (FullHttpRequest) msg;
 		Channel channel = context.channel();
 		String ipAddr = ChannelUtils.getIp(channel);
 
@@ -54,11 +53,9 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
 	private FullHttpResponse createResponse(HttpResult result) {
 		String jsonData = new Gson().toJson(result);
 		ByteBuf buf = Unpooled.copiedBuffer(jsonData, CharsetUtil.UTF_8);
-		FullHttpResponse response = new DefaultFullHttpResponse(
-				HttpVersion.HTTP_1_1, HttpResponseStatus.OK, buf);
+		FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, buf);
 		response.headers().set(HttpHeaders.Names.CONTENT_TYPE, "text/plain");
-		response.headers().set(HttpHeaders.Names.CONTENT_LENGTH, 
-				buf.readableBytes());
+		response.headers().set(HttpHeaders.Names.CONTENT_LENGTH, buf.readableBytes());
 
 		return response;
 	}
@@ -67,16 +64,15 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
 	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
 		ctx.flush();
 	}
-	
+
 	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
-			throws Exception {
+	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
 		Channel channel = ctx.channel();
 		if (channel.isOpen() || channel.isActive()) {
 			channel.close();
 		}
-		
-		if (! (cause instanceof IOException)) {
+
+		if (!(cause instanceof IOException)) {
 			logger.error("", cause);
 		}
 	}

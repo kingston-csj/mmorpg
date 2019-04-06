@@ -42,7 +42,6 @@ public class GmHandlerBeanPostProcessor implements BeanPostProcessor, Applicatio
 		return bean;
 	}
 
-
 	@Override
 	public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
 		return bean;

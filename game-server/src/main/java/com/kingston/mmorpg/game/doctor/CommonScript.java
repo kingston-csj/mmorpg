@@ -7,7 +7,7 @@ package com.kingston.mmorpg.game.doctor;
  *
  */
 public class CommonScript implements IScript {
-	
+
 	public CommonScript() {
 		System.err.println("---CommonScript---");
 	}

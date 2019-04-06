@@ -7,13 +7,13 @@ public class RunAwayState implements State {
 	@Override
 	public void onEnter(Creature creature) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onExit(Creature creature) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

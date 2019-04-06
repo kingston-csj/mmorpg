@@ -11,16 +11,16 @@ import com.kingston.mmorpg.game.database.user.entity.AccountEnt;
 
 @Service
 public class AccountService {
-	
+
 	@Autowired
 	private AccountDao accountDao;
-	
+
 	@Cacheable(cacheNames = "account")
 	public AccountEnt getAccount(long id) {
 		AccountEnt account = accountDao.getOne(id);
 		return account;
 	}
-	
+
 	@CachePut(cacheNames = "account")
 	public AccountEnt createNew(AccountEnt account) {
 		SpringContext.getPlayerService().addAccountProfile(account);

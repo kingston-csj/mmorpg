@@ -37,10 +37,10 @@ public class GameServer implements ServerNode {
 	public void init() {
 		ServerConfig serverConfig = SpringContext.getServerConfig();
 		this.port = serverConfig.getServerPort();
-		
+
 		// 初始化协议表
 		MessageFactory.getInstance().init();
-		
+
 		SpringContext.getPlayerService().loadAllPlayerProfiles();
 	}
 
@@ -73,7 +73,7 @@ public class GameServer implements ServerNode {
 			workerGroup.shutdownGracefully();
 		}
 	}
-	
+
 	private class ChildChannelHandler extends ChannelInitializer<SocketChannel> {
 		@Override
 		protected void initChannel(SocketChannel arg0) throws Exception {

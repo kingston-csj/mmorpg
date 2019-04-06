@@ -11,21 +11,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
- * 事件总线
- * 从guava-eventbus精简而来
+ * 事件总线 从guava-eventbus精简而来
  * 
  * @author kingston
  *
  */
 @Component
 public class EventBus {
-	
+
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	private Executor executor;
 
 	private SubscriberRegistry registry = new SubscriberRegistry();
-	
+
 	private static EventBus self;
 
 	@PostConstruct
@@ -34,7 +33,7 @@ public class EventBus {
 		this.executor = Executors.newSingleThreadExecutor();
 		self = this;
 	}
-	
+
 	public static EventBus getInstance() {
 		return self;
 	}

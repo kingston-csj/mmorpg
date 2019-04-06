@@ -9,7 +9,7 @@ public class AttackState implements State {
 	@Override
 	public void onEnter(Creature creature) {
 		// 进入攻击状态
-		
+
 	}
 
 	@Override
@@ -19,14 +19,12 @@ public class AttackState implements State {
 
 	@Override
 	public void execute(Creature creature) {
-		Player player = (Player)creature;
+		Player player = (Player) creature;
 		Scene scene = player.getScene();
 		Monster monster = scene.getMonster();
 		player.changeHp(-monster.getAttack());
 		monster.changeHp(-player.getAttack());
-		System.err.println("邂逅敌人，快使用双截棍，哼哼哈兮。"
-				+ "我方血量["+ player.getHp() + "]"
-				+ "敌方血量["+ monster.getHp() + "]");
+		System.err.println("邂逅敌人，快使用双截棍，哼哼哈兮。" + "我方血量[" + player.getHp() + "]" + "敌方血量[" + monster.getHp() + "]");
 
 	}
 

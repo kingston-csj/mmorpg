@@ -10,9 +10,9 @@ import com.kingston.mmorpg.game.player.service.PlayerService;
 
 @MessageMeta(module = Modules.PLAYER, cmd = PlayerService.CMD_RES_ACCOUNT_LOGIN)
 public class ResAccountLogin extends Message {
-	
+
 	private List<PlayerLoginVo> players = new ArrayList<>();
-	
+
 	public List<PlayerLoginVo> getPlayers() {
 		return players;
 	}

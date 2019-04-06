@@ -7,7 +7,7 @@ import com.kingston.mmorpg.game.player.service.PlayerService;
 
 @MessageMeta(module = Modules.PLAYER, cmd = PlayerService.CMD_REQ_CREATE_NEW)
 public class ReqCreateNewPlayer extends Message {
-	
+
 	private String name;
 
 	public String getName() {

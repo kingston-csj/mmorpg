@@ -27,9 +27,9 @@ import com.kingston.mmorpg.game.logs.LoggerUtils;
 @Component
 @ManagedResource(objectName = "GameMXBean:name=gameMonitor")
 public class GameMonitor implements GameMonitorMBean {
-	
+
 	private Logger logger = LoggerFactory.getLogger(getClass());
-	
+
 	@Override
 	@ManagedOperation
 	public int getOnlinePlayerSum() {
@@ -103,7 +103,7 @@ public class GameMonitor implements GameMonitorMBean {
 	}
 
 	@Override
-	@ManagedOperation(description="执行groovy脚本")
+	@ManagedOperation(description = "执行groovy脚本")
 	public String execGroovyScript(String groovyCode) {
 		String msg = "执行成功";
 		try {

@@ -7,9 +7,9 @@ import java.util.Map;
 import com.kingston.mmorpg.game.database.config.domain.ConfigMap;
 
 public class ConfigMapContainer {
-	
+
 	private Map<Integer, ConfigMap> allMaps = new HashMap<>();
-	
+
 	public Collection<ConfigMap> queryAllMaps() {
 		return allMaps.values();
 	}

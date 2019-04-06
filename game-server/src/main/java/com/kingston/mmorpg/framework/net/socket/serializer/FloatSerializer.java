@@ -11,7 +11,7 @@ public class FloatSerializer extends Serializer {
 
 	@Override
 	public void encode(ByteBuf out, Object value) {
-		out.writeFloat((float)value);
+		out.writeFloat((float) value);
 	}
 
 }

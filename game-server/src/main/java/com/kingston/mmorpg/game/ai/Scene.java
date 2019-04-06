@@ -4,9 +4,9 @@ import com.kingston.mmorpg.game.scene.actor.Monster;
 import com.kingston.mmorpg.game.scene.actor.Player;
 
 public class Scene {
-	
+
 	private Player player;
-	
+
 	private Monster monster;
 
 	public Player getPlayer() {

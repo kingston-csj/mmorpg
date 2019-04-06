@@ -7,7 +7,7 @@ import org.springframework.core.convert.support.DefaultConversionService;
 
 @Configuration
 public class SupportConfiration {
-	
+
 	@Bean("gameConversion")
 	public ConversionService createConversionService() {
 		return new DefaultConversionService();

@@ -11,7 +11,7 @@ public class StringSerializer extends Serializer {
 
 	@Override
 	public void encode(ByteBuf out, Object value) {
-		ByteBuffUtils.writeUtf8(out, (String)value);
+		ByteBuffUtils.writeUtf8(out, (String) value);
 	}
 
 }

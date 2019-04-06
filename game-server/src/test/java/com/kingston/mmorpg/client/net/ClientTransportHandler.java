@@ -57,12 +57,11 @@ public class ClientTransportHandler extends ChannelInboundHandlerAdapter {
 
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-		System.err.println("客户端关闭1");
+		System.err.println("客户端激活");
 	}
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		System.err.println("客户端关闭3");
 		Channel channel = ctx.channel();
 		cause.printStackTrace();
 		if (channel.isActive()) {

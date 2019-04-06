@@ -19,8 +19,6 @@ public class MessageFactory {
 	private Map<Integer, Class<? extends Message>> id2Clazz = new HashMap<>();
 
 	private Map<Class<?>, Integer> clazz2Id = new HashMap<>();
-	
-
 
 	public static MessageFactory getInstance() {
 		return instance;
@@ -43,8 +41,6 @@ public class MessageFactory {
 			Serializer.registerClass(clazz, key);
 		}
 	}
-	
-	
 
 	/**
 	 * 返回消息的模板class
@@ -65,7 +61,7 @@ public class MessageFactory {
 	public int getMessageId(Class<?> clazz) {
 		return clazz2Id.get(clazz);
 	}
-	
+
 	public void writeClass(ByteBuf out, Message message) {
 		SerializerMeta meta = Serializer.getSerializerMeta(message.getClass());
 		ByteBuffUtils.writeInt(out, meta.getId());

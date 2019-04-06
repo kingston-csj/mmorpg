@@ -6,19 +6,19 @@ import com.kingston.mmorpg.game.scene.model.Life;
 
 /**
  * 生物体，就是会动的场景演员
+ * 
  * @author kingston
  */
 public abstract class Creature extends SceneActor {
-	
+
 	private BuffContainer buffContainer;
-	
+
 	private Life life;
-	
+
 	protected long hp;
-	
+
 	protected int attack;
-	
-	
+
 	public long getHp() {
 		return hp;
 	}
@@ -26,7 +26,7 @@ public abstract class Creature extends SceneActor {
 	public void setHp(long hp) {
 		this.hp = hp;
 	}
-	
+
 	public void changeHp(long changeHp) {
 		this.hp += changeHp;
 	}
@@ -38,7 +38,7 @@ public abstract class Creature extends SceneActor {
 	public void setAttack(int attack) {
 		this.attack = attack;
 	}
-	
+
 	public boolean isDie() {
 		return this.hp <= 0;
 	}
@@ -46,14 +46,13 @@ public abstract class Creature extends SceneActor {
 	public BuffContainer getBuffContainer() {
 		return buffContainer;
 	}
-	
+
 	public int dispatchMap() {
 		return mapId;
 	}
-	
+
 	public int dispatchLine() {
 		return lineId;
 	}
-	
 
 }

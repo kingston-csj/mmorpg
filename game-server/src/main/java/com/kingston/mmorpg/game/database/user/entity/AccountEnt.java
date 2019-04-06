@@ -16,11 +16,11 @@ import com.kingston.mmorpg.game.database.user.dao.AccountDao;
 @Table(name = "AccountEnt")
 @Proxy(lazy = false)
 public class AccountEnt implements BaseEntity {
-	
+
 	@Id
 	@Column
 	private long id;
-	
+
 	@Column
 	private String name;
 

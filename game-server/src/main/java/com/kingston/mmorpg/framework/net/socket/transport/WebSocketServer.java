@@ -69,7 +69,7 @@ public class WebSocketServer implements ServerNode {
 			workerGroup.shutdownGracefully();
 		}
 	}
-	
+
 	private class WebSocketChannelInitializer extends ChannelInitializer<SocketChannel> {
 		@Override
 		protected void initChannel(SocketChannel arg0) throws Exception {

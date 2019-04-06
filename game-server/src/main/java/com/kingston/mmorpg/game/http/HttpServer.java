@@ -72,7 +72,7 @@ public class HttpServer implements ServerNode {
 			ch.pipeline().addLast("serve-handler", new HttpServerHandler());
 		}
 	}
-	
+
 	@Override
 	public void shutDown() throws Exception {
 		if (bossGroup != null) {

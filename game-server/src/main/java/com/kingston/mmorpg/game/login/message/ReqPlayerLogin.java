@@ -7,7 +7,7 @@ import com.kingston.mmorpg.game.player.service.PlayerService;
 
 @MessageMeta(module = Modules.PLAYER, cmd = PlayerService.CMD_REQ_PLAYER_LOGIN)
 public class ReqPlayerLogin extends Message {
-	
+
 	private long playerId;
 
 	public long getPlayerId() {

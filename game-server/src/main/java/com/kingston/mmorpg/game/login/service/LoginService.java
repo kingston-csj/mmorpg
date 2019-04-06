@@ -20,13 +20,13 @@ import com.kingston.mmorpg.game.scene.actor.Player;
 
 @Service
 public class LoginService {
-	
+
 	@Autowired
 	private AccountService accountService;
-	
+
 	@Autowired
 	private PlayerService playerService;
-	
+
 	/**
 	 *
 	 * @param accoundId 账号流水号
@@ -40,11 +40,11 @@ public class LoginService {
 			accountService.createNew(account);
 		}
 //		session.setAttribute(SessionProperties.ACCOUNT, accountId);
-		
+
 		List<PlayerLoginVo> players = new ArrayList<>();
 		AccountProfile accountProfile = playerService.getAccountProfiles(accountId);
 		List<PlayerProfile> playerProfiles = accountProfile.getPlayers();
-		
+
 		if (playerProfiles != null) {
 			for (PlayerProfile playerProfile : playerProfiles) {
 				PlayerLoginVo vo = new PlayerLoginVo();
@@ -53,24 +53,25 @@ public class LoginService {
 				players.add(vo);
 			}
 		}
-		
+
 		ResAccountLogin loginMessage = new ResAccountLogin();
 		loginMessage.setPlayers(players);
 		MessagePusher.pushMessage(session, loginMessage);
-		
+
 	}
 
 	/**
 	 * 选角登录
+	 * 
 	 * @param session
 	 * @param playerId
 	 */
 	public void handleSelectPlayer(IoSession session, long playerId) {
 		Player player = playerService.getPlayer(playerId);
 		if (player != null) {
-			//绑定session与玩家id
+			// 绑定session与玩家id
 			session.updateAttr("plaeyrId", playerId);
-			//加入在线列表
+			// 加入在线列表
 			SpringContext.getSessionManager().registerSession(player, session);
 		}
 	}

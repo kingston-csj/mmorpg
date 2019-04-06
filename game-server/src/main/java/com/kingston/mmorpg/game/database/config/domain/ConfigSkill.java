@@ -6,14 +6,14 @@ import javax.persistence.Id;
 
 @Entity
 public class ConfigSkill {
-	
+
 	@Id
 	@Column
 	private int id;
 
 	@Column
 	private String name;
-	
+
 	@Column
 	private int needLevel;
 

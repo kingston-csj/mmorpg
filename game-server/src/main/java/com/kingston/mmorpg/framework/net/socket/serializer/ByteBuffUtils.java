@@ -8,15 +8,15 @@ import org.slf4j.LoggerFactory;
 import io.netty.buffer.ByteBuf;
 
 public final class ByteBuffUtils {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(ByteBuffUtils.class);
-	
+
 	public static boolean readBoolean(ByteBuf buf) {
 		return buf.readByte() > 0;
 	}
 
 	public static void writeBoolean(ByteBuf buf, boolean value) {
-		buf.writeByte(value ? (byte)1: (byte)0);
+		buf.writeByte(value ? (byte) 1 : (byte) 0);
 	}
 
 	public static byte readByte(ByteBuf buf) {
@@ -74,21 +74,21 @@ public final class ByteBuffUtils {
 	public static void writeDouble(ByteBuf buf, double value) {
 		buf.writeDouble(value);
 	}
-	
-	public static String readUtf8(ByteBuf buf){
+
+	public static String readUtf8(ByteBuf buf) {
 		int strSize = buf.readInt();
 		byte[] content = new byte[strSize];
 		buf.readBytes(content);
 		try {
-			return new String(content,"UTF-8");
+			return new String(content, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 			return "";
 		}
 	}
 
-	public static  void writeUtf8(ByteBuf buf,String msg){
-		byte[] content ;
+	public static void writeUtf8(ByteBuf buf, String msg) {
+		byte[] content;
 		try {
 			if (msg == null) {
 				msg = "";

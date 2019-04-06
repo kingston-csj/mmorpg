@@ -7,9 +7,9 @@ import com.kingston.mmorpg.game.player.service.PlayerService;
 
 @MessageMeta(module = Modules.PLAYER, cmd = PlayerService.CMD_REQ_ACCOUNT_LOGIN)
 public class ReqAccontLogin extends Message {
-	
+
 	private long accountId;
-	
+
 	private String password;
 
 	public long getAccountId() {
@@ -27,7 +27,5 @@ public class ReqAccontLogin extends Message {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
-	
+
 }

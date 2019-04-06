@@ -11,7 +11,7 @@ public class DoubleSerializer extends Serializer {
 
 	@Override
 	public void encode(ByteBuf out, Object value) {
-		out.writeDouble((double)value);
+		out.writeDouble((double) value);
 	}
 
 }

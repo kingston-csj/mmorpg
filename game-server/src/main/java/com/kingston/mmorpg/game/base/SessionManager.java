@@ -22,16 +22,17 @@ public class SessionManager {
 	private Logger logger = LoggerFactory.getLogger(SessionManager.class);
 
 	/** 缓存通信上下文环境对应的登录用户（主要用于服务） */
-	private Map<IoSession, Long> session2Players  = new ConcurrentHashMap<>();
+	private Map<IoSession, Long> session2Players = new ConcurrentHashMap<>();
 
 	/** 缓存用户id与对应的会话 */
 	private ConcurrentMap<Long, IoSession> player2Sessions = new ConcurrentHashMap<>();
 
 	/**
-	 *  向单一在线用户发送数据包
+	 * 向单一在线用户发送数据包
 	 */
 	public void sendPacketTo(IoSession session, Message pact) {
-		if(pact == null || session == null) return;
+		if (pact == null || session == null)
+			return;
 		session.sendPacket(pact);
 	}
 
@@ -43,7 +44,8 @@ public class SessionManager {
 	}
 
 	public void sendPacketTo(Long playerId, Message pact) {
-		if(pact == null || playerId <= 0) return;
+		if (pact == null || playerId <= 0)
+			return;
 
 		IoSession session = player2Sessions.get(playerId);
 		if (session != null) {
@@ -52,18 +54,19 @@ public class SessionManager {
 	}
 
 	/**
-	 *  向所有在线用户发送数据包
+	 * 向所有在线用户发送数据包
 	 */
-	public void sendPacketToAllUsers(Message pact){
-		if(pact == null ) return;
+	public void sendPacketToAllUsers(Message pact) {
+		if (pact == null)
+			return;
 
-		player2Sessions.values().forEach( (session) -> session.sendPacket(pact));
+		player2Sessions.values().forEach((session) -> session.sendPacket(pact));
 	}
 
 	public IoSession getSessionBy(long playerId) {
 		return this.player2Sessions.get(playerId);
 	}
-	
+
 	public long getPlayerIdBy(IoSession session) {
 //		return this.session2Players.get(session);
 		return 0;
@@ -78,10 +81,10 @@ public class SessionManager {
 	}
 
 	/**
-	 *  注销用户通信渠道
+	 * 注销用户通信渠道
 	 */
 	public void ungisterPlayerChannel(Channel context) {
-		if(context == null) {
+		if (context == null) {
 			return;
 		}
 		IoSession session = ChannelUtils.getSessionBy(context);

@@ -17,24 +17,24 @@ import com.kingston.mmorpg.common.util.thread.NamedThreadFactory;
 public class GameExector {
 
 	private static Logger logger = LoggerFactory.getLogger(GameExector.class);
-	
+
 	private static volatile GameExector instance;
-	
+
 	private final int CORE_SIZE = Runtime.getRuntime().availableProcessors();
 	/** task worker pool */
 	private final ExecutorService[] workerPool = new ExecutorService[CORE_SIZE];
 
 	private final AtomicBoolean run = new AtomicBoolean(true);
-	
+
 	@PostConstruct
 	private void init() {
-		for (int i=0; i<CORE_SIZE; i++) {
+		for (int i = 0; i < CORE_SIZE; i++) {
 			ThreadFactory threadFactory = new NamedThreadFactory("message-task-handler");
 			workerPool[i] = Executors.newSingleThreadExecutor(threadFactory);
 		}
 		instance = this;
 	}
-	
+
 	public static GameExector getInstance() {
 		return instance;
 	}

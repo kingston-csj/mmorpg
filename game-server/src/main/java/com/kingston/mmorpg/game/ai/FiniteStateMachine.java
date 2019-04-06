@@ -10,14 +10,13 @@ import java.util.Set;
 import com.kingston.mmorpg.game.scene.actor.Creature;
 
 public class FiniteStateMachine {
-	
+
 	private State initState;
-	
+
 	private State currState;
 	/** 各种状态以及对应的转换规则 */
 	private Map<State, List<Transition>> state2Transtions = new HashMap<>();
 
-	
 	private volatile boolean running = true;
 
 	private long freezeTimeOut;
@@ -30,7 +29,7 @@ public class FiniteStateMachine {
 		}
 		transitions.add(transition);
 	}
-	
+
 	public State getInitState() {
 		return initState;
 	}
@@ -49,7 +48,7 @@ public class FiniteStateMachine {
 		Set<String> passed = new HashSet<>();
 		String clazzName = this.currState.getClass().getName();
 
-		for (; ;) {
+		for (;;) {
 
 			if (!running) {
 				if (freezeTimeOut > 0 && System.currentTimeMillis() > freezeTimeOut) {
@@ -58,7 +57,7 @@ public class FiniteStateMachine {
 					break;
 				}
 
-			} 
+			}
 
 			this.currState.execute(creature);
 			if (passed.contains(clazzName)) {
@@ -67,7 +66,7 @@ public class FiniteStateMachine {
 			passed.add(clazzName);
 
 			List<Transition> transitions = state2Transtions.get(this.currState);
-			for (Transition transition:transitions) {
+			for (Transition transition : transitions) {
 				if (transition.meetCondition(creature)) {
 					this.currState.onExit(creature);
 					this.currState = transition.toState();
@@ -77,17 +76,14 @@ public class FiniteStateMachine {
 		}
 
 	}
-	
+
 	/**
 	 * 暂停ai
+	 * 
 	 * @param timeout
 	 */
 	public void freeze(long timeout) {
 		this.freezeTimeOut = System.currentTimeMillis() + timeout;
 	}
-	
-	
-
-
 
 }

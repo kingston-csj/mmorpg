@@ -6,11 +6,11 @@ import java.util.List;
 import com.kingston.mmorpg.game.player.model.PlayerProfile;
 
 public class AccountProfile {
-	
-private long accountId;
-	
+
+	private long accountId;
+
 	private List<PlayerProfile> players = new ArrayList<>();
-	
+
 	private long recentPlayer;
 
 	public long getAccountId() {
@@ -36,7 +36,7 @@ private long accountId;
 	public void setRecentPlayer(long recentPlayer) {
 		this.recentPlayer = recentPlayer;
 	}
-	
+
 	public void addPlayerProfile(PlayerProfile player) {
 		this.players.add(player);
 	}

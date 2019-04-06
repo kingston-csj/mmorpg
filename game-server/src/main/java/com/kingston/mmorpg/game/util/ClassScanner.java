@@ -1,6 +1,5 @@
 package com.kingston.mmorpg.game.util;
 
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
 import java.util.HashSet;
@@ -22,10 +21,9 @@ import org.springframework.util.ResourceUtils;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
 
 /**
- * 类扫描器
- * 使用此工具类扫描，目标不需要注入到spring容器里
+ * 类扫描器 使用此工具类扫描，目标不需要注入到spring容器里
  * 
- * @see BeanPostProcessor 
+ * @see BeanPostProcessor
  * @author kingston
  */
 public class ClassScanner {
@@ -116,8 +114,8 @@ public class ClassScanner {
 	public static void main(String[] args) {
 		Set<Class<?>> clazzs = getClasses("com.kingston.mmorpg.framework.util");
 		System.err.println(clazzs);
-		
-		Set<Class<?>>  clazzs2 = listAllSubclasses("com.kingston.mmorpg.game", Message.class);
+
+		Set<Class<?>> clazzs2 = listAllSubclasses("com.kingston.mmorpg.game", Message.class);
 		System.err.println(clazzs2);
 	}
 

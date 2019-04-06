@@ -18,34 +18,33 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 
 public class MyWebSocketHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
-	
+
 	private static Logger logger = LoggerFactory.getLogger(MyWebSocketHandler.class);
-	
+
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) throws Exception {
 		Channel channel = ctx.channel();
 		System.out.println(channel.remoteAddress() + ": " + msg.text());
 		WebSocketFrame frame = new Gson().fromJson(msg.text(), WebSocketFrame.class);
-		
+
 		String[] meta = frame.getId().split("_");
 		short module = Short.valueOf(meta[0]);
 		short cmd = Short.valueOf(meta[1]);
 		Class<?> clazz = MessageFactory.getInstance().getMessageMeta(module, cmd);
 		Message message = (Message) new Gson().fromJson(frame.getMsg(), clazz);
 		System.err.println(message);
-		
+
 		IoSession session = ChannelUtils.getSessionBy(channel);
-		
+
 		SpringContext.getMessageDispatcher().dispatch(session, message);
 	}
 
 	@Override
 	public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
 		System.out.println("handlerAdded");
-		if (!ChannelUtils.addChannelSession(ctx.channel(), 
-				new IoSession(ctx.channel(), ChannelType.WEB_SOCKET))) {
+		if (!ChannelUtils.addChannelSession(ctx.channel(), new IoSession(ctx.channel(), ChannelType.WEB_SOCKET))) {
 			ctx.channel().close();
-			logger.error("Duplicate session,IP=[{}]",ChannelUtils.getIp(ctx.channel()));
+			logger.error("Duplicate session,IP=[{}]", ChannelUtils.getIp(ctx.channel()));
 		}
 	}
 

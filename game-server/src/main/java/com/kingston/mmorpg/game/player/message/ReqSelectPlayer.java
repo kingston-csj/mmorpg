@@ -7,7 +7,7 @@ import com.kingston.mmorpg.game.player.service.PlayerService;
 
 @MessageMeta(module = Modules.PLAYER, cmd = PlayerService.CMD_REQ_SELECT_PLAYER)
 public class ReqSelectPlayer extends Message {
-	
+
 	private long playerId;
 
 	public long getPlayerId() {
@@ -17,5 +17,5 @@ public class ReqSelectPlayer extends Message {
 	public void setPlayerId(long playerId) {
 		this.playerId = playerId;
 	}
-	
+
 }

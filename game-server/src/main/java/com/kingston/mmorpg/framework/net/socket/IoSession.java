@@ -17,10 +17,11 @@ import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 
 /**
  * 链接的会话
+ * 
  * @author kingston
  */
 public class IoSession {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(IoSession.class);
 
 	/** 网络连接channel */
@@ -32,12 +33,12 @@ public class IoSession {
 	private String ipAddr;
 
 	private boolean reconnected;
-	
+
 	private IDispatch dipatcher;
-	
-	/** 拓展用，保存一些个人数据  */
+
+	/** 拓展用，保存一些个人数据 */
 	private Map<String, Object> attrs = new HashMap<>();
-	
+
 	private ChannelType channelType;
 
 	public IoSession() {
@@ -50,9 +51,10 @@ public class IoSession {
 		this.dipatcher = anoymousDispatcher;
 		this.channelType = channelType;
 	}
-	
+
 	/**
 	 * 向客户端发送消息
+	 * 
 	 * @param packet
 	 */
 	public void sendPacket(Message packet) {
@@ -82,7 +84,7 @@ public class IoSession {
 	public void setReconnected(boolean reconnected) {
 		this.reconnected = reconnected;
 	}
-	
+
 	public Player getPlayer() {
 		return player;
 	}
@@ -90,7 +92,7 @@ public class IoSession {
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
-	
+
 	public IDispatch getDipatcher() {
 		return dipatcher;
 	}
@@ -98,7 +100,7 @@ public class IoSession {
 	public void bindDipatcher(IDispatch dipatcher) {
 		this.dipatcher = dipatcher;
 	}
-	
+
 	public void updateAttr(String key, Object value) {
 		this.attrs.put(key, value);
 	}
@@ -107,29 +109,29 @@ public class IoSession {
 		if (channel == null) {
 			return true;
 		}
-		return !channel.isActive() ||
-			   !channel.isOpen();
+		return !channel.isActive() || !channel.isOpen();
 	}
-	
+
 	/**
-	 * 关闭session 
+	 * 关闭session
+	 * 
 	 * @param reason {@link SessionCloseReason}
 	 */
 	public void close(SessionCloseReason reason) {
-		try{
+		try {
 			if (this.channel == null) {
 				return;
 			}
 			if (channel.isOpen()) {
 				channel.close();
 				logger.info("close session[{}], reason is {}", getPlayer().getId(), reason);
-			}else{
+			} else {
 				logger.info("session[{}] already close, reason is {}", getPlayer().getId(), reason);
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 		}
 	}
-	
+
 	/**
 	 * 匿名分发器，用于角色未登录
 	 */
@@ -144,7 +146,7 @@ public class IoSession {
 		public int dispatchLine() {
 			return 0;
 		}
-		
+
 	};
 
 }

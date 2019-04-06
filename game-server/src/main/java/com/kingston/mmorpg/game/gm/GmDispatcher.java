@@ -15,22 +15,21 @@ import com.kingston.mmorpg.game.scene.actor.Player;
 
 @Component
 public class GmDispatcher {
-	
-	
+
 	@Autowired()
 	@Qualifier("gameConversion")
 	private ConversionService conversionService;
-	
+
 	/** [methodName, CmdExecutor] */
 	private static final Map<String, CmdExecutor> GM_HANDLERS = new HashMap<>();
-	
+
 	public void registerHandler(String key, CmdExecutor executor) {
 		GM_HANDLERS.put(key, executor);
 	}
-	
+
 	public void dispatch(Player player, String[] args) {
 		String method = args[0];
-		
+
 		for (Map.Entry<String, CmdExecutor> entry : GM_HANDLERS.entrySet()) {
 			String targetMethod = entry.getKey();
 			if (method.equalsIgnoreCase(targetMethod)) {
@@ -59,13 +58,13 @@ public class GmDispatcher {
 			}
 		}
 	}
-	
+
 	private boolean isDynamicParams(Method method) {
 		int paramSum = method.getParameterCount();
 		if (paramSum <= 1) {
 			return false;
 		}
-		return method.getParameterTypes()[paramSum-1].isArray();
+		return method.getParameterTypes()[paramSum - 1].isArray();
 	}
 
 }

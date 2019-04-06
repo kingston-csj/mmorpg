@@ -63,7 +63,7 @@ public class ServerStartup implements CommandLineRunner {
 			}
 		});
 	}
-	
+
 	public void stop() {
 		try {
 			for (ServerNode node : servers) {

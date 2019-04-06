@@ -10,7 +10,7 @@ import io.netty.handler.timeout.IdleStateEvent;
 
 @Sharable
 public class IdleEventHandler extends ChannelDuplexHandler {
-	
+
 	@Override
 	public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
 		// 心跳包检测读超时

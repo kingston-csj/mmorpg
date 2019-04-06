@@ -25,7 +25,7 @@ public class ConfigSkillContainer implements Reloadable {
 	public void reload() {
 		skills = skillDao.findAll().stream().collect(Collectors.toMap(ConfigSkill::getId, Function.identity()));
 	}
-	
+
 	public ConfigSkill queryOne(Integer id) {
 		return skills.get(id);
 	}

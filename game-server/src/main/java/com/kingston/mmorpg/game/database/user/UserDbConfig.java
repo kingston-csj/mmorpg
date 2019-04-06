@@ -25,9 +25,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(entityManagerFactoryRef = "userEntityManagerFactory",
-	transactionManagerRef = "userTransactionManager", 
-	basePackages = {"com.kingston.mmorpg.game.database.user" })
+@EnableJpaRepositories(entityManagerFactoryRef = "userEntityManagerFactory", transactionManagerRef = "userTransactionManager", basePackages = {
+		"com.kingston.mmorpg.game.database.user" })
 public class UserDbConfig {
 
 	@Autowired
@@ -42,8 +41,7 @@ public class UserDbConfig {
 	@Bean(name = "userEntityManagerFactory")
 	public LocalContainerEntityManagerFactoryBean userEntityManagerFactory(EntityManagerFactoryBuilder builder) {
 		return builder.dataSource(userDataSource).properties(getVendorProperties(userDataSource))
-				.packages("com.kingston.mmorpg.game.database.user")
-				.persistenceUnit("userPersistenceUnit").build();
+				.packages("com.kingston.mmorpg.game.database.user").persistenceUnit("userPersistenceUnit").build();
 	}
 
 	@Autowired

@@ -20,88 +20,88 @@ import com.kingston.mmorpg.game.player.service.PlayerService;
 
 @Component
 public class SpringContext implements ApplicationContextAware {
-	
+
 	private static SpringContext self;
-	
+
 	/** spring容器上下文 */
 	private static ApplicationContext applicationContext = null;
-	
+
 	@PostConstruct
 	private void init() {
 		self = this;
 	}
-	
+
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		SpringContext.applicationContext = applicationContext;
 	}
-	
+
 	@Resource
 	private ServerConfig serverConfig;
-	
+
 	public final static ServerConfig getServerConfig() {
 		return self.serverConfig;
 	}
-	
+
 	@Resource
 	private AysncDbService aysncDbService;
-	
+
 	public final static AysncDbService getAysncDbService() {
 		return self.aysncDbService;
 	}
-	
+
 	@Resource
 	private SessionManager sessionManager;
-	
+
 	public final static SessionManager getSessionManager() {
 		return self.sessionManager;
 	}
-	
+
 	@Resource
 	private PlayerService playerService;
-	
+
 	public static PlayerService getPlayerService() {
 		return self.playerService;
 	}
-	
+
 	@Resource
 	private AccountService accountService;
-	
+
 	public static AccountService getAccountService() {
 		return self.accountService;
 	}
-	
+
 	@Resource
 	private SchedulerManager schedulerManager;
-	
+
 	public static SchedulerManager getSchedulerManager() {
 		return self.schedulerManager;
 	}
-	
+
 	@Autowired
 	private BuffService buffService;
-	
+
 	public static BuffService getBuffService() {
 		return self.buffService;
 	}
-	
+
 	@Autowired
 	private MessageDispatcher messageDispatcher;
-	
+
 	public static MessageDispatcher getMessageDispatcher() {
 		return self.messageDispatcher;
 	}
-	
+
 	public final static <T> T getBean(Class<T> clazz) {
 		return applicationContext.getBean(clazz);
 	}
-	
+
 	public final static <T> Collection<T> getBeansOfType(Class<T> clazz) {
 		return applicationContext.getBeansOfType(clazz).values();
 	}
-	
+
 	public final static <T> T getBean(String name, Class<T> requiredType) {
 		return applicationContext.getBean(name, requiredType);
 	}
-	
+
 }

@@ -2,17 +2,18 @@ package com.kingston.mmorpg.game.database.config.domain;
 
 /**
  * 地图资源
+ * 
  * @author kingston
  *
  */
 public class ConfigMap {
-	
+
 	private int id;
-	
+
 	private String name;
-	
+
 	private int width;
-	
+
 	private int height;
 
 	public int getId() {
@@ -46,5 +47,5 @@ public class ConfigMap {
 	public void setHeight(int height) {
 		this.height = height;
 	}
-	
+
 }

@@ -2,16 +2,16 @@ package com.kingston.mmorpg.game.database.user;
 
 import java.io.Serializable;
 
-
 @SuppressWarnings("serial")
 public abstract class GameObject implements Serializable {
 
 	/**
 	 * entity id
+	 * 
 	 * @return
 	 */
-	public abstract long getId() ;
-	
+	public abstract long getId();
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

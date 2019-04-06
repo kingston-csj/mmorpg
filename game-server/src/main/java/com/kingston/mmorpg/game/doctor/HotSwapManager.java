@@ -19,7 +19,7 @@ public class HotSwapManager {
 	private Logger logger = LoggerFactory.getLogger(HotSwapManager.class);
 
 	private static HotSwapManager self;
-	
+
 	private final String EXEC_SUCC = "热更成功";
 	private final String EXEC_FAILED = "热更失败";
 
@@ -36,11 +36,11 @@ public class HotSwapManager {
 		if ("Common".equalsIgnoreCase(fileName)) {
 			return hotSwapScript();
 		}
-		
+
 		if (reloadClass(fileName)) {
 			return EXEC_SUCC;
 		}
-		
+
 		return EXEC_FAILED;
 	}
 
@@ -65,8 +65,7 @@ public class HotSwapManager {
 	}
 
 	/**
-	 * 使用jdk instrument 来重新加载内存中的class
-	 * 你只能修改方法体的代码，而不能动态增删方法
+	 * 使用jdk instrument 来重新加载内存中的class 你只能修改方法体的代码，而不能动态增删方法
 	 * 
 	 * @param className
 	 * @return

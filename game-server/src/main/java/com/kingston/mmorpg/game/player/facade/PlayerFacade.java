@@ -11,7 +11,7 @@ import com.kingston.mmorpg.game.scene.actor.Player;
 
 @Controller
 public class PlayerFacade {
-	
+
 	@GmHandler(cmd = GmCommands.LEVEL)
 	public void gmSetLevel(Player player, int level) {
 		System.err.println("[gm]修改玩家等级为" + level);
@@ -19,5 +19,5 @@ public class PlayerFacade {
 		SpringContext.getPlayerService().savePlayer(player);
 		EventBus.getInstance().post(new PlayerLevelUpEvent(player));
 	}
-	
+
 }

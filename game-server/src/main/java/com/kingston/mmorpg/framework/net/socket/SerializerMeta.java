@@ -3,13 +3,13 @@ package com.kingston.mmorpg.framework.net.socket;
 import com.kingston.mmorpg.framework.net.socket.serializer.Serializer;
 
 public class SerializerMeta {
-	
+
 	private Serializer serializer;
-	
+
 	private Class<?> clazz;
-	
+
 	private int id;
-	
+
 	public SerializerMeta(Serializer serializer, Class<?> clazz, int id) {
 		super();
 		this.serializer = serializer;
@@ -40,5 +40,5 @@ public class SerializerMeta {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 }

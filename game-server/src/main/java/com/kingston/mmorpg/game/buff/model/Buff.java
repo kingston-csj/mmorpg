@@ -30,19 +30,18 @@ public abstract class Buff {
 		}
 		onStart();
 	}
-	
+
 	public void onStart() {
-		
+
 	}
 
 	public void registerTimeOutTask() {
 		cancleTimeOutTask();
-		timeOutTask = SpringContext.getSchedulerManager().schedule(
-			new Runnable() {
-					@Override
-					public void run() {
-						destroy();
-					}
+		timeOutTask = SpringContext.getSchedulerManager().schedule(new Runnable() {
+			@Override
+			public void run() {
+				destroy();
+			}
 		}, getDuration());
 	}
 
@@ -55,6 +54,7 @@ public abstract class Buff {
 
 	/**
 	 * 是否永久性buff
+	 * 
 	 * @return
 	 */
 	public boolean isPermanent() {

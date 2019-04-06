@@ -1,4 +1,4 @@
-package com.kingston.mmorpg.game.login;
+package com.kingston.mmorpg.game.login.facade;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,10 +16,10 @@ import com.kingston.mmorpg.game.scene.actor.Player;
 
 @Controller
 public class LoginFacade {
-	
+
 	@Autowired
 	private LoginService loginService;
-	
+
 	@RequestMapping
 	public void reqAccountLogin(IoSession session, ReqAccontLogin request) {
 		loginService.handleAccountLogin(session, request.getAccountId(), request.getPassword());
@@ -30,20 +30,18 @@ public class LoginFacade {
 		loginService.handleSelectPlayer(session, requst.getPlayerId());
 	}
 
-	
 	@RequestMapping
 	public void reqPlayerLogin(IoSession session, ReqPlayerLogin request) {
 		long playerId = request.getPlayerId();
 		System.out.println("角色[" + playerId + "]登录");
-		
+
 		session.sendPacket(new ResPlayerLogin());
-		
+
 		Player player = new Player();
 		player.setId(playerId);
 		session.setPlayer(player);
-		
+
 		EventBus.getInstance().post(new PlayerLoginEvent(player));
 	}
-	
 
 }
