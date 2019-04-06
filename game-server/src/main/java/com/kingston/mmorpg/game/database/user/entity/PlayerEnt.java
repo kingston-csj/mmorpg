@@ -6,11 +6,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
+import org.springframework.data.repository.CrudRepository;
+
+import com.kingston.mmorpg.game.base.SpringContext;
+import com.kingston.mmorpg.game.database.user.BaseEntity;
+import com.kingston.mmorpg.game.database.user.dao.PlayerDao;
 
 @Entity
 @Table(name = "PlayerEnt")
 @Proxy(lazy = false)
-public class PlayerEnt {
+public class PlayerEnt implements BaseEntity {
 	
 	@Id
 	@Column
@@ -58,6 +63,11 @@ public class PlayerEnt {
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+
+	@Override
+	public CrudRepository<PlayerEnt, Long> getCrudRepository() {
+		return SpringContext.getBean(PlayerDao.class);
 	}
 	
 }

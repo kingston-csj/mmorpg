@@ -1,8 +1,11 @@
 package com.kingston.mmorpg.game.scene.actor;
 
+import com.kingston.mmorpg.game.database.user.BaseEntity;
+import com.kingston.mmorpg.game.database.user.CrudEntity;
+import com.kingston.mmorpg.game.database.user.dao.PlayerDao;
 import com.kingston.mmorpg.game.database.user.entity.PlayerEnt;
 
-public class Player extends Creature {
+public class Player extends Creature implements CrudEntity {
 	
 	/**
 	 * 数据载体
@@ -19,10 +22,6 @@ public class Player extends Creature {
 		
 	}
 	
-	public PlayerEnt getPlayerEnt() {
-		return playerEnt;
-	}
-
 	public void setPlayerEnt(PlayerEnt playerEnt) {
 		this.playerEnt = playerEnt;
 	}
@@ -38,6 +37,16 @@ public class Player extends Creature {
 	@Override
 	public String toString() {
 		return "Player [hp=" + hp + ", attack=" + attack + "]";
+	}
+
+	@Override
+	public PlayerEnt getEntity() {
+		return playerEnt;
+	}
+
+	@Override
+	public Class<?> getDaoClass() {
+		return PlayerDao.class;
 	}
 	
 }

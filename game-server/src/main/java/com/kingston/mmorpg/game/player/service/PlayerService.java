@@ -66,9 +66,12 @@ public class PlayerService {
 		}
 	}
 	
+	/**
+	 * 保存玩家数据
+	 * @param player
+	 */
 	public void savePlayer(Player player) {
-		PlayerEnt playerEnt = player.getPlayerEnt();
-		playerDao.save(playerEnt);
+		SpringContext.getAysncDbService().add2Queue(player);
 	}
 
 	public ResPlayerLogin login(IoSession session, long playerId) {
