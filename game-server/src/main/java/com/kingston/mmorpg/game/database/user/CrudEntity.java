@@ -8,10 +8,4 @@ public interface CrudEntity {
 	 */
 	public abstract BaseEntity getEntity();
 	
-	/**
-	 * 返回dao对应到class
-	 * @return
-	 */
-	public abstract Class<?> getDaoClass();
-
 }

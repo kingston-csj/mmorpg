@@ -18,7 +18,6 @@ public class DataSourcesConfig {
 	@ConfigurationProperties(prefix = "spring.datasource.configdb")
 	public DataSource primaryDataSource() {
 		System.out.println("静态数据源建立链接");
-		
 		return DataSourceBuilder.create().build();
 	}
 

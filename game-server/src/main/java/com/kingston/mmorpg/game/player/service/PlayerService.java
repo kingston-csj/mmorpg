@@ -1,6 +1,7 @@
 package com.kingston.mmorpg.game.player.service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -14,9 +15,10 @@ import com.kingston.mmorpg.framework.net.socket.IoSession;
 import com.kingston.mmorpg.game.account.model.AccountProfile;
 import com.kingston.mmorpg.game.base.SpringContext;
 import com.kingston.mmorpg.game.database.user.dao.PlayerDao;
-import com.kingston.mmorpg.game.database.user.entity.Account;
+import com.kingston.mmorpg.game.database.user.entity.AccountEnt;
 import com.kingston.mmorpg.game.database.user.entity.PlayerEnt;
 import com.kingston.mmorpg.game.login.message.ResPlayerLogin;
+import com.kingston.mmorpg.game.logs.LoggerUtils;
 import com.kingston.mmorpg.game.player.model.PlayerProfile;
 import com.kingston.mmorpg.game.scene.actor.Player;
 
@@ -50,7 +52,11 @@ public class PlayerService {
 	private PlayerDao playerDao;
 
 	public void loadAllPlayerProfiles() {
-
+		List<PlayerProfile> allPlayers = playerDao.queryAllPlayers();
+		allPlayers.forEach(player -> {
+			playerProfiles.put(player.getPlayerId(), player);
+		});
+		LoggerUtils.error("加载玩家基本数据，总量为{}", allPlayers.size());
 	}
 
 	@Cacheable(cacheNames = "player")
@@ -71,7 +77,7 @@ public class PlayerService {
 	 * @param player
 	 */
 	public void savePlayer(Player player) {
-		SpringContext.getAysncDbService().add2Queue(player);
+		SpringContext.getAysncDbService().add2Queue(player.getEntity());
 	}
 
 	public ResPlayerLogin login(IoSession session, long playerId) {
@@ -83,13 +89,13 @@ public class PlayerService {
 	public Set<Long> getOnlienPlayers() {
 		return new HashSet<>(this.onlines);
 	}
-
+	
 	private void addPlayerProfile(PlayerProfile baseInfo) {
-		playerProfiles.put(baseInfo.getId(), baseInfo);
+		playerProfiles.put(baseInfo.getPlayerId(), baseInfo);
 
 		long accountId = baseInfo.getAccountId();
 		// 必须将account加载并缓存
-		Account account = SpringContext.getAccountService().getAccount(accountId);
+		AccountEnt account = SpringContext.getAccountService().getAccount(accountId);
 		accountProfiles.putIfAbsent(accountId, new AccountProfile());
 		AccountProfile accountProfile = accountProfiles.get(accountId);
 		accountProfile.addPlayerProfile(baseInfo);
@@ -100,7 +106,7 @@ public class PlayerService {
 		if (accountProfile != null) {
 			return accountProfile;
 		}
-		Account account = SpringContext.getAccountService().getAccount(accountId);
+		AccountEnt account = SpringContext.getAccountService().getAccount(accountId);
 		if (account != null) {
 			accountProfile = new AccountProfile();
 			accountProfile.setAccountId(accountId);
@@ -109,7 +115,7 @@ public class PlayerService {
 		return accountProfile;
 	}
 
-	public void addAccountProfile(Account account) {
+	public void addAccountProfile(AccountEnt account) {
 		long accountId = account.getId();
 		if (accountProfiles.containsKey(accountId)) {
 			throw new RuntimeException("账号重复-->" + accountId);

@@ -28,11 +28,14 @@ public class PlayerEnt implements BaseEntity {
 	private long accountId;
 	
 	@Column
+	private String name;
+	
+	@Column
 	private int level;
 	
 	@Column
 	private String data;
-
+	
 	public long getPlayerId() {
 		return playerId;
 	}
@@ -63,6 +66,14 @@ public class PlayerEnt implements BaseEntity {
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override

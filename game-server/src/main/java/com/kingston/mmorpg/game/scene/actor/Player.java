@@ -1,8 +1,6 @@
 package com.kingston.mmorpg.game.scene.actor;
 
-import com.kingston.mmorpg.game.database.user.BaseEntity;
 import com.kingston.mmorpg.game.database.user.CrudEntity;
-import com.kingston.mmorpg.game.database.user.dao.PlayerDao;
 import com.kingston.mmorpg.game.database.user.entity.PlayerEnt;
 
 public class Player extends Creature implements CrudEntity {
@@ -44,9 +42,4 @@ public class Player extends Creature implements CrudEntity {
 		return playerEnt;
 	}
 
-	@Override
-	public Class<?> getDaoClass() {
-		return PlayerDao.class;
-	}
-	
 }

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kingston.mmorpg.game.base.SpringContext;
 import com.kingston.mmorpg.game.database.user.dao.AccountDao;
-import com.kingston.mmorpg.game.database.user.entity.Account;
+import com.kingston.mmorpg.game.database.user.entity.AccountEnt;
 
 @Service
 public class AccountService {
@@ -16,16 +16,15 @@ public class AccountService {
 	private AccountDao accountDao;
 	
 	@Cacheable(cacheNames = "account")
-	public Account getAccount(long id) {
-		Account account = accountDao.getOne(id);
-		if (account != null) {
-			SpringContext.getPlayerService().addAccountProfile(account);
-		}
+	public AccountEnt getAccount(long id) {
+		AccountEnt account = accountDao.getOne(id);
 		return account;
 	}
 	
 	@CachePut(cacheNames = "account")
-	public Account createNew(Account account) {
+	public AccountEnt createNew(AccountEnt account) {
+		SpringContext.getPlayerService().addAccountProfile(account);
+		SpringContext.getAysncDbService().add2Queue(account);
 		return account;
 	}
 

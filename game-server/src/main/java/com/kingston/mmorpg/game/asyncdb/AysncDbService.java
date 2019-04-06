@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import com.kingston.mmorpg.common.util.BlockingUniqueQueue;
 import com.kingston.mmorpg.common.util.thread.NamedThreadFactory;
 import com.kingston.mmorpg.game.database.user.BaseEntity;
-import com.kingston.mmorpg.game.database.user.CrudEntity;
 import com.kingston.mmorpg.game.logs.LoggerUtils;
 
 /**
@@ -19,7 +18,7 @@ import com.kingston.mmorpg.game.logs.LoggerUtils;
 @Component
 public class AysncDbService {
 
-	private BlockingQueue<CrudEntity> queue = new BlockingUniqueQueue<>();
+	private BlockingQueue<BaseEntity> queue = new BlockingUniqueQueue<>();
 
 	private final AtomicBoolean run = new AtomicBoolean(true);
 
@@ -28,7 +27,7 @@ public class AysncDbService {
 		new NamedThreadFactory("db-save-service").newThread(new Worker()).start();
 	}
 
-	public void add2Queue(CrudEntity entity) {
+	public void add2Queue(BaseEntity entity) {
 		this.queue.add(entity);
 	}
 
@@ -36,10 +35,10 @@ public class AysncDbService {
 		@Override
 		public void run() {
 			while (run.get()) {
-				CrudEntity gameEntity = null;
+				BaseEntity gameEntity = null;
 				try {
 					gameEntity = queue.take();
-					saveToDb(gameEntity.getEntity());
+					saveToDb(gameEntity);
 				} catch (Exception e) {
 					LoggerUtils.error("", e);
 					// 有可能是并发抛错，重新放入队列

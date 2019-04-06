@@ -1,26 +1,29 @@
 package com.kingston.mmorpg.game.player.model;
 
 public class PlayerProfile {
-	
-private long id;
-	
+
+	private long playerId;
+
 	private long accountId;
 
 	private String name;
 
-	/**
-	 * 职业
-	 */
-	private int job;
-
 	private int level;
-
-	public long getId() {
-		return id;
+	
+	public PlayerProfile(long playerId, long accountId, String name, int level) {
+		super();
+		this.playerId = playerId;
+		this.accountId = accountId;
+		this.name = name;
+		this.level = level;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public long getPlayerId() {
+		return playerId;
+	}
+
+	public void setPlayerId(long id) {
+		this.playerId = id;
 	}
 
 	public long getAccountId() {
@@ -39,14 +42,6 @@ private long id;
 		this.name = name;
 	}
 
-	public int getJob() {
-		return job;
-	}
-
-	public void setJob(int job) {
-		this.job = job;
-	}
-
 	public int getLevel() {
 		return level;
 	}
@@ -57,7 +52,7 @@ private long id;
 
 	@Override
 	public String toString() {
-		return "PlayerBaseInfo [id=" + id + ", accountId=" + accountId + ", name=" + name + ", job=" + job + ", level="
+		return "PlayerBaseInfo [id=" + playerId + ", accountId=" + accountId + ", name=" + name  + ", level="
 				+ level + "]";
 	}
 

@@ -13,23 +13,23 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 
 public class ClientTransportHandler extends ChannelInboundHandlerAdapter {
 
-	public ClientTransportHandler(){
+	public ClientTransportHandler() {
 
 	}
 
 	@Override
-	public void channelActive(ChannelHandlerContext ctx){
+	public void channelActive(ChannelHandlerContext ctx) {
 		IoSession session = new IoSession(ctx.channel());
 		SessionManager.getInstance().registerSession(session);
-		
+
 		login();
 		selectedPlayer(10000L);
-		
+
 		ReqGmCommand reqGm = new ReqGmCommand();
 		reqGm.setParams("level 99");
 		SessionManager.getInstance().sendMessage(reqGm);
 	}
-	
+
 	public void createNew() {
 		ReqCreateNewPlayer req = new ReqCreateNewPlayer();
 		req.setName("Happy");
@@ -43,7 +43,6 @@ public class ClientTransportHandler extends ChannelInboundHandlerAdapter {
 		SessionManager.getInstance().sendMessage(req);
 	}
 
-
 	public void selectedPlayer(long playerId) {
 		ReqSelectPlayer req = new ReqSelectPlayer();
 		req.setPlayerId(playerId);
@@ -51,9 +50,8 @@ public class ClientTransportHandler extends ChannelInboundHandlerAdapter {
 	}
 
 	@Override
-	public void channelRead(ChannelHandlerContext ctx, Object msg)
-			throws Exception {
-		Message packet = (Message)msg;
+	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+		Message packet = (Message) msg;
 		System.err.println("收到响应-->" + packet);
 	}
 
@@ -63,13 +61,12 @@ public class ClientTransportHandler extends ChannelInboundHandlerAdapter {
 	}
 
 	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
-			throws Exception {
+	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
 		System.err.println("客户端关闭3");
 		Channel channel = ctx.channel();
 		cause.printStackTrace();
-		if(channel.isActive()){
-			System.err.println("simpleclient"+channel.remoteAddress()+"异常");
+		if (channel.isActive()) {
+			System.err.println("simpleclient" + channel.remoteAddress() + "异常");
 		}
 	}
 }

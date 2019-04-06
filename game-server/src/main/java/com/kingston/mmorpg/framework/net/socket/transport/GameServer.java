@@ -40,6 +40,8 @@ public class GameServer implements ServerNode {
 		
 		// 初始化协议表
 		MessageFactory.getInstance().init();
+		
+		SpringContext.getPlayerService().loadAllPlayerProfiles();
 	}
 
 	@Override
