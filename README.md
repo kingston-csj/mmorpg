@@ -38,7 +38,8 @@ gradle | 依赖管理及项目构建 | [https://gradle.org/](https://gradle.org/
 1. 使用git下载代码 git clone https://github.com/kingston-csj/mmorpg;  
 2. 将代码导入带有gradle插件的IDE;    
 3. 启动服务端，入口为ServerStartup类;  
-4. 启动客户端，入口为ClientStartup类;
+4. 启动客户端，入口为ClientStartup类;  
+注意：项目使用了lombok库，用于代码简写，开发环境需要下载对应插件，请自行百度
 
 
 欢迎star/fork，欢迎学习/使用，期待一起贡献代码！！

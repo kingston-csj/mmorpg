@@ -12,9 +12,12 @@ import com.kingston.mmorpg.game.base.SpringContext;
 import com.kingston.mmorpg.game.database.user.BaseEntity;
 import com.kingston.mmorpg.game.database.user.dao.PlayerDao;
 
+import lombok.Data;
+
 @Entity
 @Table(name = "PlayerEnt")
 @Proxy(lazy = false)
+@Data
 public class PlayerEnt implements BaseEntity {
 
 	@Id
@@ -35,46 +38,6 @@ public class PlayerEnt implements BaseEntity {
 
 	@Column
 	private String data;
-
-	public long getPlayerId() {
-		return playerId;
-	}
-
-	public void setPlayerId(long playerId) {
-		this.playerId = playerId;
-	}
-
-	public String getData() {
-		return data;
-	}
-
-	public void setData(String data) {
-		this.data = data;
-	}
-
-	public long getAccountId() {
-		return accountId;
-	}
-
-	public void setAccountId(long accountId) {
-		this.accountId = accountId;
-	}
-
-	public int getLevel() {
-		return level;
-	}
-
-	public void setLevel(int level) {
-		this.level = level;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	@Override
 	public CrudRepository<PlayerEnt, Long> getCrudRepository() {
