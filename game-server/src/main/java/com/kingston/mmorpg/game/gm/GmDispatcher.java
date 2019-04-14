@@ -10,7 +10,7 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Component;
 
 import com.kingston.mmorpg.framework.net.socket.message.CmdExecutor;
-import com.kingston.mmorpg.game.logs.LoggerUtils;
+import com.kingston.mmorpg.game.logger.LoggerUtils;
 import com.kingston.mmorpg.game.scene.actor.Player;
 
 @Component

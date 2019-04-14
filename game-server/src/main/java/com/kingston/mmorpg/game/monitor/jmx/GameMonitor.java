@@ -22,7 +22,7 @@ import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.stereotype.Component;
 
 import com.kingston.mmorpg.game.base.SpringContext;
-import com.kingston.mmorpg.game.logs.LoggerUtils;
+import com.kingston.mmorpg.game.logger.LoggerUtils;
 
 @Component
 @ManagedResource(objectName = "GameMXBean:name=gameMonitor")

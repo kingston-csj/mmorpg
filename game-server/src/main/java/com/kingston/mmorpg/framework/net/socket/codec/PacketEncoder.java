@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.kingston.mmorpg.framework.net.socket.MessageFactory;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
 import com.kingston.mmorpg.framework.net.socket.serializer.Serializer;
-import com.kingston.mmorpg.game.logs.LoggerUtils;
+import com.kingston.mmorpg.game.logger.LoggerUtils;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;

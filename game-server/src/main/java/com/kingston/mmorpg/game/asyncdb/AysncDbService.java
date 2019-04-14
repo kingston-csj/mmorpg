@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kingston.mmorpg.common.util.BlockingUniqueQueue;
 import com.kingston.mmorpg.common.util.thread.NamedThreadFactory;
 import com.kingston.mmorpg.game.database.user.BaseEntity;
-import com.kingston.mmorpg.game.logs.LoggerUtils;
+import com.kingston.mmorpg.game.logger.LoggerUtils;
 
 /**
  * 异步持久化服务
