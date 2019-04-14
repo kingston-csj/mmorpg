@@ -19,6 +19,8 @@ buildscript {
 dependencies {
 	compile(project(":game-common"))
 	
+	compile  'org.projectlombok:lombok:1.16.12'	
+	
 	compile 'com.google.code.gson:gson'
 
 	compile 'io.netty:netty-all'

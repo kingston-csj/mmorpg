@@ -69,6 +69,9 @@ configure(allprojects) { project ->
 
 
 	dependencies {
+	
+		compile  'org.projectlombok:lombok:1.16.12'	
+		
 		compile ("com.google.code.gson:gson:${gsonVersion}")
 
 		compile ("io.netty:netty-all:${nettyVersion}")
