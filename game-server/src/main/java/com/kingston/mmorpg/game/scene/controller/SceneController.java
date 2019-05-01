@@ -8,18 +8,34 @@ import com.kingston.mmorpg.game.scene.actor.SceneActor;
 public class SceneController {
 
 	public void onActorEnter(SceneActor actor) {
-		if (actor.getActorType() == ActorType.Player) {
+		if (actor.getType() == ActorType.Player) {
 			onPlayerEnter((Player) actor);
-		} else if (actor.getActorType() == ActorType.Monster) {
+		} else if (actor.getType() == ActorType.Monster) {
+			onMonsterEnter((Monster) actor);
+		}
+	}
+	
+	public void onActorLeave(SceneActor actor) {
+		if (actor.getType() == ActorType.Player) {
+			onPlayerEnter((Player) actor);
+		} else if (actor.getType() == ActorType.Monster) {
 			onMonsterEnter((Monster) actor);
 		}
 	}
 
-	public void onPlayerEnter(Player player) {
+	protected void onPlayerEnter(Player player) {
 
 	}
 
-	public void onMonsterEnter(Monster monster) {
+	protected void onMonsterEnter(Monster monster) {
+
+	}
+	
+	protected void onPlayerLeave(Player player) {
+
+	}
+
+	protected void onMonsterLeave(Monster monster) {
 
 	}
 

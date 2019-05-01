@@ -10,11 +10,6 @@ public class Player extends Creature implements CrudEntity {
 	 */
 	private PlayerEnt playerEnt;
 
-	public Player(long hp, int attack) {
-		setHp(hp);
-		setAttack(attack);
-	}
-
 	public Player() {
 
 	}
@@ -32,13 +27,13 @@ public class Player extends Creature implements CrudEntity {
 	}
 
 	@Override
-	public String toString() {
-		return "Player [hp=" + hp + ", attack=" + attack + "]";
-	}
-
-	@Override
 	public PlayerEnt getEntity() {
 		return playerEnt;
+	}
+	
+	@Override
+	public ActorType getType() {
+		return ActorType.Player;
 	}
 
 }

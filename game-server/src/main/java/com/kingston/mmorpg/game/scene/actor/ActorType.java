@@ -10,6 +10,8 @@ public enum ActorType {
 	Player,
 
 	Monster,
+	
+	Boss,
 
 	Npc,
 

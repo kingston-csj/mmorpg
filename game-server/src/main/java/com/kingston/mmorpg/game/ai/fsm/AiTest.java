@@ -1,14 +1,17 @@
-package com.kingston.mmorpg.game.ai;
+package com.kingston.mmorpg.game.ai.fsm;
 
 import com.kingston.mmorpg.game.scene.actor.Monster;
 import com.kingston.mmorpg.game.scene.actor.Player;
+import com.kingston.mmorpg.game.scene.model.Life;
 
 public class AiTest {
 
 	public static void main(String[] args) throws Exception {
-		Player player = new Player(100, 15);
-		Monster monster = new Monster(120, 10);
-
+		Player player = new Player();
+		player.setLife(new Life(150, 150));
+		Monster monster = new Monster();
+		monster.setLife(new Life(120, 120));
+		
 		Scene scene = new Scene();
 		scene.setPlayer(player);
 		scene.setMonster(monster);

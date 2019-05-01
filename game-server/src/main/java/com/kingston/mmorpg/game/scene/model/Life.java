@@ -9,6 +9,12 @@ public class Life {
 	private long currMp;
 
 	private long maxMp;
+	
+	public Life(long maxHp, long maxMp) {
+		super();
+		this.maxHp = maxHp;
+		this.maxMp = maxMp;
+	}
 
 	public long reduceHp(long changeValue) {
 		if (changeValue <= 0) {
@@ -47,6 +53,10 @@ public class Life {
 
 	public void setMaxMp(long maxMp) {
 		this.maxMp = maxMp;
+	}
+	
+	public boolean isDead() {
+		return this.currHp <= 0;
 	}
 
 }

@@ -1,7 +1,7 @@
-package com.kingston.mmorpg.game.ai;
+package com.kingston.mmorpg.game.ai.fsm;
 
-import com.kingston.mmorpg.game.ai.State;
-import com.kingston.mmorpg.game.ai.Transition;
+import com.kingston.mmorpg.game.ai.fsm.State;
+import com.kingston.mmorpg.game.ai.fsm.Transition;
 import com.kingston.mmorpg.game.scene.actor.Creature;
 import com.kingston.mmorpg.game.scene.actor.Monster;
 import com.kingston.mmorpg.game.scene.actor.Player;

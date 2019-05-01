@@ -1,4 +1,4 @@
-package com.kingston.mmorpg.game.ai;
+package com.kingston.mmorpg.game.ai.fsm;
 
 import com.kingston.mmorpg.game.scene.actor.Creature;
 import com.kingston.mmorpg.game.scene.actor.Player;
@@ -17,5 +17,5 @@ public class Patrol2AttackTransition extends Transition {
 
 		return !scene.getMonster().isDie();
 	}
-
+	
 }

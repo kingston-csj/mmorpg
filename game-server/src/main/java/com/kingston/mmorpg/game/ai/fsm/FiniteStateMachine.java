@@ -1,4 +1,4 @@
-package com.kingston.mmorpg.game.ai;
+package com.kingston.mmorpg.game.ai.fsm;
 
 import java.util.ArrayList;
 import java.util.HashMap;

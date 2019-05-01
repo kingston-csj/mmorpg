@@ -1,6 +1,7 @@
 package com.kingston.mmorpg.game.scene.actor;
 
-import com.kingston.mmorpg.game.ai.Scene;
+import com.kingston.mmorpg.game.attribute.AttributeContaniner;
+import com.kingston.mmorpg.game.attribute.AttributeType;
 import com.kingston.mmorpg.game.buff.model.BuffContainer;
 import com.kingston.mmorpg.game.scene.model.Life;
 
@@ -12,39 +13,41 @@ import com.kingston.mmorpg.game.scene.model.Life;
 public abstract class Creature extends SceneActor {
 
 	private BuffContainer buffContainer;
+	
+	private AttributeContaniner attrContainer = new AttributeContaniner();
 
 	private Life life;
 
-	protected long hp;
-
-	protected int attack;
-
 	public long getHp() {
-		return hp;
+		return life.getCurrHp();
 	}
-
-	public void setHp(long hp) {
-		this.hp = hp;
-	}
-
-	public void changeHp(long changeHp) {
-		this.hp += changeHp;
-	}
-
-	public int getAttack() {
-		return attack;
-	}
-
-	public void setAttack(int attack) {
-		this.attack = attack;
-	}
-
-	public boolean isDie() {
-		return this.hp <= 0;
+	
+	public long getAttack() {
+		return attrContainer.getAttrValue(AttributeType.Attack);
 	}
 
 	public BuffContainer getBuffContainer() {
 		return buffContainer;
+	}
+
+	public AttributeContaniner getAttrContainer() {
+		return attrContainer;
+	}
+
+	public void setAttrContainer(AttributeContaniner attrContainer) {
+		this.attrContainer = attrContainer;
+	}
+	
+	public Life getLife() {
+		return life;
+	}
+
+	public void setLife(Life life) {
+		this.life = life;
+	}
+
+	public void setBuffContainer(BuffContainer buffContainer) {
+		this.buffContainer = buffContainer;
 	}
 
 	public int dispatchMap() {
@@ -53,6 +56,10 @@ public abstract class Creature extends SceneActor {
 
 	public int dispatchLine() {
 		return lineId;
+	}
+	
+	public boolean isDie() {
+		return life.getCurrHp() <= 0;
 	}
 
 }

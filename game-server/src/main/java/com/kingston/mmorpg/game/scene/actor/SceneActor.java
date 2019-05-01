@@ -1,7 +1,7 @@
 package com.kingston.mmorpg.game.scene.actor;
 
 import com.kingston.mmorpg.framework.net.socket.task.IDispatch;
-import com.kingston.mmorpg.game.ai.Scene;
+import com.kingston.mmorpg.game.ai.fsm.Scene;
 
 /**
  * 场景里的各种演员
@@ -16,8 +16,6 @@ public abstract class SceneActor extends GameObject implements IDispatch {
 
 	private Scene scene;
 
-	private ActorType type;
-
 	@Override
 	public int dispatchMap() {
 		return mapId;
@@ -26,10 +24,6 @@ public abstract class SceneActor extends GameObject implements IDispatch {
 	@Override
 	public int dispatchLine() {
 		return lineId;
-	}
-
-	public ActorType getActorType() {
-		return type;
 	}
 
 	public Scene getScene() {
@@ -44,12 +38,6 @@ public abstract class SceneActor extends GameObject implements IDispatch {
 		this.id = id;
 	}
 
-	public ActorType getType() {
-		return type;
-	}
-
-	public void setType(ActorType type) {
-		this.type = type;
-	}
+	public abstract ActorType getType();
 
 }

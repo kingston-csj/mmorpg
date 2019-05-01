@@ -1,8 +1,8 @@
-package com.kingston.mmorpg.game.ai;
+package com.kingston.mmorpg.game.ai.fsm;
 
 import com.kingston.mmorpg.game.scene.actor.Creature;
 
-public class HierarchicalFiniteStateMachine extends FiniteStateMachine implements State {
+public class PatrolState implements State {
 
 	@Override
 	public void onEnter(Creature creature) {
@@ -18,7 +18,7 @@ public class HierarchicalFiniteStateMachine extends FiniteStateMachine implement
 
 	@Override
 	public void execute(Creature creature) {
-		// TODO Auto-generated method stub
+		System.err.println("大王叫我来寻山，寻完南山寻北山");
 	}
 
 }
