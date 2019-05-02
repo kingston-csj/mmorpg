@@ -1,4 +1,4 @@
-package com.kingston.mmorpg.game.scene.controller;
+package com.kingston.mmorpg.game.scene.director;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,7 +9,7 @@ import java.util.Set;
  * @author kingston
  *
  */
-public abstract class DefaultDungeonController extends SceneController {
+public abstract class BaseDungeonDirector extends SceneDirector {
 
 	protected Set<Long> histroyPlayerIds = new HashSet<>();
 

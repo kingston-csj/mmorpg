@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import com.kingston.mmorpg.game.database.config.domain.ConfigMap;
 import com.kingston.mmorpg.game.scene.actor.GameObject;
 import com.kingston.mmorpg.game.scene.actor.SceneActor;
-import com.kingston.mmorpg.game.scene.controller.SceneController;
+import com.kingston.mmorpg.game.scene.director.SceneDirector;
 
 public class Scene extends GameObject {
 
@@ -29,10 +29,11 @@ public class Scene extends GameObject {
 	/** 当前场景的动态阻挡 */
 	private Set<Integer> dynamicBlocks = new HashSet<>();
 	
-	private SceneController sceneController;
+	private SceneDirector sceneDirector;
 
-	public Scene() {
+	public Scene(WorldMap parent) {
 		this.id = idFactory.getAndIncrement();
+		this.parent = parent;
 	}
 
 	public void init() {
@@ -60,6 +61,10 @@ public class Scene extends GameObject {
 	public void closeDynamicBlocks(int blockId) {
 		this.dynamicBlocks.remove(blockId);
 	}
+	
+	public void tick() {
+		
+	}
 
 	@Override
 	public Long getId() {
@@ -67,11 +72,11 @@ public class Scene extends GameObject {
 	}
 	
 	public void actorEnter(SceneActor actor) {
-		sceneController.onActorEnter(actor);
+		sceneDirector.onActorEnter(actor);
 	}
 	
 	public void actorLeave(SceneActor actor) {
-		sceneController.onActorLeave(actor);
+		sceneDirector.onActorLeave(actor);
 	}
 
 }

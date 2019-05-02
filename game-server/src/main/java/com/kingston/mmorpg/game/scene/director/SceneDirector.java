@@ -1,11 +1,11 @@
-package com.kingston.mmorpg.game.scene.controller;
+package com.kingston.mmorpg.game.scene.director;
 
 import com.kingston.mmorpg.game.scene.actor.ActorType;
 import com.kingston.mmorpg.game.scene.actor.Monster;
 import com.kingston.mmorpg.game.scene.actor.Player;
 import com.kingston.mmorpg.game.scene.actor.SceneActor;
 
-public class SceneController {
+public class SceneDirector {
 
 	public void onActorEnter(SceneActor actor) {
 		if (actor.getType() == ActorType.Player) {
