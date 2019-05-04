@@ -1,11 +1,14 @@
 package com.kingston.mmorpg.game.database.config.domain;
 
+import lombok.Getter;
+
 /**
  * 地图资源
  * 
  * @author kingston
  *
  */
+@Getter
 public class ConfigMap {
 
 	private int id;
@@ -30,43 +33,5 @@ public class ConfigMap {
 	 * 最大分线数量
 	 */
 	private int maxLine;
-
-	public int getId() {
-		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-	
-	public int getWidth() {
-		return width;
-	}
-
-	public int getHeight() {
-		return height;
-	}
-
-	public byte getMapType() {
-		return mapType;
-	}
-
-	public int getCoreLine() {
-		return coreLine;
-	}
-
-	public void setCoreLine(int coreLine) {
-		this.coreLine = coreLine;
-	}
-
-	public int getMaxLine() {
-		return maxLine;
-	}
-
-	public void setMaxLine(int maxLine) {
-		this.maxLine = maxLine;
-	}
-	
-	
 
 }

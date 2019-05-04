@@ -4,7 +4,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import lombok.Getter;
+
 @Entity
+@Getter
 public class ConfigSkill {
 
 	@Id
@@ -22,21 +25,5 @@ public class ConfigSkill {
 	 */
 	@Column
 	private String effect;
-
-	public int getId() {
-		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public String getEffect() {
-		return effect;
-	}
-
-	public int getNeedLevel() {
-		return needLevel;
-	}
 
 }

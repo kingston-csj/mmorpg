@@ -128,3 +128,15 @@ CREATE TABLE `configmap` (
   `width` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- ----------------------------
+-- Table structure for configmap
+-- ----------------------------
+DROP TABLE IF EXISTS `configfunction`;
+CREATE TABLE `configfunction` (
+  `id` int(11) NOT NULL,
+  `openType` int(11) NOT NULL,
+  `openParams` varchar(64) DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
