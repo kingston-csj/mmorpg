@@ -136,7 +136,7 @@ public class AngleUtil {
             double realAngel = position2Angle(sourceX, sourceY, targetX, targetY);
 
             boolean across = minAngle > maxAngle;
-            return maxAngle >= realAngel && (realAngel >= minAngle || across);
+            return (maxAngle >= realAngel || across) && (realAngel >= minAngle || across);
         }
         return false;
     }
