@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 
 import com.kingston.mmorpg.framework.eventbus.EventBus;
 import com.kingston.mmorpg.framework.net.socket.IoSession;
-import com.kingston.mmorpg.framework.net.socket.annotation.RequestMapping;
+import com.kingston.mmorpg.framework.net.socket.annotation.MessageMapping;
 import com.kingston.mmorpg.game.login.message.ReqAccontLogin;
 import com.kingston.mmorpg.game.login.message.ReqPlayerLogin;
 import com.kingston.mmorpg.game.login.message.ResPlayerLogin;
@@ -20,17 +20,17 @@ public class LoginFacade {
 	@Autowired
 	private LoginService loginService;
 
-	@RequestMapping
+	@MessageMapping
 	public void reqAccountLogin(IoSession session, ReqAccontLogin request) {
 		loginService.handleAccountLogin(session, request.getAccountId(), request.getPassword());
 	}
 
-	@RequestMapping
+	@MessageMapping
 	public void reqSelectPlayer(IoSession session, ReqSelectPlayer requst) {
 		loginService.handleSelectPlayer(session, requst.getPlayerId());
 	}
 
-	@RequestMapping
+	@MessageMapping
 	public void reqPlayerLogin(IoSession session, ReqPlayerLogin request) {
 		long playerId = request.getPlayerId();
 		System.out.println("角色[" + playerId + "]登录");

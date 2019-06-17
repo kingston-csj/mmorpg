@@ -2,6 +2,8 @@ package com.kingston.mmorpg.framework.net.socket.task;
 
 import java.lang.reflect.Method;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -10,14 +12,16 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
+import com.kingston.mmorpg.framework.net.socket.annotation.MessageMapping;
 import com.kingston.mmorpg.framework.net.socket.annotation.MessageMeta;
-import com.kingston.mmorpg.framework.net.socket.annotation.RequestMapping;
 import com.kingston.mmorpg.framework.net.socket.message.CmdExecutor;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
 
 @Component
 public class MessageHandlerBeanPostProcessor implements BeanPostProcessor, ApplicationContextAware, Ordered {
 
+	private Logger logger = LoggerFactory.getLogger(getClass());
+	
 	@Autowired
 	private MessageDispatcher messageDispatcher;
 
@@ -27,13 +31,11 @@ public class MessageHandlerBeanPostProcessor implements BeanPostProcessor, Appli
 
 	@Override
 	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-		// 扫描所有controller的消息处理器
-
 		try {
 			Class<?> clz = bean.getClass();
 			Method[] methods = clz.getDeclaredMethods();
 			for (Method method : methods) {
-				RequestMapping mapperAnnotation = method.getAnnotation(RequestMapping.class);
+				MessageMapping mapperAnnotation = method.getAnnotation(MessageMapping.class);
 				if (mapperAnnotation != null) {
 					short[] meta = getMessageMeta(method);
 					if (meta == null) {
@@ -46,11 +48,11 @@ public class MessageHandlerBeanPostProcessor implements BeanPostProcessor, Appli
 					String key = buildKey(module, cmd);
 
 					CmdExecutor cmdExecutor = CmdExecutor.valueOf(method, method.getParameterTypes(), bean);
-
 					messageDispatcher.registerMethodInvoke(key, cmdExecutor);
 				}
 			}
 		} catch (Exception e) {
+			logger.error("", e);
 		}
 
 		return bean;
