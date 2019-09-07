@@ -1,24 +1,54 @@
-<configuration> 
-　　　<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender"> 
-　　　　　 <encoder> 
-　　　　　　　　　<pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern> 
-　　　　　 </encoder> 
-　　　</appender> 
+<configuration debug="false">
 
+	<contextName>Logback</contextName>
 
-	<appender name="info" class="ch.qos.logback.core.rolling.RollingFileAppender"> 
-　　　　　　　　　　　　<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> 
-　　　　　　　　　　　　　　<fileNamePattern>logs/game.log.%d{yyyy-MM-dd}</fileNamePattern> 
-　　　　　　　　　　　　　　<maxHistory>30</maxHistory> 
-　　　　　　　　　　　　</rollingPolicy> 
-　　　　　　　　　　　　<encoder> 
-　　　　　　　　　　　　　　<pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern> 
-　　　　　　　　　　　　</encoder> 
-　　　　　　　　　　</appender> 
+	<property name="LOG_HOME" value="log/"/>
 
+	<!-- 控制台输出 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<charset>UTF-8</charset>
+			<pattern>%d{HH:mm:ss:SSS} [%thread] %-5level (%logger{80}:%line\) -%msg%n</pattern>
+		</encoder>
+		<target>System.out</target>
+	</appender>
 
-　　　<root level="info"> 
-　　　　　　<appender-ref ref="STDOUT" /> 
-		<appender-ref ref="info" />
-　　　</root> 
+	<!-- 按照每天生成日志文件 -->
+	<appender name="ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!--日志文件输出的文件名 ,每天保存（侧翻）一次 -->
+			<FileNamePattern>${LOG_HOME}/%d{yyyy-MM-dd }.log</FileNamePattern>
+			<!--日志文件保留天数 -->
+			<MaxHistory>3</MaxHistory>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<charset>UTF-8</charset>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level (%logger{80}:%line\) -%msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="com" level="Warn">
+		<appender-ref ref="ROLLING_FILE"/>
+	</logger>
+
+	<appender name="exception" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_HOME}/exception/exception.log.%d{yyyy-MM-dd}</FileNamePattern>
+			<MaxHistory>10</MaxHistory>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<charset>UTF-8</charset>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level (%logger{80}:%line\) -%msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="EXCEPTION" level="error">
+		<appender-ref ref="exception"/>
+	</logger>
+
+	<!-- 全局，控制台遇到INFO及以上级别就进行输出 -->
+	<root level="Warn">
+		<appender-ref ref="STDOUT"/>
+	</root>
+
 </configuration>
