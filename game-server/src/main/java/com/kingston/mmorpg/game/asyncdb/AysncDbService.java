@@ -61,4 +61,28 @@ public class AysncDbService {
 			LoggerUtils.error("", e);
 		}
 	}
+
+	@PreDestroy
+	public void shutDown() {
+		run.getAndSet(false);
+		for (;;) {
+			if (!queue.isEmpty()) {
+				saveAllBeforeShutDown();
+			} else {
+				break;
+			}
+		}
+		LoggerUtils.error("[db4Player] 执行全部命令后关闭");
+	}
+
+	private void saveAllBeforeShutDown() {
+		while (!queue.isEmpty()) {
+			Iterator<Role> it = queue.iterator();
+			while (it.hasNext()) {
+				Role player = it.next();
+				it.remove();
+				saveToDb(player);
+			}
+		}
+	}
 }
