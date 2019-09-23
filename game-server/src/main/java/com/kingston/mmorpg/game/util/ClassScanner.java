@@ -98,7 +98,8 @@ public class ClassScanner {
 						// 忽略内部类
 						continue;
 					}
-					Class<?> clazz = Class.forName(clazzName);
+//					Class<?> clazz = Class.forName(clazzName);
+					Class<?> clazz = Thread.currentThread().getContextClassLoader().loadClass(clazzName);
 					if (filter.test(clazz)) {
 						result.add(clazz);
 					}
