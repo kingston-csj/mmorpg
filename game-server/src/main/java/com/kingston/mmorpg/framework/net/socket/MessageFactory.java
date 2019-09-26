@@ -43,6 +43,9 @@ public class MessageFactory {
 				MessageMeta mapperAnnotation = msgClz.getAnnotation(MessageMeta.class);
 				if (mapperAnnotation != null) {
 					short cmdMeta = mapperAnnotation.cmd();
+					if (Math.abs(cmdMeta) >= 100) {
+						throw new RuntimeException("abs(cmd) must less than 100, target " + msgClz.getSimpleName());
+					}
 					short key = (short)(Math.abs(module) * 100 + cmdMeta);
 					if (module < 0) {
 						key = (short) (0 - key);
