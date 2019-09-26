@@ -1,4 +1,4 @@
-package com.kingston.mmorpg.game.login.service;
+package com.kingston.mmorpg.game.player.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +12,9 @@ import com.kingston.mmorpg.game.account.AccountService;
 import com.kingston.mmorpg.game.account.model.AccountProfile;
 import com.kingston.mmorpg.game.base.SpringContext;
 import com.kingston.mmorpg.game.database.user.entity.AccountEnt;
-import com.kingston.mmorpg.game.login.message.vo.PlayerLoginVo;
-import com.kingston.mmorpg.game.login.message.vo.ResAccountLogin;
+import com.kingston.mmorpg.game.player.message.ResAccountLogin;
+import com.kingston.mmorpg.game.player.message.vo.PlayerLoginVo;
 import com.kingston.mmorpg.game.player.model.PlayerProfile;
-import com.kingston.mmorpg.game.player.service.PlayerService;
 import com.kingston.mmorpg.game.scene.actor.Player;
 
 @Service

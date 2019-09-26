@@ -28,22 +28,18 @@ public class PacketEncoder extends MessageToByteEncoder<Message> {
 
 	private void _encode(ChannelHandlerContext ctx, Message message, ByteBuf out) throws Exception {
 		// ----------------消息协议格式-------------------------
-		// packetLength | moduleId | cmd | body
-		// short short short byte[]
+		// packetLength |cmd   | body
+		// short         short    byte[]
 		// 其中 packetLength长度占2位，由编码链 LengthFieldPrepender(2) 提供
 
-		short module = message.getModule();
-		short cmd = message.getCmd();
-		// 写入module类型
-		out.writeShort(module);
+		short cmd = (short)MessageFactory.getInstance().getMessageId(message.getClass());
 		// 写入cmd类型
 		out.writeShort(cmd);
-		Class<?> msgClazz = MessageFactory.getInstance().getMessageMeta(module, cmd);
 		try {
-			Serializer messageCodec = Serializer.getSerializer(msgClazz);
+			Serializer messageCodec = Serializer.getSerializer(message.getClass());
 			messageCodec.encode(out, message);
 		} catch (Exception e) {
-			LoggerUtils.error("读取消息出错,模块号{}，类型{},异常{}", new Object[] { module, cmd, e });
+			LoggerUtils.error("读取消息出错,协议号{}}异常{}", new Object[] {cmd, e });
 		}
 	}
 

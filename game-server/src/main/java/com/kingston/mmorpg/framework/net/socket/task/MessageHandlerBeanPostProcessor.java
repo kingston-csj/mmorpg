@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.kingston.mmorpg.framework.net.socket.annotation.MessageMapping;
 import com.kingston.mmorpg.framework.net.socket.annotation.MessageMeta;
+import com.kingston.mmorpg.framework.net.socket.annotation.ModuleMeta;
 import com.kingston.mmorpg.framework.net.socket.message.CmdExecutor;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
 
@@ -21,7 +22,7 @@ import com.kingston.mmorpg.framework.net.socket.message.Message;
 public class MessageHandlerBeanPostProcessor implements BeanPostProcessor, ApplicationContextAware, Ordered {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
-	
+
 	@Autowired
 	private MessageDispatcher messageDispatcher;
 
@@ -33,19 +34,22 @@ public class MessageHandlerBeanPostProcessor implements BeanPostProcessor, Appli
 	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
 		try {
 			Class<?> clz = bean.getClass();
+			ModuleMeta moduleMeta = clz.getAnnotation(ModuleMeta.class);
+			if (moduleMeta == null) {
+				return bean;
+			}
+			short module = moduleMeta.module();
 			Method[] methods = clz.getDeclaredMethods();
 			for (Method method : methods) {
 				MessageMapping mapperAnnotation = method.getAnnotation(MessageMapping.class);
 				if (mapperAnnotation != null) {
-					short[] meta = getMessageMeta(method);
-					if (meta == null) {
+					short cmdMeta = getMessageMeta(method);
+					if (cmdMeta <= 0) {
 						throw new RuntimeException(
 								String.format("controller[%s] method[%s] lack of RequestMapping annotation",
 										clz.getName(), method.getName()));
 					}
-					short module = meta[0];
-					short cmd = meta[1];
-					String key = buildKey(module, cmd);
+					short key = buildKey(module, cmdMeta);
 
 					CmdExecutor cmdExecutor = CmdExecutor.valueOf(method, method.getParameterTypes(), bean);
 					messageDispatcher.registerMethodInvoke(key, cmdExecutor);
@@ -64,21 +68,24 @@ public class MessageHandlerBeanPostProcessor implements BeanPostProcessor, Appli
 	 * @param method
 	 * @return
 	 */
-	private short[] getMessageMeta(Method method) {
+	private short getMessageMeta(Method method) {
 		for (Class<?> paramClazz : method.getParameterTypes()) {
 			if (Message.class.isAssignableFrom(paramClazz)) {
 				MessageMeta protocol = paramClazz.getAnnotation(MessageMeta.class);
 				if (protocol != null) {
-					short[] meta = { protocol.module(), protocol.cmd() };
-					return meta;
+					return protocol.cmd();
 				}
 			}
 		}
-		return null;
+		return 0;
 	}
 
-	private String buildKey(short module, short cmd) {
-		return module + "_" + cmd;
+	private short buildKey(short module, short cmd) {
+		short key = (short)(Math.abs(module) * 100 + cmd);
+		if (module < 0) {
+			key = (short) (0 - key);
+		}
+		return key;
 	}
 
 	@Override

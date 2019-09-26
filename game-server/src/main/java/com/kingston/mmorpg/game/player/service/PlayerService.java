@@ -18,7 +18,7 @@ import com.kingston.mmorpg.game.database.user.dao.PlayerDao;
 import com.kingston.mmorpg.game.database.user.entity.AccountEnt;
 import com.kingston.mmorpg.game.database.user.entity.PlayerEnt;
 import com.kingston.mmorpg.game.logger.LoggerUtils;
-import com.kingston.mmorpg.game.login.message.ResPlayerLogin;
+import com.kingston.mmorpg.game.player.message.ResPlayerLogin;
 import com.kingston.mmorpg.game.player.model.PlayerProfile;
 import com.kingston.mmorpg.game.scene.actor.Player;
 
@@ -33,9 +33,9 @@ public class PlayerService {
 
 	public static final short CMD_REQ_SELECT_PLAYER = 4;
 
-	public static final short CMD_RES_ACCOUNT_LOGIN = 201;
+	public static final short CMD_RES_ACCOUNT_LOGIN = 51;
 
-	public static final short CMD_RES_LOGIN = 202;
+	public static final short CMD_RES_LOGIN = 52;
 
 	/**
 	 * 在线玩家列表

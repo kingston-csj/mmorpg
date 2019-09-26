@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.kingston.mmorpg.framework.net.socket.IoSession;
+import com.kingston.mmorpg.framework.net.socket.MessageFactory;
 import com.kingston.mmorpg.framework.net.socket.message.CmdExecutor;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
 import com.kingston.mmorpg.game.base.SpringContext;
@@ -17,10 +18,10 @@ public class MessageDispatcher {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
-	/** [module_cmd, CmdExecutor] */
-	private static final Map<String, CmdExecutor> MODULE_CMD_HANDLERS = new HashMap<>();
+	/** [module*100+cmd, CmdExecutor] */
+	private static final Map<Short, CmdExecutor> MODULE_CMD_HANDLERS = new HashMap<>();
 
-	public void registerMethodInvoke(String key, CmdExecutor executor) {
+	public void registerMethodInvoke(short key, CmdExecutor executor) {
 		if (MODULE_CMD_HANDLERS.containsKey(key)) {
 			throw new RuntimeException(String.format("module[%s] duplicated", key));
 		}
@@ -34,12 +35,11 @@ public class MessageDispatcher {
 	 * @param message
 	 */
 	public void dispatch(IoSession session, Message message) {
-		short module = message.getModule();
-		short cmd = message.getCmd();
+		short cmd = MessageFactory.getInstance().getMessageId(message.getClass());
 
-		CmdExecutor cmdExecutor = MODULE_CMD_HANDLERS.get(buildKey(module, cmd));
+		CmdExecutor cmdExecutor = MODULE_CMD_HANDLERS.get(cmd);
 		if (cmdExecutor == null) {
-			logger.error("message executor missed, module={},cmd={}", module, cmd);
+			logger.error("message executor missed, cmd={}", cmd);
 			return;
 		}
 
@@ -78,8 +78,5 @@ public class MessageDispatcher {
 		return result;
 	}
 
-	private String buildKey(short module, short cmd) {
-		return module + "_" + cmd;
-	}
 
 }

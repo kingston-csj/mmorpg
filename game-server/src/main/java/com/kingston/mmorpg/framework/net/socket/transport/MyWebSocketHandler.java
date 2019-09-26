@@ -27,10 +27,8 @@ public class MyWebSocketHandler extends SimpleChannelInboundHandler<TextWebSocke
 		System.out.println(channel.remoteAddress() + ": " + msg.text());
 		WebSocketFrame frame = new Gson().fromJson(msg.text(), WebSocketFrame.class);
 
-		String[] meta = frame.getId().split("_");
-		short module = Short.valueOf(meta[0]);
-		short cmd = Short.valueOf(meta[1]);
-		Class<?> clazz = MessageFactory.getInstance().getMessageMeta(module, cmd);
+		short cmd = Short.valueOf( frame.getId());
+		Class<?> clazz = MessageFactory.getInstance().getMessageMeta(cmd);
 		Message message = (Message) new Gson().fromJson(frame.getMsg(), clazz);
 		System.err.println(message);
 

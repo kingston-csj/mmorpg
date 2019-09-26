@@ -1,16 +1,56 @@
 package com.kingston.mmorpg.game.player.facade;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.kingston.mmorpg.framework.eventbus.EventBus;
+import com.kingston.mmorpg.framework.net.socket.IoSession;
+import com.kingston.mmorpg.framework.net.socket.annotation.MessageMapping;
+import com.kingston.mmorpg.framework.net.socket.annotation.ModuleMeta;
+import com.kingston.mmorpg.game.Modules;
 import com.kingston.mmorpg.game.base.SpringContext;
 import com.kingston.mmorpg.game.gm.GmCommands;
 import com.kingston.mmorpg.game.gm.GmHandler;
 import com.kingston.mmorpg.game.player.event.PlayerLevelUpEvent;
+import com.kingston.mmorpg.game.player.event.PlayerLoginEvent;
+import com.kingston.mmorpg.game.player.message.ReqAccontLogin;
+import com.kingston.mmorpg.game.player.message.ReqPlayerLogin;
+import com.kingston.mmorpg.game.player.message.ReqSelectPlayer;
+import com.kingston.mmorpg.game.player.message.ResPlayerLogin;
+import com.kingston.mmorpg.game.player.service.LoginService;
 import com.kingston.mmorpg.game.scene.actor.Player;
 
 @Controller
+@ModuleMeta(module = Modules.PLAYER)
 public class PlayerFacade {
+	
+	
+	@Autowired
+	private LoginService loginService;
+
+	@MessageMapping
+	public void reqAccountLogin(IoSession session, ReqAccontLogin request) {
+		loginService.handleAccountLogin(session, request.getAccountId(), request.getPassword());
+	}
+
+	@MessageMapping
+	public void reqSelectPlayer(IoSession session, ReqSelectPlayer requst) {
+		loginService.handleSelectPlayer(session, requst.getPlayerId());
+	}
+
+	@MessageMapping
+	public void reqPlayerLogin(IoSession session, ReqPlayerLogin request) {
+		long playerId = request.getPlayerId();
+		System.out.println("角色[" + playerId + "]登录");
+
+		session.sendPacket(new ResPlayerLogin());
+
+		Player player = new Player();
+		player.setId(playerId);
+		session.setPlayer(player);
+
+		EventBus.getInstance().post(new PlayerLoginEvent(player));
+	}
 
 	@GmHandler(cmd = GmCommands.LEVEL)
 	public void gmSetLevel(Player player, int level) {

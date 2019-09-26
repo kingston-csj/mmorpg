@@ -24,27 +24,26 @@ public class PacketDecoder extends LengthFieldBasedFrameDecoder {
 		}
 
 		// ----------------消息协议格式-------------------------
-		// packetLength | moduleId | cmd | body
-		// short short short byte[]
+		// packetLength | cmd   | body
+		// short          short    byte  []
 		// 其中 packetLength长度占2位，被上层父类LengthFieldBasedFrameDecoder消费了
 		// @see new PacketDecoder(1024 * 10, 0, 2, 0, 2)
 		if (frame.readableBytes() <= 4)
 			return null;
 
-		short module = frame.readShort();
 		short cmd = frame.readShort();
 
-		return readMessage(module, cmd, frame);
+		return readMessage(cmd, frame);
 	}
 
-	private Message readMessage(short module, short cmd, ByteBuf in) {
-		Class<?> msgClazz = MessageFactory.getInstance().getMessageMeta(module, cmd);
+	private Message readMessage(short cmd, ByteBuf in) {
+		Class<?> msgClazz = MessageFactory.getInstance().getMessageMeta(cmd);
 		try {
 			Serializer messageCodec = Serializer.getSerializer(msgClazz);
 			Message message = (Message) messageCodec.decode(in, msgClazz);
 			return message;
 		} catch (Exception e) {
-			LoggerUtils.error("读取消息出错,模块号{}，类型{},异常{}", new Object[] { module, cmd, e });
+			LoggerUtils.error("读取消息出错,协议号{},异常{}", new Object[] {cmd, e });
 			// 消息不往下传，手动释放下引用
 			ReferenceCountUtil.release(in);
 		}

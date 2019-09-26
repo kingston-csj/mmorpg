@@ -5,11 +5,14 @@ import org.springframework.stereotype.Controller;
 
 import com.kingston.mmorpg.framework.net.socket.IoSession;
 import com.kingston.mmorpg.framework.net.socket.annotation.MessageMapping;
+import com.kingston.mmorpg.framework.net.socket.annotation.ModuleMeta;
+import com.kingston.mmorpg.game.Modules;
 import com.kingston.mmorpg.game.gm.GmDispatcher;
 import com.kingston.mmorpg.game.gm.message.ReqGmCommand;
 import com.kingston.mmorpg.game.scene.actor.Player;
 
 @Controller
+@ModuleMeta(module = Modules.GM)
 public class GmFacade {
 
 	@Autowired

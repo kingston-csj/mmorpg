@@ -2,20 +2,18 @@ package com.kingston.mmorpg.game;
 
 public interface Modules {
 
-	// ------------------底层功能支持模块（从0到100）-----------------
-	int GM = 1;
+	// ------------------底层功能支持模块（-128 ~ -1）-----------------
+	int GM = -1;
 
-	// ------------------业务功能模块（101开始）---------------------
+	// ------------------业务功能模块（1~127）---------------------
 
-	/** 登录 */
-	int LOGIN = 101;
 	/** 玩家 */
-	int PLAYER = 102;
+	byte PLAYER = 1;
 	/** 场景 */
-	int SCENE = 103;
+	byte SCENE = 2;
 	/** 活动 */
-	int ACTIVITY = 104;
+	byte ACTIVITY = 3;
 	/** 技能 */
-	int SKILL = 105;
+	byte SKILL = 4;
 
 }

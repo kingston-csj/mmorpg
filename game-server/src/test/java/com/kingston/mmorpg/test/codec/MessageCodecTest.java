@@ -9,7 +9,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.kingston.mmorpg.framework.net.socket.MessageFactory;
-import com.kingston.mmorpg.framework.net.socket.annotation.MessageMeta;
 import com.kingston.mmorpg.framework.net.socket.serializer.Serializer;
 
 import io.netty.buffer.ByteBuf;
@@ -43,13 +42,10 @@ public class MessageCodecTest {
 
 		MessageFactory.getInstance().writeMessage(buf, oldMsg);
 
-		MessageMeta annotation = oldMsg.getClass().getAnnotation(MessageMeta.class);
-		short module = annotation.module();
-		short cmd = annotation.cmd();
-		buf.readShort();
+		short cmd = MessageFactory.getInstance().getMessageId(oldMsg.getClass());
 		buf.readShort();
 
-		Class<?> clazz = MessageFactory.getInstance().getMessageMeta(module, cmd);
+		Class<?> clazz = MessageFactory.getInstance().getMessageMeta(cmd);
 
 		Serializer serializer = Serializer.getSerializer(ReqSelectePlayer.class);
 

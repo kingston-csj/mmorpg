@@ -1,4 +1,4 @@
-package com.kingston.mmorpg.game.login.message.vo;
+package com.kingston.mmorpg.game.player.message.vo;
 
 public class PlayerLoginVo {
 

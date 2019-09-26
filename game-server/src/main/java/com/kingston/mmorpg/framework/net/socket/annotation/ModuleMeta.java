@@ -8,18 +8,13 @@ import java.lang.annotation.Target;
 
 import org.springframework.stereotype.Component;
 
-/**
- * The annotation type is used in {@link Message com.kingston.net.Message} to
- * specify module and cmd of the given message.
- * 
- * @author kingston
- */
 @Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Component
-public @interface MessageMeta {
-
-	byte cmd() default 0;
+public @interface ModuleMeta {
+	
+	
+	byte module() default 0;
 
 }

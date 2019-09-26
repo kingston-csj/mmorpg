@@ -1,9 +1,11 @@
 package com.kingston.mmorpg.game.asyncdb;
 
+import java.util.Iterator;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 import org.springframework.stereotype.Service;
 
@@ -77,11 +79,11 @@ public class AysncDbService {
 
 	private void saveAllBeforeShutDown() {
 		while (!queue.isEmpty()) {
-			Iterator<Role> it = queue.iterator();
+			Iterator<BaseEntity> it = queue.iterator();
 			while (it.hasNext()) {
-				Role player = it.next();
+				BaseEntity ent = it.next();
 				it.remove();
-				saveToDb(player);
+				saveToDb(ent);
 			}
 		}
 	}

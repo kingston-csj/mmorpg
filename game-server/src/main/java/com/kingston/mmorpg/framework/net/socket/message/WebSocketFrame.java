@@ -1,6 +1,7 @@
 package com.kingston.mmorpg.framework.net.socket.message;
 
 import com.google.gson.Gson;
+import com.kingston.mmorpg.framework.net.socket.MessageFactory;
 
 public class WebSocketFrame {
 
@@ -14,7 +15,7 @@ public class WebSocketFrame {
 
 	public static WebSocketFrame valueOf(Message message) {
 		WebSocketFrame frame = new WebSocketFrame();
-		frame.id = message.getModule() + "_" + message.getCmd();
+		frame.id = "" + MessageFactory.getInstance().getMessageId(message.getClass());
 		frame.msg = new Gson().toJson(message);
 		return frame;
 	}

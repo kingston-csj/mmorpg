@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.kingston.mmorpg.framework.net.socket.annotation.MessageMeta;
+import com.kingston.mmorpg.framework.net.socket.annotation.ModuleMeta;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
 import com.kingston.mmorpg.framework.net.socket.serializer.ByteBuffUtils;
 import com.kingston.mmorpg.framework.net.socket.serializer.Serializer;
@@ -16,9 +17,9 @@ public class MessageFactory {
 
 	private static MessageFactory instance = new MessageFactory();
 
-	private Map<Integer, Class<? extends Message>> id2Clazz = new HashMap<>();
+	private Map<Short, Class<? extends Message>> id2Clazz = new HashMap<>();
 
-	private Map<Class<?>, Integer> clazz2Id = new HashMap<>();
+	private Map<Class<?>, Short> clazz2Id = new HashMap<>();
 
 	public static MessageFactory getInstance() {
 		return instance;
@@ -26,19 +27,34 @@ public class MessageFactory {
 
 	@SuppressWarnings("unchecked")
 	public void init() {
-		Set<Class<?>> messages = ClassScanner.listAllSubclasses("com.kingston.mmorpg", Message.class);
+		Set<Class<?>> messages = ClassScanner.listClassesWithAnnotation("com.kingston.mmorpg", ModuleMeta.class);
 		for (Class<?> clazz : messages) {
-			MessageMeta meta = clazz.getAnnotation(MessageMeta.class);
+			ModuleMeta meta = clazz.getAnnotation(ModuleMeta.class);
 			if (meta == null) {
 				throw new RuntimeException("messages[" + clazz.getSimpleName() + "] missed MessageMeta annotation");
 			}
-			Integer key = buildKey(meta.module(), meta.cmd());
-			if (id2Clazz.containsKey(key)) {
-				throw new RuntimeException("message meta [" + key + "] duplicate！！");
+			byte module = meta.module();
+			
+			// facade层所在包名的上一层
+			int prevPacketNameIndex = clazz.getPackage().getName().lastIndexOf(".");
+			String packetName = clazz.getPackage().getName().substring(0, prevPacketNameIndex);
+			Set<Class<?>> msgClazzs = ClassScanner.listAllSubclasses(packetName, Message.class);
+			for (Class<?> msgClz : msgClazzs) {
+				MessageMeta mapperAnnotation = msgClz.getAnnotation(MessageMeta.class);
+				if (mapperAnnotation != null) {
+					short cmdMeta = mapperAnnotation.cmd();
+					short key = (short)(Math.abs(module) * 100 + cmdMeta);
+					if (module < 0) {
+						key = (short) (0 - key);
+					}
+					if (id2Clazz.containsKey(key)) {
+						throw new RuntimeException("message meta [" + key + "] duplicate！！");
+					}
+					clazz2Id.put(msgClz, key);
+					id2Clazz.put(key, (Class<? extends Message>) msgClz);
+					Serializer.registerClass(msgClz, key);
+				}
 			}
-			clazz2Id.put(clazz, key);
-			id2Clazz.put(key, (Class<? extends Message>) clazz);
-			Serializer.registerClass(clazz, key);
 		}
 	}
 
@@ -49,16 +65,15 @@ public class MessageFactory {
 	 * @param cmd
 	 * @return
 	 */
-	public Class<? extends Message> getMessageMeta(short module, short cmd) {
-		Integer key = buildKey(module, cmd);
-		return getMessageMeta(key);
+	public Class<? extends Message> getMessageMeta(short cmd) {
+		return id2Clazz.get(cmd);
 	}
 
-	public Class<? extends Message> getMessageMeta(Integer key) {
-		return id2Clazz.get(key);
-	}
 
-	public int getMessageId(Class<?> clazz) {
+	public short getMessageId(Class<?> clazz) {
+		if (clazz == null  || !clazz2Id.containsKey(clazz)) {
+			System.err.print("message null");
+		}
 		return clazz2Id.get(clazz);
 	}
 
@@ -69,19 +84,11 @@ public class MessageFactory {
 
 	public void writeMessage(ByteBuf out, Message message) throws Exception {
 		Class<?> clazz = message.getClass();
-		MessageMeta annotation = clazz.getAnnotation(MessageMeta.class);
-		short module = annotation.module();
-		short cmd = annotation.cmd();
-		out.writeShort(module);
+		short cmd = clazz2Id.get(clazz);
 		out.writeShort(cmd);
 
 		Serializer serializer = Serializer.getSerializer(message.getClass());
 		serializer.encode(out, message);
-	}
-
-	private int buildKey(short module, short cmd) {
-		int key = module * 10000 + cmd;
-		return key;
 	}
 
 }
