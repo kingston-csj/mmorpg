@@ -1,15 +1,79 @@
 package com.kingston.mmorpg.game.base;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+
+import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Component;
 
+import com.kingston.mmorpg.game.logger.LoggerUtils;
+import com.kingston.mmorpg.game.util.NamedThreadFactory;
+
 @Component
-public final class SchedulerManager {
+public class SchedulerManager {
 
-	public ScheduledFuture<?> schedule(Runnable task, long delay) {
+    private static SchedulerManager instance;
 
-		return null;
-	}
+    private ScheduledExecutorService service;
+
+
+    public static SchedulerManager getInstance() {
+        return instance;
+    }
+
+    @PostConstruct
+    private void init() {
+        service = Executors.newScheduledThreadPool(2,new NamedThreadFactory("common-scheduler"));
+        instance = this;
+    }
+
+    /**
+     * @param command
+     * @param initialDelay 毫秒数
+     * @param period       毫秒数
+     * @return
+     */
+    public ScheduledFuture<?> scheduleAtFixedRate(Runnable command,
+                                                  long initialDelay, long period) {
+        return service.scheduleAtFixedRate(new LogTask(command), initialDelay, period, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * @param command
+     * @param delay   延迟毫秒数
+     * @return
+     */
+    public ScheduledFuture<?> schedule(Runnable command,
+                                       long delay) {
+        return service.schedule(new LogTask(command), delay, TimeUnit.MILLISECONDS);
+    }
+
+    public void shutDown() {
+        service.shutdown();
+        service.shutdownNow();
+        LoggerUtils.error("定时器关闭结束");
+    }
+
+
+    private static class LogTask implements Runnable {
+
+        Runnable wrapper;
+
+        public LogTask(Runnable wrapper) {
+            this.wrapper = wrapper;
+        }
+
+        @Override
+        public void run() {
+            try {
+                wrapper.run();
+            } catch (Exception e) {
+                LoggerUtils.error("定时任务执行异常", e);
+            }
+        }
+    }
 
 }

@@ -14,7 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.kingston.mmorpg.framework.net.ServerNode;
 import com.kingston.mmorpg.framework.net.socket.transport.GameServer;
 import com.kingston.mmorpg.framework.net.socket.transport.WebSocketServer;
-import com.kingston.mmorpg.game.http.HttpServer;
+import com.kingston.mmorpg.game.logger.LoggerFunction;
 
 /**
  * sprint-boot自动bean扫描只能扫描启动类的子目录，所以该类的包路径不能太深
@@ -41,9 +41,6 @@ public class ServerStartup implements CommandLineRunner {
 
 		ServerNode webSocketServer = new WebSocketServer();
 		servers.add(webSocketServer);
-
-		ServerNode httpServer = new HttpServer();
-		servers.add(httpServer);
 
 		for (ServerNode node : servers) {
 			node.init();
