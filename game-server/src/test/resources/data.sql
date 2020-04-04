@@ -1,4 +1,4 @@
-/*
+﻿/*
 Navicat MySQL Data Transfer
 
 Source Server         : localhost
@@ -122,7 +122,7 @@ INSERT INTO `configskill` VALUES ('3', '泰山压顶', '土系高级法术', '10
 DROP TABLE IF EXISTS `configmap`;
 CREATE TABLE `configmap` (
   `id` int(11) NOT NULL,
-  `mapType` tinnyint(11) NOT NULL,
+  `mapType` tinyint(11) NOT NULL,
   `name` varchar(64) DEFAULT NULL,
   `height` int(11) NOT NULL,
   `width` int(11) NOT NULL,

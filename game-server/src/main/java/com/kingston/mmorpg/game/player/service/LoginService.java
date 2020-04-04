@@ -28,7 +28,7 @@ public class LoginService {
 
 	/**
 	 *
-	 * @param accoundId 账号流水号
+	 * @param accountId 账号流水号
 	 * @param password  账号密码
 	 */
 	public void handleAccountLogin(IoSession session, long accountId, String password) {

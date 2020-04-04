@@ -7,10 +7,10 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
 
+import com.kingston.mmorpg.common.util.thread.NamedThreadFactory;
 import org.springframework.stereotype.Component;
 
 import com.kingston.mmorpg.game.logger.LoggerUtils;
-import com.kingston.mmorpg.game.util.NamedThreadFactory;
 
 @Component
 public class SchedulerManager {

@@ -64,7 +64,6 @@ public class MessageFactory {
 	/**
 	 * 返回消息的模板class
 	 * 
-	 * @param module
 	 * @param cmd
 	 * @return
 	 */
@@ -75,7 +74,7 @@ public class MessageFactory {
 
 	public short getMessageId(Class<?> clazz) {
 		if (clazz == null  || !clazz2Id.containsKey(clazz)) {
-			System.err.print("message null");
+			throw new IllegalArgumentException(clazz.getSimpleName() + "未注册");
 		}
 		return clazz2Id.get(clazz);
 	}

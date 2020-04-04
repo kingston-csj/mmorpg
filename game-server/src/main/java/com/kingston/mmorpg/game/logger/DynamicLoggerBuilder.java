@@ -16,7 +16,7 @@ import java.util.Map;
 public class DynamicLoggerBuilder {
 
     private static final Map<String, Logger> container = new HashMap<>();
-    private static final String LOG_PATH = "log/";
+    private static final String LOG_PATH = "logs/";
 
     public static Logger getLogger(String name) {
         Logger logger = container.get(name);

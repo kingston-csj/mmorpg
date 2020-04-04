@@ -18,9 +18,10 @@ buildscript {
 
 dependencies {
 	compile(project(":game-common"))
-	
-	compile  'org.projectlombok:lombok:1.16.12'	
-	
+
+    annotationProcessor 'org.projectlombok:lombok:1.18.2'
+    compileOnly 'org.projectlombok:lombok:1.18.2'
+
 	compile 'com.google.code.gson:gson'
 
 	compile 'io.netty:netty-all'
@@ -94,8 +95,3 @@ bootJar {
 
 }
 
-
-
-// task release(type: Copy, dependsOn: [build, clearJar, copyJar, copyConfigs]) {
-
-// }

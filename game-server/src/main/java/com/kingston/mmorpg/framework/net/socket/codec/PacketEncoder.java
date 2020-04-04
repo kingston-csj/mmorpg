@@ -32,7 +32,7 @@ public class PacketEncoder extends MessageToByteEncoder<Message> {
 		// short         short    byte[]
 		// 其中 packetLength长度占2位，由编码链 LengthFieldPrepender(2) 提供
 
-		short cmd = (short)MessageFactory.getInstance().getMessageId(message.getClass());
+		short cmd = MessageFactory.getInstance().getMessageId(message.getClass());
 		// 写入cmd类型
 		out.writeShort(cmd);
 		try {

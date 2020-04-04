@@ -19,6 +19,7 @@ argfile*
 pom.xml
 
 logs/
+log/
 
 classes/
 /build

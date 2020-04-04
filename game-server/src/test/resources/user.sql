@@ -2,33 +2,33 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost
-Source Server Version : 50717
+Source Server Version : 50561
 Source Host           : localhost:3306
 Source Database       : game_user_001
 
 Target Server Type    : MYSQL
-Target Server Version : 50717
+Target Server Version : 50561
 File Encoding         : 65001
 
-Date: 2019-03-04 14:54:46
+Date: 2020-04-04 15:28:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for account
+-- Table structure for accountent
 -- ----------------------------
-DROP TABLE IF EXISTS `account`;
-CREATE TABLE `account` (
+DROP TABLE IF EXISTS `accountent`;
+CREATE TABLE `accountent` (
   `id` bigint(20) NOT NULL,
-  `name` varchar(64) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
--- Records of account
+-- Records of accountent
 -- ----------------------------
-INSERT INTO `account` VALUES ('123', 'null');
+INSERT INTO `accountent` VALUES ('123', 'kingston');
 
 -- ----------------------------
 -- Table structure for player
@@ -62,12 +62,16 @@ DROP TABLE IF EXISTS `playerent`;
 CREATE TABLE `playerent` (
   `playerId` bigint(20) NOT NULL,
   `data` varchar(255) DEFAULT NULL,
+  `accountId` bigint(20) DEFAULT NULL,
+  `level` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`playerId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of playerent
 -- ----------------------------
+INSERT INTO `playerent` VALUES ('10000', null, '123', '99', 'winner');
 
 -- ----------------------------
 -- Table structure for systemrecord
