@@ -6,12 +6,12 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import com.kingston.mmorpg.framework.net.socket.IdSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.kingston.mmorpg.common.util.ConcurrentHashSet;
-import com.kingston.mmorpg.framework.net.socket.IoSession;
 import com.kingston.mmorpg.game.account.model.AccountProfile;
 import com.kingston.mmorpg.game.base.SpringContext;
 import com.kingston.mmorpg.game.database.user.dao.PlayerDao;
@@ -81,9 +81,9 @@ public class PlayerService {
 		SpringContext.getAysncDbService().add2Queue(player.getEntity());
 	}
 
-	public ResPlayerLogin login(IoSession session, long playerId) {
+	public ResPlayerLogin login(IdSession session, long playerId) {
 		Player player = new Player();
-		session.bindDipatcher(player);
+		session.bindDispatcher(player);
 		return new ResPlayerLogin();
 	}
 

@@ -8,7 +8,7 @@ import com.kingston.mmorpg.game.base.SpringContext;
 public class MessagePusher {
 
 	public static void pushMessage(long playerId, Message message) {
-		IoSession session = SpringContext.getSessionManager().getSessionBy(playerId);
+		IdSession session = SpringContext.getSessionManager().getSessionBy(playerId);
 		pushMessage(session, message);
 	}
 
@@ -18,7 +18,7 @@ public class MessagePusher {
 		}
 	}
 
-	public static void pushMessage(IoSession session, Message message) {
+	public static void pushMessage(IdSession session, Message message) {
 		if (session == null || message == null) {
 			return;
 		}

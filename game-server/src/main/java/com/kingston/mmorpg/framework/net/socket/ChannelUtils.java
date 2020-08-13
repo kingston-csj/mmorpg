@@ -13,7 +13,7 @@ import io.netty.util.AttributeKey;
  */
 public final class ChannelUtils {
 
-	public static AttributeKey<IoSession> SESSION_KEY = AttributeKey.valueOf("session");
+	public static AttributeKey<NettySession> SESSION_KEY = AttributeKey.valueOf("session");
 
 	/**
 	 * 添加新的会话
@@ -22,13 +22,13 @@ public final class ChannelUtils {
 	 * @param session
 	 * @return
 	 */
-	public static boolean addChannelSession(Channel channel, IoSession session) {
-		Attribute<IoSession> sessionAttr = channel.attr(SESSION_KEY);
+	public static boolean addChannelSession(Channel channel, NettySession session) {
+		Attribute<NettySession> sessionAttr = channel.attr(SESSION_KEY);
 		return sessionAttr.compareAndSet(null, session);
 	}
 
-	public static IoSession getSessionBy(Channel channel) {
-		Attribute<IoSession> sessionAttr = channel.attr(SESSION_KEY);
+	public static IdSession getSessionBy(Channel channel) {
+		Attribute<NettySession> sessionAttr = channel.attr(SESSION_KEY);
 		return sessionAttr.get();
 	}
 

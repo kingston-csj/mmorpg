@@ -2,12 +2,13 @@ package com.kingston.mmorpg.framework.net.socket.transport;
 
 import java.io.IOException;
 
+import com.kingston.mmorpg.framework.net.socket.IdSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.kingston.mmorpg.framework.net.socket.ChannelType;
 import com.kingston.mmorpg.framework.net.socket.ChannelUtils;
-import com.kingston.mmorpg.framework.net.socket.IoSession;
+import com.kingston.mmorpg.framework.net.socket.NettySession;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
 import com.kingston.mmorpg.game.base.SpringContext;
 
@@ -21,7 +22,7 @@ public class IoEventHandler extends ChannelInboundHandlerAdapter {
 
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		if (!ChannelUtils.addChannelSession(ctx.channel(), new IoSession(ctx.channel(), ChannelType.SOCKET))) {
+		if (!ChannelUtils.addChannelSession(ctx.channel(), new NettySession(ctx.channel(), ChannelType.SOCKET))) {
 			ctx.channel().close();
 			logger.error("Duplicate session,IP=[{}]", ChannelUtils.getIp(ctx.channel()));
 		}
@@ -33,7 +34,7 @@ public class IoEventHandler extends ChannelInboundHandlerAdapter {
 		logger.info("receive pact, content is {}", packet.getClass().getSimpleName());
 
 		final Channel channel = context.channel();
-		IoSession session = ChannelUtils.getSessionBy(channel);
+		IdSession session = ChannelUtils.getSessionBy(channel);
 
 		SpringContext.getMessageDispatcher().dispatch(session, packet);
 	}

@@ -20,9 +20,9 @@ import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
  * 
  * @author kingston
  */
-public class IoSession {
+public class NettySession implements IdSession {
 
-	private static final Logger logger = LoggerFactory.getLogger(IoSession.class);
+	private static final Logger logger = LoggerFactory.getLogger(NettySession.class);
 
 	/** 网络连接channel */
 	private Channel channel;
@@ -32,8 +32,6 @@ public class IoSession {
 	/** ip地址 */
 	private String ipAddr;
 
-	private boolean reconnected;
-
 	private IDispatch dipatcher;
 
 	/** 拓展用，保存一些个人数据 */
@@ -41,11 +39,11 @@ public class IoSession {
 
 	private ChannelType channelType;
 
-	public IoSession() {
+	public NettySession() {
 
 	}
 
-	public IoSession(Channel channel, ChannelType channelType) {
+	public NettySession(Channel channel, ChannelType channelType) {
 		this.channel = channel;
 		this.ipAddr = ChannelUtils.getIp(channel);
 		this.dipatcher = anoymousDispatcher;
@@ -69,20 +67,19 @@ public class IoSession {
 		}
 	}
 
-	public String getIpAddr() {
-		return ipAddr;
+	@Override
+	public long getOwnerId() {
+		return player.getId();
 	}
 
-	public void setIpAddr(String ipAddr) {
-		this.ipAddr = ipAddr;
+	@Override
+	public Object setAttribute(String key, Object value) {
+		return this.attrs.put(key, value);
 	}
 
-	public boolean isReconnected() {
-		return reconnected;
-	}
-
-	public void setReconnected(boolean reconnected) {
-		this.reconnected = reconnected;
+	@Override
+	public Object getAttribute(String key) {
+		return null;
 	}
 
 	public Player getPlayer() {
@@ -93,16 +90,12 @@ public class IoSession {
 		this.player = player;
 	}
 
-	public IDispatch getDipatcher() {
+	public IDispatch getDispatcher() {
 		return dipatcher;
 	}
 
-	public void bindDipatcher(IDispatch dipatcher) {
-		this.dipatcher = dipatcher;
-	}
-
-	public void updateAttr(String key, Object value) {
-		this.attrs.put(key, value);
+	public void bindDispatcher(IDispatch dispatcher) {
+		this.dipatcher = dispatcher;
 	}
 
 	public boolean isClose() {
@@ -124,9 +117,9 @@ public class IoSession {
 			}
 			if (channel.isOpen()) {
 				channel.close();
-				logger.info("close session[{}], reason is {}", getPlayer().getId(), reason);
+				logger.info("close session[{}], reason is {}", getOwnerId(), reason);
 			} else {
-				logger.info("session[{}] already close, reason is {}", getPlayer().getId(), reason);
+				logger.info("session[{}] already close, reason is {}", getOwnerId(), reason);
 			}
 		} catch (Exception e) {
 		}

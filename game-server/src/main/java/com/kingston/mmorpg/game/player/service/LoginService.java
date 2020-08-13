@@ -1,12 +1,6 @@
 package com.kingston.mmorpg.game.player.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.kingston.mmorpg.framework.net.socket.IoSession;
+import com.kingston.mmorpg.framework.net.socket.IdSession;
 import com.kingston.mmorpg.framework.net.socket.MessagePusher;
 import com.kingston.mmorpg.game.account.AccountService;
 import com.kingston.mmorpg.game.account.model.AccountProfile;
@@ -16,6 +10,11 @@ import com.kingston.mmorpg.game.player.message.ResAccountLogin;
 import com.kingston.mmorpg.game.player.message.vo.PlayerLoginVo;
 import com.kingston.mmorpg.game.player.model.PlayerProfile;
 import com.kingston.mmorpg.game.scene.actor.Player;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class LoginService {
@@ -31,7 +30,7 @@ public class LoginService {
 	 * @param accountId 账号流水号
 	 * @param password  账号密码
 	 */
-	public void handleAccountLogin(IoSession session, long accountId, String password) {
+	public void handleAccountLogin(IdSession session, long accountId, String password) {
 		AccountEnt account = accountService.getAccount(accountId);
 		if (account == null) {
 			account = new AccountEnt();
@@ -65,11 +64,11 @@ public class LoginService {
 	 * @param session
 	 * @param playerId
 	 */
-	public void handleSelectPlayer(IoSession session, long playerId) {
+	public void handleSelectPlayer(IdSession session, long playerId) {
 		Player player = playerService.getPlayer(playerId);
 		if (player != null) {
 			// 绑定session与玩家id
-			session.updateAttr("plaeyrId", playerId);
+			session.setAttribute("plaeyrId", playerId);
 			// 加入在线列表
 			SpringContext.getSessionManager().registerSession(player, session);
 		}

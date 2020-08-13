@@ -3,11 +3,11 @@ package com.kingston.mmorpg.framework.net.socket.task;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.kingston.mmorpg.framework.net.socket.IdSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.kingston.mmorpg.framework.net.socket.IoSession;
 import com.kingston.mmorpg.framework.net.socket.MessageFactory;
 import com.kingston.mmorpg.framework.net.socket.message.CmdExecutor;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
@@ -34,7 +34,7 @@ public class MessageDispatcher {
 	 * @param session
 	 * @param message
 	 */
-	public void dispatch(IoSession session, Message message) {
+	public void dispatch(IdSession session, Message message) {
 		short cmd = MessageFactory.getInstance().getMessageId(message.getClass());
 
 		CmdExecutor cmdExecutor = MODULE_CMD_HANDLERS.get(cmd);
@@ -46,7 +46,7 @@ public class MessageDispatcher {
 		Object[] params = convertToMethodParams(session, cmdExecutor.getParams(), message);
 		Object controller = cmdExecutor.getHandler();
 
-		IDispatch dipatcher = session.getDipatcher();
+		IDispatch dipatcher = session.getDispatcher();
 		GameExector.getInstance().acceptTask(CmdTask.valueOf(dipatcher.dispatchMap(), dipatcher.dispatchLine(),
 				controller, cmdExecutor.getMethod(), params));
 	}
@@ -59,12 +59,12 @@ public class MessageDispatcher {
 	 * @param message
 	 * @return
 	 */
-	private Object[] convertToMethodParams(IoSession session, Class<?>[] methodParams, Message message) {
+	private Object[] convertToMethodParams(IdSession session, Class<?>[] methodParams, Message message) {
 		Object[] result = new Object[methodParams == null ? 0 : methodParams.length];
 
 		for (int i = 0; i < result.length; i++) {
 			Class<?> param = methodParams[i];
-			if (IoSession.class.isAssignableFrom(param)) {
+			if (IdSession.class.isAssignableFrom(param)) {
 				result[i] = session;
 			} else if (Long.class.isAssignableFrom(param)) {
 				result[i] = session;
