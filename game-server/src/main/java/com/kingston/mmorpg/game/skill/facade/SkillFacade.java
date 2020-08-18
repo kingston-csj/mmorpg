@@ -1,11 +1,7 @@
 package com.kingston.mmorpg.game.skill.facade;
 
-import java.util.Collection;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-
 import com.kingston.mmorpg.framework.eventbus.Subscribe;
+import com.kingston.mmorpg.framework.net.socket.MessagePusher;
 import com.kingston.mmorpg.framework.net.socket.annotation.ModuleMeta;
 import com.kingston.mmorpg.game.Modules;
 import com.kingston.mmorpg.game.database.config.container.ConfigSkillContainer;
@@ -13,6 +9,12 @@ import com.kingston.mmorpg.game.database.config.domain.ConfigSkill;
 import com.kingston.mmorpg.game.player.event.PlayerLevelUpEvent;
 import com.kingston.mmorpg.game.player.event.PlayerLoginEvent;
 import com.kingston.mmorpg.game.scene.actor.Player;
+import com.kingston.mmorpg.game.skill.message.RespPlayerSkills;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import java.util.Collection;
+import java.util.Collections;
 
 @Controller
 @ModuleMeta(module = Modules.SKILL)
@@ -24,8 +26,6 @@ public class SkillFacade {
 	@Subscribe
 	public void onPlayerLogin(PlayerLoginEvent loginEvent) {
 		Player player = loginEvent.getOwner();
-		System.err.println("角色" + player.getId() + "登录，准备下发技能列表");
-
 	}
 
 	@Subscribe
@@ -37,6 +37,11 @@ public class SkillFacade {
 		skills.stream().filter(configSkill -> configSkill.getNeedLevel() < nowLevel).forEach(configSkill -> {
 			System.err.println("玩家升级，学会新技能->" + configSkill.getName());
 		});
+
+		System.err.println("角色" + player.getId() + "登录，准备下发技能列表");
+		RespPlayerSkills resp = new RespPlayerSkills();
+		resp.setSkills(Collections.singletonList(1));
+		MessagePusher.pushMessage(player.getId(), resp);
 	}
 
 }
