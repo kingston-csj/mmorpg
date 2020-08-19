@@ -1,20 +1,21 @@
-package com.kingston.mmorpg.framework.net.socket.codec;
+package com.kingston.mmorpg.framework.net.socket.codec.netty;
 
+import com.kingston.mmorpg.framework.net.socket.codec.IMessageEncoder;
+import com.kingston.mmorpg.framework.net.socket.codec.SerializerHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.kingston.mmorpg.framework.net.socket.MessageFactory;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
-import com.kingston.mmorpg.framework.net.socket.serializer.Serializer;
 import com.kingston.mmorpg.game.logger.LoggerUtils;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 
-public class PacketEncoder extends MessageToByteEncoder<Message> {
+public class NettyPacketEncoder extends MessageToByteEncoder<Message> {
 
-	private Logger logger = LoggerFactory.getLogger(PacketEncoder.class);
+	private Logger logger = LoggerFactory.getLogger(NettyPacketEncoder.class);
 
 	@Override
 	protected void encode(ChannelHandlerContext ctx, Message msg, ByteBuf out) throws Exception {
@@ -36,8 +37,9 @@ public class PacketEncoder extends MessageToByteEncoder<Message> {
 		// 写入cmd类型
 		out.writeShort(cmd);
 		try {
-			Serializer messageCodec = Serializer.getSerializer(message.getClass());
-			messageCodec.encode(out, message);
+			IMessageEncoder msgEncoder = SerializerHelper.getInstance().getEncoder();
+			byte[] body = msgEncoder.writeMessageBody(message);
+			out.writeBytes(body);
 		} catch (Exception e) {
 			LoggerUtils.error("读取消息出错,协议号{}}异常{}", new Object[] {cmd, e });
 		}

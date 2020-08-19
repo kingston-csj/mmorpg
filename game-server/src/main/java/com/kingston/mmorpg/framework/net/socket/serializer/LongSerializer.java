@@ -1,17 +1,18 @@
 package com.kingston.mmorpg.framework.net.socket.serializer;
 
-import io.netty.buffer.ByteBuf;
+import com.kingston.mmorpg.framework.net.socket.codec.ByteBuffUtil;
+
+import java.nio.ByteBuffer;
 
 public class LongSerializer extends Serializer {
 
 	@Override
-	public Long decode(ByteBuf in, Class<?> type) {
-		return Long.valueOf(in.readLong());
+	public Long decode(ByteBuffer in, Class<?> type, Class<?> wrapper) {
+		return ByteBuffUtil.readLong(in);
 	}
 
 	@Override
-	public void encode(ByteBuf out, Object value) {
-		out.writeLong((long) value);
+	public void encode(ByteBuffer out, Object value, Class<?> wrapper) {
+		ByteBuffUtil.writeLong(out, (long)value);
 	}
-
 }

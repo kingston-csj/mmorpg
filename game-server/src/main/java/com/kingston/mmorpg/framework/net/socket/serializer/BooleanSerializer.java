@@ -1,17 +1,19 @@
 package com.kingston.mmorpg.framework.net.socket.serializer;
 
-import io.netty.buffer.ByteBuf;
+import com.kingston.mmorpg.framework.net.socket.codec.ByteBuffUtil;
+
+import java.nio.ByteBuffer;
 
 public class BooleanSerializer extends Serializer {
 
 	@Override
-	public Boolean decode(ByteBuf in, Class<?> type) {
-		return in.readBoolean();
+	public Boolean decode(ByteBuffer in, Class<?> type, Class<?> wrapper) {
+		return ByteBuffUtil.readBoolean(in);
 	}
 
 	@Override
-	public void encode(ByteBuf out, Object value) {
-		out.writeBoolean((boolean) value);
+	public void encode(ByteBuffer out, Object value, Class<?> wrapper) {
+		ByteBuffUtil.writeBoolean(out, (boolean)value);
 	}
 
 }

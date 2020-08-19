@@ -3,8 +3,8 @@ package com.kingston.mmorpg.client;
 import java.net.InetSocketAddress;
 
 import com.kingston.mmorpg.client.net.ClientTransportHandler;
-import com.kingston.mmorpg.framework.net.socket.codec.PacketDecoder;
-import com.kingston.mmorpg.framework.net.socket.codec.PacketEncoder;
+import com.kingston.mmorpg.framework.net.socket.codec.netty.NettyPacketDecoder;
+import com.kingston.mmorpg.framework.net.socket.codec.netty.NettyPacketEncoder;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -36,9 +36,9 @@ public class SocketClient {
 				@Override
 				protected void initChannel(SocketChannel arg0) throws Exception {
 					ChannelPipeline pipeline = arg0.pipeline();
-					pipeline.addLast(new PacketDecoder(1024 * 10, 0, 2, 0, 2));
+					pipeline.addLast(new NettyPacketDecoder(1024 * 10, 0, 2, 0, 2));
 					pipeline.addLast(new LengthFieldPrepender(2));
-					pipeline.addLast(new PacketEncoder());
+					pipeline.addLast(new NettyPacketEncoder());
 					pipeline.addLast(new ClientTransportHandler());
 				}
 

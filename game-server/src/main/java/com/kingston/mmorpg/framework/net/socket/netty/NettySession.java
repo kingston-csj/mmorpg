@@ -1,8 +1,10 @@
-package com.kingston.mmorpg.framework.net.socket;
+package com.kingston.mmorpg.framework.net.socket.netty;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import com.kingston.mmorpg.framework.net.socket.IdSession;
+import com.kingston.mmorpg.framework.net.socket.SessionCloseReason;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

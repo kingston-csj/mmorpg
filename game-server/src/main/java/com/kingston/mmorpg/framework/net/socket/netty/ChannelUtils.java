@@ -1,7 +1,8 @@
-package com.kingston.mmorpg.framework.net.socket;
+package com.kingston.mmorpg.framework.net.socket.netty;
 
 import java.net.InetSocketAddress;
 
+import com.kingston.mmorpg.framework.net.socket.IdSession;
 import io.netty.channel.Channel;
 import io.netty.util.Attribute;
 import io.netty.util.AttributeKey;

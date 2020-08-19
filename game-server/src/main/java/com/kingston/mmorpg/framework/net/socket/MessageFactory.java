@@ -1,17 +1,15 @@
 package com.kingston.mmorpg.framework.net.socket;
 
+import com.kingston.mmorpg.framework.net.socket.annotation.MessageMeta;
+import com.kingston.mmorpg.framework.net.socket.annotation.ModuleMeta;
+import com.kingston.mmorpg.framework.net.socket.message.Message;
+import com.kingston.mmorpg.framework.net.socket.serializer.Serializer;
+import com.kingston.mmorpg.game.util.ClassScanner;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import com.kingston.mmorpg.framework.net.socket.annotation.MessageMeta;
-import com.kingston.mmorpg.framework.net.socket.annotation.ModuleMeta;
-import com.kingston.mmorpg.framework.net.socket.message.Message;
-import com.kingston.mmorpg.framework.net.socket.serializer.ByteBuffUtils;
-import com.kingston.mmorpg.framework.net.socket.serializer.Serializer;
-import com.kingston.mmorpg.game.util.ClassScanner;
-
-import io.netty.buffer.ByteBuf;
 
 public class MessageFactory {
 
@@ -79,18 +77,5 @@ public class MessageFactory {
 		return clazz2Id.get(clazz);
 	}
 
-	public void writeClass(ByteBuf out, Message message) {
-		SerializerMeta meta = Serializer.getSerializerMeta(message.getClass());
-		ByteBuffUtils.writeInt(out, meta.getId());
-	}
-
-	public void writeMessage(ByteBuf out, Message message) throws Exception {
-		Class<?> clazz = message.getClass();
-		short cmd = clazz2Id.get(clazz);
-		out.writeShort(cmd);
-
-		Serializer serializer = Serializer.getSerializer(message.getClass());
-		serializer.encode(out, message);
-	}
 
 }

@@ -1,4 +1,4 @@
-package com.kingston.mmorpg.framework.net.socket.transport;
+package com.kingston.mmorpg.framework.net.socket.netty;
 
 import java.net.InetSocketAddress;
 
@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 
 import com.kingston.mmorpg.framework.net.ServerNode;
 import com.kingston.mmorpg.framework.net.socket.MessageFactory;
-import com.kingston.mmorpg.framework.net.socket.codec.PacketDecoder;
-import com.kingston.mmorpg.framework.net.socket.codec.PacketEncoder;
+import com.kingston.mmorpg.framework.net.socket.codec.netty.NettyPacketDecoder;
+import com.kingston.mmorpg.framework.net.socket.codec.netty.NettyPacketEncoder;
 import com.kingston.mmorpg.game.ServerConfig;
 import com.kingston.mmorpg.game.base.SpringContext;
 
@@ -23,9 +23,9 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.timeout.IdleStateHandler;
 
-public class GameServer implements ServerNode {
+public class NettySocketServer implements ServerNode {
 
-	private Logger logger = LoggerFactory.getLogger(GameServer.class);
+	private Logger logger = LoggerFactory.getLogger(NettySocketServer.class);
 
 	// 避免使用默认线程数参数
 	private EventLoopGroup bossGroup = new NioEventLoopGroup(1);
@@ -78,9 +78,9 @@ public class GameServer implements ServerNode {
 		@Override
 		protected void initChannel(SocketChannel arg0) throws Exception {
 			ChannelPipeline pipeline = arg0.pipeline();
-			pipeline.addLast(new PacketDecoder(1024 * 10, 0, 2, 0, 2));
+			pipeline.addLast(new NettyPacketDecoder(1024 * 10, 0, 2, 0, 2));
 			pipeline.addLast(new LengthFieldPrepender(2));
-			pipeline.addLast(new PacketEncoder());
+			pipeline.addLast(new NettyPacketEncoder());
 			// 客户端300秒没收发包，便会触发UserEventTriggered事件到IdleEventHandler
 			pipeline.addLast(new IdleStateHandler(0, 0, 300));
 			pipeline.addLast(new IdleEventHandler());

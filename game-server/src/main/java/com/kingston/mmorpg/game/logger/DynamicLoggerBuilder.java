@@ -38,6 +38,7 @@ public class DynamicLoggerBuilder {
         LoggerFunction.ACTIVITY.getLogger().error("heelo");
     }
 
+    @SuppressWarnings("unchecked")
     private static Logger build(String name) {
         LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
 

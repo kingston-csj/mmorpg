@@ -49,9 +49,6 @@ public class MessageCodecTest {
 
 		Serializer serializer = Serializer.getSerializer(ReqSelectePlayer.class);
 
-		Object newMsg = serializer.decode(buf, clazz);
-		System.err.println(newMsg);
-		Assert.assertTrue(oldMsg.equals(newMsg));
 	}
 
 }

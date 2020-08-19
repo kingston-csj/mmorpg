@@ -28,6 +28,10 @@ public class MessageDispatcher {
 		MODULE_CMD_HANDLERS.put(key, executor);
 	}
 
+	public void onSessionCreated(IdSession session) {
+
+	}
+
 	/**
 	 * message entrance, in which io thread dispatch messages
 	 * 
@@ -78,5 +82,9 @@ public class MessageDispatcher {
 		return result;
 	}
 
+
+	public void onSessionClosed(IdSession session) {
+
+	}
 
 }

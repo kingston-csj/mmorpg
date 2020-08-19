@@ -1,8 +1,10 @@
 package com.kingston.mmorpg.game.player.message.vo;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class PlayerLoginVo {
 
 	private long id;

@@ -1,4 +1,4 @@
-package com.kingston.mmorpg.framework.net.socket;
+package com.kingston.mmorpg.framework.net.socket.netty;
 
 /**
  * 连接渠道

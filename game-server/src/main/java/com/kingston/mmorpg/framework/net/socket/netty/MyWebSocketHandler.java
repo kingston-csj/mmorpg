@@ -1,4 +1,4 @@
-package com.kingston.mmorpg.framework.net.socket.transport;
+package com.kingston.mmorpg.framework.net.socket.netty;
 
 import com.kingston.mmorpg.framework.net.socket.*;
 import org.slf4j.Logger;

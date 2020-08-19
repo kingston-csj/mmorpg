@@ -1,15 +1,14 @@
 package com.kingston.mmorpg.framework.net.socket.serializer;
 
+import com.kingston.mmorpg.framework.net.socket.MessageFactory;
+import com.kingston.mmorpg.framework.net.socket.SerializerMeta;
+
+import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-
-import com.kingston.mmorpg.framework.net.socket.MessageFactory;
-import com.kingston.mmorpg.framework.net.socket.SerializerMeta;
-
-import io.netty.buffer.ByteBuf;
 
 public abstract class Serializer {
 
@@ -79,9 +78,23 @@ public abstract class Serializer {
 		return meta;
 	}
 
-	public abstract Object decode(ByteBuf in, Class<?> type);
+	/**
+	 * 消息解码
+	 * @param in
+	 * @param type
+	 * @param wrapper 集合元素包装类
+	 * @return
+	 */
+	public abstract Object decode(ByteBuffer in, Class<?> type, Class<?> wrapper);
 
-	public abstract void encode(ByteBuf out, Object value);
+
+	/**
+	 * 消息编码
+	 * @param out
+	 * @param value
+	 * @param wrapper 集合元素包装类
+	 */
+	public abstract void encode(ByteBuffer out, Object value, Class<?> wrapper);
 
 	public void onRegister(Class<?> clazz) {
 
@@ -93,27 +106,6 @@ public abstract class Serializer {
 
 	public static void registerClass(Class<?> clazz, int id, Serializer serializer) {
 		registerClassAndId(id, clazz, serializer);
-	}
-
-	public static SerializerMeta readClass(ByteBuf in) {
-		int id = ByteBuffUtils.readInt(in);
-		return idMetas.get(id);
-	}
-
-	public static Object readClassAndObject(ByteBuf in) {
-		SerializerMeta meta = readClass(in);
-		return meta.getSerializer().decode(in, meta.getType());
-	}
-
-	public static SerializerMeta writeClass(ByteBuf out, Class<?> clazz) {
-		SerializerMeta meta = classMetas.get(clazz);
-		ByteBuffUtils.writeInt(out, meta.getId());
-		return meta;
-	}
-
-	public static void writeClassAndObject(ByteBuf out, Object object) {
-		SerializerMeta meta = writeClass(out, object.getClass());
-		meta.getSerializer().encode(out, object);
 	}
 
 }

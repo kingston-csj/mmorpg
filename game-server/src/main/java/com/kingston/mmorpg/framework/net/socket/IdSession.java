@@ -1,6 +1,7 @@
 package com.kingston.mmorpg.framework.net.socket;
 
 import com.kingston.mmorpg.framework.net.socket.message.Message;
+import com.kingston.mmorpg.framework.net.socket.netty.NettySession;
 import com.kingston.mmorpg.framework.net.socket.task.IDispatch;
 import com.kingston.mmorpg.game.scene.actor.Player;
 import io.netty.channel.Channel;
@@ -41,8 +42,8 @@ public interface IdSession {
 
     void bindDispatcher(IDispatch dipatcher);
 
-    public Player getPlayer();
+    Player getPlayer();
 
-    public void setPlayer(Player player);
+    void setPlayer(Player player);
 
 }

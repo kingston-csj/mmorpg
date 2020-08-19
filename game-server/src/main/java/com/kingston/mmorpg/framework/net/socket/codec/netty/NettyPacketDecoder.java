@@ -1,19 +1,18 @@
-package com.kingston.mmorpg.framework.net.socket.codec;
+package com.kingston.mmorpg.framework.net.socket.codec.netty;
 
-import com.kingston.mmorpg.framework.net.socket.MessageFactory;
+import com.kingston.mmorpg.framework.net.socket.codec.SerializerHelper;
+import com.kingston.mmorpg.framework.net.socket.codec.IMessageDecoder;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
-import com.kingston.mmorpg.framework.net.socket.serializer.Serializer;
 import com.kingston.mmorpg.game.logger.LoggerUtils;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.util.ReferenceCountUtil;
 
-public class PacketDecoder extends LengthFieldBasedFrameDecoder {
+public class NettyPacketDecoder extends LengthFieldBasedFrameDecoder {
 
-	public PacketDecoder(int maxFrameLength, int lengthFieldOffset, int lengthFieldLength, int lengthAdjustment,
-			int initialBytesToStrip) {
+	public NettyPacketDecoder(int maxFrameLength, int lengthFieldOffset, int lengthFieldLength, int lengthAdjustment,
+							  int initialBytesToStrip) {
 		super(maxFrameLength, lengthFieldOffset, lengthFieldLength, lengthAdjustment, initialBytesToStrip);
 	}
 
@@ -37,11 +36,13 @@ public class PacketDecoder extends LengthFieldBasedFrameDecoder {
 	}
 
 	private Message readMessage(short cmd, ByteBuf in) {
-		Class<?> msgClazz = MessageFactory.getInstance().getMessageMeta(cmd);
 		try {
-			Serializer messageCodec = Serializer.getSerializer(msgClazz);
-			Message message = (Message) messageCodec.decode(in, msgClazz);
-			return message;
+			IMessageDecoder msgDecoder = SerializerHelper.getInstance().getDecoder();
+
+			byte[] body = new byte[in.readableBytes()];
+			in.readBytes(body);
+			Message msg = msgDecoder.readMessage(cmd, body);
+			return msg;
 		} catch (Exception e) {
 			LoggerUtils.error("读取消息出错,协议号{},异常{}", new Object[] {cmd, e });
 			// 消息不往下传，手动释放下引用

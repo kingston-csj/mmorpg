@@ -5,14 +5,22 @@ archivesBaseName = 'game'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'org.springframework.boot'
 
+//apply plugin: 'io.freefair.lombok'
+//plugins {
+//    id("io.freefair.lombok") version "3.1.4"
+//}
 
 buildscript {
     repositories {
         jcenter()
+
         maven { url 'https://repo.spring.io/libs-milestone' }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.3.RELEASE")
+
+
+
     }
 }
 
@@ -25,6 +33,8 @@ dependencies {
 	compile 'com.google.code.gson:gson'
 
 	compile 'io.netty:netty-all'
+
+    compile 'org.apache.mina:mina-core'
 	
 	compile 'mysql:mysql-connector-java'	
 	
@@ -45,7 +55,12 @@ dependencies {
     compile ('org.springframework.boot:spring-boot-starter-cache')
 
     compile ('net.sf.ehcache:ehcache')
-	
+
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.12'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
 	
 	compile fileTree(dir:'libs',include:['*.jar'])
 }

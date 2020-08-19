@@ -1,6 +1,6 @@
 package com.kingston.mmorpg.game.base;
 
-import com.kingston.mmorpg.framework.net.socket.ChannelUtils;
+import com.kingston.mmorpg.framework.net.socket.netty.ChannelUtils;
 import com.kingston.mmorpg.framework.net.socket.IdSession;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
 import com.kingston.mmorpg.game.scene.actor.Player;

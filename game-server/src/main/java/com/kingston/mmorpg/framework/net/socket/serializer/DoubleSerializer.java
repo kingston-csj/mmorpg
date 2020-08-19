@@ -1,17 +1,18 @@
 package com.kingston.mmorpg.framework.net.socket.serializer;
 
-import io.netty.buffer.ByteBuf;
+import com.kingston.mmorpg.framework.net.socket.codec.ByteBuffUtil;
+
+import java.nio.ByteBuffer;
 
 public class DoubleSerializer extends Serializer {
 
 	@Override
-	public Double decode(ByteBuf in, Class<?> type) {
-		return in.readDouble();
+	public Double decode(ByteBuffer in, Class<?> type, Class<?> wrapper) {
+		return ByteBuffUtil.readDouble(in);
 	}
 
 	@Override
-	public void encode(ByteBuf out, Object value) {
-		out.writeDouble((double) value);
+	public void encode(ByteBuffer out, Object value, Class<?> wrapper) {
+		ByteBuffUtil.writeDouble(out, (double)value);
 	}
-
 }

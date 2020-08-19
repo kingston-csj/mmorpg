@@ -4,6 +4,7 @@ ext {
     println "[current profile]:" + profile
 
 	nettyVersion         = "4.1.33.Final"
+	minaVersion 		 = "2.0.7"
     springBootVersion 	 = '1.5.2.RELEASE'
     gsonVersion 		 = "2.8.0"
     mysqlVersion 		 = "5.1.6"
@@ -69,13 +70,18 @@ configure(allprojects) { project ->
 
 
 	dependencies {
+
+		compileOnly 'org.projectlombok:lombok:1.18.6'
+		annotationProcessor 'org.projectlombok:lombok:1.18.6'
 	
 		compile  'org.projectlombok:lombok:1.16.12'	
 		
 		compile ("com.google.code.gson:gson:${gsonVersion}")
 
 		compile ("io.netty:netty-all:${nettyVersion}")
-		
+
+		compile ("org.apache.mina:mina-core:${minaVersion}")
+
 		compile ("mysql:mysql-connector-java:${mysqlVersion}")	
 		
 		compile 'org.apache.commons:commons-lang3:3.1'	

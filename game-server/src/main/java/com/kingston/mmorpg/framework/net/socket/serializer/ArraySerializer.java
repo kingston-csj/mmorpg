@@ -1,19 +1,22 @@
 package com.kingston.mmorpg.framework.net.socket.serializer;
 
 import java.lang.reflect.Array;
+import java.nio.ByteBuffer;
 
-import io.netty.buffer.ByteBuf;
+import com.kingston.mmorpg.framework.net.socket.codec.ByteBuffUtil;
+import com.kingston.mmorpg.framework.net.socket.codec.ReflectUtil;
 
 public class ArraySerializer extends Serializer {
 
 	@Override
-	public Object decode(ByteBuf in, Class<?> type) {
-		int size = in.readShort();
-		Class<?> wrapper = type.getComponentType();
-		Object array = Array.newInstance(wrapper, size);
+	public Object decode(ByteBuffer in, Class<?> type, Class<?> wrapper) {
+		int size = ByteBuffUtil.readShort(in);
 
-		for (int i = 0; i < size; i++) {
-			Object eleValue = Serializer.readClassAndObject(in);
+		Object array = ReflectUtil.newArray(type, wrapper, size);
+
+		for (int i=0;i<size; i++) {
+			Serializer fieldCodec = Serializer.getSerializer(wrapper);
+			Object eleValue = fieldCodec.decode(in, wrapper, null);
 			Array.set(array, i, eleValue);
 		}
 
@@ -21,18 +24,18 @@ public class ArraySerializer extends Serializer {
 	}
 
 	@Override
-	public void encode(ByteBuf out, Object value) {
+	public void encode(ByteBuffer out, Object value, Class<?> wrapper) {
 		if (value == null) {
-			out.writeShort((short) 0);
+			ByteBuffUtil.writeShort(out, (short)0);
 			return;
 		}
 		int size = Array.getLength(value);
-		out.writeShort((short) size);
-		Class<?> wrapper = value.getClass().getComponentType();
-		for (int i = 0; i < size; i++) {
+		ByteBuffUtil.writeShort(out, (short)size);
+		for (int i=0; i<size; i++) {
 			Object elem = Array.get(value, i);
 			Class<?> clazz = elem.getClass();
-			Serializer.writeClassAndObject(out, elem);
+			Serializer fieldCodec = Serializer.getSerializer(clazz);
+			fieldCodec.encode(out, elem, wrapper);
 		}
 	}
 
