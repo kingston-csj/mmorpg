@@ -1,6 +1,7 @@
 package com.kingston.mmorpg.framework.net.socket.mina;
 
 import com.kingston.mmorpg.framework.net.ServerNode;
+import com.kingston.mmorpg.framework.net.socket.SocketServerNode;
 import com.kingston.mmorpg.framework.net.socket.codec.SerializerHelper;
 import com.kingston.mmorpg.game.base.SpringContext;
 import org.apache.mina.core.buffer.IoBuffer;
@@ -21,7 +22,7 @@ import java.net.InetSocketAddress;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class MinaSocketServer implements ServerNode {
+public class MinaSocketServer implements SocketServerNode {
 
     private Logger logger = LoggerFactory.getLogger(MinaSocketServer.class);
 

@@ -4,6 +4,9 @@ package com.kingston.mmorpg;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kingston.mmorpg.framework.net.socket.MessageFactory;
+import com.kingston.mmorpg.framework.net.socket.SocketServerNode;
+import com.kingston.mmorpg.game.base.SpringContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.Banner;
@@ -35,16 +38,22 @@ public class ServerStartup implements CommandLineRunner {
 	}
 
 	public void start() throws Exception {
-		ServerNode socketServer = new NettySocketServer();
-		servers.add(socketServer);
+//		ServerNode socketServer = new NettySocketServer();
+//		servers.add(socketServer);
+//		ServerNode webSocketServer = new WebSocketServer();
+//		servers.add(webSocketServer);
 
-		ServerNode webSocketServer = new WebSocketServer();
-		servers.add(webSocketServer);
+//		for (ServerNode node : servers) {
+//			node.init();
+//			node.start();
+//		}
 
-		for (ServerNode node : servers) {
-			node.init();
-			node.start();
-		}
+		// 启动网关
+		SpringContext.getBean(SocketServerNode.class).start();
+		// 初始化协议表
+		MessageFactory.getInstance().init();
+		// 读取所有角色概括
+		SpringContext.getPlayerService().loadAllPlayerProfiles();
 	}
 
 	@Override

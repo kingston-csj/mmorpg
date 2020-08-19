@@ -2,6 +2,7 @@ package com.kingston.mmorpg.framework.net.socket.netty;
 
 import java.net.InetSocketAddress;
 
+import com.kingston.mmorpg.framework.net.socket.SocketServerNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,8 +23,14 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.timeout.IdleStateHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
-public class NettySocketServer implements ServerNode {
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+
+public class NettySocketServer implements SocketServerNode {
 
 	private Logger logger = LoggerFactory.getLogger(NettySocketServer.class);
 
@@ -33,15 +40,13 @@ public class NettySocketServer implements ServerNode {
 
 	private int port;
 
+	@Autowired
+	private ServerConfig serverConfig;
+
 	@Override
+	@PostConstruct
 	public void init() {
-		ServerConfig serverConfig = SpringContext.getServerConfig();
 		this.port = serverConfig.getServerPort();
-
-		// 初始化协议表
-		MessageFactory.getInstance().init();
-
-		SpringContext.getPlayerService().loadAllPlayerProfiles();
 	}
 
 	@Override
