@@ -3,7 +3,7 @@ package com.kingston.mmorpg.client.net;
 import com.kingston.mmorpg.client.IoSession;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
 import com.kingston.mmorpg.game.gm.message.ReqGmCommand;
-import com.kingston.mmorpg.game.player.message.ReqAccontLogin;
+import com.kingston.mmorpg.game.player.message.ReqAccountLogin;
 import com.kingston.mmorpg.game.player.message.ReqCreateNewPlayer;
 import com.kingston.mmorpg.game.player.message.ReqSelectPlayer;
 
@@ -37,7 +37,7 @@ public class ClientTransportHandler extends ChannelInboundHandlerAdapter {
 	}
 
 	public void login() {
-		ReqAccontLogin req = new ReqAccontLogin();
+		ReqAccountLogin req = new ReqAccountLogin();
 		req.setPassword("kingston");
 		req.setAccountId(123L);
 		SessionManager.getInstance().sendMessage(req);

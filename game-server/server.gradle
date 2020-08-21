@@ -37,7 +37,7 @@ dependencies {
 
     compile 'org.apache.mina:mina-core'
 
-//    compile 'com.baidu:jprotobuf'
+    compile 'com.baidu:jprotobuf'
 //    compile 'com.baidu:jprotobuf-precompile-plugin'
 
     compile 'io.protostuff:protostuff-core'
@@ -57,7 +57,7 @@ dependencies {
 	
 	compile ('org.springframework.boot:spring-boot-starter-web')
 	
-	compile ('org.springframework.boot:spring-boot-devtools')
+//	compile ('org.springframework.boot:spring-boot-devtools')
 
     compile ('org.springframework.boot:spring-boot-starter-cache')
 

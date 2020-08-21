@@ -1,6 +1,7 @@
 package com.kingston.mmorpg.game.skill.message;
 
 //import com.baidu.bjf.remoting.protobuf.annotation.Protobuf;
+import com.baidu.bjf.remoting.protobuf.annotation.Protobuf;
 import com.kingston.mmorpg.framework.net.socket.annotation.MessageMeta;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
 import com.kingston.mmorpg.game.player.service.PlayerService;
@@ -17,6 +18,6 @@ import java.util.List;
 @MessageMeta(cmd = SkillService.CMD_RESP_SKILLS)
 public class RespPlayerSkills extends Message {
 
-//    @Protobuf
+    @Protobuf
     private List<Integer> skills;
 }

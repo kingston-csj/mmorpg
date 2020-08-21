@@ -1,6 +1,7 @@
 package com.kingston.mmorpg.framework.net.socket.codec;
 
 import com.kingston.mmorpg.framework.net.socket.json.JsonSerializerFactory;
+import com.kingston.mmorpg.framework.net.socket.protobuf.ProtobufSerializerFactory;
 import com.kingston.mmorpg.framework.net.socket.protostuff.ProtostuffSerializerFactory;
 import com.kingston.mmorpg.framework.net.socket.serializer.ReflectSerializerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
@@ -16,11 +17,11 @@ public class CodecFactoryConfigurations {
         return new ReflectSerializerFactory();
     }
 
-//    @Bean
-//    @ConditionalOnExpression(("'${game.socket.codec}'.equalsIgnoreCase('protobuff')"))
-//    public SerializerFactory createProtobufSerializerFactory() {
-//        return new ProtobufSerializerFactory();
-//    }
+    @Bean
+    @ConditionalOnExpression(("'${game.socket.codec}'.equalsIgnoreCase('protobuf')"))
+    public SerializerFactory createProtobufSerializerFactory() {
+        return new ProtobufSerializerFactory();
+    }
 
     @Bean
     @ConditionalOnExpression(("'${game.socket.codec}'.equalsIgnoreCase('json')"))

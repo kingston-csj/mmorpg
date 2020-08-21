@@ -88,7 +88,7 @@ configure(allprojects) { project ->
 		compile ("org.codehaus.jackson:jackson-core-asl:${jacksonVersion}")
 		compile ("org.codehaus.jackson:jackson-mapper-asl:${jacksonVersion}")
 
-//		compile ("com.baidu:jprotobuf:${protobufVersion}")
+		compile ("com.baidu:jprotobuf:${protobufVersion}")
 
 		compile ("io.protostuff:protostuff-core:${protostuffVersion}")
 		compile ("io.protostuff:protostuff-runtime:${protostuffVersion}")

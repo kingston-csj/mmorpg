@@ -4,6 +4,7 @@ import com.kingston.mmorpg.framework.net.socket.codec.IMessageDecoder;
 import com.kingston.mmorpg.framework.net.socket.codec.IMessageEncoder;
 import com.kingston.mmorpg.framework.net.socket.codec.SerializerFactory;
 import com.kingston.mmorpg.framework.net.socket.json.JsonSerializerFactory;
+import com.kingston.mmorpg.framework.net.socket.protobuf.ProtobufSerializerFactory;
 import com.kingston.mmorpg.framework.net.socket.protostuff.ProtostuffSerializerFactory;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 
@@ -20,6 +21,8 @@ public class ClientSerializerHelper {
                 serializerFactory = new JsonSerializerFactory();
             } else if ("protostuff".equalsIgnoreCase(codecType)) {
                 serializerFactory = new ProtostuffSerializerFactory();
+            } else if ("protobuf".equalsIgnoreCase(codecType)) {
+                serializerFactory = new ProtobufSerializerFactory();
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,6 +1,6 @@
 package com.kingston.mmorpg.game.player.message;
 
-//import com.baidu.bjf.remoting.protobuf.annotation.Protobuf;
+import com.baidu.bjf.remoting.protobuf.annotation.Protobuf;
 import com.kingston.mmorpg.framework.net.socket.annotation.MessageMeta;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
 import com.kingston.mmorpg.game.player.service.PlayerService;
@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 public class ReqSelectPlayer extends Message {
 
-//	@Protobuf
+	@Protobuf
 	private long playerId;
 
 }

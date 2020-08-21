@@ -10,7 +10,7 @@ import com.kingston.mmorpg.game.gm.GmCommands;
 import com.kingston.mmorpg.game.gm.GmHandler;
 import com.kingston.mmorpg.game.player.event.PlayerLevelUpEvent;
 import com.kingston.mmorpg.game.player.event.PlayerLoginEvent;
-import com.kingston.mmorpg.game.player.message.ReqAccontLogin;
+import com.kingston.mmorpg.game.player.message.ReqAccountLogin;
 import com.kingston.mmorpg.game.player.message.ReqPlayerLogin;
 import com.kingston.mmorpg.game.player.message.ReqSelectPlayer;
 import com.kingston.mmorpg.game.player.message.ResPlayerLogin;
@@ -28,7 +28,7 @@ public class PlayerFacade {
 	private LoginService loginService;
 
 	@MessageMapping
-	public void reqAccountLogin(IdSession session, ReqAccontLogin request) {
+	public void reqAccountLogin(IdSession session, ReqAccountLogin request) {
 		loginService.handleAccountLogin(session, request.getAccountId(), request.getPassword());
 	}
 
