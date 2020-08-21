@@ -8,6 +8,9 @@ ext {
     springBootVersion 	 = '1.5.2.RELEASE'
     gsonVersion 		 = "2.8.0"
     mysqlVersion 		 = "5.1.6"
+	jacksonVersion		 = "1.8.5"
+	protostuffVersion    = "1.5.9"
+	protobufVersion 	 = "1.11.7"
 }
 
 allprojects {
@@ -81,6 +84,14 @@ configure(allprojects) { project ->
 		compile ("io.netty:netty-all:${nettyVersion}")
 
 		compile ("org.apache.mina:mina-core:${minaVersion}")
+
+		compile ("org.codehaus.jackson:jackson-core-asl:${jacksonVersion}")
+		compile ("org.codehaus.jackson:jackson-mapper-asl:${jacksonVersion}")
+
+//		compile ("com.baidu:jprotobuf:${protobufVersion}")
+
+		compile ("io.protostuff:protostuff-core:${protostuffVersion}")
+		compile ("io.protostuff:protostuff-runtime:${protostuffVersion}")
 
 		compile ("mysql:mysql-connector-java:${mysqlVersion}")	
 		

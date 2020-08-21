@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * sprint-boot自动bean扫描只能扫描启动类的子目录，所以该类的包路径不能太深
- * 
+ *
  * @author kingston
  *
  */
@@ -34,6 +34,8 @@ public class ServerStartup implements CommandLineRunner {
 		SpringApplication app = new SpringApplication(ServerStartup.class);
 		app.setBannerMode(Banner.Mode.OFF);
 		app.run(args);
+
+		System.out.println("world");
 	}
 
 	public void start() throws Exception {

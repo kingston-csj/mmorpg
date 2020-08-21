@@ -8,6 +8,7 @@ apply plugin: 'org.springframework.boot'
 //apply plugin: 'io.freefair.lombok'
 //plugins {
 //    id("io.freefair.lombok") version "3.1.4"
+//    id('com.baidu.jprotobuf') version '1.0.8'
 //}
 
 buildscript {
@@ -18,14 +19,14 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.3.RELEASE")
-
-
-
     }
 }
 
 dependencies {
 	compile(project(":game-common"))
+
+    compile ("org.codehaus.jackson:jackson-core-asl")
+    compile ("org.codehaus.jackson:jackson-mapper-asl")
 
     annotationProcessor 'org.projectlombok:lombok:1.18.2'
     compileOnly 'org.projectlombok:lombok:1.18.2'
@@ -35,7 +36,13 @@ dependencies {
 	compile 'io.netty:netty-all'
 
     compile 'org.apache.mina:mina-core'
-	
+
+//    compile 'com.baidu:jprotobuf'
+//    compile 'com.baidu:jprotobuf-precompile-plugin'
+
+    compile 'io.protostuff:protostuff-core'
+    compile 'io.protostuff:protostuff-runtime'
+
 	compile 'mysql:mysql-connector-java'	
 	
 	compile 'org.apache.commons:commons-lang3'	

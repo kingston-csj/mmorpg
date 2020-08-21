@@ -2,26 +2,39 @@ package com.kingston.mmorpg.client.net;
 
 import com.kingston.mmorpg.framework.net.socket.codec.IMessageDecoder;
 import com.kingston.mmorpg.framework.net.socket.codec.IMessageEncoder;
-import com.kingston.mmorpg.framework.net.socket.codec.ReflectDecoder;
-import com.kingston.mmorpg.framework.net.socket.codec.ReflectEncoder;
+import com.kingston.mmorpg.framework.net.socket.codec.SerializerFactory;
+import com.kingston.mmorpg.framework.net.socket.json.JsonSerializerFactory;
+import com.kingston.mmorpg.framework.net.socket.protostuff.ProtostuffSerializerFactory;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 public class ClientSerializerHelper {
 
     public static volatile ClientSerializerHelper instance = new ClientSerializerHelper();
 
-    private IMessageDecoder decoder = new ReflectDecoder();
+    private static SerializerFactory serializerFactory;
 
-    private IMessageEncoder encoder = new ReflectEncoder();
+    static {
+        try {
+            String codecType = PropertiesLoaderUtils.loadAllProperties("application.properties").getProperty("game.socket.codec");
+            if ("json".equalsIgnoreCase(codecType)) {
+                serializerFactory = new JsonSerializerFactory();
+            } else if ("protostuff".equalsIgnoreCase(codecType)) {
+                serializerFactory = new ProtostuffSerializerFactory();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public static ClientSerializerHelper getInstance() {
         return instance;
     }
 
     public IMessageDecoder getDecoder() {
-        return decoder;
+        return serializerFactory.getDecoder();
     }
 
     public IMessageEncoder getEncoder() {
-        return encoder;
+        return serializerFactory.getEncoder();
     }
 }

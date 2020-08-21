@@ -10,13 +10,13 @@ import org.springframework.context.annotation.Configuration;
 public class SocketServerConfigurations {
 
     @Bean
-    @ConditionalOnExpression(("'${game.socket.name}'.equals('netty')"))
+    @ConditionalOnExpression(("'${game.socket.name}'.equalsIgnoreCase('netty')"))
     public NettySocketServer createNetty() {
         return new NettySocketServer();
     }
 
     @Bean
-    @ConditionalOnExpression(("'${game.socket.name}'.equals('mina')"))
+    @ConditionalOnExpression(("'${game.socket.name}'.equalsIgnoreCase('mina')"))
     public MinaSocketServer createMina() {
         return new MinaSocketServer();
     }

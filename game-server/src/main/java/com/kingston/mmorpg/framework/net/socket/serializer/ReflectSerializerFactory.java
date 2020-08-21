@@ -1,4 +1,6 @@
-package com.kingston.mmorpg.framework.net.socket.codec;
+package com.kingston.mmorpg.framework.net.socket.serializer;
+
+import com.kingston.mmorpg.framework.net.socket.codec.*;
 
 public class ReflectSerializerFactory implements SerializerFactory {
 

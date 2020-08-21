@@ -27,7 +27,7 @@ public class ClientPacketDecoder extends LengthFieldBasedFrameDecoder {
         // short          short    byte  []
         // 其中 packetLength长度占2位，被上层父类LengthFieldBasedFrameDecoder消费了
         // @see new PacketDecoder(1024 * 10, 0, 2, 0, 2)
-        if (frame.readableBytes() <= 4)
+        if (frame.readableBytes() < 2)
             return null;
 
         short cmd = frame.readShort();

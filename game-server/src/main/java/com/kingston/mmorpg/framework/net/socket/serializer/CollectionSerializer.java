@@ -6,10 +6,10 @@ import java.lang.reflect.Modifier;
 import java.nio.ByteBuffer;
 import java.util.*;
 
+@SuppressWarnings("unchecked")
 public class CollectionSerializer extends Serializer {
 
     @Override
-	@SuppressWarnings("unchecked")
     public Object decode(ByteBuffer in, Class<?> type, Class<?> wrapper) {
         int size = ByteBuffUtil.readShort(in);
         int modifier = type.getModifiers();
