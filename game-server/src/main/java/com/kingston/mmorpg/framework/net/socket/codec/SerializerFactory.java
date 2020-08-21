@@ -1,8 +1,5 @@
 package com.kingston.mmorpg.framework.net.socket.codec;
 
-import com.kingston.mmorpg.framework.net.socket.codec.IMessageDecoder;
-import com.kingston.mmorpg.framework.net.socket.codec.IMessageEncoder;
-
 /**
  * 消息序列化工厂
  *

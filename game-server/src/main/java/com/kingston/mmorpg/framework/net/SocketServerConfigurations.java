@@ -20,5 +20,5 @@ public class SocketServerConfigurations {
     public MinaSocketServer createMina() {
         return new MinaSocketServer();
     }
-    
+
 }

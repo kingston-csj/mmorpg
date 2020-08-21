@@ -57,7 +57,7 @@ public class MinaSocketServer implements SocketServerNode {
         logger.info("mina socket server start at port:{},正在监听客户端的连接...", serverPort);
         DefaultIoFilterChainBuilder filterChain = acceptor.getFilterChain();
         filterChain.addLast("codec",
-                new ProtocolCodecFilter(SerializerHelper.getInstance().getCodecFactory()));
+                new ProtocolCodecFilter(new MessageCodecFactory()));
         //指定业务逻辑处理器
         acceptor.setHandler(new ServerSocketIoHandler());
         //设置端口号

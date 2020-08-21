@@ -1,11 +1,11 @@
 
 package com.kingston.mmorpg;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.kingston.mmorpg.framework.net.ServerNode;
 import com.kingston.mmorpg.framework.net.socket.MessageFactory;
 import com.kingston.mmorpg.framework.net.socket.SocketServerNode;
+import com.kingston.mmorpg.framework.net.socket.codec.IMessageEncoder;
+import com.kingston.mmorpg.framework.net.socket.codec.SerializerHelper;
 import com.kingston.mmorpg.game.base.SpringContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +14,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.kingston.mmorpg.framework.net.ServerNode;
-import com.kingston.mmorpg.framework.net.socket.netty.NettySocketServer;
-import com.kingston.mmorpg.framework.net.socket.netty.WebSocketServer;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * sprint-boot自动bean扫描只能扫描启动类的子目录，所以该类的包路径不能太深
@@ -38,22 +37,15 @@ public class ServerStartup implements CommandLineRunner {
 	}
 
 	public void start() throws Exception {
-//		ServerNode socketServer = new NettySocketServer();
-//		servers.add(socketServer);
-//		ServerNode webSocketServer = new WebSocketServer();
-//		servers.add(webSocketServer);
-
-//		for (ServerNode node : servers) {
-//			node.init();
-//			node.start();
-//		}
-
 		// 启动网关
 		SpringContext.getBean(SocketServerNode.class).start();
 		// 初始化协议表
 		MessageFactory.getInstance().init();
 		// 读取所有角色概括
 		SpringContext.getPlayerService().loadAllPlayerProfiles();
+
+		IMessageEncoder msgEncoder = SerializerHelper.getInstance().getEncoder();
+		System.out.println(msgEncoder);
 	}
 
 	@Override

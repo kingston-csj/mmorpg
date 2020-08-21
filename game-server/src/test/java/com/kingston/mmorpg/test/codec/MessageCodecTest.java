@@ -40,7 +40,7 @@ public class MessageCodecTest {
 
 		ByteBuf buf = Unpooled.buffer();
 
-		MessageFactory.getInstance().writeMessage(buf, oldMsg);
+//		MessageFactory.getInstance().writeMessage(buf, oldMsg);
 
 		short cmd = MessageFactory.getInstance().getMessageId(oldMsg.getClass());
 		buf.readShort();
