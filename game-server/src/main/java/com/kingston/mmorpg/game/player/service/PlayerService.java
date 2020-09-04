@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import com.kingston.mmorpg.framework.net.socket.IdSession;
+import com.kingston.mmorpg.game.script.impl.LoginScript;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -83,6 +84,7 @@ public class PlayerService {
 
 	public ResPlayerLogin login(IdSession session, long playerId) {
 		Player player = new Player();
+		SpringContext.getScriptService().getScript(LoginScript.class).onLogin(player);
 		session.bindDispatcher(player);
 		return new ResPlayerLogin();
 	}

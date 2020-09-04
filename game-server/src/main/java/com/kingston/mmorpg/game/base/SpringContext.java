@@ -5,6 +5,7 @@ import java.util.Collection;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
+import com.kingston.mmorpg.game.script.ScriptService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -90,6 +91,13 @@ public class SpringContext implements ApplicationContextAware {
 
 	public static MessageDispatcher getMessageDispatcher() {
 		return self.messageDispatcher;
+	}
+
+	@Autowired
+	private ScriptService scriptService;
+
+	public static ScriptService getScriptService() {
+		return self.scriptService;
 	}
 
 	public final static <T> T getBean(Class<T> clazz) {
