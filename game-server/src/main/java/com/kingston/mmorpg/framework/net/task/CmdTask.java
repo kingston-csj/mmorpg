@@ -1,4 +1,4 @@
-package com.kingston.mmorpg.framework.net.socket.task;
+package com.kingston.mmorpg.framework.net.task;
 
 import java.lang.reflect.Method;
 

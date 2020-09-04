@@ -34,8 +34,6 @@ public class ServerStartup implements CommandLineRunner {
 		SpringApplication app = new SpringApplication(ServerStartup.class);
 		app.setBannerMode(Banner.Mode.OFF);
 		app.run(args);
-
-		System.out.println("world");
 	}
 
 	public void start() throws Exception {
@@ -45,9 +43,6 @@ public class ServerStartup implements CommandLineRunner {
 		MessageFactory.getInstance().init();
 		// 读取所有角色概括
 		SpringContext.getPlayerService().loadAllPlayerProfiles();
-
-		IMessageEncoder msgEncoder = SerializerHelper.getInstance().getEncoder();
-		System.out.println(msgEncoder);
 	}
 
 	@Override

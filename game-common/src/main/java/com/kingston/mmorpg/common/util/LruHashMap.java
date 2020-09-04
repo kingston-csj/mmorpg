@@ -1,10 +1,10 @@
 package com.kingston.mmorpg.common.util;
 
+import com.kingston.mmorpg.common.util.thread.ThreadSafe;
+
 import java.util.LinkedHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-
-import com.kingston.mmorpg.common.util.thread.NotThreadSafe;
 
 /**
  * LruHashMap is an extension of Java's HashMap, which has a bounded size();
@@ -15,7 +15,7 @@ import com.kingston.mmorpg.common.util.thread.NotThreadSafe;
  *
  * @author kingston
  */
-@NotThreadSafe
+@ThreadSafe
 public class LruHashMap<K, V> extends LinkedHashMap<K, V> {
 
     private static final long serialVersionUID = -5167631809472116969L;

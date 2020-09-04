@@ -9,10 +9,10 @@ public final class NumberUtil {
 	}
 
 	public static boolean booleanValue(Object object) {
-		return booleaneValue(object, Boolean.FALSE);
+		return booleanValue(object, Boolean.FALSE);
 	}
 
-	public static boolean booleaneValue(Object object, boolean defaultValue) {
+	public static boolean booleanValue(Object object, boolean defaultValue) {
 		if (object == null) {
 			return defaultValue;
 		}

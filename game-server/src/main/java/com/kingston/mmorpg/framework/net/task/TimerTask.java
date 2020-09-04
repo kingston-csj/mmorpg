@@ -1,4 +1,4 @@
-package com.kingston.mmorpg.framework.net.socket.task;
+package com.kingston.mmorpg.framework.net.task;
 
 public final class TimerTask extends BaseTask {
 

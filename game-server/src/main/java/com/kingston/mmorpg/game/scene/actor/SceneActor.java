@@ -1,6 +1,6 @@
 package com.kingston.mmorpg.game.scene.actor;
 
-import com.kingston.mmorpg.framework.net.socket.task.IDispatch;
+import com.kingston.mmorpg.framework.net.task.IDispatch;
 import com.kingston.mmorpg.game.ai.fsm.Scene;
 
 /**
