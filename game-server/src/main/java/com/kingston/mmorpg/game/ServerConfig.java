@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Component
 @PropertySource({ "classpath:server.properties" })
 public class ServerConfig {
@@ -23,6 +26,12 @@ public class ServerConfig {
 	/** 后台服务端口 */
 	@Value("${http.port}")
 	private int httpPort;
+
+	/** 后台服务端口 */
+	@Value("${admin.http.ips}")
+	private String adminIps;
+
+	private Set<String> adminWhiteIps;
 
 	public String getServerIp() {
 		return serverIp;
@@ -54,6 +63,17 @@ public class ServerConfig {
 
 	public void setWebSocketPort(int webSocketPort) {
 		this.webSocketPort = webSocketPort;
+	}
+
+	public Set<String> getAdminIps() {
+		if (adminWhiteIps == null) {
+			Set<String> tmpIps = new HashSet<>();
+			for (String ip : adminIps.split(";")) {
+				tmpIps.add(ip);
+				adminWhiteIps = tmpIps;
+			}
+		}
+		return adminWhiteIps;
 	}
 
 }
