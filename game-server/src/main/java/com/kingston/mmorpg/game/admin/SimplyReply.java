@@ -1,34 +1,27 @@
 package com.kingston.mmorpg.game.admin;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class SimplyReply {
 
-	private String status;
+	private int status;
 
 	private String msg;
 
-	public SimplyReply() {
+	public static SimplyReply valueOfSucc(String msg) {
+		SimplyReply reply = new SimplyReply();
+		reply.msg = msg;
+		return reply;
 	}
 
-	public SimplyReply(String status, String msg) {
-
-		this.status = status;
-		this.msg = msg;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getMsg() {
-		return msg;
-	}
-
-	public void setMsg(String msg) {
-		this.msg = msg;
+	public static SimplyReply valueOfFailed(int code, String msg) {
+		SimplyReply reply = new SimplyReply();
+		reply.status = code;
+		reply.msg = msg;
+		return reply;
 	}
 
 }

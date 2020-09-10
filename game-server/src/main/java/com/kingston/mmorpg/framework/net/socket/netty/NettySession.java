@@ -133,7 +133,7 @@ public class NettySession implements IdSession {
 	static IDispatch anoymousDispatcher = new IDispatch() {
 
 		@Override
-		public int dispatchMap() {
+		public int dispatchKey() {
 			return 0;
 		}
 

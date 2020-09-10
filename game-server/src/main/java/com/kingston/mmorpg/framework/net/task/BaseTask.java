@@ -15,7 +15,7 @@ public abstract class BaseTask extends AbstractDispatchTask implements Delayed {
 	/**
 	 * 分发地图
 	 */
-	public int dispatchMap() {
+	public int dispatchKey() {
 		return dispatchMap;
 	}
 

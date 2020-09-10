@@ -1,24 +1,22 @@
 package com.kingston.mmorpg.framework.net.task;
 
+import com.kingston.mmorpg.common.util.thread.NamedThreadFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.annotation.PostConstruct;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-
-import com.kingston.mmorpg.common.util.thread.NamedThreadFactory;
-
 @Component
-public class GameExector {
+public class GameExecutor {
 
-	private static Logger logger = LoggerFactory.getLogger(GameExector.class);
+	private Logger logger = LoggerFactory.getLogger(GameExecutor.class);
 
-	private static volatile GameExector instance;
+	private static volatile GameExecutor instance;
 
 	private final int CORE_SIZE = Runtime.getRuntime().availableProcessors();
 	/** task worker pool */
@@ -35,7 +33,7 @@ public class GameExector {
 		instance = this;
 	}
 
-	public static GameExector getInstance() {
+	public static GameExecutor getInstance() {
 		return instance;
 	}
 

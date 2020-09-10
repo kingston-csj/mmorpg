@@ -2,6 +2,7 @@ package com.kingston.mmorpg.framework.net.task;
 
 import java.lang.reflect.Method;
 
+import com.kingston.mmorpg.framework.net.socket.IdSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,10 +13,7 @@ public final class CmdTask extends BaseTask {
 
 	private static Logger logger = LoggerFactory.getLogger(CmdTask.class);
 
-	/** owner playerId */
-	private long playerId;
-	/** io message content */
-	private Message message;
+	private IdSession session;
 	/** message controller */
 	private Object handler;
 	/** target method of the controller */
@@ -23,14 +21,15 @@ public final class CmdTask extends BaseTask {
 	/** arguments passed to the method */
 	private Object[] params;
 
-	public static CmdTask valueOf(int dispatchMap, int dispatchLine, Object handler, Method method, Object[] params) {
-		CmdTask msgTask = new CmdTask();
-		msgTask.dispatchMap = dispatchMap;
-		msgTask.handler = handler;
-		msgTask.method = method;
-		msgTask.params = params;
+	public static CmdTask valueOf(IdSession session, int dispatchMap, Object handler, Method method, Object[] params) {
+		CmdTask task = new CmdTask();
+		task.session = session;
+		task.dispatchMap = dispatchMap;
+		task.handler = handler;
+		task.method = method;
+		task.params = params;
 
-		return msgTask;
+		return task;
 	}
 
 	@Override
@@ -38,20 +37,11 @@ public final class CmdTask extends BaseTask {
 		try {
 			Object response = method.invoke(handler, params);
 			if (response != null) {
-				MessagePusher.pushMessage(playerId, (Message) response);
+				MessagePusher.pushMessage(session, (Message) response);
 			}
 		} catch (Exception e) {
 			logger.error("message task execute failed ", e);
-			e.printStackTrace();
 		}
-	}
-
-	public long getPlayerId() {
-		return playerId;
-	}
-
-	public Message getMessage() {
-		return message;
 	}
 
 	public Object getHandler() {

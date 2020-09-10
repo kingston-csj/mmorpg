@@ -6,19 +6,17 @@ mmorpg，是一个用java编写的轻量级高性能mmorpg手游服务端框架�
 * 允许socket/websocket同时接入，兼容手游/页游服务端架构    
 * 有独立http后台网站，为游戏运维/运营提供支持  
 * 框架提供多种组件，可以直接二次开发业务逻辑  
-* 提供热更机制以及jmx接口，方便对生产项目进行监控与维护      
+* 提供热更机制以及jmx接口，方便对生产项目进行监控与维护    
+* 尽可能使用springboot组件进行搭建    
 
 
 
-## 第三方技术栈 
-名称 | 用途 | 官网  
-----|------|----     
-Netty | nio socket 框架 | [http://netty.io/](http://netty.io/)  
-spring | 依赖注入 | [spring](https://github.com/spring-projects/spring-framework) 
-springboot | 快速搭建spring应用 | [spring-boot](https://github.com/spring-projects/spring-boot)  
-groovy | 基于类替换的热更新 | [http://www.groovy-lang.org/](http://www.groovy-lang.org/)　　  
-hibernate | 强大的orm框架 | [http://hibernate.org/orm/](http://hibernate.org/orm/) 
-gradle | 依赖管理及项目构建 | [https://gradle.org/](https://gradle.org/)  
+## 使用spring/springboot的组件 
+名称 | 用途 
+----|------
+spring cache | 数据缓存 
+springdatajdbc | 多数据源orm框架  
+springmvc | 管理后台接口
 
 
 ## ToDoList  

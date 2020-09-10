@@ -50,7 +50,7 @@ public abstract class Creature extends SceneActor {
 		this.buffContainer = buffContainer;
 	}
 
-	public int dispatchMap() {
+	public int dispatchKey() {
 		return mapId;
 	}
 
