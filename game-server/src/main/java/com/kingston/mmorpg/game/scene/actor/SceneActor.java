@@ -21,11 +21,6 @@ public abstract class SceneActor extends GameObject implements IDispatch {
 		return mapId;
 	}
 
-	@Override
-	public int dispatchLine() {
-		return lineId;
-	}
-
 	public Scene getScene() {
 		return scene;
 	}

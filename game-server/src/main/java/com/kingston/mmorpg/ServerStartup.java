@@ -13,6 +13,7 @@ import org.springframework.boot.Banner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +22,9 @@ import java.util.List;
  * sprint-boot自动bean扫描只能扫描启动类的子目录，所以该类的包路径不能太深
  *
  * @author kingston
- *
  */
 @SpringBootApplication
+@EnableCaching
 public class ServerStartup implements CommandLineRunner {
 
 	private static Logger logger = LoggerFactory.getLogger(ServerStartup.class);

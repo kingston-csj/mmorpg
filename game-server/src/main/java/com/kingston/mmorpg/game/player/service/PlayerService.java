@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentMap;
 
 import com.kingston.mmorpg.framework.net.socket.IdSession;
 import com.kingston.mmorpg.game.script.impl.LoginScript;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ import com.kingston.mmorpg.game.player.model.PlayerProfile;
 import com.kingston.mmorpg.game.scene.actor.Player;
 
 @Service
+@Log
 public class PlayerService {
 
 	public static final short CMD_REQ_ACCOUNT_LOGIN = 1;
@@ -62,6 +64,7 @@ public class PlayerService {
 
 	@Cacheable(cacheNames = "player")
 	public Player getPlayer(long id) {
+		log.info("查询角色 " + id);
 		PlayerEnt playerEnt = playerDao.getOne(id);
 		if (playerEnt != null) {
 			Player player = new Player();

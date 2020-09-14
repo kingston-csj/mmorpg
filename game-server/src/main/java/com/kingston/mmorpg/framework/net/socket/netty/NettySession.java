@@ -34,7 +34,7 @@ public class NettySession implements IdSession {
 	/** ip地址 */
 	private String ipAddr;
 
-	private IDispatch dipatcher;
+	private IDispatch dispatcher;
 
 	/** 拓展用，保存一些个人数据 */
 	private Map<String, Object> attrs = new HashMap<>();
@@ -48,7 +48,7 @@ public class NettySession implements IdSession {
 	public NettySession(Channel channel, ChannelType channelType) {
 		this.channel = channel;
 		this.ipAddr = ChannelUtils.getIp(channel);
-		this.dipatcher = anoymousDispatcher;
+		this.dispatcher = anonymousDispatcher;
 		this.channelType = channelType;
 	}
 
@@ -93,11 +93,11 @@ public class NettySession implements IdSession {
 	}
 
 	public IDispatch getDispatcher() {
-		return dipatcher;
+		return dispatcher;
 	}
 
 	public void bindDispatcher(IDispatch dispatcher) {
-		this.dipatcher = dispatcher;
+		this.dispatcher = dispatcher;
 	}
 
 	public boolean isClose() {
@@ -130,15 +130,10 @@ public class NettySession implements IdSession {
 	/**
 	 * 匿名分发器，用于角色未登录
 	 */
-	static IDispatch anoymousDispatcher = new IDispatch() {
+	static IDispatch anonymousDispatcher = new IDispatch() {
 
 		@Override
 		public int dispatchKey() {
-			return 0;
-		}
-
-		@Override
-		public int dispatchLine() {
 			return 0;
 		}
 

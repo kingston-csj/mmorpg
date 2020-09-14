@@ -5,5 +5,10 @@
     <cache name="player"
            eternal="false"
            maxEntriesLocalHeap="0"
-           timeToIdleSeconds="60*60"/>
+           timeToIdleSeconds="3600"/>
+
+    <cache name="account"
+           eternal="false"
+           maxEntriesLocalHeap="0"
+           timeToIdleSeconds="3600"/>
 </ehcache>
