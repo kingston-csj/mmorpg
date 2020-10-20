@@ -1,7 +1,6 @@
 package com.kingston.mmorpg.game.gm.facade;
 
 import com.kingston.mmorpg.framework.net.socket.IdSession;
-import com.kingston.mmorpg.framework.net.socket.annotation.MessageMapping;
 import com.kingston.mmorpg.framework.net.socket.annotation.ModuleMeta;
 import com.kingston.mmorpg.game.Modules;
 import com.kingston.mmorpg.game.gm.GmDispatcher;
@@ -17,7 +16,6 @@ public class GmFacade {
 	@Autowired
 	private GmDispatcher gmDispatcher;
 
-	@MessageMapping
 	public void reqGmExec(IdSession session, ReqGmCommand req) {
 		Player player = session.getPlayer();
 		String[] params = req.getParams().split("\\s+");

@@ -6,6 +6,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.kingston.mmorpg.framework.net.socket.message.Message;
 import org.springframework.stereotype.Component;
 
 /**

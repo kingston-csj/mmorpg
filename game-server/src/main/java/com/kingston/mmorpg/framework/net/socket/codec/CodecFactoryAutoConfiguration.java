@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class CodecFactoryConfigurations {
+public class CodecFactoryAutoConfiguration {
 
     @Bean
     @ConditionalOnExpression(("'${game.socket.codec}'.equalsIgnoreCase('reflect')"))

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class SocketServerConfigurations {
+public class SocketServerAutoConfiguration {
 
     @Bean
     @ConditionalOnExpression(("'${game.socket.name}'.equalsIgnoreCase('netty')"))

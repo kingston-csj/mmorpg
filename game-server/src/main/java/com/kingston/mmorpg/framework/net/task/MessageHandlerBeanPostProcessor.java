@@ -1,7 +1,9 @@
 package com.kingston.mmorpg.framework.net.task;
 
-import java.lang.reflect.Method;
-
+import com.kingston.mmorpg.framework.net.socket.annotation.MessageMeta;
+import com.kingston.mmorpg.framework.net.socket.annotation.ModuleMeta;
+import com.kingston.mmorpg.framework.net.socket.message.CmdExecutor;
+import com.kingston.mmorpg.framework.net.socket.message.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -12,11 +14,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
-import com.kingston.mmorpg.framework.net.socket.annotation.MessageMapping;
-import com.kingston.mmorpg.framework.net.socket.annotation.MessageMeta;
-import com.kingston.mmorpg.framework.net.socket.annotation.ModuleMeta;
-import com.kingston.mmorpg.framework.net.socket.message.CmdExecutor;
-import com.kingston.mmorpg.framework.net.socket.message.Message;
+import java.lang.reflect.Method;
 
 @Component
 public class MessageHandlerBeanPostProcessor implements BeanPostProcessor, ApplicationContextAware, Ordered {
@@ -41,8 +39,7 @@ public class MessageHandlerBeanPostProcessor implements BeanPostProcessor, Appli
 			short module = moduleMeta.module();
 			Method[] methods = clz.getDeclaredMethods();
 			for (Method method : methods) {
-				MessageMapping mapperAnnotation = method.getAnnotation(MessageMapping.class);
-				if (mapperAnnotation != null) {
+				if (isRequestMapperMethod(method)) {
 					short cmdMeta = getMessageMeta(method);
 					if (cmdMeta <= 0) {
 						throw new RuntimeException(
@@ -60,6 +57,21 @@ public class MessageHandlerBeanPostProcessor implements BeanPostProcessor, Appli
 		}
 
 		return bean;
+	}
+
+	/**
+	 * 参数属于{@link Message}则代表是客户端请求映射方法
+	 * @param method
+	 * @return
+	 */
+	private boolean isRequestMapperMethod(Method method) {
+		Class<?>[] parameters = method.getParameterTypes();
+		for (Class<?> parameter : parameters) {
+			if (Message.class.isAssignableFrom(parameter)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**

@@ -2,7 +2,6 @@ package com.kingston.mmorpg.game.player.facade;
 
 import com.kingston.mmorpg.framework.eventbus.EventBus;
 import com.kingston.mmorpg.framework.net.socket.IdSession;
-import com.kingston.mmorpg.framework.net.socket.annotation.MessageMapping;
 import com.kingston.mmorpg.framework.net.socket.annotation.ModuleMeta;
 import com.kingston.mmorpg.game.Modules;
 import com.kingston.mmorpg.game.base.SpringContext;
@@ -27,17 +26,14 @@ public class PlayerFacade {
 	@Autowired
 	private LoginService loginService;
 
-	@MessageMapping
 	public void reqAccountLogin(IdSession session, ReqAccountLogin request) {
 		loginService.handleAccountLogin(session, request.getAccountId(), request.getPassword());
 	}
 
-	@MessageMapping
 	public void reqSelectPlayer(IdSession session, ReqSelectPlayer requst) {
 		loginService.handleSelectPlayer(session, requst.getPlayerId());
 	}
 
-	@MessageMapping
 	public void reqPlayerLogin(IdSession session, ReqPlayerLogin request) {
 		long playerId = request.getPlayerId();
 		System.out.println("角色[" + playerId + "]登录");
