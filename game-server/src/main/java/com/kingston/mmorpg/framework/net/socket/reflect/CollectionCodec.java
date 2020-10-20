@@ -1,4 +1,4 @@
-package com.kingston.mmorpg.framework.net.socket.serializer;
+package com.kingston.mmorpg.framework.net.socket.reflect;
 
 import com.kingston.mmorpg.framework.net.socket.codec.ByteBuffUtil;
 
@@ -7,7 +7,7 @@ import java.nio.ByteBuffer;
 import java.util.*;
 
 @SuppressWarnings("unchecked")
-public class CollectionSerializer extends Serializer {
+public class CollectionCodec extends Codec {
 
     @Override
     public Object decode(ByteBuffer in, Class<?> type, Class<?> wrapper) {
@@ -30,7 +30,7 @@ public class CollectionSerializer extends Serializer {
         }
 
         for (int i = 0; i < size; i++) {
-            Serializer fieldCodec = Serializer.getSerializer(wrapper);
+            Codec fieldCodec = Codec.getSerializer(wrapper);
             Object eleValue = fieldCodec.decode(in, wrapper, null);
             result.add(eleValue);
         }
@@ -50,7 +50,7 @@ public class CollectionSerializer extends Serializer {
 
         for (Object elem : collection) {
             Class<?> clazz = elem.getClass();
-            Serializer fieldCodec = Serializer.getSerializer(clazz);
+            Codec fieldCodec = Codec.getSerializer(clazz);
             fieldCodec.encode(out, elem, wrapper);
         }
     }

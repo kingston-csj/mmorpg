@@ -2,7 +2,7 @@ package com.kingston.mmorpg.framework.net.socket.codec;
 
 import com.kingston.mmorpg.framework.net.socket.codec.mina.CodecContext;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
-import com.kingston.mmorpg.framework.net.socket.serializer.Serializer;
+import com.kingston.mmorpg.framework.net.socket.reflect.Codec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +17,7 @@ public class ReflectEncoder implements IMessageEncoder {
         ByteBuffer out = ByteBuffer.allocate(CodecContext.WRITE_CAPACITY);
         //写入具体消息的内容
         try {
-            Serializer messageCodec = Serializer.getSerializer(message.getClass());
+            Codec messageCodec = Codec.getSerializer(message.getClass());
             messageCodec.encode(out, message, null);
         } catch (Exception e) {
             logger.error("读取消息出错,模块号{}, 异常{}",

@@ -1,4 +1,4 @@
-package com.kingston.mmorpg.framework.net.socket.serializer;
+package com.kingston.mmorpg.framework.net.socket.reflect;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author kingston
  */
-public class MessageSerializer extends Serializer {
+public class MessageCodec extends Codec {
 
     private Map<Class<?>, List<FieldCodecMeta>> class2FieldsMetas = new ConcurrentHashMap<>();
 
@@ -35,9 +35,9 @@ public class MessageSerializer extends Serializer {
             field.setAccessible(true);
             sortedFields.put(field, field.getType());
             Class<?> type = field.getType();
-            Serializer serializer = Serializer.getSerializer(type);
+            Codec codec = Codec.getSerializer(type);
 
-            fieldsMeta.add(FieldCodecMeta.valueOf(field, serializer));
+            fieldsMeta.add(FieldCodecMeta.valueOf(field, codec));
         }
 
         class2FieldsMetas.put(clazz, fieldsMeta);
@@ -50,7 +50,7 @@ public class MessageSerializer extends Serializer {
             Object bean = type.newInstance();
             for (FieldCodecMeta fieldMeta : fieldsMeta) {
                 Field field = fieldMeta.getField();
-                Serializer fieldCodec = fieldMeta.getSerializer();
+                Codec fieldCodec = fieldMeta.getCodec();
 
                 Object value = fieldCodec.decode(in, fieldMeta.getType(), fieldMeta.getWrapper());
                 field.set(bean, value);
@@ -69,7 +69,7 @@ public class MessageSerializer extends Serializer {
             List<FieldCodecMeta> fieldsMeta = class2FieldsMetas.get(value.getClass());
             for (FieldCodecMeta fieldMeta : fieldsMeta) {
                 Field field = fieldMeta.getField();
-                Serializer fieldCodec = fieldMeta.getSerializer();
+                Codec fieldCodec = fieldMeta.getCodec();
                 Object fieldVal = field.get(value);
                 fieldCodec.encode(out, fieldVal, fieldMeta.getWrapper());
             }

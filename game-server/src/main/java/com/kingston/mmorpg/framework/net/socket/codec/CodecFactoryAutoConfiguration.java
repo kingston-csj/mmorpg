@@ -3,7 +3,7 @@ package com.kingston.mmorpg.framework.net.socket.codec;
 import com.kingston.mmorpg.framework.net.socket.json.JsonSerializerFactory;
 import com.kingston.mmorpg.framework.net.socket.protobuf.ProtobufSerializerFactory;
 import com.kingston.mmorpg.framework.net.socket.protostuff.ProtostuffSerializerFactory;
-import com.kingston.mmorpg.framework.net.socket.serializer.ReflectSerializerFactory;
+import com.kingston.mmorpg.framework.net.socket.reflect.ReflectSerializerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

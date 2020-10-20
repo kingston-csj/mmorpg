@@ -1,4 +1,4 @@
-package com.kingston.mmorpg.framework.net.socket.serializer;
+package com.kingston.mmorpg.framework.net.socket.reflect;
 
 import com.kingston.mmorpg.framework.net.socket.codec.*;
 

@@ -1,28 +1,28 @@
 package com.kingston.mmorpg.framework.net.socket;
 
-import com.kingston.mmorpg.framework.net.socket.serializer.Serializer;
+import com.kingston.mmorpg.framework.net.socket.reflect.Codec;
 
 public class SerializerMeta {
 
-	private Serializer serializer;
+	private Codec codec;
 
 	private Class<?> clazz;
 
 	private int id;
 
-	public SerializerMeta(Serializer serializer, Class<?> clazz, int id) {
+	public SerializerMeta(Codec codec, Class<?> clazz, int id) {
 		super();
-		this.serializer = serializer;
+		this.codec = codec;
 		this.clazz = clazz;
 		this.id = id;
 	}
 
-	public Serializer getSerializer() {
-		return serializer;
+	public Codec getCodec() {
+		return codec;
 	}
 
-	public void setSerializer(Serializer serializer) {
-		this.serializer = serializer;
+	public void setCodec(Codec codec) {
+		this.codec = codec;
 	}
 
 	public Class<?> getType() {

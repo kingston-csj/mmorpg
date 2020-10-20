@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.kingston.mmorpg.framework.net.socket.MessageFactory;
-import com.kingston.mmorpg.framework.net.socket.serializer.Serializer;
+import com.kingston.mmorpg.framework.net.socket.reflect.Codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -47,7 +46,7 @@ public class MessageCodecTest {
 
 		Class<?> clazz = MessageFactory.getInstance().getMessageMeta(cmd);
 
-		Serializer serializer = Serializer.getSerializer(ReqSelectePlayer.class);
+		Codec codec = Codec.getSerializer(ReqSelectePlayer.class);
 
 	}
 

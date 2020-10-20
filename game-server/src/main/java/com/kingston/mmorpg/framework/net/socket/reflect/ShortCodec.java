@@ -1,10 +1,10 @@
-package com.kingston.mmorpg.framework.net.socket.serializer;
+package com.kingston.mmorpg.framework.net.socket.reflect;
 
 import com.kingston.mmorpg.framework.net.socket.codec.ByteBuffUtil;
 
 import java.nio.ByteBuffer;
 
-public class ShortSerializer extends Serializer {
+public class ShortCodec extends Codec {
 
 	@Override
 	public Short decode(ByteBuffer in, Class<?> type, Class<?> wrapper) {

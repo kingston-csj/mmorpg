@@ -1,10 +1,10 @@
-package com.kingston.mmorpg.framework.net.socket.serializer;
+package com.kingston.mmorpg.framework.net.socket.reflect;
 
 import com.kingston.mmorpg.framework.net.socket.codec.ByteBuffUtil;
 
 import java.nio.ByteBuffer;
 
-public class BooleanSerializer extends Serializer {
+public class BooleanCodec extends Codec {
 
 	@Override
 	public Boolean decode(ByteBuffer in, Class<?> type, Class<?> wrapper) {

@@ -3,7 +3,7 @@ package com.kingston.mmorpg.framework.net.socket;
 import com.kingston.mmorpg.framework.net.socket.annotation.MessageMeta;
 import com.kingston.mmorpg.framework.net.socket.annotation.ModuleMeta;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
-import com.kingston.mmorpg.framework.net.socket.serializer.Serializer;
+import com.kingston.mmorpg.framework.net.socket.reflect.Codec;
 import com.kingston.mmorpg.game.util.ClassScanner;
 
 import java.util.HashMap;
@@ -53,7 +53,7 @@ public class MessageFactory {
 					}
 					clazz2Id.put(msgClz, key);
 					id2Clazz.put(key, (Class<? extends Message>) msgClz);
-					Serializer.registerClass(msgClz, key);
+					Codec.registerClass(msgClz, key);
 				}
 			}
 		}

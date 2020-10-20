@@ -2,7 +2,7 @@ package com.kingston.mmorpg.framework.net.socket.codec;
 
 import com.kingston.mmorpg.framework.net.socket.MessageFactory;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
-import com.kingston.mmorpg.framework.net.socket.serializer.Serializer;
+import com.kingston.mmorpg.framework.net.socket.reflect.Codec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +21,7 @@ public class ReflectDecoder implements IMessageDecoder {
 
         Class<?> msgClazz = MessageFactory.getInstance().getMessageMeta(cmd);
         try {
-            Serializer messageCodec = Serializer.getSerializer(msgClazz);
+            Codec messageCodec = Codec.getSerializer(msgClazz);
             Message message = (Message) messageCodec.decode(in, msgClazz, null);
             return message;
         } catch (Exception e) {
