@@ -18,7 +18,7 @@ import lombok.Data;
 @Table(name = "PlayerEnt")
 @Proxy(lazy = false)
 @Data
-public class PlayerEnt implements BaseEntity {
+public class PlayerEnt implements BaseEntity<Long> {
 
 	@Id
 	@Column
@@ -42,6 +42,11 @@ public class PlayerEnt implements BaseEntity {
 	@Override
 	public CrudRepository<PlayerEnt, Long> getCrudRepository() {
 		return SpringContext.getBean(PlayerDao.class);
+	}
+
+	@Override
+	public Long getId() {
+		return playerId;
 	}
 
 }

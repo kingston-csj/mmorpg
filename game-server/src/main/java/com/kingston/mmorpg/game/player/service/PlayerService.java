@@ -54,6 +54,9 @@ public class PlayerService {
 	@Autowired
 	private PlayerDao playerDao;
 
+	@Autowired
+	private PlayerCacheService playerCacheService;
+
 	public void loadAllPlayerProfiles() {
 		List<PlayerProfile> allPlayers = playerDao.queryAllPlayers();
 		allPlayers.forEach(player -> {
@@ -62,18 +65,8 @@ public class PlayerService {
 		LoggerUtils.error("加载玩家基本数据，总量为{}", allPlayers.size());
 	}
 
-	@Cacheable(cacheNames = "player")
 	public Player getPlayer(long id) {
-		log.info("查询角色 " + id);
-		PlayerEnt playerEnt = playerDao.getOne(id);
-		if (playerEnt != null) {
-			Player player = new Player();
-			player.setId(id);
-			player.setPlayerEnt(playerEnt);
-			return player;
-		} else {
-			return null;
-		}
+		return playerCacheService.getPlayer(id);
 	}
 
 	/**
@@ -82,7 +75,7 @@ public class PlayerService {
 	 * @param player
 	 */
 	public void savePlayer(Player player) {
-		SpringContext.getAysncDbService().add2Queue(player.getEntity());
+		playerCacheService.savePlayer(player);
 	}
 
 	public ResPlayerLogin login(IdSession session, long playerId) {
@@ -92,7 +85,7 @@ public class PlayerService {
 		return new ResPlayerLogin();
 	}
 
-	public Set<Long> getOnlienPlayers() {
+	public Set<Long> getOnlinePlayers() {
 		return new HashSet<>(this.onlines);
 	}
 

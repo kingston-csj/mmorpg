@@ -66,9 +66,10 @@ public class LoginService {
 	 */
 	public void handleSelectPlayer(IdSession session, long playerId) {
 		Player player = playerService.getPlayer(playerId);
+		player = playerService.getPlayer(playerId);
 		if (player != null) {
 			// 绑定session与玩家id
-			session.setAttribute("plaeyrId", playerId);
+			session.setAttribute("playerId", playerId);
 			// 加入在线列表
 			SpringContext.getSessionManager().registerSession(player, session);
 		}

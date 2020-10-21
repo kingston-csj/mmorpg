@@ -7,6 +7,6 @@ public interface CrudEntity {
 	 * 
 	 * @return
 	 */
-	public abstract BaseEntity getEntity();
+	BaseEntity getEntity();
 
 }

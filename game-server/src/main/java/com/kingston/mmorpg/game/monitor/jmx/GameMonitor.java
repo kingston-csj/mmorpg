@@ -33,7 +33,7 @@ public class GameMonitor implements GameMonitorMBean {
 	@Override
 	@ManagedOperation
 	public int getOnlinePlayerSum() {
-		return SpringContext.getPlayerService().getOnlienPlayers().size();
+		return SpringContext.getPlayerService().getOnlinePlayers().size();
 	}
 
 	@Override

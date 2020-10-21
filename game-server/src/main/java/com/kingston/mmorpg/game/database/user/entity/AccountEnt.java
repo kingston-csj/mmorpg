@@ -15,7 +15,7 @@ import com.kingston.mmorpg.game.database.user.dao.AccountDao;
 @Entity
 @Table(name = "AccountEnt")
 @Proxy(lazy = false)
-public class AccountEnt implements BaseEntity {
+public class AccountEnt implements BaseEntity<Long> {
 
 	@Id
 	@Column
@@ -24,7 +24,8 @@ public class AccountEnt implements BaseEntity {
 	@Column
 	private String name;
 
-	public long getId() {
+	@Override
+	public Long getId() {
 		return id;
 	}
 
