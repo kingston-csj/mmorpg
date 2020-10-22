@@ -3,7 +3,7 @@ package com.kingston.mmorpg.framework.net.socket;
 import com.kingston.mmorpg.framework.net.socket.annotation.MessageMeta;
 import com.kingston.mmorpg.framework.net.socket.annotation.ModuleMeta;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
-import com.kingston.mmorpg.framework.net.socket.reflect.Codec;
+import com.kingston.mmorpg.framework.net.socket.codec.impl.reflect.Codec;
 import com.kingston.mmorpg.game.util.ClassScanner;
 
 import java.util.HashMap;

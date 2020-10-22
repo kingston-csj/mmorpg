@@ -6,12 +6,7 @@ import com.kingston.mmorpg.framework.net.socket.SocketServerNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.kingston.mmorpg.framework.net.ServerNode;
-import com.kingston.mmorpg.framework.net.socket.MessageFactory;
-import com.kingston.mmorpg.framework.net.socket.codec.netty.NettyPacketDecoder;
-import com.kingston.mmorpg.framework.net.socket.codec.netty.NettyPacketEncoder;
 import com.kingston.mmorpg.game.ServerConfig;
-import com.kingston.mmorpg.game.base.SpringContext;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
@@ -24,11 +19,8 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.timeout.IdleStateHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 
 public class NettySocketServer implements SocketServerNode {
 

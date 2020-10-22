@@ -8,7 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.kingston.mmorpg.framework.net.socket.MessageFactory;
-import com.kingston.mmorpg.framework.net.socket.reflect.Codec;
+import com.kingston.mmorpg.framework.net.socket.codec.impl.reflect.Codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

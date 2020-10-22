@@ -5,8 +5,6 @@ import java.net.InetSocketAddress;
 import com.kingston.mmorpg.client.net.ClientPacketDecoder;
 import com.kingston.mmorpg.client.net.ClientPacketEncoder;
 import com.kingston.mmorpg.client.net.ClientTransportHandler;
-import com.kingston.mmorpg.framework.net.socket.codec.netty.NettyPacketDecoder;
-import com.kingston.mmorpg.framework.net.socket.codec.netty.NettyPacketEncoder;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;

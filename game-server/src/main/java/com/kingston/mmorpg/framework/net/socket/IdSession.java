@@ -40,7 +40,7 @@ public interface IdSession {
 
     IDispatch getDispatcher();
 
-    void bindDispatcher(IDispatch dipatcher);
+    void bindDispatcher(IDispatch dispatcher);
 
     Player getPlayer();
 

@@ -3,9 +3,9 @@ package com.kingston.mmorpg.client.net;
 import com.kingston.mmorpg.framework.net.socket.codec.IMessageDecoder;
 import com.kingston.mmorpg.framework.net.socket.codec.IMessageEncoder;
 import com.kingston.mmorpg.framework.net.socket.codec.SerializerFactory;
-import com.kingston.mmorpg.framework.net.socket.json.JsonSerializerFactory;
-import com.kingston.mmorpg.framework.net.socket.protobuf.ProtobufSerializerFactory;
-import com.kingston.mmorpg.framework.net.socket.protostuff.ProtostuffSerializerFactory;
+import com.kingston.mmorpg.framework.net.socket.codec.impl.json.JsonSerializerFactory;
+import com.kingston.mmorpg.framework.net.socket.codec.impl.protobuf.ProtobufSerializerFactory;
+import com.kingston.mmorpg.framework.net.socket.codec.impl.protostuff.ProtostuffSerializerFactory;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 public class ClientSerializerHelper {

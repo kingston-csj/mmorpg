@@ -2,7 +2,7 @@ package com.kingston.mmorpg.client.net;
 
 import com.kingston.mmorpg.framework.net.socket.MessageFactory;
 import com.kingston.mmorpg.framework.net.socket.codec.IMessageEncoder;
-import com.kingston.mmorpg.framework.net.socket.codec.netty.NettyPacketEncoder;
+import com.kingston.mmorpg.framework.net.socket.netty.NettyPacketEncoder;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
 import com.kingston.mmorpg.game.logger.LoggerUtils;
 import io.netty.buffer.ByteBuf;
