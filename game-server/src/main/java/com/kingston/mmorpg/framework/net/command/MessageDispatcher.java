@@ -1,4 +1,4 @@
-package com.kingston.mmorpg.framework.net.task;
+package com.kingston.mmorpg.framework.net.command;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,7 +51,7 @@ public class MessageDispatcher {
 		Object controller = cmdExecutor.getHandler();
 
 		IDispatch dispatcher = session.getDispatcher();
-		GameExecutor.getInstance().acceptTask(CmdTask.valueOf(session, dispatcher.dispatchKey(),
+		GameExecutor.getInstance().acceptTask(MessageCommand.valueOf(session, dispatcher.dispatchKey(),
 				controller, cmdExecutor.getMethod(), params));
 	}
 

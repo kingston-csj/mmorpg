@@ -1,16 +1,16 @@
-package com.kingston.mmorpg.framework.net.task;
+package com.kingston.mmorpg.framework.net.command;
 
-public final class TimerTask extends BaseTask {
+public final class TimerCommand extends BaseCommand {
 
 	private int currLoop;
 	/** indicate loop task when it is smaller than 0 */
 	private int maxLoop;
 
-	public TimerTask(int dispatchMap, int dispatchLine) {
+	public TimerCommand(int dispatchMap, int dispatchLine) {
 		this(dispatchMap, dispatchLine, 1);
 	}
 
-	public TimerTask(int dispatchMap, int dispatchLine, int maxLoop) {
+	public TimerCommand(int dispatchMap, int dispatchLine, int maxLoop) {
 		this.dispatchMap = dispatchMap;
 		this.dispatchLine = dispatchLine;
 		this.maxLoop = maxLoop;

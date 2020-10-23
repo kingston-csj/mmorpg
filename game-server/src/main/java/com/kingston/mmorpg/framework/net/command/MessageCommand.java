@@ -1,4 +1,4 @@
-package com.kingston.mmorpg.framework.net.task;
+package com.kingston.mmorpg.framework.net.command;
 
 import java.lang.reflect.Method;
 
@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
 import com.kingston.mmorpg.framework.net.socket.MessagePusher;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
 
-public final class CmdTask extends BaseTask {
+public final class MessageCommand extends BaseCommand {
 
-	private static Logger logger = LoggerFactory.getLogger(CmdTask.class);
+	private static Logger logger = LoggerFactory.getLogger(MessageCommand.class);
 
 	private IdSession session;
 	/** message controller */
@@ -21,8 +21,8 @@ public final class CmdTask extends BaseTask {
 	/** arguments passed to the method */
 	private Object[] params;
 
-	public static CmdTask valueOf(IdSession session, int dispatchMap, Object handler, Method method, Object[] params) {
-		CmdTask task = new CmdTask();
+	public static MessageCommand valueOf(IdSession session, int dispatchMap, Object handler, Method method, Object[] params) {
+		MessageCommand task = new MessageCommand();
 		task.session = session;
 		task.dispatchMap = dispatchMap;
 		task.handler = handler;

@@ -1,9 +1,9 @@
-package com.kingston.mmorpg.framework.net.task;
+package com.kingston.mmorpg.framework.net.command;
 
 import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;
 
-public abstract class BaseTask extends AbstractDispatchTask implements Delayed {
+public abstract class BaseCommand extends AbstractDispatchCommand implements Delayed {
 
 	/** 分发地图 */
 	protected int dispatchMap;
@@ -35,7 +35,7 @@ public abstract class BaseTask extends AbstractDispatchTask implements Delayed {
 	}
 
 	public int compareTo(Delayed o) {
-		BaseTask otherTask = (BaseTask) o;
+		BaseCommand otherTask = (BaseCommand) o;
 		long t1 = getDelay(TimeUnit.NANOSECONDS);
 		long t2 = otherTask.getDelay(TimeUnit.NANOSECONDS);
 

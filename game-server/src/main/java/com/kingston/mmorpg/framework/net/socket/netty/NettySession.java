@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
 import com.kingston.mmorpg.framework.net.socket.message.WebSocketFrame;
-import com.kingston.mmorpg.framework.net.task.IDispatch;
+import com.kingston.mmorpg.framework.net.command.IDispatch;
 import com.kingston.mmorpg.game.scene.actor.Player;
 
 import io.netty.channel.Channel;

@@ -12,7 +12,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
-import com.kingston.mmorpg.framework.net.task.MessageDispatcher;
+import com.kingston.mmorpg.framework.net.command.MessageDispatcher;
 import com.kingston.mmorpg.game.ServerConfig;
 import com.kingston.mmorpg.game.account.AccountService;
 import com.kingston.mmorpg.game.asyncdb.AysncDbService;

@@ -1,4 +1,4 @@
-package com.kingston.mmorpg.framework.net.task;
+package com.kingston.mmorpg.framework.net.command;
 
 import com.kingston.mmorpg.framework.net.socket.annotation.MessageMeta;
 import com.kingston.mmorpg.framework.net.socket.annotation.ModuleMeta;

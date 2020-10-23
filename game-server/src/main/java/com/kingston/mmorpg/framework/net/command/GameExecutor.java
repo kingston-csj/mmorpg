@@ -1,4 +1,4 @@
-package com.kingston.mmorpg.framework.net.task;
+package com.kingston.mmorpg.framework.net.command;
 
 import com.kingston.mmorpg.common.util.thread.NamedThreadFactory;
 import org.slf4j.Logger;
@@ -40,7 +40,7 @@ public class GameExecutor {
 	/**
 	 * @param task
 	 */
-	public void acceptTask(BaseTask task) {
+	public void acceptTask(BaseCommand task) {
 		if (task == null) {
 			throw new NullPointerException("task is null");
 		}

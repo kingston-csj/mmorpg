@@ -1,6 +1,6 @@
-package com.kingston.mmorpg.framework.net.task;
+package com.kingston.mmorpg.framework.net.command;
 
-public abstract class AbstractDispatchTask implements IDispatchTask {
+public abstract class AbstractDispatchCommand implements IDispatchTask {
 
 	public String getName() {
 		return getClass().getSimpleName();
