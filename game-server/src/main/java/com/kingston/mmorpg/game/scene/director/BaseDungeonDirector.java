@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public abstract class BaseDungeonDirector extends SceneDirector {
 
-	protected Set<Long> histroyPlayerIds = new HashSet<>();
+	protected Set<Long> historyPlayerIds = new HashSet<>();
 
 	protected Set<Long> alivePlayerIds = new HashSet<>();
 

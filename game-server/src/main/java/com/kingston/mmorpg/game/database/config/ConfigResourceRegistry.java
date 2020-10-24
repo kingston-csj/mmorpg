@@ -37,12 +37,10 @@ public class ConfigResourceRegistry implements ApplicationContextAware {
 //				System.exit(0);
 //			}
 //		}
-
 	}
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-
 		Map<String, Reloadable> configs = applicationContext.getBeansOfType(Reloadable.class);
 		for (Map.Entry<String, Reloadable> entry : configs.entrySet()) {
 			Reloadable config = entry.getValue();

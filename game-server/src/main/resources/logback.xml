@@ -11,7 +11,7 @@
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<rollingPolicy
 			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>log/game.log.%d{yyyy-MM-dd}</fileNamePattern>
+			<fileNamePattern>logs/game.log.%d{yyyy-MM-dd}</fileNamePattern>
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
 		<encoder>
