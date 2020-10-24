@@ -30,13 +30,12 @@ public interface IdSession {
     Object setAttribute(String key, Object value);
 
     /**
-     * 修改属性值
+     * 获取属性值
      *
      * @param key
      * @return
      */
     Object getAttribute(String key);
-
 
     IDispatch getDispatcher();
 

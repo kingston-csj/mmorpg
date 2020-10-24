@@ -1,7 +1,8 @@
-package com.kingston.mmorpg.framework.net.socket;
+package com.kingston.mmorpg.game.base;
 
 import java.util.Collection;
 
+import com.kingston.mmorpg.framework.net.socket.IdSession;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
 import com.kingston.mmorpg.game.base.SpringContext;
 

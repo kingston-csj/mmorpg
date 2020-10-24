@@ -1,6 +1,6 @@
 package com.kingston.mmorpg.game.scene.actor;
 
-import com.kingston.mmorpg.game.attribute.AttributeContaniner;
+import com.kingston.mmorpg.game.attribute.AttributeContainer;
 import com.kingston.mmorpg.game.attribute.AttributeType;
 import com.kingston.mmorpg.game.buff.model.BuffContainer;
 import com.kingston.mmorpg.game.scene.model.Life;
@@ -14,7 +14,7 @@ public abstract class Creature extends SceneActor {
 
 	private BuffContainer buffContainer;
 	
-	private AttributeContaniner attrContainer = new AttributeContaniner();
+	private AttributeContainer attrContainer = new AttributeContainer();
 
 	private Life life;
 
@@ -30,11 +30,11 @@ public abstract class Creature extends SceneActor {
 		return buffContainer;
 	}
 
-	public AttributeContaniner getAttrContainer() {
+	public AttributeContainer getAttrContainer() {
 		return attrContainer;
 	}
 
-	public void setAttrContainer(AttributeContaniner attrContainer) {
+	public void setAttrContainer(AttributeContainer attrContainer) {
 		this.attrContainer = attrContainer;
 	}
 	

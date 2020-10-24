@@ -37,7 +37,7 @@ public final class MessageCommand extends BaseCommand {
 		try {
 			Object response = method.invoke(handler, params);
 			if (response != null) {
-				MessagePusher.pushMessage(session, (Message) response);
+				session.sendPacket((Message) response);
 			}
 		} catch (Exception e) {
 			logger.error("message task execute failed ", e);

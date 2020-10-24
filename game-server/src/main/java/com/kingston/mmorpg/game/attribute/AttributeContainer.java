@@ -3,7 +3,7 @@ package com.kingston.mmorpg.game.attribute;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AttributeContaniner {
+public class AttributeContainer {
 
 	
 	private Map<AttributeType, Long> attrs = new HashMap<>();

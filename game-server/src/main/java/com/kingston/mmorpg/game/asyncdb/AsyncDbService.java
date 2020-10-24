@@ -18,7 +18,7 @@ import com.kingston.mmorpg.game.logger.LoggerUtils;
  * 异步持久化服务
  */
 @Service
-public class AysncDbService {
+public class AsyncDbService {
 
 	private BlockingQueue<BaseEntity> queue = new BlockingUniqueQueue<>();
 

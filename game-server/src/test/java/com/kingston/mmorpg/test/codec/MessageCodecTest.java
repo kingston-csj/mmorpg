@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.kingston.mmorpg.game.ConfigScanPaths;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -18,7 +19,7 @@ public class MessageCodecTest {
 	@BeforeClass
 	public static void init() {
 		// 初始化协议表
-		MessageFactory.getInstance().init();
+		MessageFactory.getInstance().init(ConfigScanPaths.MESSAGE_BASE_PATH);
 	}
 
 	@Test

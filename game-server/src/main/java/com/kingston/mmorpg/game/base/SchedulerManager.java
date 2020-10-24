@@ -6,6 +6,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 import com.kingston.mmorpg.common.util.thread.NamedThreadFactory;
 import org.springframework.stereotype.Component;
@@ -51,6 +52,7 @@ public class SchedulerManager {
         return service.schedule(new LogTask(command), delay, TimeUnit.MILLISECONDS);
     }
 
+    @PreDestroy
     public void shutDown() {
         service.shutdown();
         service.shutdownNow();

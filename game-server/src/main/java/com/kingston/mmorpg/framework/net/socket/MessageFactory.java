@@ -24,8 +24,8 @@ public class MessageFactory {
 	}
 
 	@SuppressWarnings("unchecked")
-	public void init() {
-		Set<Class<?>> messages = ClassScanner.listClassesWithAnnotation("com.kingston.mmorpg", ModuleMeta.class);
+	public void init(String path) {
+		Set<Class<?>> messages = ClassScanner.listClassesWithAnnotation(path, ModuleMeta.class);
 		for (Class<?> clazz : messages) {
 			ModuleMeta meta = clazz.getAnnotation(ModuleMeta.class);
 			if (meta == null) {

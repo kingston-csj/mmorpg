@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import com.kingston.mmorpg.framework.net.command.MessageDispatcher;
 import com.kingston.mmorpg.game.ServerConfig;
 import com.kingston.mmorpg.game.account.AccountService;
-import com.kingston.mmorpg.game.asyncdb.AysncDbService;
+import com.kingston.mmorpg.game.asyncdb.AsyncDbService;
 import com.kingston.mmorpg.game.buff.service.BuffService;
 import com.kingston.mmorpg.game.player.service.PlayerService;
 
@@ -45,10 +45,10 @@ public class SpringContext implements ApplicationContextAware {
 	}
 
 	@Resource
-	private AysncDbService aysncDbService;
+	private AsyncDbService asyncDbService;
 
-	public final static AysncDbService getAysncDbService() {
-		return self.aysncDbService;
+	public final static AsyncDbService getAysncDbService() {
+		return self.asyncDbService;
 	}
 
 	@Resource

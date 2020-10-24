@@ -6,6 +6,7 @@ import com.kingston.mmorpg.framework.net.socket.MessageFactory;
 import com.kingston.mmorpg.framework.net.socket.SocketServerNode;
 import com.kingston.mmorpg.framework.net.socket.codec.IMessageEncoder;
 import com.kingston.mmorpg.framework.net.socket.codec.SerializerHelper;
+import com.kingston.mmorpg.game.ConfigScanPaths;
 import com.kingston.mmorpg.game.base.SpringContext;
 import org.jline.utils.AttributedString;
 import org.jline.utils.AttributedStyle;
@@ -50,7 +51,7 @@ public class ServerStartup implements CommandLineRunner {
 		// 启动网关
 		SpringContext.getBean(SocketServerNode.class).start();
 		// 初始化协议表
-		MessageFactory.getInstance().init();
+		MessageFactory.getInstance().init(ConfigScanPaths.MESSAGE_BASE_PATH);
 		// 读取所有角色概括
 		SpringContext.getPlayerService().loadAllPlayerProfiles();
 	}
