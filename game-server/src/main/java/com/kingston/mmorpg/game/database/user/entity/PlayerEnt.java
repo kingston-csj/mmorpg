@@ -1,10 +1,8 @@
 package com.kingston.mmorpg.game.database.user.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import com.kingston.mmorpg.game.scene.actor.Player;
 import org.hibernate.annotations.Proxy;
 import org.springframework.data.repository.CrudRepository;
 
@@ -48,5 +46,8 @@ public class PlayerEnt implements BaseEntity<Long> {
 	public Long getId() {
 		return playerId;
 	}
+
+	@Transient
+	private Player player;
 
 }

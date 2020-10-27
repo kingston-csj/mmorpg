@@ -10,7 +10,6 @@ import com.kingston.mmorpg.framework.net.socket.IdSession;
 import com.kingston.mmorpg.game.script.impl.LoginScript;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.kingston.mmorpg.common.util.ConcurrentHashSet;
@@ -66,7 +65,11 @@ public class PlayerService {
 	}
 
 	public Player getPlayer(long id) {
-		return playerCacheService.getPlayer(id);
+		PlayerEnt playerEnt = playerCacheService.getEntity(id, PlayerEnt.class);
+		if (playerEnt != null) {
+			return playerEnt.getPlayer();
+		}
+		return null;
 	}
 
 	/**
@@ -75,7 +78,7 @@ public class PlayerService {
 	 * @param player
 	 */
 	public void savePlayer(Player player) {
-		playerCacheService.savePlayer(player);
+		playerCacheService.putEntity(player.getEntity());
 	}
 
 	public ResPlayerLogin login(IdSession session, long playerId) {

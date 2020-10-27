@@ -12,22 +12,26 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
+
 @Log
 @Service
-public class PlayerCacheService  {
+public class PlayerCacheService implements EntityCacheService<PlayerEnt, Long> {
 
     @Autowired
     private PlayerDao playerDao;
 
+    @Override
     @Cacheable(cacheNames = "player")
-    public Player getPlayer(long id) {
+    public PlayerEnt getEntity(Long id, Class clazz) {
         log.info("查询角色 " + id);
         PlayerEnt playerEnt = playerDao.getOne(id);
         if (playerEnt != null) {
             Player player = new Player();
             player.setId(id);
             player.setPlayerEnt(playerEnt);
-            return player;
+            playerEnt.setPlayer(player);
+            return playerEnt;
         } else {
             return null;
         }
@@ -36,10 +40,11 @@ public class PlayerCacheService  {
     /**
      * 保存玩家数据
      *
-     * @param player
+     * @param playerEnt
      */
+    @Override
     @CachePut(cacheNames = "player")
-    public void savePlayer(Player player) {
-        SpringContext.getAysncDbService().add2Queue(player.getEntity());
+    public PlayerEnt putEntity(PlayerEnt playerEnt) {
+        return null;
     }
 }
