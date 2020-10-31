@@ -1,6 +1,8 @@
 package com.kingston.mmorpg.game.base;
 
+import java.lang.annotation.Annotation;
 import java.util.Collection;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -110,6 +112,10 @@ public class SpringContext implements ApplicationContextAware {
 
 	public final static <T> T getBean(String name, Class<T> requiredType) {
 		return applicationContext.getBean(name, requiredType);
+	}
+
+	public final static Map<String, Object> getBeansWithAnnotation(Class<? extends Annotation> annotationType) {
+		return applicationContext.getBeansWithAnnotation(annotationType);
 	}
 
 }

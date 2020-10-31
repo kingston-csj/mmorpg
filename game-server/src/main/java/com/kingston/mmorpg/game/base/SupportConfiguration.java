@@ -1,4 +1,4 @@
-package com.kingston.mmorpg.game.support;
+package com.kingston.mmorpg.game.base;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -6,7 +6,7 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.support.DefaultConversionService;
 
 @Configuration
-public class SupportConfiration {
+public class SupportConfiguration {
 
 	@Bean("gameConversion")
 	public ConversionService createConversionService() {

@@ -1,19 +1,39 @@
 ﻿/*
-Navicat MySQL Data Transfer
+ Navicat MySQL Data Transfer
 
-Source Server         : localhost
-Source Server Version : 50717
-Source Host           : localhost:3306
-Source Database       : game_data_001
+ Source Server         : localhost
+ Source Server Type    : MySQL
+ Source Server Version : 50641
+ Source Host           : localhost:3306
+ Source Schema         : game_data_001
 
-Target Server Type    : MYSQL
-Target Server Version : 50717
-File Encoding         : 65001
+ Target Server Type    : MySQL
+ Target Server Version : 50641
+ File Encoding         : 65001
 
-Date: 2019-03-11 14:11:38
+ Date: 31/10/2020 22:12:17
 */
 
-SET FOREIGN_KEY_CHECKS=0;
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for ConfigCommonValue
+-- ----------------------------
+DROP TABLE IF EXISTS `configcommonvalue`;
+CREATE TABLE `configcommonvalue` (
+  `id` varchar(32) NOT NULL,
+  `value` varchar(255) DEFAULT NULL,
+  `desc` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of configcommonvalue
+-- ----------------------------
+BEGIN;
+INSERT INTO `configcommonvalue` VALUES ('playerMaxLevel', '999', NULL);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for configactivity
@@ -29,24 +49,9 @@ CREATE TABLE `configactivity` (
 -- ----------------------------
 -- Records of configactivity
 -- ----------------------------
-INSERT INTO `configactivity` VALUES ('1', '1', '首充送好礼');
-
--- ----------------------------
--- Table structure for configconstant
--- ----------------------------
-DROP TABLE IF EXISTS `configconstant`;
-CREATE TABLE `configconstant` (
-  `id` int(11) NOT NULL,
-  `intValue` int(255) DEFAULT NULL,
-  `StringValue` varchar(512) DEFAULT NULL,
-  `descrpition` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of configconstant
--- ----------------------------
-INSERT INTO `configconstant` VALUES ('1', '500', '11;22', '玩家最高等级');
+BEGIN;
+INSERT INTO `configactivity` VALUES (1, 1, '首充送好礼');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for configfunction
@@ -54,15 +59,10 @@ INSERT INTO `configconstant` VALUES ('1', '500', '11;22', '玩家最高等级');
 DROP TABLE IF EXISTS `configfunction`;
 CREATE TABLE `configfunction` (
   `id` int(11) NOT NULL,
-  `name` varchar(64) DEFAULT NULL,
-  `openType` varchar(16) DEFAULT NULL,
-  `openTarget` int(255) DEFAULT NULL,
+  `openType` int(11) NOT NULL,
+  `openParams` varchar(64) DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of configfunction
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for confignotice
@@ -79,7 +79,9 @@ CREATE TABLE `confignotice` (
 -- ----------------------------
 -- Records of confignotice
 -- ----------------------------
-INSERT INTO `confignotice` VALUES ('1001', '基础', '0', '功能暂未开放');
+BEGIN;
+INSERT INTO `confignotice` VALUES (1001, '??', 0, '??????');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for configplayerlevel
@@ -94,8 +96,10 @@ CREATE TABLE `configplayerlevel` (
 -- ----------------------------
 -- Records of configplayerlevel
 -- ----------------------------
-INSERT INTO `configplayerlevel` VALUES ('1', '2345', '100');
-INSERT INTO `configplayerlevel` VALUES ('2', '23450', '105');
+BEGIN;
+INSERT INTO `configplayerlevel` VALUES (1, 2345, 100);
+INSERT INTO `configplayerlevel` VALUES (2, 23450, 105);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for configskill
@@ -104,7 +108,7 @@ DROP TABLE IF EXISTS `configskill`;
 CREATE TABLE `configskill` (
   `id` int(11) NOT NULL,
   `name` varchar(64) DEFAULT NULL,
-  `effect` varchar(255) DEFAULT NULL COMMENT '作用说明',
+  `effect` varchar(255) DEFAULT NULL COMMENT '????',
   `needLevel` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -112,31 +116,10 @@ CREATE TABLE `configskill` (
 -- ----------------------------
 -- Records of configskill
 -- ----------------------------
-INSERT INTO `configskill` VALUES ('1', '飞龙探云手', '偷取敌人东西或金钱', '1');
-INSERT INTO `configskill` VALUES ('2', '逍遥神剑', '李逍遥自创的绝招 敌方全体', '1');
-INSERT INTO `configskill` VALUES ('3', '泰山压顶', '土系高级法术', '10');
+BEGIN;
+INSERT INTO `configskill` VALUES (1, '飞龙探云手', '飞龙探云手', 1);
+INSERT INTO `configskill` VALUES (2, '酒神', '酒神', 1);
+INSERT INTO `configskill` VALUES (3, '三味真火', '三味真火', 10);
+COMMIT;
 
--- ----------------------------
--- Table structure for configmap
--- ----------------------------
-DROP TABLE IF EXISTS `configmap`;
-CREATE TABLE `configmap` (
-  `id` int(11) NOT NULL,
-  `mapType` tinyint(11) NOT NULL,
-  `name` varchar(64) DEFAULT NULL,
-  `height` int(11) NOT NULL,
-  `width` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
--- ----------------------------
--- Table structure for configmap
--- ----------------------------
-DROP TABLE IF EXISTS `configfunction`;
-CREATE TABLE `configfunction` (
-  `id` int(11) NOT NULL,
-  `openType` int(11) NOT NULL,
-  `openParams` varchar(64) DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+SET FOREIGN_KEY_CHECKS = 1;

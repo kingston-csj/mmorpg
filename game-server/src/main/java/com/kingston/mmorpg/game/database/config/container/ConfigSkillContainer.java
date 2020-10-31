@@ -14,7 +14,7 @@ import com.kingston.mmorpg.game.database.config.dao.ConfigSkillDao;
 import com.kingston.mmorpg.game.database.config.domain.ConfigSkill;
 
 @Component
-public class ConfigSkillContainer implements Reloadable {
+public class ConfigSkillContainer implements ReloadableContainer<Integer, ConfigSkill> {
 
 	@Autowired
 	private ConfigSkillDao skillDao;

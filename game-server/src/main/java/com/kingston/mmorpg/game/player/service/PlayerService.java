@@ -7,6 +7,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import com.kingston.mmorpg.framework.net.socket.IdSession;
+import com.kingston.mmorpg.game.database.config.inject.CommonValueInject;
+import com.kingston.mmorpg.game.database.config.inject.CommonValueReloadListener;
 import com.kingston.mmorpg.game.script.impl.LoginScript;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,7 @@ import com.kingston.mmorpg.game.scene.actor.Player;
 
 @Service
 @Log
-public class PlayerService {
+public class PlayerService implements CommonValueReloadListener {
 
 	public static final short CMD_REQ_ACCOUNT_LOGIN = 1;
 
@@ -37,7 +39,11 @@ public class PlayerService {
 
 	public static final short CMD_RES_ACCOUNT_LOGIN = 51;
 
+
 	public static final short CMD_RES_LOGIN = 52;
+
+	@CommonValueInject(alias = "playerMaxLevel")
+	private int maxValue;
 
 	/**
 	 * 在线玩家列表
@@ -131,4 +137,8 @@ public class PlayerService {
 
 	}
 
+	@Override
+	public void afterReload() {
+		System.out.println("--reload--");
+	}
 }
