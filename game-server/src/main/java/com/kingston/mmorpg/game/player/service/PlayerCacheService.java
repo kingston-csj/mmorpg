@@ -45,6 +45,7 @@ public class PlayerCacheService implements EntityCacheService<PlayerEnt, Long> {
     @Override
     @CachePut(cacheNames = "player")
     public PlayerEnt putEntity(PlayerEnt playerEnt) {
-        return null;
+        SpringContext.getAysncDbService().saveToDb(playerEnt);
+        return playerEnt;
     }
 }

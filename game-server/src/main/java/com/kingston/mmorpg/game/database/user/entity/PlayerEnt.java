@@ -2,6 +2,7 @@ package com.kingston.mmorpg.game.database.user.entity;
 
 import javax.persistence.*;
 
+import com.kingston.mmorpg.game.asyncdb.DelayPersistence;
 import com.kingston.mmorpg.game.scene.actor.Player;
 import org.hibernate.annotations.Proxy;
 import org.springframework.data.repository.CrudRepository;
@@ -16,7 +17,7 @@ import lombok.Data;
 @Table(name = "PlayerEnt")
 @Proxy(lazy = false)
 @Data
-public class PlayerEnt implements BaseEntity<Long> {
+public class PlayerEnt implements BaseEntity<Long>, DelayPersistence {
 
 	@Id
 	@Column

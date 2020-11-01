@@ -35,7 +35,7 @@ public class AccountService implements EntityCacheService<AccountEnt, Long> {
 	@CachePut(cacheNames = "account")
 	public AccountEnt putEntity(AccountEnt account) {
 		SpringContext.getPlayerService().addAccountProfile(account);
-		SpringContext.getAysncDbService().add2Queue(account);
+		SpringContext.getAysncDbService().saveToDb(account);
 		return account;
 	}
 }
