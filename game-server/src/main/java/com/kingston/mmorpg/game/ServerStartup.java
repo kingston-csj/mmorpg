@@ -1,10 +1,9 @@
 
-package com.kingston.mmorpg;
+package com.kingston.mmorpg.game;
 
 import com.kingston.mmorpg.framework.net.ServerNode;
 import com.kingston.mmorpg.framework.net.socket.MessageFactory;
 import com.kingston.mmorpg.framework.net.socket.SocketServerNode;
-import com.kingston.mmorpg.game.ConfigScanPaths;
 import com.kingston.mmorpg.game.base.SpringContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +21,7 @@ import java.util.List;
  *
  * @author kingston
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.kingston.mmorpg.framework","com.kingston.mmorpg.game"})
 @EnableCaching
 public class ServerStartup implements CommandLineRunner {
 
