@@ -30,6 +30,7 @@ public class ServerStartup implements CommandLineRunner {
 	private List<ServerNode> servers = new ArrayList<>();
 
 	public static void main(String[] args) throws Exception {
+		var list = new ArrayList<>();
 		SpringApplication app = new SpringApplication(ServerStartup.class);
 		app.setBannerMode(Banner.Mode.OFF);
 		app.run(args);
@@ -68,3 +69,4 @@ public class ServerStartup implements CommandLineRunner {
 	}
 
 }
+

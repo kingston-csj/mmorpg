@@ -27,7 +27,7 @@ springmvc | 管理后台接口
 
 ## 与jforgame项目的主要不同之处 
 * 使用spring-boot框架，力求最便利使用spring组件
-* 网络io选用了Netty/Mina, 依赖管理选用了gradle
+* 网络io选用了Netty/Mina, 依赖管S理选用了gradle
 * 重点用于演示场景及技能系统  
 * 尝试使用一些新技术栈  
 
