@@ -1,5 +1,7 @@
 package com.kingston.mmorpg.game.util;
 
+import com.kingston.mmorpg.game.base.SpringContext;
+
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -15,12 +17,15 @@ public class IdFactory {
 	 * 生成全局唯一id
 	 */
 	public static long getNextId() {
-		// ----------------id格式 -------------------------
-		// ----------long类型8个字节64个比特位----------------
-		// 高32位 | 低32位
-		// 系统毫秒数 自增长号
+		//----------------id格式 -------------------------
+		//----------long类型8个字节64个比特位----------------
+		// 高16位          	| 中32位          |  低16位
+		// serverId        系统秒数          自增长号
 
-		return (((System.currentTimeMillis() / 1000) & 0xFFFFFFFF) << 32) | (generator.getAndIncrement() & 0xFFFFFFFF);
+		long serverId = (long) SpringContext.getServerConfig().getServerId();
+		return  (serverId << 48)
+				|	(((System.currentTimeMillis()/1000) & 0xFFFFFFFF) << 16)
+				| (generator.getAndIncrement() & 0xFFFF);
 	}
 
 }

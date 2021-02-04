@@ -33,6 +33,10 @@ public class PropertyListenerInterceptor implements MethodInterceptor {
             Object newValue = field.get(target);
             support.firePropertyChange(fieldName, oldValue, newValue);
             return ret;
+        } else if (method.getName().startsWith("get")) {
+            String fieldName = method.getName().replace("get", "");
+            fieldName = fieldName.substring(0,1).toLowerCase() + fieldName.substring(1);
+            System.out.println(String.format("访问对象 [%s]属性", fieldName));
         }
         return methodProxy.invokeSuper(target, args);
     }
@@ -46,5 +50,10 @@ public class PropertyListenerInterceptor implements MethodInterceptor {
         interceptor.binding(player);
         player.setLevel(10);
         player.setName("Kitty");
+        player.getName();
+//        程序输出：
+//        对象 [level]属性发生变更，从0变为10
+//        对象 [name]属性发生变更，从null变为Kitty
+//        访问对象 [name]属性
     }
 }
