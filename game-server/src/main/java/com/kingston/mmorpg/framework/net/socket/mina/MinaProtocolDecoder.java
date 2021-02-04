@@ -35,8 +35,8 @@ public class MinaProtocolDecoder extends CumulativeProtocolDecoder {
             return false;
         }
 
-        // 消息元信息常量3表示消息body前面的两个字段，一个short表示module，一个byte表示cmd,
-        final int metaSize = 3;
+        // 消息元信息常量, short表示cmd
+        final int metaSize = 2;
         byte cmd = in.get();
         byte[] body = new byte[length - metaSize];
         in.get(body);

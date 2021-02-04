@@ -40,7 +40,7 @@ public class MessageHandlerBeanPostProcessor implements BeanPostProcessor, Appli
 			Method[] methods = clz.getDeclaredMethods();
 			for (Method method : methods) {
 				if (isRequestMapperMethod(method)) {
-					short cmdMeta = getMessageMeta(method);
+					byte cmdMeta = getMessageMeta(method);
 					if (cmdMeta <= 0) {
 						throw new RuntimeException(
 								String.format("controller[%s] method[%s] lack of RequestMapping annotation",
@@ -80,7 +80,7 @@ public class MessageHandlerBeanPostProcessor implements BeanPostProcessor, Appli
 	 * @param method
 	 * @return
 	 */
-	private short getMessageMeta(Method method) {
+	private byte getMessageMeta(Method method) {
 		for (Class<?> paramClazz : method.getParameterTypes()) {
 			if (Message.class.isAssignableFrom(paramClazz)) {
 				MessageMeta protocol = paramClazz.getAnnotation(MessageMeta.class);
@@ -92,7 +92,7 @@ public class MessageHandlerBeanPostProcessor implements BeanPostProcessor, Appli
 		return 0;
 	}
 
-	private short buildKey(short module, short cmd) {
+	private short buildKey(short module, byte cmd) {
 		short key = (short)(Math.abs(module) * 100 + cmd);
 		if (module < 0) {
 			key = (short) (0 - key);

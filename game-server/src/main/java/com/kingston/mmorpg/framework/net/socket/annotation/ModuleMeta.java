@@ -7,7 +7,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ModuleMeta {
 	
-	
-	byte module() default 0;
+	short module() default 0;
 
 }

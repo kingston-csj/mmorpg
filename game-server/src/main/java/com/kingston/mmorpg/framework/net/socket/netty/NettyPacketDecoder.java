@@ -38,7 +38,6 @@ public class NettyPacketDecoder extends LengthFieldBasedFrameDecoder {
 	private Message readMessage(short cmd, ByteBuf in) {
 		try {
 			IMessageDecoder msgDecoder = SerializerHelper.getInstance().getDecoder();
-
 			byte[] body = new byte[in.readableBytes()];
 			in.readBytes(body);
 			Message msg = msgDecoder.readMessage(cmd, body);
