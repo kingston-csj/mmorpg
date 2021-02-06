@@ -1,17 +1,18 @@
 package com.kingston.mmorpg.game.database.user.entity;
 
-import javax.persistence.*;
-
 import com.kingston.mmorpg.game.asyncdb.DelayPersistence;
+import com.kingston.mmorpg.game.base.SpringContext;
+import com.kingston.mmorpg.game.database.JpaObjectZipConverter;
+import com.kingston.mmorpg.game.database.user.BaseEntity;
+import com.kingston.mmorpg.game.database.user.dao.PlayerDao;
 import com.kingston.mmorpg.game.scene.actor.Player;
+import lombok.Data;
 import org.hibernate.annotations.Proxy;
 import org.springframework.data.repository.CrudRepository;
 
-import com.kingston.mmorpg.game.base.SpringContext;
-import com.kingston.mmorpg.game.database.user.BaseEntity;
-import com.kingston.mmorpg.game.database.user.dao.PlayerDao;
-
-import lombok.Data;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "PlayerEnt")
@@ -37,6 +38,10 @@ public class PlayerEnt implements BaseEntity<Long>, DelayPersistence {
 
 	@Column
 	private String data;
+
+	@Column
+	@Convert(converter= JpaObjectZipConverter.class)
+	private Set<Integer> sets = new HashSet<>();
 
 	@Override
 	public CrudRepository<PlayerEnt, Long> getCrudRepository() {

@@ -29,18 +29,18 @@ import com.kingston.mmorpg.game.scene.actor.Player;
 @Log
 public class PlayerService implements CommonValueReloadListener {
 
-	public static final short CMD_REQ_ACCOUNT_LOGIN = 1;
+	public static final byte CMD_REQ_ACCOUNT_LOGIN = 1;
 
-	public static final short CMD_REQ_CREATE_NEW = 2;
+	public static final byte CMD_REQ_CREATE_NEW = 2;
 
-	public static final short CMD_REQ_PLAYER_LOGIN = 3;
+	public static final byte CMD_REQ_PLAYER_LOGIN = 3;
 
-	public static final short CMD_REQ_SELECT_PLAYER = 4;
+	public static final byte CMD_REQ_SELECT_PLAYER = 4;
 
-	public static final short CMD_RES_ACCOUNT_LOGIN = 51;
+	public static final byte CMD_RES_ACCOUNT_LOGIN = 51;
 
 
-	public static final short CMD_RES_LOGIN = 52;
+	public static final byte CMD_RES_LOGIN = 52;
 
 	@CommonValueInject(alias = "playerMaxLevel")
 	private int maxValue;
