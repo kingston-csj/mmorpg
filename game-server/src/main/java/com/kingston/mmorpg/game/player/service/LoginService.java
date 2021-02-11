@@ -4,7 +4,7 @@ import com.kingston.mmorpg.framework.net.socket.IdSession;
 import com.kingston.mmorpg.game.account.AccountService;
 import com.kingston.mmorpg.game.account.model.AccountProfile;
 import com.kingston.mmorpg.game.base.MessagePusher;
-import com.kingston.mmorpg.game.base.SpringContext;
+import com.kingston.mmorpg.game.base.GameContext;
 import com.kingston.mmorpg.game.database.user.entity.AccountEnt;
 import com.kingston.mmorpg.game.player.message.ResAccountLogin;
 import com.kingston.mmorpg.game.player.message.vo.PlayerLoginVo;
@@ -71,7 +71,7 @@ public class LoginService {
 			// 绑定session与玩家id
 			session.setAttribute("playerId", playerId);
 			// 加入在线列表
-			SpringContext.getSessionManager().registerSession(player, session);
+			GameContext.getSessionManager().registerSession(player, session);
 		}
 	}
 

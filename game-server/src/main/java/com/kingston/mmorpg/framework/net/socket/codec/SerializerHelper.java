@@ -1,6 +1,6 @@
 package com.kingston.mmorpg.framework.net.socket.codec;
 
-import com.kingston.mmorpg.game.base.SpringContext;
+import com.kingston.mmorpg.game.base.GameContext;
 
 public class SerializerHelper {
 
@@ -11,11 +11,11 @@ public class SerializerHelper {
     }
 
     public IMessageDecoder getDecoder() {
-        return SpringContext.getBean(SerializerFactory.class).getDecoder();
+        return GameContext.getBean(SerializerFactory.class).getDecoder();
     }
 
     public IMessageEncoder getEncoder() {
-        return SpringContext.getBean(SerializerFactory.class).getEncoder();
+        return GameContext.getBean(SerializerFactory.class).getEncoder();
     }
 
 }

@@ -2,7 +2,7 @@ package com.kingston.mmorpg.game.buff.model;
 
 import java.util.concurrent.Future;
 
-import com.kingston.mmorpg.game.base.SpringContext;
+import com.kingston.mmorpg.game.base.GameContext;
 import com.kingston.mmorpg.game.scene.actor.Creature;
 
 public abstract class Buff {
@@ -37,7 +37,7 @@ public abstract class Buff {
 
 	public void registerTimeOutTask() {
 		cancleTimeOutTask();
-		timeOutTask = SpringContext.getSchedulerManager().schedule(new Runnable() {
+		timeOutTask = GameContext.getSchedulerManager().schedule(new Runnable() {
 			@Override
 			public void run() {
 				destroy();
@@ -66,7 +66,7 @@ public abstract class Buff {
 	}
 
 	public void onDestroy() {
-		SpringContext.getBuffService().removeBuff(owner, this);
+		GameContext.getBuffService().removeBuff(owner, this);
 	}
 
 	public int getModelId() {

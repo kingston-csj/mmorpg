@@ -16,7 +16,7 @@ public class GameExecutor {
 
 	private Logger logger = LoggerFactory.getLogger(GameExecutor.class);
 
-	private static volatile GameExecutor instance;
+	private static GameExecutor instance;
 
 	private final int CORE_SIZE = Runtime.getRuntime().availableProcessors();
 	/** task worker pool */
@@ -57,7 +57,7 @@ public class GameExecutor {
 	 * shut context
 	 */
 	public void shutDown() {
-		run.set(false);
+		run.compareAndSet(true, false);
 	}
 
 }

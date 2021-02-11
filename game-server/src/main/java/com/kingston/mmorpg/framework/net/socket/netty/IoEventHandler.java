@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.kingston.mmorpg.framework.net.socket.message.Message;
-import com.kingston.mmorpg.game.base.SpringContext;
+import com.kingston.mmorpg.game.base.GameContext;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -33,12 +33,12 @@ public class IoEventHandler extends ChannelInboundHandlerAdapter {
 		final Channel channel = context.channel();
 		IdSession session = ChannelUtils.getSessionBy(channel);
 
-		SpringContext.getMessageDispatcher().dispatch(session, packet);
+		GameContext.getMessageDispatcher().dispatch(session, packet);
 	}
 
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-		SpringContext.getSessionManager().ungisterPlayerChannel(ctx.channel());
+		GameContext.getSessionManager().ungisterPlayerChannel(ctx.channel());
 	}
 
 	@Override

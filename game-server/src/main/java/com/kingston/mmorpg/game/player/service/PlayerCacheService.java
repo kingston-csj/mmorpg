@@ -1,8 +1,7 @@
 package com.kingston.mmorpg.game.player.service;
 
 import com.kingston.mmorpg.game.base.EntityCacheService;
-import com.kingston.mmorpg.game.base.SpringContext;
-import com.kingston.mmorpg.game.database.user.BaseEntity;
+import com.kingston.mmorpg.game.base.GameContext;
 import com.kingston.mmorpg.game.database.user.dao.PlayerDao;
 import com.kingston.mmorpg.game.database.user.entity.PlayerEnt;
 import com.kingston.mmorpg.game.scene.actor.Player;
@@ -11,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-
-import java.io.Serializable;
 
 @Log
 @Service
@@ -45,7 +42,7 @@ public class PlayerCacheService implements EntityCacheService<PlayerEnt, Long> {
     @Override
     @CachePut(cacheNames = "player")
     public PlayerEnt putEntity(PlayerEnt playerEnt) {
-        SpringContext.getAysncDbService().saveToDb(playerEnt);
+        GameContext.getAysncDbService().saveToDb(playerEnt);
         return playerEnt;
     }
 }

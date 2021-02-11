@@ -2,11 +2,11 @@ package com.kingston.mmorpg.game.function.service;
 
 import java.util.Collection;
 
+import com.kingston.mmorpg.game.base.GameContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kingston.mmorpg.framework.eventbus.EventBus;
-import com.kingston.mmorpg.game.base.SpringContext;
 import com.kingston.mmorpg.game.database.config.container.ConfigFunctionContainer;
 import com.kingston.mmorpg.game.database.config.domain.ConfigFunction;
 import com.kingston.mmorpg.game.function.event.PlayerFuncOpenEvent;
@@ -37,7 +37,7 @@ public class FunctionService {
 	
 	private void levelOpenFunc(Player player, int funcId) {
 		player.openFunction(funcId);
-		SpringContext.getPlayerService().savePlayer(player);
+		GameContext.getPlayerService().savePlayer(player);
 		EventBus.getInstance().post(new PlayerFuncOpenEvent(player));
 	}
 

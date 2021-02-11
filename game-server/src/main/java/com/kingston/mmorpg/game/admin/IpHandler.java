@@ -1,6 +1,6 @@
 package com.kingston.mmorpg.game.admin;
 
-import com.kingston.mmorpg.game.base.SpringContext;
+import com.kingston.mmorpg.game.base.GameContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -16,7 +16,7 @@ public class IpHandler implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        Set<String> whiteIps = SpringContext.getServerConfig().getAdminIps();
+        Set<String> whiteIps = GameContext.getServerConfig().getAdminIps();
         String realIp = IpUtil.getRealIp(request);
         boolean isSafe = whiteIps.contains(realIp);
         if (!isSafe) {

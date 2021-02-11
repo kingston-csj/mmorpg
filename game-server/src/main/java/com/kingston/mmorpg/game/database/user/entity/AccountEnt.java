@@ -5,10 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.kingston.mmorpg.game.base.GameContext;
 import org.hibernate.annotations.Proxy;
 import org.springframework.data.repository.CrudRepository;
 
-import com.kingston.mmorpg.game.base.SpringContext;
 import com.kingston.mmorpg.game.database.user.BaseEntity;
 import com.kingston.mmorpg.game.database.user.dao.AccountDao;
 
@@ -43,7 +43,7 @@ public class AccountEnt implements BaseEntity<Long> {
 
 	@Override
 	public CrudRepository<AccountEnt, Long> getCrudRepository() {
-		return SpringContext.getBean(AccountDao.class);
+		return GameContext.getBean(AccountDao.class);
 	}
 
 }

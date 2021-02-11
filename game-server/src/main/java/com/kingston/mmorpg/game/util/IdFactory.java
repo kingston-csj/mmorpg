@@ -1,6 +1,6 @@
 package com.kingston.mmorpg.game.util;
 
-import com.kingston.mmorpg.game.base.SpringContext;
+import com.kingston.mmorpg.game.base.GameContext;
 
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -22,7 +22,7 @@ public class IdFactory {
 		// 高16位          	| 中32位          |  低16位
 		// serverId        系统秒数          自增长号
 
-		long serverId = (long) SpringContext.getServerConfig().getServerId();
+		long serverId = (long) GameContext.getServerConfig().getServerId();
 		return  (serverId << 48)
 				|	(((System.currentTimeMillis()/1000) & 0xFFFFFFFF) << 16)
 				| (generator.getAndIncrement() & 0xFFFF);

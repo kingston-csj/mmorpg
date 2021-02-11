@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.kingston.mmorpg.framework.net.ServerNode;
 import com.kingston.mmorpg.game.ServerConfig;
-import com.kingston.mmorpg.game.base.SpringContext;
+import com.kingston.mmorpg.game.base.GameContext;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
@@ -33,7 +33,7 @@ public class WebSocketServer implements ServerNode {
 
 	@Override
 	public void init() {
-		ServerConfig serverConfig = SpringContext.getServerConfig();
+		ServerConfig serverConfig = GameContext.getServerConfig();
 		this.port = serverConfig.getWebSocketPort();
 	}
 

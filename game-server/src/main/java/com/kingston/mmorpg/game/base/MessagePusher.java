@@ -4,12 +4,11 @@ import java.util.Collection;
 
 import com.kingston.mmorpg.framework.net.socket.IdSession;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
-import com.kingston.mmorpg.game.base.SpringContext;
 
 public class MessagePusher {
 
 	public static void pushMessage(long playerId, Message message) {
-		IdSession session = SpringContext.getSessionManager().getSessionBy(playerId);
+		IdSession session = GameContext.getSessionManager().getSessionBy(playerId);
 		pushMessage(session, message);
 	}
 

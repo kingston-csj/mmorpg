@@ -1,6 +1,6 @@
 package com.kingston.mmorpg.game.id;
 
-import com.kingston.mmorpg.game.base.SpringContext;
+import com.kingston.mmorpg.game.base.GameContext;
 import com.kingston.mmorpg.game.database.user.entity.IdEntity;
 
 import java.util.concurrent.atomic.AtomicLong;
@@ -22,7 +22,7 @@ public class IdService {
         //----------long类型8个字节64个比特位----------------
         // 高16位          	| 低48位
         // serverId           自增长号
-        long serverId = SpringContext.getServerConfig().getServerId();
+        long serverId = GameContext.getServerConfig().getServerId();
         return serverId << 48;
     }
 
@@ -31,7 +31,7 @@ public class IdService {
         IdEntity idEntity = getEntityFromCache(key);
         long nextId = idEntity.getFactory().incrementAndGet();
         if (key.saveToDb) {
-            SpringContext.getAysncDbService().saveToDb(idEntity);
+            GameContext.getAysncDbService().saveToDb(idEntity);
         }
         return nextId;
     }

@@ -4,7 +4,7 @@ package com.kingston.mmorpg.game;
 import com.kingston.mmorpg.framework.net.ServerNode;
 import com.kingston.mmorpg.framework.net.socket.MessageFactory;
 import com.kingston.mmorpg.framework.net.socket.SocketServerNode;
-import com.kingston.mmorpg.game.base.SpringContext;
+import com.kingston.mmorpg.game.base.GameContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.Banner;
@@ -30,19 +30,26 @@ public class ServerStartup implements CommandLineRunner {
 	private List<ServerNode> servers = new ArrayList<>();
 
 	public static void main(String[] args) throws Exception {
-		var list = new ArrayList<>();
 		SpringApplication app = new SpringApplication(ServerStartup.class);
 		app.setBannerMode(Banner.Mode.OFF);
 		app.run(args);
+
+//		VipRight vipRight = new VipRight();
+//		vipRight.setLevel(999);
+//		vipRight.setExp(123456);
+//		vipRight.getRewardedIds().addAll(Set.of(1, 2, 3));
+//		Player player = GameContext.getPlayerService().getPlayer(10000L);
+//		player.getEntity().setVipRight(vipRight);
+//		GameContext.getPlayerService().savePlayer(player);
 	}
 
 	public void start() throws Exception {
 		// 启动网关
-		SpringContext.getBean(SocketServerNode.class).start();
+		GameContext.getBean(SocketServerNode.class).start();
 		// 初始化协议表
 		MessageFactory.getInstance().init(ConfigScanPaths.MESSAGE_BASE_PATH);
 		// 读取所有角色概括
-		SpringContext.getPlayerService().loadAllPlayerProfiles();
+		GameContext.getPlayerService().loadAllPlayerProfiles();
 	}
 
 	@Override

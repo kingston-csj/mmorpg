@@ -15,7 +15,7 @@ mmorpg，是一个用java编写的轻量级高性能mmorpg手游服务端框架�
 名称 | 用途 
 ----|------
 spring cache | 数据缓存 
-springdatajdbc | 多数据源orm框架  
+SpringDataJpa | 多数据源orm框架  
 springmvc | 管理后台接口
 
 
@@ -26,11 +26,11 @@ springmvc | 管理后台接口
 * 更多基础设施与业务演示  
 
 ## 与jforgame项目的主要不同之处 
+* JDK使用了版本15
 * 使用spring-boot框架，力求最便利使用spring组件
-* 网络io选用了Netty/Mina, 依赖管S理选用了gradle
+* 依赖管理选用了gradle
 * 重点用于演示场景及技能系统  
 * 尝试使用一些新技术栈  
-
 
 ## 快速开始  
 1. 使用git下载代码 git clone https://github.com/kingston-csj/mmorpg;  
@@ -50,6 +50,8 @@ springmvc | 管理后台接口
 
 ## 一起交流
 如果您发现bug，或者有任何疑问，请提交issue !!
+架构解析，技术咨询，请加Q475139136（有偿服务，非诚勿扰 !!）
+
 
 ## 免责申明
 本项目只用于学习研究，禁止用于非法获利和商业活动。如产生法律纠纷与作者无关！！

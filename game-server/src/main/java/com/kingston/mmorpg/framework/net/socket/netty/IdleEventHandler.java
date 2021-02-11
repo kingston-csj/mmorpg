@@ -1,6 +1,6 @@
 package com.kingston.mmorpg.framework.net.socket.netty;
 
-import com.kingston.mmorpg.game.base.SpringContext;
+import com.kingston.mmorpg.game.base.GameContext;
 
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -17,7 +17,7 @@ public class IdleEventHandler extends ChannelDuplexHandler {
 		if (evt instanceof IdleStateEvent) {
 			IdleStateEvent e = (IdleStateEvent) evt;
 			if (e.state() == IdleState.ALL_IDLE) {
-				SpringContext.getSessionManager().ungisterPlayerChannel(ctx.channel());
+				GameContext.getSessionManager().ungisterPlayerChannel(ctx.channel());
 			}
 		}
 	}

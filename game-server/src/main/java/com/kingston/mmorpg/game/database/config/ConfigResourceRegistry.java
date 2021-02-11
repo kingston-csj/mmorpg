@@ -1,12 +1,9 @@
 package com.kingston.mmorpg.game.database.config;
 
-import com.kingston.mmorpg.game.base.SpringContext;
-import com.kingston.mmorpg.game.database.config.inject.CommonValueAutoInjectHandler;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.Map;

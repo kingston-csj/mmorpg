@@ -21,7 +21,7 @@ import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.stereotype.Component;
 
-import com.kingston.mmorpg.game.base.SpringContext;
+import com.kingston.mmorpg.game.base.GameContext;
 import com.kingston.mmorpg.game.logger.LoggerUtils;
 
 @Component
@@ -33,7 +33,7 @@ public class GameMonitor implements GameMonitorMBean {
 	@Override
 	@ManagedOperation
 	public int getOnlinePlayerSum() {
-		return SpringContext.getPlayerService().getOnlinePlayers().size();
+		return GameContext.getPlayerService().getOnlinePlayers().size();
 	}
 
 	@Override

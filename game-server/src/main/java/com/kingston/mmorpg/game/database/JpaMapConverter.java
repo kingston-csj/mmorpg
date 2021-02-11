@@ -4,10 +4,14 @@ import com.kingston.mmorpg.game.util.JsonUtil;
 
 import javax.persistence.AttributeConverter;
 import java.util.Map;
-import java.util.Set;
 
 public class JpaMapConverter implements AttributeConverter<Object,String> {
 
+    /**
+     *
+     * @param attribute
+     * @return
+     */
     @Override
     public String convertToDatabaseColumn(Object attribute) {
         try {

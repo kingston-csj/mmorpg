@@ -1,5 +1,6 @@
 package com.kingston.mmorpg.game.database;
 
+import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.type.TypeFactory;
 import org.codehaus.jackson.type.JavaType;
@@ -30,7 +31,7 @@ public class JpaObjectConverter implements AttributeConverter<Object, String> {
 
     @Override
     public Object convertToEntityAttribute(String dbData) {
-        if (dbData.isEmpty()) {
+        if (StringUtils.isEmpty(dbData)) {
             return null;
         }
         try {

@@ -1,13 +1,13 @@
 package com.kingston.mmorpg.framework.net.socket.netty;
 
 import com.kingston.mmorpg.framework.net.socket.*;
+import com.kingston.mmorpg.game.base.GameContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
 import com.kingston.mmorpg.framework.net.socket.message.WebSocketFrame;
-import com.kingston.mmorpg.game.base.SpringContext;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -31,7 +31,7 @@ public class MyWebSocketHandler extends SimpleChannelInboundHandler<TextWebSocke
 
 		IdSession session = ChannelUtils.getSessionBy(channel);
 
-		SpringContext.getMessageDispatcher().dispatch(session, message);
+		GameContext.getMessageDispatcher().dispatch(session, message);
 	}
 
 	@Override

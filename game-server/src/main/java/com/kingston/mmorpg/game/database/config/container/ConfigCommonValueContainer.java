@@ -1,6 +1,6 @@
 package com.kingston.mmorpg.game.database.config.container;
 
-import com.kingston.mmorpg.game.base.SpringContext;
+import com.kingston.mmorpg.game.base.GameContext;
 import com.kingston.mmorpg.game.database.config.dao.ConfigCommonValueDao;
 import com.kingston.mmorpg.game.database.config.domain.ConfigCommonValue;
 import com.kingston.mmorpg.game.database.config.inject.CommonValueAutoInjectHandler;
@@ -28,14 +28,14 @@ public class ConfigCommonValueContainer implements ReloadableContainer<String, C
         data = dao.findAll().stream().collect(Collectors.toMap(ConfigCommonValue::getId, Function.identity()));
 
         // 为service注入CommonValue的值
-        CommonValueAutoInjectHandler autoInjectHandler = SpringContext.getBean(CommonValueAutoInjectHandler.class);
-        Map<String, Object> services = SpringContext.getBeansWithAnnotation(Service.class);
+        CommonValueAutoInjectHandler autoInjectHandler = GameContext.getBean(CommonValueAutoInjectHandler.class);
+        Map<String, Object> services = GameContext.getBeansWithAnnotation(Service.class);
         for (Map.Entry<String, Object> entry : services.entrySet()) {
             autoInjectHandler.postBeanAfterInject(entry.getValue());
         }
 
         // 对 CommonValueReloadListener实现类进行reload
-        SpringContext.getBeansOfType(CommonValueReloadListener.class).forEach(CommonValueReloadListener :: afterReload);
+        GameContext.getBeansOfType(CommonValueReloadListener.class).forEach(CommonValueReloadListener :: afterReload);
     }
 
     @Override

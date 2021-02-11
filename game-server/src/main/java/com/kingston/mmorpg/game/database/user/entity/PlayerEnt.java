@@ -1,18 +1,22 @@
 package com.kingston.mmorpg.game.database.user.entity;
 
 import com.kingston.mmorpg.game.asyncdb.DelayPersistence;
-import com.kingston.mmorpg.game.base.SpringContext;
-import com.kingston.mmorpg.game.database.JpaObjectZipConverter;
+import com.kingston.mmorpg.game.base.GameContext;
+import com.kingston.mmorpg.game.database.JpaObjectConverter;
 import com.kingston.mmorpg.game.database.user.BaseEntity;
 import com.kingston.mmorpg.game.database.user.dao.PlayerDao;
 import com.kingston.mmorpg.game.scene.actor.Player;
+import com.kingston.mmorpg.game.vip.model.VipRight;
 import lombok.Data;
 import org.hibernate.annotations.Proxy;
 import org.springframework.data.repository.CrudRepository;
 
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "PlayerEnt")
@@ -37,15 +41,12 @@ public class PlayerEnt implements BaseEntity<Long>, DelayPersistence {
 	private int level;
 
 	@Column
-	private String data;
-
-	@Column
-	@Convert(converter= JpaObjectZipConverter.class)
-	private Set<Integer> sets = new HashSet<>();
+	@Convert(converter = JpaObjectConverter.class)
+	private VipRight vipRight;
 
 	@Override
 	public CrudRepository<PlayerEnt, Long> getCrudRepository() {
-		return SpringContext.getBean(PlayerDao.class);
+		return GameContext.getBean(PlayerDao.class);
 	}
 
 	@Override

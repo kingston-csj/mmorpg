@@ -22,9 +22,9 @@ import com.kingston.mmorpg.game.buff.service.BuffService;
 import com.kingston.mmorpg.game.player.service.PlayerService;
 
 @Component
-public class SpringContext implements ApplicationContextAware {
+public class GameContext implements ApplicationContextAware {
 
-	private static SpringContext self;
+	private static GameContext self;
 
 	/** spring容器上下文 */
 	private static ApplicationContext applicationContext = null;
@@ -36,11 +36,11 @@ public class SpringContext implements ApplicationContextAware {
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		SpringContext.applicationContext = applicationContext;
+		GameContext.applicationContext = applicationContext;
 	}
 
 	@Resource
-	private ServerConfig serverConfig;
+	public ServerConfig serverConfig;
 
 	public final static ServerConfig getServerConfig() {
 		return self.serverConfig;

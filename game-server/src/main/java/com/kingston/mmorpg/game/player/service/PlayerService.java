@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import com.kingston.mmorpg.framework.net.socket.IdSession;
+import com.kingston.mmorpg.game.base.GameContext;
 import com.kingston.mmorpg.game.database.config.inject.CommonValueInject;
 import com.kingston.mmorpg.game.database.config.inject.CommonValueReloadListener;
 import com.kingston.mmorpg.game.script.impl.LoginScript;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import com.kingston.mmorpg.common.util.ConcurrentHashSet;
 import com.kingston.mmorpg.game.account.model.AccountProfile;
-import com.kingston.mmorpg.game.base.SpringContext;
 import com.kingston.mmorpg.game.database.user.dao.PlayerDao;
 import com.kingston.mmorpg.game.database.user.entity.AccountEnt;
 import com.kingston.mmorpg.game.database.user.entity.PlayerEnt;
@@ -89,7 +89,7 @@ public class PlayerService implements CommonValueReloadListener {
 
 	public ResPlayerLogin login(IdSession session, long playerId) {
 		Player player = new Player();
-		SpringContext.getScriptService().getScript(LoginScript.class).onLogin(player);
+		GameContext.getScriptService().getScript(LoginScript.class).onLogin(player);
 		session.bindDispatcher(player);
 		return new ResPlayerLogin();
 	}
@@ -103,7 +103,7 @@ public class PlayerService implements CommonValueReloadListener {
 
 		long accountId = baseInfo.getAccountId();
 		// 必须将account加载并缓存
-		AccountEnt account = SpringContext.getAccountService().getAccount(accountId);
+		AccountEnt account = GameContext.getAccountService().getAccount(accountId);
 		accountProfiles.putIfAbsent(accountId, new AccountProfile());
 		AccountProfile accountProfile = accountProfiles.get(accountId);
 		accountProfile.addPlayerProfile(baseInfo);
@@ -114,7 +114,7 @@ public class PlayerService implements CommonValueReloadListener {
 		if (accountProfile != null) {
 			return accountProfile;
 		}
-		AccountEnt account = SpringContext.getAccountService().getAccount(accountId);
+		AccountEnt account = GameContext.getAccountService().getAccount(accountId);
 		if (account != null) {
 			accountProfile = new AccountProfile();
 			accountProfile.setAccountId(accountId);

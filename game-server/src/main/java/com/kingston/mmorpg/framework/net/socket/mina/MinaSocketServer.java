@@ -1,9 +1,7 @@
 package com.kingston.mmorpg.framework.net.socket.mina;
 
-import com.kingston.mmorpg.framework.net.ServerNode;
 import com.kingston.mmorpg.framework.net.socket.SocketServerNode;
-import com.kingston.mmorpg.framework.net.socket.codec.SerializerHelper;
-import com.kingston.mmorpg.game.base.SpringContext;
+import com.kingston.mmorpg.game.base.GameContext;
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.buffer.SimpleBufferAllocator;
 import org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder;
@@ -46,7 +44,7 @@ public class MinaSocketServer implements SocketServerNode {
      */
     @Override
     public void start() throws Exception {
-        int serverPort = SpringContext.getServerConfig().getServerPort();
+        int serverPort = GameContext.getServerConfig().getServerPort();
         IoBuffer.setUseDirectBuffer(false);
         IoBuffer.setAllocator(new SimpleBufferAllocator());
 

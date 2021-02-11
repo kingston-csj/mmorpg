@@ -2,7 +2,7 @@ package com.kingston.mmorpg.game.buff.model;
 
 import java.util.concurrent.Future;
 
-import com.kingston.mmorpg.game.base.SpringContext;
+import com.kingston.mmorpg.game.base.GameContext;
 
 /**
  * 周期性buff
@@ -27,7 +27,7 @@ public abstract class PeriodicBuff extends Buff {
 
 	private void registerFrameTask() {
 		cancleFrameTask();
-		periodicTask = SpringContext.getSchedulerManager().schedule(new Runnable() {
+		periodicTask = GameContext.getSchedulerManager().schedule(new Runnable() {
 			@Override
 			public void run() {
 				enterFrame();

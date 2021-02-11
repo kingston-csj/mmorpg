@@ -1,12 +1,12 @@
 package com.kingston.mmorpg.game.account;
 
 import com.kingston.mmorpg.game.base.EntityCacheService;
+import com.kingston.mmorpg.game.base.GameContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import com.kingston.mmorpg.game.base.SpringContext;
 import com.kingston.mmorpg.game.database.user.dao.AccountDao;
 import com.kingston.mmorpg.game.database.user.entity.AccountEnt;
 
@@ -34,8 +34,8 @@ public class AccountService implements EntityCacheService<AccountEnt, Long> {
 	@Override
 	@CachePut(cacheNames = "account")
 	public AccountEnt putEntity(AccountEnt account) {
-		SpringContext.getPlayerService().addAccountProfile(account);
-		SpringContext.getAysncDbService().saveToDb(account);
+		GameContext.getPlayerService().addAccountProfile(account);
+		GameContext.getAysncDbService().saveToDb(account);
 		return account;
 	}
 }

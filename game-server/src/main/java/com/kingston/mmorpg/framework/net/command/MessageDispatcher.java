@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.kingston.mmorpg.framework.net.socket.IdSession;
+import com.kingston.mmorpg.game.base.GameContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Component;
 import com.kingston.mmorpg.framework.net.socket.MessageFactory;
 import com.kingston.mmorpg.framework.net.socket.message.CmdExecutor;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
-import com.kingston.mmorpg.game.base.SpringContext;
 
 @Component
 public class MessageDispatcher {
@@ -73,7 +73,7 @@ public class MessageDispatcher {
 			} else if (Long.class.isAssignableFrom(param)) {
 				result[i] = session;
 			} else if (long.class.isAssignableFrom(param)) {
-				result[i] = SpringContext.getSessionManager().getPlayerIdBy(session);
+				result[i] = GameContext.getSessionManager().getPlayerIdBy(session);
 			} else if (Message.class.isAssignableFrom(param)) {
 				result[i] = message;
 			}
