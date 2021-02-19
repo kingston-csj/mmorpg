@@ -6,13 +6,18 @@ public abstract class AbstractDispatchCommand implements IDispatchTask {
 		return getClass().getSimpleName();
 	}
 
+	protected long startTime;
+
 	/**
 	 * 业务执行前后的触发点
 	 */
 	public void run() {
-		long start = System.currentTimeMillis();
+		startTime = System.currentTimeMillis();
 		action();
-		long end = System.currentTimeMillis();
+	}
+
+	public long getStartTime() {
+		return startTime;
 	}
 
 }
