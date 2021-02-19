@@ -1,12 +1,12 @@
 package com.kingston.mmorpg.game.scene.model;
 
+import com.kingston.mmorpg.game.database.user.entity.PlayerEnt;
+import com.kingston.mmorpg.game.scene.actor.SceneActor;
+
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import com.kingston.mmorpg.game.scene.actor.Player;
-import com.kingston.mmorpg.game.scene.actor.SceneActor;
 
 /**
  * 基于网格的AOI算法 将场景划分为等大的小区域
@@ -37,7 +37,7 @@ public class Area {
 
 	public void add(SceneActor actor) {
 		if (this.actors.put(actor.getId(), actor) == null) {
-			if (actor instanceof Player) {
+			if (actor instanceof PlayerEnt) {
 				playerSum.incrementAndGet();
 			}
 		}
@@ -45,7 +45,7 @@ public class Area {
 
 	public void remove(SceneActor actor) {
 		if (this.actors.remove(actor.getId()) != null) {
-			if (actor instanceof Player) {
+			if (actor instanceof PlayerEnt) {
 				playerSum.decrementAndGet();
 			}
 		}

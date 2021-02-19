@@ -1,10 +1,8 @@
 package com.kingston.mmorpg.game.ai.fsm;
 
-import com.kingston.mmorpg.game.ai.fsm.State;
-import com.kingston.mmorpg.game.ai.fsm.Transition;
+import com.kingston.mmorpg.game.database.user.entity.PlayerEnt;
 import com.kingston.mmorpg.game.scene.actor.Creature;
 import com.kingston.mmorpg.game.scene.actor.Monster;
-import com.kingston.mmorpg.game.scene.actor.Player;
 
 public class Atttack2PatrolTransition extends Transition {
 
@@ -14,7 +12,7 @@ public class Atttack2PatrolTransition extends Transition {
 
 	@Override
 	public boolean meetCondition(Creature creature) {
-		Player player = (Player) creature;
+		PlayerEnt player = (PlayerEnt) creature;
 		Scene scene = player.getScene();
 		Monster monster = scene.getMonster();
 

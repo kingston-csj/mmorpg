@@ -1,13 +1,13 @@
 package com.kingston.mmorpg.game.ai.fsm;
 
+import com.kingston.mmorpg.game.database.user.entity.PlayerEnt;
 import com.kingston.mmorpg.game.scene.actor.Monster;
-import com.kingston.mmorpg.game.scene.actor.Player;
 import com.kingston.mmorpg.game.scene.model.Life;
 
 public class AiTest {
 
 	public static void main(String[] args) throws Exception {
-		Player player = new Player();
+		PlayerEnt player = new PlayerEnt();
 		player.setLife(new Life(150, 150));
 		Monster monster = new Monster();
 		monster.setLife(new Life(120, 120));

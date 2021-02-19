@@ -3,13 +3,13 @@ package com.kingston.mmorpg.game.player.service;
 import com.kingston.mmorpg.framework.net.socket.IdSession;
 import com.kingston.mmorpg.game.account.AccountService;
 import com.kingston.mmorpg.game.account.model.AccountProfile;
-import com.kingston.mmorpg.game.base.MessagePusher;
 import com.kingston.mmorpg.game.base.GameContext;
+import com.kingston.mmorpg.game.base.MessagePusher;
 import com.kingston.mmorpg.game.database.user.entity.AccountEnt;
+import com.kingston.mmorpg.game.database.user.entity.PlayerEnt;
 import com.kingston.mmorpg.game.player.message.ResAccountLogin;
 import com.kingston.mmorpg.game.player.message.vo.PlayerLoginVo;
 import com.kingston.mmorpg.game.player.model.PlayerProfile;
-import com.kingston.mmorpg.game.scene.actor.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,7 +65,7 @@ public class LoginService {
 	 * @param playerId
 	 */
 	public void handleSelectPlayer(IdSession session, long playerId) {
-		Player player = playerService.getPlayer(playerId);
+		PlayerEnt player = playerService.getPlayer(playerId);
 		player = playerService.getPlayer(playerId);
 		if (player != null) {
 			// 绑定session与玩家id

@@ -4,7 +4,6 @@ import com.kingston.mmorpg.game.base.EntityCacheService;
 import com.kingston.mmorpg.game.base.GameContext;
 import com.kingston.mmorpg.game.database.user.dao.PlayerDao;
 import com.kingston.mmorpg.game.database.user.entity.PlayerEnt;
-import com.kingston.mmorpg.game.scene.actor.Player;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
@@ -20,14 +19,12 @@ public class PlayerCacheService implements EntityCacheService<PlayerEnt, Long> {
 
     @Override
     @Cacheable(cacheNames = "player")
-    public PlayerEnt getEntity(Long id, Class clazz) {
+    public PlayerEnt getEntity(Long id, Class<PlayerEnt> clazz) {
         log.info("查询角色 " + id);
         PlayerEnt playerEnt = playerDao.getOne(id);
         if (playerEnt != null) {
-            Player player = new Player();
+            PlayerEnt player = new PlayerEnt();
             player.setId(id);
-            player.setPlayerEnt(playerEnt);
-            playerEnt.setPlayer(player);
             return playerEnt;
         } else {
             return null;

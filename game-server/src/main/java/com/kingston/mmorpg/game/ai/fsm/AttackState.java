@@ -1,8 +1,8 @@
 package com.kingston.mmorpg.game.ai.fsm;
 
+import com.kingston.mmorpg.game.database.user.entity.PlayerEnt;
 import com.kingston.mmorpg.game.scene.actor.Creature;
 import com.kingston.mmorpg.game.scene.actor.Monster;
-import com.kingston.mmorpg.game.scene.actor.Player;
 
 public class AttackState implements State {
 
@@ -19,7 +19,7 @@ public class AttackState implements State {
 
 	@Override
 	public void execute(Creature creature) {
-		Player player = (Player) creature;
+		PlayerEnt player = (PlayerEnt) creature;
 		Scene scene = player.getScene();
 		Monster monster = scene.getMonster();
 		player.getLife().reduceHp(monster.getAttack());

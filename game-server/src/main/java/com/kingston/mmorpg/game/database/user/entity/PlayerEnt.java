@@ -5,9 +5,11 @@ import com.kingston.mmorpg.game.base.GameContext;
 import com.kingston.mmorpg.game.database.JpaObjectConverter;
 import com.kingston.mmorpg.game.database.user.BaseEntity;
 import com.kingston.mmorpg.game.database.user.dao.PlayerDao;
-import com.kingston.mmorpg.game.scene.actor.Player;
+import com.kingston.mmorpg.game.scene.actor.ActorType;
+import com.kingston.mmorpg.game.scene.actor.Creature;
 import com.kingston.mmorpg.game.vip.model.VipRight;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Proxy;
 import org.springframework.data.repository.CrudRepository;
 
@@ -16,45 +18,57 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "PlayerEnt")
 @Proxy(lazy = false)
-@Data
-public class PlayerEnt implements BaseEntity<Long>, DelayPersistence {
+@Getter
+@Setter
+public class PlayerEnt extends Creature implements BaseEntity<Long>, DelayPersistence {
 
-	@Id
-	@Column
-	private long playerId;
+    @Id
+    @Column
+    private long playerId;
 
-	/**
-	 * 所属账号id
-	 */
-	@Column
-	private long accountId;
+    /**
+     * 所属账号id
+     */
+    @Column
+    private long accountId;
 
-	@Column
-	private String name;
+    @Column
+    private String name;
 
-	@Column
-	private int level;
+    @Column
+    private int level;
 
-	@Column
-	@Convert(converter = JpaObjectConverter.class)
-	private VipRight vipRight;
+    @Column
+    @Convert(converter = JpaObjectConverter.class)
+    private VipRight vipRight;
 
-	@Override
-	public CrudRepository<PlayerEnt, Long> getCrudRepository() {
-		return GameContext.getBean(PlayerDao.class);
-	}
+    @Override
+    public CrudRepository<PlayerEnt, Long> getCrudRepository() {
+        return GameContext.getBean(PlayerDao.class);
+    }
 
-	@Override
-	public Long getId() {
-		return playerId;
-	}
+    @Override
+    @SuppressWarnings("unchecked")
+    public Long getId() {
+        return playerId;
+    }
 
-	@Transient
-	private Player player;
+
+    public PlayerEnt() {
+
+    }
+
+    @Override
+    public ActorType getType() {
+        return ActorType.Player;
+    }
+
+    public boolean isOpenedFunction(int funcId) {
+        return false;
+    }
 
 }

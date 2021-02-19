@@ -1,9 +1,9 @@
 package com.kingston.mmorpg.game.base;
 
-import com.kingston.mmorpg.framework.net.socket.netty.ChannelUtils;
 import com.kingston.mmorpg.framework.net.socket.IdSession;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
-import com.kingston.mmorpg.game.scene.actor.Player;
+import com.kingston.mmorpg.framework.net.socket.netty.ChannelUtils;
+import com.kingston.mmorpg.game.database.user.entity.PlayerEnt;
 import io.netty.channel.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +33,7 @@ public class SessionManager {
 		session.sendPacket(pact);
 	}
 
-	public void sendPacketTo(Player player, Message pact) {
+	public void sendPacketTo(PlayerEnt player, Message pact) {
 		IdSession session = player2Sessions.get(player.getId());
 		if (session != null) {
 			session.sendPacket(pact);
@@ -69,7 +69,7 @@ public class SessionManager {
 		return 0;
 	}
 
-	public boolean registerSession(Player player, IdSession session) {
+	public boolean registerSession(PlayerEnt player, IdSession session) {
 		session.setPlayer(player);
 		player2Sessions.put(player.getId(), session);
 

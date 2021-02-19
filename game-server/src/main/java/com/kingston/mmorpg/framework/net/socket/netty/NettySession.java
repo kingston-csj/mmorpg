@@ -1,21 +1,19 @@
 package com.kingston.mmorpg.framework.net.socket.netty;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import com.google.gson.Gson;
+import com.kingston.mmorpg.framework.net.command.IDispatch;
 import com.kingston.mmorpg.framework.net.socket.IdSession;
 import com.kingston.mmorpg.framework.net.socket.SessionCloseReason;
+import com.kingston.mmorpg.framework.net.socket.message.Message;
+import com.kingston.mmorpg.framework.net.socket.message.WebSocketFrame;
+import com.kingston.mmorpg.game.database.user.entity.PlayerEnt;
+import io.netty.channel.Channel;
+import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.gson.Gson;
-import com.kingston.mmorpg.framework.net.socket.message.Message;
-import com.kingston.mmorpg.framework.net.socket.message.WebSocketFrame;
-import com.kingston.mmorpg.framework.net.command.IDispatch;
-import com.kingston.mmorpg.game.scene.actor.Player;
-
-import io.netty.channel.Channel;
-import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 链接的会话
@@ -29,7 +27,7 @@ public class NettySession implements IdSession {
 	/** 网络连接channel */
 	private Channel channel;
 
-	private Player player;
+	private PlayerEnt player;
 
 	/** ip地址 */
 	private String ipAddr;
@@ -84,11 +82,11 @@ public class NettySession implements IdSession {
 		return null;
 	}
 
-	public Player getPlayer() {
+	public PlayerEnt getPlayer() {
 		return player;
 	}
 
-	public void setPlayer(Player player) {
+	public void setPlayer(PlayerEnt player) {
 		this.player = player;
 	}
 

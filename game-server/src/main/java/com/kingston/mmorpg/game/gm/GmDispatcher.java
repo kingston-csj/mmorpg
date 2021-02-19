@@ -1,17 +1,16 @@
 package com.kingston.mmorpg.game.gm;
 
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
-
+import com.kingston.mmorpg.framework.net.socket.message.CmdExecutor;
+import com.kingston.mmorpg.game.database.user.entity.PlayerEnt;
+import com.kingston.mmorpg.game.logger.LoggerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Component;
 
-import com.kingston.mmorpg.framework.net.socket.message.CmdExecutor;
-import com.kingston.mmorpg.game.logger.LoggerUtils;
-import com.kingston.mmorpg.game.scene.actor.Player;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class GmDispatcher {
@@ -27,7 +26,7 @@ public class GmDispatcher {
 		GM_HANDLERS.put(key, executor);
 	}
 
-	public void dispatch(Player player, String[] args) {
+	public void dispatch(PlayerEnt player, String[] args) {
 		String method = args[0];
 
 		for (Map.Entry<String, CmdExecutor> entry : GM_HANDLERS.entrySet()) {

@@ -1,29 +1,27 @@
 package com.kingston.mmorpg.game.player.service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-
+import com.kingston.mmorpg.common.util.ConcurrentHashSet;
 import com.kingston.mmorpg.framework.net.socket.IdSession;
+import com.kingston.mmorpg.game.account.model.AccountProfile;
 import com.kingston.mmorpg.game.base.GameContext;
 import com.kingston.mmorpg.game.database.config.inject.CommonValueInject;
 import com.kingston.mmorpg.game.database.config.inject.CommonValueReloadListener;
-import com.kingston.mmorpg.game.script.impl.LoginScript;
-import lombok.extern.java.Log;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.kingston.mmorpg.common.util.ConcurrentHashSet;
-import com.kingston.mmorpg.game.account.model.AccountProfile;
 import com.kingston.mmorpg.game.database.user.dao.PlayerDao;
 import com.kingston.mmorpg.game.database.user.entity.AccountEnt;
 import com.kingston.mmorpg.game.database.user.entity.PlayerEnt;
 import com.kingston.mmorpg.game.logger.LoggerUtils;
 import com.kingston.mmorpg.game.player.message.ResPlayerLogin;
 import com.kingston.mmorpg.game.player.model.PlayerProfile;
-import com.kingston.mmorpg.game.scene.actor.Player;
+import com.kingston.mmorpg.game.script.impl.LoginScript;
+import lombok.extern.java.Log;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 @Service
 @Log
@@ -70,12 +68,8 @@ public class PlayerService implements CommonValueReloadListener {
 		LoggerUtils.error("加载玩家基本数据，总量为{}", allPlayers.size());
 	}
 
-	public Player getPlayer(long id) {
-		PlayerEnt playerEnt = playerCacheService.getEntity(id, PlayerEnt.class);
-		if (playerEnt != null) {
-			return playerEnt.getPlayer();
-		}
-		return null;
+	public PlayerEnt getPlayer(long id) {
+		return playerCacheService.getEntity(id, PlayerEnt.class);
 	}
 
 	/**
@@ -83,12 +77,12 @@ public class PlayerService implements CommonValueReloadListener {
 	 * 
 	 * @param player
 	 */
-	public void savePlayer(Player player) {
-		playerCacheService.putEntity(player.getEntity());
+	public void savePlayer(PlayerEnt player) {
+		playerCacheService.putEntity(player);
 	}
 
 	public ResPlayerLogin login(IdSession session, long playerId) {
-		Player player = new Player();
+		PlayerEnt player = new PlayerEnt();
 		GameContext.getScriptService().getScript(LoginScript.class).onLogin(player);
 		session.bindDispatcher(player);
 		return new ResPlayerLogin();
@@ -133,7 +127,7 @@ public class PlayerService implements CommonValueReloadListener {
 		accountProfiles.put(accountId, accountProfile);
 	}
 
-	public void addExp(Player player, long exp) {
+	public void addExp(PlayerEnt player, long exp) {
 
 	}
 

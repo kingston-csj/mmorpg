@@ -6,9 +6,9 @@ import com.kingston.mmorpg.game.Modules;
 import com.kingston.mmorpg.game.base.MessagePusher;
 import com.kingston.mmorpg.game.database.config.container.ConfigSkillContainer;
 import com.kingston.mmorpg.game.database.config.domain.ConfigSkill;
+import com.kingston.mmorpg.game.database.user.entity.PlayerEnt;
 import com.kingston.mmorpg.game.player.event.PlayerLevelUpEvent;
 import com.kingston.mmorpg.game.player.event.PlayerLoginEvent;
-import com.kingston.mmorpg.game.scene.actor.Player;
 import com.kingston.mmorpg.game.skill.message.RespPlayerSkills;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,12 +25,12 @@ public class SkillFacade {
 
 	@Subscribe
 	public void onPlayerLogin(PlayerLoginEvent loginEvent) {
-		Player player = loginEvent.getOwner();
+		PlayerEnt player = loginEvent.getOwner();
 	}
 
 	@Subscribe
 	public void onPlayerLevelUp(PlayerLevelUpEvent upEvent) {
-		Player player = upEvent.getOwner();
+		PlayerEnt player = upEvent.getOwner();
 		int nowLevel = 10;
 
 		Collection<ConfigSkill> skills = skillContainer.queryAll();

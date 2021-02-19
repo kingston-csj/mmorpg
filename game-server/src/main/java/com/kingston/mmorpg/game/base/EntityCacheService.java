@@ -9,9 +9,9 @@ public interface EntityCacheService<E extends BaseEntity<PK>, PK extends Seriali
 
     E getEntity(PK id, Class<E> clazz);
 
-    BaseEntity putEntity(E entity);
+    BaseEntity<PK> putEntity(E entity);
 
-    default BaseEntity removeEntityBy(PK id) {
+    default BaseEntity<PK> removeEntityBy(PK id) {
         throw new UnsupportedOperationException();
     }
 }

@@ -1,10 +1,9 @@
 package com.kingston.mmorpg.framework.net.socket.mina;
 
+import com.kingston.mmorpg.framework.net.command.IDispatch;
 import com.kingston.mmorpg.framework.net.socket.IdSession;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
-import com.kingston.mmorpg.framework.net.command.IDispatch;
-import com.kingston.mmorpg.game.scene.actor.Player;
-
+import com.kingston.mmorpg.game.database.user.entity.PlayerEnt;
 import org.apache.mina.core.session.IoSession;
 
 import java.util.HashMap;
@@ -53,12 +52,12 @@ public class MinaSession implements IdSession {
     }
 
     @Override
-    public Player getPlayer() {
+    public PlayerEnt getPlayer() {
         return null;
     }
 
     @Override
-    public void setPlayer(Player player) {
+    public void setPlayer(PlayerEnt player) {
 
     }
 }

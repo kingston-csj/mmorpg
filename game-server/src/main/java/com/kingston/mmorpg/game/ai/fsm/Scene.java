@@ -1,19 +1,19 @@
 package com.kingston.mmorpg.game.ai.fsm;
 
+import com.kingston.mmorpg.game.database.user.entity.PlayerEnt;
 import com.kingston.mmorpg.game.scene.actor.Monster;
-import com.kingston.mmorpg.game.scene.actor.Player;
 
 public class Scene {
 
-	private Player player;
+	private PlayerEnt player;
 
 	private Monster monster;
 
-	public Player getPlayer() {
+	public PlayerEnt getPlayer() {
 		return player;
 	}
 
-	public void setPlayer(Player player) {
+	public void setPlayer(PlayerEnt player) {
 		this.player = player;
 	}
 
