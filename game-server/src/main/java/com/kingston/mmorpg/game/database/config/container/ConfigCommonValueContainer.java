@@ -39,6 +39,11 @@ public class ConfigCommonValueContainer implements ReloadableContainer<String, C
     }
 
     @Override
+    public void selfChecking() {
+
+    }
+
+    @Override
     public ConfigCommonValue queryOne(String id) {
         return data.get(id);
     }

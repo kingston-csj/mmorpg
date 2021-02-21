@@ -57,7 +57,6 @@ public class PlayerEnt extends Creature implements BaseEntity<Long>, DelayPersis
         return playerId;
     }
 
-
     public PlayerEnt() {
 
     }

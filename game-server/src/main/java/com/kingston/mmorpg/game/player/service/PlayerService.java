@@ -1,5 +1,6 @@
 package com.kingston.mmorpg.game.player.service;
 
+import com.google.common.collect.Sets;
 import com.kingston.mmorpg.framework.net.socket.IdSession;
 import com.kingston.mmorpg.game.account.model.AccountProfile;
 import com.kingston.mmorpg.game.base.GameContext;
@@ -45,7 +46,7 @@ public class PlayerService implements CommonValueReloadListener {
 	/**
 	 * 在线玩家列表
 	 */
-	private Set<Long> onlines = new ConcurrentHashSet<>();
+	private Set<Long> onlines = Sets.newConcurrentHashSet();
 
 	/** 全服所有角色的简况 */
 	private ConcurrentMap<Long, PlayerProfile> playerProfiles = new ConcurrentHashMap<>();

@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Setter
 public class IdEntity implements BaseEntity<Integer> {
 
-    private int key;
+    private int id;
 
     private long value;
 
@@ -19,11 +19,12 @@ public class IdEntity implements BaseEntity<Integer> {
 
     @Override
     public Integer getId() {
-        return key;
+        return id;
     }
 
     @Override
     public CrudRepository getCrudRepository() {
         return null;
     }
+
 }

@@ -30,6 +30,11 @@ public class ConfigFunctionContainer implements ReloadableContainer<Integer, Con
 	}
 
 	@Override
+	public void selfChecking() {
+
+	}
+
+	@Override
 	public ConfigFunction queryOne(Integer id) {
 		return allFuncs.get(id);
 	}

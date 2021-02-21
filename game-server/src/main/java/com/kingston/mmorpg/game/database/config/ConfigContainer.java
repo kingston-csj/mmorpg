@@ -8,4 +8,9 @@ public interface ConfigContainer<K, V> {
 
 	Collection<V> queryAll();
 
+	/**
+	 * 配置数据自检
+	 */
+	void selfChecking();
+
 }

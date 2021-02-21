@@ -1,17 +1,15 @@
 package com.kingston.mmorpg.game.database.config.container;
 
+import com.kingston.mmorpg.game.database.config.dao.ConfigSkillDao;
+import com.kingston.mmorpg.game.database.config.domain.ConfigSkill;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import com.kingston.mmorpg.game.database.config.Reloadable;
-import com.kingston.mmorpg.game.database.config.dao.ConfigSkillDao;
-import com.kingston.mmorpg.game.database.config.domain.ConfigSkill;
 
 @Component
 public class ConfigSkillContainer implements ReloadableContainer<Integer, ConfigSkill> {
@@ -24,6 +22,11 @@ public class ConfigSkillContainer implements ReloadableContainer<Integer, Config
 	@Override
 	public void reload() {
 		skills = skillDao.findAll().stream().collect(Collectors.toMap(ConfigSkill::getId, Function.identity()));
+	}
+
+	@Override
+	public void selfChecking() {
+		throw new IllegalArgumentException("11");
 	}
 
 	public ConfigSkill queryOne(Integer id) {
