@@ -2,7 +2,7 @@ package com.kingston.mmorpg.game.database.user.entity;
 
 import com.kingston.mmorpg.game.asyncdb.DelayPersistence;
 import com.kingston.mmorpg.game.base.GameContext;
-import com.kingston.mmorpg.game.database.JpaObjectConverter;
+import com.kingston.mmorpg.game.database.converter.JpaObjectConverter;
 import com.kingston.mmorpg.game.database.user.BaseEntity;
 import com.kingston.mmorpg.game.database.user.dao.PlayerDao;
 import com.kingston.mmorpg.game.scene.actor.ActorType;

@@ -10,4 +10,8 @@ public interface BaseEntity<PK extends Serializable & Comparable<PK>> {
 
 	CrudRepository getCrudRepository();
 
+	default String getKey() {
+		return getClass().getSimpleName() + "@" + getId().toString();
+	}
+
 }

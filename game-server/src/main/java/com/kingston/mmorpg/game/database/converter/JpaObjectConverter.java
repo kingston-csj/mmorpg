@@ -1,4 +1,4 @@
-package com.kingston.mmorpg.game.database;
+package com.kingston.mmorpg.game.database.converter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.map.ObjectMapper;

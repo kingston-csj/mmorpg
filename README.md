@@ -15,7 +15,7 @@ mmorpg，是一个用java编写的轻量级高性能mmorpg手游服务端框架�
 名称 | 用途 
 ----|------
 spring cache | 数据缓存 
-SpringDataJpa | 多数据源orm框架  
+SpringDataJpa | 多数据源orm工具  
 springmvc | 管理后台接口
 
 

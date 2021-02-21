@@ -12,7 +12,7 @@ public interface ServerNode {
 	void init();
 
 	/**
-	 *  服务启动
+	 * 服务启动
 	 * 
 	 * @throws Exception
 	 */

@@ -1,4 +1,4 @@
-package com.kingston.mmorpg.game.database;
+package com.kingston.mmorpg.game.database.converter;
 
 import com.kingston.mmorpg.game.util.JsonUtil;
 

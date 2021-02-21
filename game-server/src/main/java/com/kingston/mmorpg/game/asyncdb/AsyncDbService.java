@@ -1,6 +1,6 @@
 package com.kingston.mmorpg.game.asyncdb;
 
-import com.kingston.mmorpg.common.util.BlockingUniqueQueue;
+import com.google.common.collect.Sets;
 import com.kingston.mmorpg.common.util.thread.NamedThreadFactory;
 import com.kingston.mmorpg.game.database.user.BaseEntity;
 import com.kingston.mmorpg.game.database.user.entity.PlayerEnt;
@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -25,7 +27,6 @@ public class AsyncDbService {
     private Worker playerWorker = new Worker("player");
 
     private Worker commonWorker = new Worker("common");
-
 
     @PostConstruct
     private void init() {
@@ -46,9 +47,15 @@ public class AsyncDbService {
 
         private String name;
 
-        private BlockingQueue<BaseEntity> queue = new BlockingUniqueQueue<>();
+        private BlockingQueue<BaseEntity> queue = new LinkedBlockingDeque<>();
+
+        private Set<String> savingQueue = Sets.newConcurrentHashSet();
 
         public void add2Queue(BaseEntity entity) {
+            String key = entity.getKey();
+            if (savingQueue.contains(key)) {
+                return;
+            }
             this.queue.add(entity);
         }
 
@@ -80,8 +87,12 @@ public class AsyncDbService {
 		private void saveToDb(BaseEntity entity) {
 			try {
 				entity.getCrudRepository().save(entity);
+				String key = entity.getKey();
+                savingQueue.remove(key);
 			} catch (Exception e) {
 				LoggerUtils.error("", e);
+				// 重新放入队列
+				add2Queue(entity);
 			}
 		}
 

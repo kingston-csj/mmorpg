@@ -2,7 +2,7 @@ package com.kingston.mmorpg.test;
 
 import com.kingston.mmorpg.game.database.config.dao.ConfigSkillDao;
 import com.kingston.mmorpg.game.database.user.dao.PlayerDao;
-import com.kingston.mmorpg.game.scene.actor.Player;
+import com.kingston.mmorpg.game.database.user.entity.PlayerEnt;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,8 +24,8 @@ public class TestMultiDb {
 	public void testCrud() {
  		Assert.assertTrue(skillRepository.findAll().size() > 0);
  		
- 		Player playerEnt = new Player();
- 		playerEnt.setPlayerId(666);
+ 		PlayerEnt playerEnt = new PlayerEnt();
+ 		playerEnt.setPlayerId(123456L);
  		playerDao.save(playerEnt);
  		
 	}

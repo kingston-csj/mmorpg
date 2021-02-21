@@ -1,11 +1,8 @@
-package com.kingston.mmorpg.game.database;
+package com.kingston.mmorpg.game.database.converter;
 
 import com.kingston.mmorpg.game.util.ZipUtil;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.type.TypeFactory;
 import org.codehaus.jackson.type.JavaType;
 
-import javax.persistence.AttributeConverter;
 import java.io.IOException;
 
 public class JpaObjectZipConverter extends JpaObjectConverter {
