@@ -9,7 +9,7 @@ import lombok.Setter;
 @MessageMeta(cmd = PlayerService.CMD_REQ_CREATE_NEW)
 @Getter
 @Setter
-public class ReqCreateNewPlayer extends Message {
+public class ReqCreateNewPlayer implements Message {
 
 	private String name;
 

@@ -26,7 +26,6 @@ public class ConfigSkillContainer implements ReloadableContainer<Integer, Config
 
 	@Override
 	public void selfChecking() {
-		throw new IllegalArgumentException("11");
 	}
 
 	public ConfigSkill queryOne(Integer id) {

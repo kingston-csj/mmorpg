@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @MessageMeta(cmd = PlayerService.CMD_REQ_ACCOUNT_LOGIN)
-public class ReqAccountLogin extends Message {
+public class ReqAccountLogin implements Message {
 
 	@Protobuf
 	private long accountId;

@@ -4,7 +4,7 @@ import com.kingston.mmorpg.framework.net.socket.annotation.MessageMeta;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
 
 @MessageMeta(cmd = 1)
-public class BaseVo  extends Message  {
+public class BaseVo  implements Message  {
 	
 	protected long id;
 

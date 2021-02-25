@@ -9,7 +9,7 @@ import lombok.Setter;
 @MessageMeta(cmd = 1)
 @Getter
 @Setter
-public class ReqGmCommand extends Message {
+public class ReqGmCommand implements Message {
 
 	@Protobuf
 	private String params;

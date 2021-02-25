@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @ToString
 @MessageMeta(cmd = SkillService.CMD_RESP_SKILLS)
-public class RespPlayerSkills extends Message {
+public class RespPlayerSkills implements Message {
 
     @Protobuf
     private List<Integer> skills;

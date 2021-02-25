@@ -10,7 +10,7 @@ import lombok.Setter;
 @MessageMeta(cmd = PlayerService.CMD_REQ_SELECT_PLAYER)
 @Getter
 @Setter
-public class ReqSelectPlayer extends Message {
+public class ReqSelectPlayer implements Message {
 
 	@Protobuf
 	private long playerId;

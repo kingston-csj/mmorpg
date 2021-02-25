@@ -1,13 +1,13 @@
 package com.kingston.mmorpg.test.codec;
 
-import java.util.Arrays;
-import java.util.List;
-
 import com.kingston.mmorpg.framework.net.socket.annotation.MessageMeta;
 import com.kingston.mmorpg.framework.net.socket.message.Message;
 
+import java.util.Arrays;
+import java.util.List;
+
 @MessageMeta
-public class ReqSelectePlayer extends Message {
+public class ReqSelectePlayer implements Message {
 	
 	private long playerId;
 	

@@ -6,15 +6,14 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 /**
  * 抽象消息定义
  */
-public abstract class Message {
+public interface Message {
 
 	/**
 	 * messageMeta, subType of message
-	 * 
 	 * @return
 	 */
 	@JsonIgnore
-	public short getCmd() {
+	default short getCmd() {
 		MessageMeta annotation = getClass().getAnnotation(MessageMeta.class);
 		if (annotation != null) {
 			return annotation.cmd();
@@ -22,5 +21,4 @@ public abstract class Message {
 		return 0;
 	}
 
-	
 }

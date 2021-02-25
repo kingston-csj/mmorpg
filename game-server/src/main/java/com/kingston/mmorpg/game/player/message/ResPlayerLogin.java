@@ -9,7 +9,7 @@ import lombok.Setter;
 @MessageMeta(cmd = PlayerService.CMD_RES_LOGIN)
 @Getter
 @Setter
-public class ResPlayerLogin extends Message {
+public class ResPlayerLogin implements Message {
 
 	private byte status;
 

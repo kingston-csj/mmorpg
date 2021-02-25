@@ -9,7 +9,7 @@ import lombok.Setter;
 @MessageMeta(cmd = PlayerService.CMD_REQ_PLAYER_LOGIN)
 @Getter
 @Setter
-public class ReqPlayerLogin extends Message {
+public class ReqPlayerLogin implements Message {
 
 	private long playerId;
 
