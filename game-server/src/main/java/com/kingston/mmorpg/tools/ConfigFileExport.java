@@ -21,19 +21,17 @@ public class ConfigFileExport {
     /**
      * 模版目录的本地绝对路径
      */
-    private static String TEMPLATE_FILE_DIR = "YYY";
-
+    private static String TEMPLATE_FILE_DIR = "/Users/xxyy/projects/mmorpg/game-server/template/";
 
     public static void main(String[] args) throws Exception {
-
-        String configDataName = "ConfigMap";
+        String configDataName = "ConfigSkill";
         Class<?> c = Class.forName("com.kingston.mmorpg.game.database.config.domain." + configDataName);
         String idType = "Integer";
         for (Field field : c.getDeclaredFields()) {
-            Annotation aa = c.getAnnotation(Id.class);
+            Annotation aa = field.getAnnotation(Id.class);
             if (aa != null) {
                 // 不是基本类型，直接取
-                if (field.getType().isPrimitive()) {
+                if (!field.getType().isPrimitive()) {
                     idType = field.getType().getSimpleName();
                 } else {
                     if (field.getType() == int.class) {
@@ -46,20 +44,23 @@ public class ConfigFileExport {
         Configuration cfg = new Configuration();
         cfg.setDirectoryForTemplateLoading(new File(TEMPLATE_FILE_DIR));
         cfg.setObjectWrapper(new DefaultObjectWrapper());
-
         cfg.setDefaultEncoding("UTF-8");
         cfg.setTagSyntax(Configuration.AUTO_DETECT_TAG_SYNTAX);
 
         Map<String, String> data = new HashMap<>();
         data.put("config", configDataName);
         String tableName = lowerFirstLetter(configDataName.replace("Config", ""));
-
         data.put("daoName", tableName);
         data.put("dataName", tableName + "s");
         data.put("idType", idType);
 
-        String template = "ConfigContainer.ftl";
-        Writer out = new OutputStreamWriter(new FileOutputStream(TEMPLATE_FILE_DIR + configDataName + "Container.java"), "UTF-8");
+        templateToFile(cfg, "ConfigContainer.ftl", data, TEMPLATE_FILE_DIR + configDataName + "Container.java");
+        templateToFile(cfg, "ConfigDao.ftl", data, TEMPLATE_FILE_DIR + configDataName + "Dao.java");
+    }
+
+    private static void templateToFile(Configuration cfg, String template, Map<String, String> data, String targetName)
+            throws Exception {
+        Writer out = new OutputStreamWriter(new FileOutputStream(targetName), "UTF-8");
         Template temp = cfg.getTemplate(template);
         temp.process(data, out);
         out.flush();

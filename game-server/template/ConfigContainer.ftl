@@ -12,7 +12,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Component
-public class ConfigSkillContainer implements ReloadableContainer<Integer, ${config}> {
+public class ${config}Container implements ReloadableContainer<Integer, ${config}> {
 
 	@Autowired
 	private ${config}Dao ${daoName}Dao;
