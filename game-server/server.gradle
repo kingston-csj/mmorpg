@@ -71,7 +71,9 @@ dependencies {
 
     testCompileOnly 'org.projectlombok:lombok:1.18.12'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
-	
+
+    compile 'org.freemarker:freemarker:2.3.20'
+
 	compile fileTree(dir:'libs',include:['*.jar'])
 }
 

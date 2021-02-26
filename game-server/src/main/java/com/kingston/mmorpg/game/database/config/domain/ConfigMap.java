@@ -2,6 +2,8 @@ package com.kingston.mmorpg.game.database.config.domain;
 
 import lombok.Getter;
 
+import javax.persistence.Id;
+
 /**
  * 地图资源
  *
@@ -10,6 +12,7 @@ import lombok.Getter;
 @Getter
 public class ConfigMap {
 
+    @Id
     private int id;
 
     /**
