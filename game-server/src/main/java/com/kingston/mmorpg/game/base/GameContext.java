@@ -1,12 +1,11 @@
 package com.kingston.mmorpg.game.base;
 
-import java.lang.annotation.Annotation;
-import java.util.Collection;
-import java.util.Map;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-
+import com.kingston.mmorpg.framework.net.MessageDispatcher;
+import com.kingston.mmorpg.game.ServerConfig;
+import com.kingston.mmorpg.game.account.AccountService;
+import com.kingston.mmorpg.game.asyncdb.AsyncDbService;
+import com.kingston.mmorpg.game.buff.service.BuffService;
+import com.kingston.mmorpg.game.player.service.PlayerService;
 import com.kingston.mmorpg.game.script.ScriptService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +13,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
-import com.kingston.mmorpg.framework.net.command.MessageDispatcher;
-import com.kingston.mmorpg.game.ServerConfig;
-import com.kingston.mmorpg.game.account.AccountService;
-import com.kingston.mmorpg.game.asyncdb.AsyncDbService;
-import com.kingston.mmorpg.game.buff.service.BuffService;
-import com.kingston.mmorpg.game.player.service.PlayerService;
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+import java.lang.annotation.Annotation;
+import java.util.Collection;
+import java.util.Map;
 
 @Component
 public class GameContext implements ApplicationContextAware {

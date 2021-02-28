@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+}
+
+group 'com.kingston.mmorpg'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+
+    compile(project(":game-common"))
+
+    compile ("org.codehaus.jackson:jackson-core-asl")
+    compile ("org.codehaus.jackson:jackson-mapper-asl")
+
+    annotationProcessor 'org.projectlombok:lombok:1.18.2'
+    compileOnly 'org.projectlombok:lombok:1.18.2'
+
+    compile 'io.netty:netty-all'
+
+    compile 'org.apache.mina:mina-core'
+
+    compile 'com.baidu:jprotobuf'
+
+    compile 'io.protostuff:protostuff-core'
+    compile 'io.protostuff:protostuff-runtime'
+
+    compile 'org.apache.commons:commons-lang3'
+
+}
+
+test {
+    useJUnitPlatform()
+}

@@ -2,6 +2,7 @@ package com.kingston.mmorpg.game.player.facade;
 
 import com.kingston.mmorpg.framework.eventbus.EventBus;
 import com.kingston.mmorpg.framework.net.socket.IdSession;
+import com.kingston.mmorpg.framework.net.socket.annotation.MessageMapping;
 import com.kingston.mmorpg.framework.net.socket.annotation.ModuleMeta;
 import com.kingston.mmorpg.game.Modules;
 import com.kingston.mmorpg.game.base.GameContext;
@@ -26,6 +27,7 @@ public class PlayerFacade {
 	@Autowired
 	private LoginService loginService;
 
+	@MessageMapping
 	public void reqAccountLogin(IdSession session, ReqAccountLogin request) {
 		loginService.handleAccountLogin(session, request.getAccountId(), request.getPassword());
 	}
@@ -42,8 +44,6 @@ public class PlayerFacade {
 
 		PlayerEnt player = new PlayerEnt();
 		player.setId(playerId);
-		session.setPlayer(player);
-
 		EventBus.getInstance().post(new PlayerLoginEvent(player));
 	}
 

@@ -3,8 +3,6 @@ package com.kingston.mmorpg.test.util;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.kingston.mmorpg.common.util.LimitedCacheMap;
-
 public class TestLinkedCacheMap {
 	
 	@Test

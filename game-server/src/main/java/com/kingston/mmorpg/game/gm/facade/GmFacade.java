@@ -17,7 +17,7 @@ public class GmFacade {
 	private GmDispatcher gmDispatcher;
 
 	public void reqGmExec(IdSession session, ReqGmCommand req) {
-		PlayerEnt player = session.getPlayer();
+		PlayerEnt player = (PlayerEnt) session.getAttribute("PLAYER");
 		String[] params = req.getParams().split("\\s+");
 		gmDispatcher.dispatch(player, params);
 	}

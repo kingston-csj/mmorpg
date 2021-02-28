@@ -25,6 +25,7 @@ buildscript {
 
 dependencies {
 	compile(project(":game-common"))
+    compile(project(":game-net"))
 
     compile ("org.codehaus.jackson:jackson-core-asl")
     compile ("org.codehaus.jackson:jackson-mapper-asl")
@@ -72,7 +73,7 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok:1.18.12'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
 
-    compile 'org.freemarker:freemarker:2.3.20'
+    compile 'org.freemarker:freemarker:2.3.31'
 
 	compile fileTree(dir:'libs',include:['*.jar'])
 }

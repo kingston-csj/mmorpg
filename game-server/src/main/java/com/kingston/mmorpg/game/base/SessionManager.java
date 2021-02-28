@@ -70,7 +70,7 @@ public class SessionManager {
 	}
 
 	public boolean registerSession(PlayerEnt player, IdSession session) {
-		session.setPlayer(player);
+		session.setAttribute("PLAYER", player);
 		player2Sessions.put(player.getId(), session);
 
 		logger.info("[{}] registered...", player.getId());

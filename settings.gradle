@@ -1,8 +1,10 @@
 rootProject.name = 'mmorpg'
 
-include 'game-common', 'game-server'
+include 'game-common', 'game-server', 'game-net'
 
 // 修改子项目的build文件名，重名很难查找
 rootProject.children.each {
 	it.buildFileName = it.name - "game-" + ".gradle"
 }
+include 'net'
+
