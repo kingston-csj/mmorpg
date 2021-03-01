@@ -1,7 +1,7 @@
 package com.kingston.mmorpg.client;
 
-import com.kingston.mmorpg.framework.net.socket.MessageFactory;
 import com.kingston.mmorpg.game.ConfigScanPaths;
+import com.kingston.mmorpg.net.socket.MessageFactory;
 
 /**
  * 客户端模拟器启动程序

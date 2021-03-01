@@ -1,10 +1,10 @@
 package com.kingston.mmorpg.framework.net;
 
-import com.kingston.mmorpg.framework.net.socket.codec.SerializerFactory;
-import com.kingston.mmorpg.framework.net.socket.codec.impl.json.JsonSerializerFactory;
-import com.kingston.mmorpg.framework.net.socket.codec.impl.protobuf.ProtobufSerializerFactory;
-import com.kingston.mmorpg.framework.net.socket.codec.impl.protostuff.ProtostuffSerializerFactory;
-import com.kingston.mmorpg.framework.net.socket.codec.impl.reflect.ReflectSerializerFactory;
+import com.kingston.mmorpg.net.socket.codec.SerializerFactory;
+import com.kingston.mmorpg.net.socket.codec.impl.json.JsonSerializerFactory;
+import com.kingston.mmorpg.net.socket.codec.impl.protobuf.ProtobufSerializerFactory;
+import com.kingston.mmorpg.net.socket.codec.impl.protostuff.ProtostuffSerializerFactory;
+import com.kingston.mmorpg.net.socket.codec.impl.reflect.ReflectSerializerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;

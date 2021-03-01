@@ -1,9 +1,10 @@
 package com.kingston.mmorpg.framework.net.netty;
 
-import com.kingston.mmorpg.framework.net.socket.SocketServerNode;
-import com.kingston.mmorpg.framework.net.socket.netty.NettyPacketDecoder;
-import com.kingston.mmorpg.framework.net.socket.netty.NettyPacketEncoder;
 import com.kingston.mmorpg.game.ServerConfig;
+import com.kingston.mmorpg.net.socket.SocketServerNode;
+import com.kingston.mmorpg.net.socket.codec.SerializerFactory;
+import com.kingston.mmorpg.net.socket.netty.NettyPacketDecoder;
+import com.kingston.mmorpg.net.socket.netty.NettyPacketEncoder;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -33,6 +34,9 @@ public class NettySocketServer implements SocketServerNode {
 
     @Autowired
     private ServerConfig serverConfig;
+
+    @Autowired
+    private SerializerFactory serializerFactory;
 
     @Override
     @PostConstruct
@@ -74,9 +78,9 @@ public class NettySocketServer implements SocketServerNode {
         @Override
         protected void initChannel(SocketChannel arg0) throws Exception {
             ChannelPipeline pipeline = arg0.pipeline();
-            pipeline.addLast(new NettyPacketDecoder(1024 * 10, 0, 2, 0, 2));
+            pipeline.addLast(new NettyPacketDecoder(serializerFactory.getDecoder(), 1024 * 10, 0, 2, 0, 2));
             pipeline.addLast(new LengthFieldPrepender(2));
-            pipeline.addLast(new NettyPacketEncoder());
+            pipeline.addLast(new NettyPacketEncoder(serializerFactory.getEncoder()));
             // 客户端300秒没收发包，便会触发UserEventTriggered事件到IdleEventHandler
             pipeline.addLast(new IdleStateHandler(0, 0, 300));
             pipeline.addLast(new IdleEventHandler());

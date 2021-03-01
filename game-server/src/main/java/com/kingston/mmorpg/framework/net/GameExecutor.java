@@ -2,8 +2,8 @@ package com.kingston.mmorpg.framework.net;
 
 
 import com.kingston.mmorpg.common.util.thread.NamedThreadFactory;
-import com.kingston.mmorpg.framework.net.command.BaseCommand;
 import com.kingston.mmorpg.game.logger.LoggerUtils;
+import com.kingston.mmorpg.net.command.BaseCommand;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;

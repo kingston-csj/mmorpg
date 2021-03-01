@@ -1,8 +1,8 @@
 package com.kingston.mmorpg.game.gm;
 
-import com.kingston.mmorpg.framework.net.socket.message.CmdExecutor;
 import com.kingston.mmorpg.game.database.user.entity.PlayerEnt;
 import com.kingston.mmorpg.game.logger.LoggerUtils;
+import com.kingston.mmorpg.net.socket.message.CmdExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.ConversionService;

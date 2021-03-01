@@ -1,10 +1,10 @@
 package com.kingston.mmorpg.framework.net.mina;
 
-import com.kingston.mmorpg.framework.net.socket.IdSession;
-import com.kingston.mmorpg.framework.net.socket.message.Message;
-import com.kingston.mmorpg.framework.net.socket.mina.MinaSession;
-import com.kingston.mmorpg.framework.net.socket.mina.MinaSessionProperties;
 import com.kingston.mmorpg.game.base.GameContext;
+import com.kingston.mmorpg.net.socket.IdSession;
+import com.kingston.mmorpg.net.socket.message.Message;
+import com.kingston.mmorpg.net.socket.mina.MinaSession;
+import com.kingston.mmorpg.net.socket.mina.MinaSessionProperties;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IoSession;
 import org.slf4j.Logger;
@@ -17,7 +17,6 @@ public class ServerSocketIoHandler extends IoHandlerAdapter  {
     @Override
     public void sessionCreated(IoSession session) {
         IdSession userSession = new MinaSession(session);
-        System.out.println(session.getRemoteAddress().toString());
         session.setAttribute(MinaSessionProperties.UserSession,
                 userSession);
         GameContext.getMessageDispatcher().onSessionCreated(userSession);

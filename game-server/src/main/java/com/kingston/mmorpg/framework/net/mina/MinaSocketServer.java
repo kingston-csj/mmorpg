@@ -1,8 +1,9 @@
 package com.kingston.mmorpg.framework.net.mina;
 
-import com.kingston.mmorpg.framework.net.socket.SocketServerNode;
-import com.kingston.mmorpg.framework.net.socket.mina.MessageCodecFactory;
 import com.kingston.mmorpg.game.base.GameContext;
+import com.kingston.mmorpg.net.socket.SocketServerNode;
+import com.kingston.mmorpg.net.socket.codec.SerializerFactory;
+import com.kingston.mmorpg.net.socket.mina.MessageCodecFactory;
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.buffer.SimpleBufferAllocator;
 import org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder;
@@ -16,6 +17,7 @@ import org.apache.mina.transport.socket.nio.NioSession;
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executor;
@@ -30,9 +32,12 @@ public class MinaSocketServer implements SocketServerNode {
     private static final Executor executor = Executors.newCachedThreadPool();
 
     private static final SimpleIoProcessorPool<NioSession> pool =
-            new SimpleIoProcessorPool<NioSession>(NioProcessor.class, executor, CPU_CORE_SIZE);
+            new SimpleIoProcessorPool<>(NioProcessor.class, executor, CPU_CORE_SIZE);
 
     private SocketAcceptor acceptor;
+
+    @Autowired
+    private SerializerFactory serializerFactory;
 
     @Override
     public void init() {
@@ -56,7 +61,7 @@ public class MinaSocketServer implements SocketServerNode {
         logger.info("mina socket server start at port:{},正在监听客户端的连接...", serverPort);
         DefaultIoFilterChainBuilder filterChain = acceptor.getFilterChain();
         filterChain.addLast("codec",
-                new ProtocolCodecFilter(new MessageCodecFactory()));
+                new ProtocolCodecFilter(new MessageCodecFactory(serializerFactory)));
         //指定业务逻辑处理器
         acceptor.setHandler(new ServerSocketIoHandler());
         //设置端口号

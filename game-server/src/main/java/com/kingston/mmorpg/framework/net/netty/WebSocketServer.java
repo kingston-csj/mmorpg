@@ -1,8 +1,8 @@
 package com.kingston.mmorpg.framework.net.netty;
 
-import com.kingston.mmorpg.framework.net.ServerNode;
 import com.kingston.mmorpg.game.ServerConfig;
 import com.kingston.mmorpg.game.base.GameContext;
+import com.kingston.mmorpg.net.ServerNode;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;

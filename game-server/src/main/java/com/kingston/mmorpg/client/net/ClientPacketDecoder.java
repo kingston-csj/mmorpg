@@ -1,8 +1,8 @@
 package com.kingston.mmorpg.client.net;
 
-import com.kingston.mmorpg.framework.net.socket.codec.IMessageDecoder;
-import com.kingston.mmorpg.framework.net.socket.message.Message;
 import com.kingston.mmorpg.game.logger.LoggerUtils;
+import com.kingston.mmorpg.net.socket.codec.IMessageDecoder;
+import com.kingston.mmorpg.net.socket.message.Message;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;

@@ -1,6 +1,6 @@
 package com.kingston.mmorpg.client;
 
-import com.kingston.mmorpg.framework.net.socket.message.Message;
+import com.kingston.mmorpg.net.socket.message.Message;
 
 import io.netty.channel.Channel;
 

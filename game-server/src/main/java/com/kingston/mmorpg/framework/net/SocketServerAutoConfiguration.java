@@ -1,8 +1,8 @@
 package com.kingston.mmorpg.framework.net;
 
 import com.kingston.mmorpg.framework.net.mina.MinaSocketServer;
-import com.kingston.mmorpg.framework.net.socket.SocketServerNode;
 import com.kingston.mmorpg.framework.net.netty.NettySocketServer;
+import com.kingston.mmorpg.net.socket.SocketServerNode;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;

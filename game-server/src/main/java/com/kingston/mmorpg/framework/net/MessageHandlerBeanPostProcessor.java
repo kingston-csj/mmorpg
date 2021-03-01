@@ -1,10 +1,10 @@
 package com.kingston.mmorpg.framework.net;
 
 
-import com.kingston.mmorpg.framework.net.socket.annotation.MessageMeta;
-import com.kingston.mmorpg.framework.net.socket.annotation.ModuleMeta;
-import com.kingston.mmorpg.framework.net.socket.message.CmdExecutor;
-import com.kingston.mmorpg.framework.net.socket.message.Message;
+import com.kingston.mmorpg.net.socket.annotation.MessageMeta;
+import com.kingston.mmorpg.net.socket.annotation.ModuleMeta;
+import com.kingston.mmorpg.net.socket.message.CmdExecutor;
+import com.kingston.mmorpg.net.socket.message.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;

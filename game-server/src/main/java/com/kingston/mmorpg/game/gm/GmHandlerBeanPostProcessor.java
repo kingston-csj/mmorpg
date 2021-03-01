@@ -1,7 +1,6 @@
 package com.kingston.mmorpg.game.gm;
 
-import java.lang.reflect.Method;
-
+import com.kingston.mmorpg.net.socket.message.CmdExecutor;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -10,7 +9,8 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
-import com.kingston.mmorpg.framework.net.socket.message.CmdExecutor;
+import java.lang.reflect.Method;
+
 
 @Component
 public class GmHandlerBeanPostProcessor implements BeanPostProcessor, ApplicationContextAware, Ordered {
