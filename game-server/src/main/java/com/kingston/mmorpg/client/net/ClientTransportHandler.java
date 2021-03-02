@@ -1,7 +1,7 @@
 package com.kingston.mmorpg.client.net;
 
 import com.kingston.mmorpg.client.IoSession;
-import com.kingston.mmorpg.net.socket.message.Message;
+import com.kingston.mmorpg.net.message.Message;
 import com.kingston.mmorpg.game.gm.message.ReqGmCommand;
 import com.kingston.mmorpg.game.player.message.ReqAccountLogin;
 import com.kingston.mmorpg.game.player.message.ReqCreateNewPlayer;

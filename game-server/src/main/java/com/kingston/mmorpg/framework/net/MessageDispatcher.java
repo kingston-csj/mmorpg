@@ -2,12 +2,12 @@ package com.kingston.mmorpg.framework.net;
 
 
 import com.kingston.mmorpg.game.base.GameContext;
-import com.kingston.mmorpg.net.command.IDispatch;
-import com.kingston.mmorpg.net.command.MessageCommand;
+import com.kingston.mmorpg.net.dispatcher.IDispatch;
+import com.kingston.mmorpg.net.dispatcher.MessageEvent;
 import com.kingston.mmorpg.net.socket.IdSession;
-import com.kingston.mmorpg.net.socket.MessageFactory;
-import com.kingston.mmorpg.net.socket.message.CmdExecutor;
-import com.kingston.mmorpg.net.socket.message.Message;
+import com.kingston.mmorpg.net.message.MessageFactory;
+import com.kingston.mmorpg.net.message.CmdExecutor;
+import com.kingston.mmorpg.net.message.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -53,7 +53,7 @@ public class MessageDispatcher {
         Object controller = cmdExecutor.getHandler();
 
         IDispatch dispatcher = session.getDispatcher();
-        GameExecutor.getInstance().acceptTask(MessageCommand.valueOf(session, dispatcher.dispatchKey(),
+        GameExecutor.getInstance().acceptTask(MessageEvent.valueOf(session, dispatcher.dispatchKey(),
                 controller, cmdExecutor.getMethod(), params));
     }
 

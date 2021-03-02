@@ -1,8 +1,9 @@
 package com.kingston.mmorpg.client.net;
 
 import com.kingston.mmorpg.game.logger.LoggerUtils;
-import com.kingston.mmorpg.net.socket.codec.IMessageDecoder;
-import com.kingston.mmorpg.net.socket.message.Message;
+import com.kingston.mmorpg.net.message.MessageFactory;
+import com.kingston.mmorpg.net.message.codec.IMessageDecoder;
+import com.kingston.mmorpg.net.message.Message;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
@@ -30,20 +31,20 @@ public class ClientPacketDecoder extends LengthFieldBasedFrameDecoder {
             return null;
 
         short cmd = frame.readShort();
-
-        return readMessage(cmd, frame);
+        Class<?> msgClazz = MessageFactory.getInstance().getMessageMeta(cmd);
+        return readMessage(msgClazz, frame);
     }
 
-    private Message readMessage(short cmd, ByteBuf in) {
+    private Message readMessage(Class<?> msgClazz, ByteBuf in) {
         try {
             IMessageDecoder msgDecoder = ClientSerializerHelper.getInstance().getDecoder();
 
             byte[] body = new byte[in.readableBytes()];
             in.readBytes(body);
-            Message msg = msgDecoder.readMessage(cmd, body);
+            Message msg = msgDecoder.readMessage(msgClazz, body);
             return msg;
         } catch (Exception e) {
-            LoggerUtils.error("读取消息出错,协议号{},异常{}", new Object[] {cmd, e });
+            LoggerUtils.error("读取消息出错,协议号{},异常{}", new Object[] {msgClazz.getName(), e });
             // 消息不往下传，手动释放下引用
             ReferenceCountUtil.release(in);
         }

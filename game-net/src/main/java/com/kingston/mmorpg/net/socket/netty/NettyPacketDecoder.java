@@ -1,7 +1,8 @@
 package com.kingston.mmorpg.net.socket.netty;
 
-import com.kingston.mmorpg.net.socket.codec.IMessageDecoder;
-import com.kingston.mmorpg.net.socket.message.Message;
+import com.kingston.mmorpg.net.message.MessageFactory;
+import com.kingston.mmorpg.net.message.codec.IMessageDecoder;
+import com.kingston.mmorpg.net.message.Message;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
@@ -44,7 +45,8 @@ public class NettyPacketDecoder extends LengthFieldBasedFrameDecoder {
 		try {
 			byte[] body = new byte[in.readableBytes()];
 			in.readBytes(body);
-			Message msg = msgDecoder.readMessage(cmd, body);
+			Class<?> msgClazz = MessageFactory.getInstance().getMessageMeta(cmd);
+			Message msg = msgDecoder.readMessage(msgClazz, body);
 			return msg;
 		} catch (Exception e) {
 			logger.error("读取消息出错,协议号{},异常{}", new Object[] {cmd, e });

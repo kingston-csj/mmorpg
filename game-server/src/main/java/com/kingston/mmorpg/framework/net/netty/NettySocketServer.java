@@ -2,7 +2,7 @@ package com.kingston.mmorpg.framework.net.netty;
 
 import com.kingston.mmorpg.game.ServerConfig;
 import com.kingston.mmorpg.net.socket.SocketServerNode;
-import com.kingston.mmorpg.net.socket.codec.SerializerFactory;
+import com.kingston.mmorpg.net.message.codec.SerializerFactory;
 import com.kingston.mmorpg.net.socket.netty.NettyPacketDecoder;
 import com.kingston.mmorpg.net.socket.netty.NettyPacketEncoder;
 import io.netty.bootstrap.ServerBootstrap;

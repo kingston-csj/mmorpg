@@ -2,7 +2,7 @@ package com.kingston.mmorpg.game.player.message;
 
 import com.kingston.mmorpg.game.player.service.PlayerService;
 import com.kingston.mmorpg.net.socket.annotation.MessageMeta;
-import com.kingston.mmorpg.net.socket.message.Message;
+import com.kingston.mmorpg.net.message.Message;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,7 +1,7 @@
 package com.kingston.mmorpg.net.socket.mina;
 
-import com.kingston.mmorpg.net.socket.codec.IMessageEncoder;
-import com.kingston.mmorpg.net.socket.message.Message;
+import com.kingston.mmorpg.net.message.codec.IMessageEncoder;
+import com.kingston.mmorpg.net.message.Message;
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolEncoder;

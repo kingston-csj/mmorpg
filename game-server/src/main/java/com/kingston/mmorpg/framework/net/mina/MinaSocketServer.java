@@ -2,7 +2,7 @@ package com.kingston.mmorpg.framework.net.mina;
 
 import com.kingston.mmorpg.game.base.GameContext;
 import com.kingston.mmorpg.net.socket.SocketServerNode;
-import com.kingston.mmorpg.net.socket.codec.SerializerFactory;
+import com.kingston.mmorpg.net.message.codec.SerializerFactory;
 import com.kingston.mmorpg.net.socket.mina.MessageCodecFactory;
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.buffer.SimpleBufferAllocator;

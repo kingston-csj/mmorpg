@@ -1,6 +1,7 @@
 package com.kingston.mmorpg.test.codec;
 
-import com.kingston.mmorpg.framework.net.socket.annotation.MessageMeta;
+
+import com.kingston.mmorpg.net.socket.annotation.MessageMeta;
 
 @MessageMeta(cmd = 2)
 public class PlayerVo extends BaseVo {

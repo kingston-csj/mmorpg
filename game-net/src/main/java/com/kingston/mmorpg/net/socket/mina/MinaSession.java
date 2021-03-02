@@ -1,7 +1,7 @@
 package com.kingston.mmorpg.net.socket.mina;
 
-import com.kingston.mmorpg.net.command.IDispatch;
-import com.kingston.mmorpg.net.socket.message.Message;
+import com.kingston.mmorpg.net.dispatcher.IDispatch;
+import com.kingston.mmorpg.net.message.Message;
 import com.kingston.mmorpg.net.socket.IdSession;
 import org.apache.mina.core.session.IoSession;
 

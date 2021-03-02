@@ -2,7 +2,7 @@ package com.kingston.mmorpg.framework.net.mina;
 
 import com.kingston.mmorpg.game.base.GameContext;
 import com.kingston.mmorpg.net.socket.IdSession;
-import com.kingston.mmorpg.net.socket.message.Message;
+import com.kingston.mmorpg.net.message.Message;
 import com.kingston.mmorpg.net.socket.mina.MinaSession;
 import com.kingston.mmorpg.net.socket.mina.MinaSessionProperties;
 import org.apache.mina.core.service.IoHandlerAdapter;

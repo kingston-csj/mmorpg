@@ -1,11 +1,11 @@
 package com.kingston.mmorpg.net.socket.netty;
 
 import com.google.gson.Gson;
-import com.kingston.mmorpg.net.command.IDispatch;
+import com.kingston.mmorpg.net.dispatcher.IDispatch;
 import com.kingston.mmorpg.net.socket.IdSession;
 import com.kingston.mmorpg.net.socket.SessionCloseReason;
-import com.kingston.mmorpg.net.socket.message.Message;
-import com.kingston.mmorpg.net.socket.message.WebSocketFrame;
+import com.kingston.mmorpg.net.message.Message;
+import com.kingston.mmorpg.net.message.WebSocketFrame;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import org.slf4j.Logger;

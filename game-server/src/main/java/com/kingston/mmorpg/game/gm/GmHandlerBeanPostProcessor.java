@@ -1,6 +1,6 @@
 package com.kingston.mmorpg.game.gm;
 
-import com.kingston.mmorpg.net.socket.message.CmdExecutor;
+import com.kingston.mmorpg.net.message.CmdExecutor;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;

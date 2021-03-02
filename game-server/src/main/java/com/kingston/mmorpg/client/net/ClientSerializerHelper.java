@@ -1,12 +1,12 @@
 package com.kingston.mmorpg.client.net;
 
-import com.kingston.mmorpg.net.socket.codec.IMessageDecoder;
-import com.kingston.mmorpg.net.socket.codec.IMessageEncoder;
-import com.kingston.mmorpg.net.socket.codec.SerializerFactory;
-import com.kingston.mmorpg.net.socket.codec.impl.json.JsonSerializerFactory;
-import com.kingston.mmorpg.net.socket.codec.impl.protobuf.ProtobufSerializerFactory;
-import com.kingston.mmorpg.net.socket.codec.impl.protostuff.ProtostuffSerializerFactory;
-import com.kingston.mmorpg.net.socket.codec.impl.reflect.ReflectSerializerFactory;
+import com.kingston.mmorpg.net.message.codec.IMessageDecoder;
+import com.kingston.mmorpg.net.message.codec.IMessageEncoder;
+import com.kingston.mmorpg.net.message.codec.SerializerFactory;
+import com.kingston.mmorpg.net.message.codec.impl.json.JsonSerializerFactory;
+import com.kingston.mmorpg.net.message.codec.impl.protobuf.ProtobufSerializerFactory;
+import com.kingston.mmorpg.net.message.codec.impl.protostuff.ProtostuffSerializerFactory;
+import com.kingston.mmorpg.net.message.codec.impl.reflect.ReflectSerializerFactory;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 public class ClientSerializerHelper {

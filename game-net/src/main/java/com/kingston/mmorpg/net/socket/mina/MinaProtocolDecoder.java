@@ -1,7 +1,8 @@
 package com.kingston.mmorpg.net.socket.mina;
 
-import com.kingston.mmorpg.net.socket.codec.IMessageDecoder;
-import com.kingston.mmorpg.net.socket.message.Message;
+import com.kingston.mmorpg.net.message.MessageFactory;
+import com.kingston.mmorpg.net.message.codec.IMessageDecoder;
+import com.kingston.mmorpg.net.message.Message;
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.CumulativeProtocolDecoder;
@@ -44,16 +45,17 @@ public class MinaProtocolDecoder extends CumulativeProtocolDecoder {
         byte cmd = in.get();
         byte[] body = new byte[length - metaSize];
         in.get(body);
-        out.write(readMessage(cmd, body));
+        Class<?> msgClazz = MessageFactory.getInstance().getMessageMeta(cmd);
+        out.write(readMessage(msgClazz, body));
         return true;
     }
 
-    private Message readMessage(short cmd, byte[] body) {
+    private Message readMessage(Class<?> msgClazz, byte[] body) {
         try {
-            Message message = msgDecoder.readMessage(cmd, body);
+            Message message = msgDecoder.readMessage(msgClazz, body);
             return message;
         } catch (Exception e) {
-            logger.error("读取消息出错,协议号{},异常{}", new Object[]{cmd, e});
+            logger.error("读取消息出错,协议号{},异常{}", new Object[]{msgClazz.getName(), e});
         }
         return null;
     }

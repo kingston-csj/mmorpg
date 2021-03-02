@@ -1,8 +1,8 @@
 package com.kingston.mmorpg.net.socket.netty;
 
-import com.kingston.mmorpg.net.socket.MessageFactory;
-import com.kingston.mmorpg.net.socket.codec.IMessageEncoder;
-import com.kingston.mmorpg.net.socket.message.Message;
+import com.kingston.mmorpg.net.message.MessageFactory;
+import com.kingston.mmorpg.net.message.codec.IMessageEncoder;
+import com.kingston.mmorpg.net.message.Message;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;

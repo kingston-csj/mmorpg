@@ -2,7 +2,7 @@ package com.kingston.mmorpg.game.base;
 
 import com.kingston.mmorpg.game.database.user.entity.PlayerEnt;
 import com.kingston.mmorpg.net.socket.IdSession;
-import com.kingston.mmorpg.net.socket.message.Message;
+import com.kingston.mmorpg.net.message.Message;
 import com.kingston.mmorpg.net.socket.netty.ChannelUtils;
 import io.netty.channel.Channel;
 import org.slf4j.Logger;

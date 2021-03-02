@@ -1,6 +1,6 @@
 package com.kingston.mmorpg.net.socket.mina;
 
-import com.kingston.mmorpg.net.socket.codec.SerializerFactory;
+import com.kingston.mmorpg.net.message.codec.SerializerFactory;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolCodecFactory;
 import org.apache.mina.filter.codec.ProtocolDecoder;
