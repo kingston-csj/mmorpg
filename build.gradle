@@ -14,7 +14,7 @@ ext {
 }
 
 allprojects {
-	group = "com.kingston.mmorpg"
+	group = "org.forfun.mmorpg"
 	version = 1.0
 	apply plugin: "eclipse"
 	apply plugin: "idea"

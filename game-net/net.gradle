@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'com.kingston.mmorpg'
+group 'org.forfun.mmorpg'
 
 repositories {
     mavenCentral()

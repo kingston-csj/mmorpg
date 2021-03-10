@@ -1,7 +1,7 @@
-package com.kingston.mmorpg.game.database.config.container;
+package org.forfun.mmorpg.game.database.config.container;
 
-import com.kingston.mmorpg.game.database.config.dao.${config}Dao;
-import com.kingston.mmorpg.game.database.config.domain.${config};
+import org.forfun.mmorpg.game.database.config.dao.${config}Dao;
+import org.forfun.mmorpg.game.database.config.domain.${config};
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

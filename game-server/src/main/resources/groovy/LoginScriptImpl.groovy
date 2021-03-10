@@ -1,7 +1,7 @@
 package groovy
 
-import com.kingston.mmorpg.game.script.impl.LoginScript
-import com.kingston.mmorpg.game.database.user.entity.PlayerEnt;
+import org.forfun.mmorpg.game.script.impl.LoginScript
+import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
 
 class LoginScriptImpl implements LoginScript {
 
