@@ -6,23 +6,6 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'groovy'
 
-//apply plugin: 'io.freefair.lombok'
-//plugins {
-//    id("io.freefair.lombok") version "3.1.4"
-//    id('com.baidu.jprotobuf') version '1.0.8'
-//}
-
-buildscript {
-    repositories {
-        jcenter()
-
-        maven { url 'https://repo.spring.io/libs-milestone' }
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.4.1")
-    }
-}
-
 dependencies {
 	compile(project(":game-common"))
     compile(project(":game-net"))

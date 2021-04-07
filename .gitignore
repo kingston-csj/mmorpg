@@ -18,11 +18,11 @@ spring-test/test-output/
 argfile*
 pom.xml
 
-logs/
-log/
+**/logs/
+**/log/
 
 classes/
-/build
+**/build/
 buildSrc/build
 /spring-*/build
 /src/asciidoc/build

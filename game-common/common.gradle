@@ -13,8 +13,9 @@ gradle.taskGraph.whenReady {
 }
 
 
-dependencies {	
-	compile 'com.google.code.gson:gson'
+dependencies {
+    compile ("org.codehaus.jackson:jackson-core-asl")
+    compile ("org.codehaus.jackson:jackson-mapper-asl")
 	
-	compile 'org.apache.commons:commons-lang3'	
+	compile 'org.apache.commons:commons-lang3'
 }

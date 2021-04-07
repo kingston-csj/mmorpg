@@ -25,7 +25,7 @@ public class TestMultiDb {
  		Assert.assertTrue(skillRepository.findAll().size() > 0);
  		
  		PlayerEnt playerEnt = new PlayerEnt();
- 		playerEnt.setPlayerId(123456L);
+ 		playerEnt.setId(123456L);
  		playerDao.save(playerEnt);
  		
 	}

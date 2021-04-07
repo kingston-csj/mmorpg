@@ -1,8 +1,11 @@
 
 package org.forfun.mmorpg.game;
 
+import org.forfun.mmorpg.csv.CsvReader;
 import org.forfun.mmorpg.framework.net.GameExecutor;
 import org.forfun.mmorpg.game.base.GameContext;
+import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
+import org.forfun.mmorpg.game.vip.model.VipRight;
 import org.forfun.mmorpg.net.ServerNode;
 import org.forfun.mmorpg.net.message.MessageFactory;
 import org.forfun.mmorpg.net.socket.SocketServerNode;
@@ -16,6 +19,7 @@ import org.springframework.cache.annotation.EnableCaching;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * sprint-boot自动bean扫描只能扫描启动类的子目录，所以该类的包路径不能太深
@@ -35,13 +39,16 @@ public class ServerStartup implements CommandLineRunner {
         app.setBannerMode(Banner.Mode.OFF);
         app.run(args);
 
-//		VipRight vipRight = new VipRight();
-//		vipRight.setLevel(999);
-//		vipRight.setExp(123456);
-//		vipRight.getRewardedIds().addAll(Set.of(1, 2, 3));
-//		Player player = GameContext.getPlayerService().getPlayer(10000L);
-//		player.getEntity().setVipRight(vipRight);
-//		GameContext.getPlayerService().savePlayer(player);
+        CsvReader.main(null);
+
+
+		VipRight vipRight = new VipRight();
+		vipRight.setLevel(999);
+		vipRight.setExp(123456);
+		vipRight.getRewardedIds().addAll(Set.of(1, 2, 3));
+		PlayerEnt player = GameContext.getPlayerService().getPlayer(10000L);
+		player.setVipRight(vipRight);
+		GameContext.getPlayerService().savePlayer(player);
     }
 
     public void start() throws Exception {
