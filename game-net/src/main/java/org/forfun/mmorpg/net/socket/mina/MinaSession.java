@@ -25,6 +25,11 @@ public class MinaSession implements IdSession {
     }
 
     @Override
+    public void sendPacket(byte[] packet) {
+
+    }
+
+    @Override
     public long getOwnerId() {
         return 0L;
     }

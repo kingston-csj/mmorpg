@@ -1,7 +1,6 @@
 
 package org.forfun.mmorpg.game;
 
-import org.forfun.mmorpg.csv.CsvReader;
 import org.forfun.mmorpg.framework.net.GameExecutor;
 import org.forfun.mmorpg.game.base.GameContext;
 import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
@@ -38,9 +37,6 @@ public class ServerStartup implements CommandLineRunner {
         SpringApplication app = new SpringApplication(ServerStartup.class);
         app.setBannerMode(Banner.Mode.OFF);
         app.run(args);
-
-        CsvReader.main(null);
-
 
 		VipRight vipRight = new VipRight();
 		vipRight.setLevel(999);

@@ -25,8 +25,15 @@ public class MinaProtocolEncoder implements ProtocolEncoder {
 
     @Override
     public void encode(IoSession session, Object message, ProtocolEncoderOutput out) throws Exception {
-        IoBuffer buffer = writeMessage((Message) message);
-        out.write(buffer);
+        if (message instanceof Message) {
+            IoBuffer buffer = writeMessage((Message) message);
+            out.write(buffer);
+        } else {
+            byte[] body = (byte[]) message;
+            IoBuffer buffer = IoBuffer.allocate(body.length);
+            buffer.setAutoExpand(true);
+            buffer.put(body);
+        }
     }
 
     private IoBuffer writeMessage(Message message) {

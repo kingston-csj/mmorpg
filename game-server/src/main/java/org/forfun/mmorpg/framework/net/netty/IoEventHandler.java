@@ -20,7 +20,8 @@ public class IoEventHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        if (!ChannelUtils.addChannelSession(ctx.channel(), new NettySession(ctx.channel(), ChannelType.SOCKET))) {
+        if (!ChannelUtils.addChannelSession(ctx.channel(),
+                new NettySession(GameContext.getMessageSerializer(), ctx.channel(), ChannelType.SOCKET))) {
             ctx.channel().close();
             logger.error("Duplicate session,IP=[{}]", ChannelUtils.getIp(ctx.channel()));
         }

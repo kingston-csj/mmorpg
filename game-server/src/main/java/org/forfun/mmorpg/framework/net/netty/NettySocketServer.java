@@ -1,10 +1,5 @@
 package org.forfun.mmorpg.framework.net.netty;
 
-import org.forfun.mmorpg.game.ServerConfig;
-import org.forfun.mmorpg.net.socket.SocketServerNode;
-import org.forfun.mmorpg.net.message.codec.SerializerFactory;
-import org.forfun.mmorpg.net.socket.netty.NettyPacketDecoder;
-import org.forfun.mmorpg.net.socket.netty.NettyPacketEncoder;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -15,6 +10,10 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.timeout.IdleStateHandler;
+import org.forfun.mmorpg.game.ServerConfig;
+import org.forfun.mmorpg.net.message.codec.SerializerFactory;
+import org.forfun.mmorpg.net.socket.SocketServerNode;
+import org.forfun.mmorpg.net.socket.netty.NettyPacketDecoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +79,7 @@ public class NettySocketServer implements SocketServerNode {
             ChannelPipeline pipeline = arg0.pipeline();
             pipeline.addLast(new NettyPacketDecoder(serializerFactory.getDecoder(), 1024 * 10, 0, 2, 0, 2));
             pipeline.addLast(new LengthFieldPrepender(2));
-            pipeline.addLast(new NettyPacketEncoder(serializerFactory.getEncoder()));
+//            pipeline.addLast(new NettyPacketEncoder(serializerFactory.getEncoder()));
             // 客户端300秒没收发包，便会触发UserEventTriggered事件到IdleEventHandler
             pipeline.addLast(new IdleStateHandler(0, 0, 300));
             pipeline.addLast(new IdleEventHandler());

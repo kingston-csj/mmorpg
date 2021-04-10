@@ -26,4 +26,12 @@ public class MessagePusher {
 		session.sendPacket(message);
 	}
 
+
+	public static void pushMessage(IdSession session, byte[] message) {
+		if (session == null || message == null) {
+			return;
+		}
+		session.sendPacket(message);
+	}
+
 }

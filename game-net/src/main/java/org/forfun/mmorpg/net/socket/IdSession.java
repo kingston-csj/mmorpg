@@ -14,8 +14,19 @@ import io.netty.channel.Channel;
  */
 public interface IdSession {
 
-
+    /**
+     * 向客户端发送消息
+     *
+     * @param packet
+     */
     void sendPacket(Message packet);
+
+    /**
+     * 向客户端发送消息
+     *
+     * @param packet
+     */
+    void sendPacket(byte[] packet);
 
     long getOwnerId();
 

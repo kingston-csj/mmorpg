@@ -7,6 +7,7 @@ import org.forfun.mmorpg.game.asyncdb.AsyncDbService;
 import org.forfun.mmorpg.game.buff.service.BuffService;
 import org.forfun.mmorpg.game.player.service.PlayerService;
 import org.forfun.mmorpg.game.script.ScriptService;
+import org.forfun.mmorpg.net.message.codec.SerializerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -91,6 +92,13 @@ public class GameContext implements ApplicationContextAware {
 
 	public static MessageDispatcher getMessageDispatcher() {
 		return self.messageDispatcher;
+	}
+
+	@Autowired
+	private SerializerFactory messageSerializer;
+
+	public static SerializerFactory getMessageSerializer() {
+		return self.messageSerializer;
 	}
 
 	@Autowired

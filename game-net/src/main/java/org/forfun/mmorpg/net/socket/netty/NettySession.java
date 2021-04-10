@@ -1,13 +1,17 @@
 package org.forfun.mmorpg.net.socket.netty;
 
 import com.google.gson.Gson;
-import org.forfun.mmorpg.net.dispatcher.IDispatch;
-import org.forfun.mmorpg.net.socket.IdSession;
-import org.forfun.mmorpg.net.socket.SessionCloseReason;
-import org.forfun.mmorpg.net.message.Message;
-import org.forfun.mmorpg.net.message.WebSocketFrame;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import org.forfun.mmorpg.net.dispatcher.IDispatch;
+import org.forfun.mmorpg.net.message.Message;
+import org.forfun.mmorpg.net.message.MessageFactory;
+import org.forfun.mmorpg.net.message.WebSocketFrame;
+import org.forfun.mmorpg.net.message.codec.SerializerFactory;
+import org.forfun.mmorpg.net.socket.IdSession;
+import org.forfun.mmorpg.net.socket.SessionCloseReason;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,114 +20,143 @@ import java.util.Map;
 
 /**
  * 链接的会话
- * 
- *
  */
 public class NettySession implements IdSession {
 
-	private static final Logger logger = LoggerFactory.getLogger(NettySession.class);
+    private static final Logger logger = LoggerFactory.getLogger(NettySession.class);
 
-	/** 网络连接channel */
-	private Channel channel;
+    private static ThreadLocal<ByteBuf> localBuf = ThreadLocal.withInitial(() -> {
+        return Unpooled.buffer(10240);
+    });
 
-	/** ip地址 */
-	private String ipAddr;
+    /**
+     * 网络连接channel
+     */
+    private Channel channel;
 
-	private IDispatch dispatcher;
+    /**
+     * ip地址
+     */
+    private String ipAddr;
 
-	/** 拓展用，保存一些个人数据 */
-	private Map<String, Object> attrs = new HashMap<>();
+    private IDispatch dispatcher;
 
-	private ChannelType channelType;
+    private SerializerFactory messageSerializer;
 
-	public NettySession() {
+    /**
+     * 拓展用，保存一些个人数据
+     */
+    private Map<String, Object> attrs = new HashMap<>();
 
-	}
+    private ChannelType channelType;
 
-	public NettySession(Channel channel, ChannelType channelType) {
-		this.channel = channel;
-		this.ipAddr = ChannelUtils.getIp(channel);
-		this.dispatcher = anonymousDispatcher;
-		this.channelType = channelType;
-	}
+    public NettySession() {
 
-	/**
-	 * 向客户端发送消息
-	 * 
-	 * @param packet
-	 */
-	public void sendPacket(Message packet) {
-		if (packet == null) {
-			return;
-		}
-		if (channelType == ChannelType.SOCKET) {
-			channel.writeAndFlush(packet);
-		} else {
-			WebSocketFrame frame = WebSocketFrame.valueOf(packet);
-			channel.writeAndFlush(new TextWebSocketFrame(new Gson().toJson(frame)));
-		}
-	}
+    }
 
-	@Override
-	public long getOwnerId() {
-		return 0;
-	}
+    public NettySession(SerializerFactory messageSerializer, Channel channel, ChannelType channelType) {
+        this.messageSerializer = messageSerializer;
+        this.channel = channel;
+        this.ipAddr = ChannelUtils.getIp(channel);
+        this.dispatcher = anonymousDispatcher;
+        this.channelType = channelType;
+    }
 
-	@Override
-	public Object setAttribute(String key, Object value) {
-		return this.attrs.put(key, value);
-	}
+    @Override
+    public void sendPacket(Message packet) {
+        if (packet == null) {
+            return;
+        }
+        try {
+            if (channelType == ChannelType.SOCKET) {
+                // ----------------消息协议格式-------------------------
+                // packetLength |cmd   | body
+                // short         short    byte[]
+                // 其中 packetLength长度占2位，由编码链 LengthFieldPrepender(2) 提供
+                short cmd = MessageFactory.getInstance().getMessageId(packet.getClass());
+                byte[] body = messageSerializer.getEncoder().writeMessageBody(packet);
+                int size = 2 + body.length;
+                ByteBuf send = Unpooled.buffer(size);
+                // 写入cmd类型
+                send.writeShort(cmd);
+                send.writeBytes(body);
+                channel.writeAndFlush(send);
+            } else {
+                WebSocketFrame frame = WebSocketFrame.valueOf(packet);
+                channel.writeAndFlush(new TextWebSocketFrame(new Gson().toJson(frame)));
+            }
+        } catch (Exception e) {
+            logger.error("", e);
+        }
+    }
 
-	@Override
-	public Object getAttribute(String key) {
-		return this.attrs.get(key);
-	}
+    @Override
+    public void sendPacket(byte[] data) {
+        ByteBuf send = Unpooled.buffer(data.length);
+        send.writeBytes(data);
+        channel.writeAndFlush(send);
+    }
 
-	public IDispatch getDispatcher() {
-		return dispatcher;
-	}
+    @Override
+    public long getOwnerId() {
+        return 0;
+    }
 
-	public void bindDispatcher(IDispatch dispatcher) {
-		this.dispatcher = dispatcher;
-	}
+    @Override
+    public Object setAttribute(String key, Object value) {
+        return this.attrs.put(key, value);
+    }
 
-	public boolean isClose() {
-		if (channel == null) {
-			return true;
-		}
-		return !channel.isActive() || !channel.isOpen();
-	}
+    @Override
+    public Object getAttribute(String key) {
+        return this.attrs.get(key);
+    }
 
-	/**
-	 * 关闭session
-	 * 
-	 * @param reason {@link SessionCloseReason}
-	 */
-	public void close(SessionCloseReason reason) {
-		try {
-			if (this.channel == null) {
-				return;
-			}
-			if (channel.isOpen()) {
-				channel.close();
-				logger.info("close session[{}], reason is {}", getOwnerId(), reason);
-			} else {
-				logger.info("session[{}] already close, reason is {}", getOwnerId(), reason);
-			}
-		} catch (Exception e) {
-		}
-	}
+    public IDispatch getDispatcher() {
+        return dispatcher;
+    }
 
-	/**
-	 * 匿名分发器，用于角色未登录
-	 */
-	static IDispatch anonymousDispatcher = new IDispatch() {
+    public void bindDispatcher(IDispatch dispatcher) {
+        this.dispatcher = dispatcher;
+    }
 
-		@Override
-		public int dispatchKey() {
-			return 0;
-		}
+    public boolean isClose() {
+        if (channel == null) {
+            return true;
+        }
+        return !channel.isActive() || !channel.isOpen();
+    }
 
-	};
+    /**
+     * 关闭session
+     *
+     * @param reason {@link SessionCloseReason}
+     */
+    public void close(SessionCloseReason reason) {
+        try {
+            if (this.channel == null) {
+                return;
+            }
+            if (channel.isOpen()) {
+                channel.close();
+                logger.info("close session[{}], reason is {}", getOwnerId(), reason);
+            } else {
+                logger.info("session[{}] already close, reason is {}", getOwnerId(), reason);
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    /**
+     * 匿名分发器，用于角色未登录
+     */
+    static IDispatch anonymousDispatcher = new IDispatch() {
+
+        @Override
+        public int dispatchKey() {
+            return 0;
+        }
+
+    };
 
 }
