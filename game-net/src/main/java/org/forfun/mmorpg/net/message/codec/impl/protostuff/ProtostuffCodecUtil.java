@@ -14,9 +14,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ProtostuffCodecUtil {
 
-    private static Map<Class<?>, Schema<?>> cachedSchema = new ConcurrentHashMap<Class<?>, Schema<?>>();
+    private static Map<Class<?>, Schema<?>> cachedSchema = new ConcurrentHashMap<>();
 
-    private static <T> Schema<T> getSchema(Class<T> clazz) {
+    public static <T> Schema<T> getSchema(Class<T> clazz) {
         Schema<T> schema = (Schema<T>) cachedSchema.get(clazz);
         if (schema == null) {
             schema = RuntimeSchema.getSchema(clazz);

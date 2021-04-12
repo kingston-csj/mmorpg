@@ -12,8 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Aspect
 /**
- * 拦截玩家请求
- * 实际无效。原因：消息路由采用反射，绑定的是AOP被代理的目标，而不是代理本身
+ * 监控aop执行长时间耗时
  */
 public class JpaCostAspect {
 

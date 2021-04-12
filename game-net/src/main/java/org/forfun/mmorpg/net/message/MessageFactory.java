@@ -59,6 +59,7 @@ public class MessageFactory {
                         Codec.registerClass(msgClz, key);
                     });
         }
+
     }
 
     /**

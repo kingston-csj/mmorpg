@@ -1,8 +1,7 @@
 package org.forfun.mmorpg.net.message.codec.impl.reflect;
 
-import org.forfun.mmorpg.net.message.codec.IMessageEncoder;
 import org.forfun.mmorpg.net.message.Message;
-import org.forfun.mmorpg.net.socket.mina.CodecContext;
+import org.forfun.mmorpg.net.message.codec.IMessageEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,21 +11,25 @@ public class ReflectEncoder implements IMessageEncoder {
 
     private static Logger logger = LoggerFactory.getLogger(ReflectEncoder.class);
 
+    private static ThreadLocal<ByteBuffer> localBuf = ThreadLocal.withInitial(() -> {
+        return ByteBuffer.allocate(10240);
+    });
+
     @Override
     public byte[] writeMessageBody(Message message) {
-        ByteBuffer out = ByteBuffer.allocate(CodecContext.WRITE_CAPACITY);
+        ByteBuffer buffer = localBuf.get();
+        buffer.clear();
         //写入具体消息的内容
         try {
             Codec messageCodec = Codec.getSerializer(message.getClass());
-            messageCodec.encode(out, message, null);
+            messageCodec.encode(buffer, message, null);
         } catch (Exception e) {
             logger.error("读取消息出错,模块号{}, 异常{}",
                     new Object[]{message.getCmd() ,e});
         }
-        out.flip();
-
-        byte[] body = new byte[out.remaining()];
-        out.get(body);
+        buffer.flip();
+        byte[] body = new byte[buffer.remaining()];
+        buffer.get(body);
         return body;
     }
 

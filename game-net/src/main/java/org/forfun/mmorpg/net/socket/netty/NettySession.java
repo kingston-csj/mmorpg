@@ -25,10 +25,6 @@ public class NettySession implements IdSession {
 
     private static final Logger logger = LoggerFactory.getLogger(NettySession.class);
 
-    private static ThreadLocal<ByteBuf> localBuf = ThreadLocal.withInitial(() -> {
-        return Unpooled.buffer(10240);
-    });
-
     /**
      * 网络连接channel
      */
