@@ -1,6 +1,6 @@
 package org.forfun.mmorpg.game.database.converter;
 
-import org.forfun.mmorpg.game.util.JsonUtil;
+import org.forfun.mmorpg.common.util.JsonUtil;
 
 import javax.persistence.AttributeConverter;
 import java.util.Set;

@@ -10,10 +10,13 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
 @Component
-public class Context  implements ApplicationContextAware {
-    private static Context self;
+public class AppContext implements ApplicationContextAware {
 
-    /** spring容器上下文 */
+    private static AppContext self;
+
+    /**
+     * spring容器上下文
+     */
     private static ApplicationContext applicationContext = null;
 
     @PostConstruct
@@ -23,7 +26,7 @@ public class Context  implements ApplicationContextAware {
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        Context.applicationContext = applicationContext;
+        AppContext.applicationContext = applicationContext;
     }
 
     @Resource

@@ -1,4 +1,4 @@
-package org.forfun.mmorpg.csv;
+package org.forfun.mmorpg.csv.convertor;
 
 import org.forfun.mmorpg.common.util.JsonUtil;
 import org.springframework.core.convert.TypeDescriptor;
