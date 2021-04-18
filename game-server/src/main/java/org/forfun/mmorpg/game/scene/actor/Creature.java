@@ -7,7 +7,6 @@ import org.forfun.mmorpg.game.scene.model.Life;
 
 /**
  * 生物体，就是会动的场景演员
- * 
  *
  */
 public abstract class Creature extends SceneActor {

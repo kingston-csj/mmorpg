@@ -1,11 +1,12 @@
 package org.forfun.mmorpg.net.message;
 
 import org.forfun.mmorpg.common.util.ClassScanner;
+import org.forfun.mmorpg.net.message.codec.impl.reflect.Codec;
 import org.forfun.mmorpg.net.socket.annotation.MessageMeta;
 import org.forfun.mmorpg.net.socket.annotation.ModuleMeta;
-import org.forfun.mmorpg.net.message.codec.impl.reflect.Codec;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -16,7 +17,7 @@ public class MessageFactory {
 
     private Map<Short, Class<? extends Message>> id2Clazz = new HashMap<>();
 
-    private Map<Class<?>, Short> clazz2Id = new HashMap<>();
+    private Map<Class<? extends Message>, Short> clazz2Id = new HashMap<>();
 
     public static MessageFactory getInstance() {
         return instance;
@@ -40,7 +41,7 @@ public class MessageFactory {
             String packetName = clazz.getPackage().getName().substring(0, prevPacketNameIndex);
             Set<Class<?>> msgClazzs = ClassScanner.listAllSubclasses(packetName, Message.class);
             msgClazzs.parallelStream()
-					.filter(msgClz -> msgClz.getAnnotation(MessageMeta.class) != null)
+                    .filter(msgClz -> msgClz.getAnnotation(MessageMeta.class) != null)
                     .forEach(msgClz -> {
                         MessageMeta mapperAnnotation = msgClz.getAnnotation(MessageMeta.class);
                         byte cmdMeta = mapperAnnotation.cmd();
@@ -54,7 +55,7 @@ public class MessageFactory {
                         if (id2Clazz.containsKey(key)) {
                             throw new RuntimeException("message meta [" + key + "] duplicate！！");
                         }
-                        clazz2Id.put(msgClz, key);
+                        clazz2Id.put((Class<? extends Message>) msgClz, key);
                         id2Clazz.put(key, (Class<? extends Message>) msgClz);
                         Codec.registerClass(msgClz, key);
                     });
@@ -77,6 +78,10 @@ public class MessageFactory {
             throw new IllegalArgumentException(clazz.getSimpleName() + "未注册");
         }
         return clazz2Id.get(clazz);
+    }
+
+    public Set<Class<? extends Message>> listAllMessages() {
+        return new HashSet<>(clazz2Id.keySet());
     }
 
 }

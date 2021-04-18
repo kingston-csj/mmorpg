@@ -5,7 +5,6 @@ import org.forfun.mmorpg.net.dispatcher.IDispatch;
 
 /**
  * 场景里的各种演员
- * 
  *
  */
 public abstract class SceneActor extends GameObject implements IDispatch {
