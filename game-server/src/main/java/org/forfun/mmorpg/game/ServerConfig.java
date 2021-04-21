@@ -27,6 +27,10 @@ public class ServerConfig {
 	@Value("${socket.port}")
 	private int serverPort;
 
+	/** rpc内部端口 */
+	@Value("${rpc.port}")
+	private int rpcPort;
+
 	/** webSocket端口 */
 	@Value("${webSocket.port}")
 	private int webSocketPort;

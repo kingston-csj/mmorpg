@@ -1,9 +1,5 @@
 package org.forfun.mmorpg.framework.net.mina;
 
-import org.forfun.mmorpg.game.base.GameContext;
-import org.forfun.mmorpg.net.socket.SocketServerNode;
-import org.forfun.mmorpg.net.message.codec.SerializerFactory;
-import org.forfun.mmorpg.net.socket.mina.MessageCodecFactory;
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.buffer.SimpleBufferAllocator;
 import org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder;
@@ -15,11 +11,18 @@ import org.apache.mina.transport.socket.SocketSessionConfig;
 import org.apache.mina.transport.socket.nio.NioProcessor;
 import org.apache.mina.transport.socket.nio.NioSession;
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
+import org.forfun.mmorpg.framework.net.NodeConfig;
+import org.forfun.mmorpg.game.ServerConfig;
+import org.forfun.mmorpg.game.base.GameContext;
+import org.forfun.mmorpg.net.message.codec.SerializerFactory;
+import org.forfun.mmorpg.net.socket.SocketServerNode;
+import org.forfun.mmorpg.net.socket.mina.MessageCodecFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.net.InetSocketAddress;
+import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -39,9 +42,19 @@ public class MinaSocketServer implements SocketServerNode {
     @Autowired
     private SerializerFactory serializerFactory;
 
+    @Autowired
+    private ServerConfig serverConfig;
+
+    private List<NodeConfig> nodeConfigs;
+
     @Override
     public void init() {
-
+        if (serverConfig.getServerPort() > 0) {
+            nodeConfigs.add(NodeConfig.valueOf("*", serverConfig.getServerPort()));
+        }
+        if (serverConfig.getRpcPort() > 0) {
+            nodeConfigs.add(NodeConfig.valueOf("*", serverConfig.getRpcPort()));
+        }
     }
 
     /**
@@ -67,7 +80,10 @@ public class MinaSocketServer implements SocketServerNode {
         //设置端口号
         acceptor.setDefaultLocalAddress(new InetSocketAddress(serverPort));
         //启动监听
-        acceptor.bind();
+        for (NodeConfig node : nodeConfigs) {
+            logger.info("socket服务已启动，正在监听用户的请求@port:" + node.getPort() + "......");
+            acceptor.bind(new InetSocketAddress(node.getPort()));
+        }
     }
 
     @Override

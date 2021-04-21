@@ -75,7 +75,7 @@ public class MessageFactory {
 
     public short getMessageId(Class<?> clazz) {
         if (clazz == null || !clazz2Id.containsKey(clazz)) {
-            throw new IllegalArgumentException(clazz.getSimpleName() + "未注册");
+            throw new IllegalPacketException(clazz.getSimpleName() + "未注册");
         }
         return clazz2Id.get(clazz);
     }

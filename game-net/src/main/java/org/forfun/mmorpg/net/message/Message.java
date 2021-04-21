@@ -1,6 +1,5 @@
 package org.forfun.mmorpg.net.message;
 
-import org.forfun.mmorpg.net.socket.annotation.MessageMeta;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
@@ -14,11 +13,7 @@ public interface Message {
 	 */
 	@JsonIgnore
 	default short getCmd() {
-		MessageMeta annotation = getClass().getAnnotation(MessageMeta.class);
-		if (annotation != null) {
-			return annotation.cmd();
-		}
-		return 0;
+		return MessageFactory.getInstance().getMessageId(getClass());
 	}
 
 }

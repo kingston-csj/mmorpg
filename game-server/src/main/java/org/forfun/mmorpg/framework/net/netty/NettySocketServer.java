@@ -5,11 +5,13 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
+import io.netty.channel.epoll.EpollEventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.timeout.IdleStateHandler;
+import org.forfun.mmorpg.framework.net.NodeConfig;
 import org.forfun.mmorpg.game.ServerConfig;
 import org.forfun.mmorpg.net.message.codec.SerializerFactory;
 import org.forfun.mmorpg.net.socket.SocketServerNode;
@@ -20,16 +22,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import java.net.InetSocketAddress;
+import java.util.List;
 
 public class NettySocketServer implements SocketServerNode {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    // 避免使用默认线程数参数
-    private EventLoopGroup bossGroup = new NioEventLoopGroup(1);
-    private EventLoopGroup workerGroup = new NioEventLoopGroup(Runtime.getRuntime().availableProcessors());
+    private boolean useEpoll = "linux".equalsIgnoreCase(System.getProperty("os.name"));
 
-    private int port;
+    private int CORE_SIZE = Runtime.getRuntime().availableProcessors();
+    // 避免使用默认线程数参数
+    private EventLoopGroup bossGroup = useEpoll ? new EpollEventLoopGroup(1) : new NioEventLoopGroup(1);
+    private EventLoopGroup workerGroup = useEpoll ? new EpollEventLoopGroup(CORE_SIZE) : new NioEventLoopGroup(CORE_SIZE);
 
     @Autowired
     private ServerConfig serverConfig;
@@ -37,25 +41,32 @@ public class NettySocketServer implements SocketServerNode {
     @Autowired
     private SerializerFactory serializerFactory;
 
+    private List<NodeConfig> nodeConfigs;
+
     @Override
     @PostConstruct
     public void init() {
-        this.port = serverConfig.getServerPort();
+        if (serverConfig.getServerPort() > 0) {
+            nodeConfigs.add(NodeConfig.valueOf("*", serverConfig.getServerPort()));
+        }
+        if (serverConfig.getRpcPort() > 0) {
+            nodeConfigs.add(NodeConfig.valueOf("*", serverConfig.getRpcPort()));
+        }
     }
 
     @Override
     public void start() throws Exception {
-        logger.info("socket服务已启动，正在监听用户的请求@port:" + port + "......");
         try {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class).option(ChannelOption.SO_BACKLOG, 1024)
                     .childHandler(new NettySocketServer.ChildChannelHandler());
 
-            b.bind(new InetSocketAddress(port)).sync();
-//			f.channel().closeFuture().sync();
+            for (NodeConfig node : nodeConfigs) {
+                logger.info("socket服务已启动，正在监听用户的请求@port:" + node.getPort() + "......");
+                b.bind(new InetSocketAddress(node.getPort())).sync();
+            }
         } catch (Exception e) {
             logger.error("", e);
-
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
 

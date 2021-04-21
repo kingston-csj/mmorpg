@@ -1,10 +1,7 @@
 package org.forfun.mmorpg.net;
 
 /**
- * 
  * 各类对外服务节点
- * 
- *
  *
  */
 public interface ServerNode {
