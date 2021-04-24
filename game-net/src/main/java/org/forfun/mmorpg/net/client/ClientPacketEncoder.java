@@ -1,17 +1,17 @@
-package org.forfun.mmorpg.client.net;
+package org.forfun.mmorpg.net.client;
 
-import org.forfun.mmorpg.game.logger.LoggerUtils;
-import org.forfun.mmorpg.net.message.MessageFactory;
-import org.forfun.mmorpg.net.message.codec.IMessageEncoder;
-import org.forfun.mmorpg.net.message.Message;
-import org.forfun.mmorpg.net.socket.netty.NettyPacketEncoder;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
+import org.forfun.mmorpg.net.message.Message;
+import org.forfun.mmorpg.net.message.MessageFactory;
+import org.forfun.mmorpg.net.message.codec.IMessageEncoder;
+import org.forfun.mmorpg.net.message.codec.impl.reflect.ReflectEncoder;
+import org.forfun.mmorpg.net.socket.netty.NettyPacketEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ClientPacketEncoder  extends MessageToByteEncoder<Message> {
+public class ClientPacketEncoder extends MessageToByteEncoder<Message> {
 
     private Logger logger = LoggerFactory.getLogger(NettyPacketEncoder.class);
 
@@ -35,11 +35,11 @@ public class ClientPacketEncoder  extends MessageToByteEncoder<Message> {
         // 写入cmd类型
         out.writeShort(cmd);
         try {
-            IMessageEncoder msgEncoder = ClientSerializerHelper.getInstance().getEncoder();
+            IMessageEncoder msgEncoder = new ReflectEncoder();
             byte[] body = msgEncoder.writeMessageBody(message);
             out.writeBytes(body);
         } catch (Exception e) {
-            LoggerUtils.error("读取消息出错,协议号{}}异常{}", new Object[] {cmd, e });
+            logger.error("读取消息出错,协议号{}}异常{}", new Object[]{cmd, e});
         }
     }
 

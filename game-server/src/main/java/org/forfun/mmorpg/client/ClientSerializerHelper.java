@@ -1,4 +1,4 @@
-package org.forfun.mmorpg.client.net;
+package org.forfun.mmorpg.client;
 
 import org.forfun.mmorpg.net.message.codec.IMessageDecoder;
 import org.forfun.mmorpg.net.message.codec.IMessageEncoder;
@@ -42,5 +42,9 @@ public class ClientSerializerHelper {
 
     public IMessageEncoder getEncoder() {
         return serializerFactory.getEncoder();
+    }
+
+    public SerializerFactory getSerializerFactory() {
+        return serializerFactory;
     }
 }

@@ -35,7 +35,7 @@ public class JsonUtil {
     public static <T> T string2Object(String json, Class<T> clazz) {
         JavaType type = typeFactory.constructType(clazz);
         try {
-            return (T) MAPPER.readValue(json, type);
+            return MAPPER.readValue(json, type);
         } catch (Exception e) {
             logger.error("", e);
             return null;
@@ -45,7 +45,7 @@ public class JsonUtil {
     public static <T> T[] string2Array(String json, Class<T> clz) {
         ArrayType type = ArrayType.construct(typeFactory.constructType(clz));
         try {
-            return (T[]) MAPPER.readValue(json, type);
+            return MAPPER.readValue(json, type);
         } catch (Exception e) {
             logger.error("", e);
             return null;

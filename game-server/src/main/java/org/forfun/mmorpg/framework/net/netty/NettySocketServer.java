@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import java.net.InetSocketAddress;
+import java.util.ArrayList;
 import java.util.List;
 
 public class NettySocketServer implements SocketServerNode {
@@ -41,7 +42,7 @@ public class NettySocketServer implements SocketServerNode {
     @Autowired
     private SerializerFactory serializerFactory;
 
-    private List<NodeConfig> nodeConfigs;
+    private List<NodeConfig> nodeConfigs = new ArrayList<>();
 
     @Override
     @PostConstruct

@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.net.InetSocketAddress;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -45,7 +46,7 @@ public class MinaSocketServer implements SocketServerNode {
     @Autowired
     private ServerConfig serverConfig;
 
-    private List<NodeConfig> nodeConfigs;
+    private List<NodeConfig> nodeConfigs = new ArrayList<>();
 
     @Override
     public void init() {
