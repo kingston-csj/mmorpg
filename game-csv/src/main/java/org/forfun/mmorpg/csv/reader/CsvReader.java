@@ -21,6 +21,9 @@ public class CsvReader implements DataReader {
     private static Logger logger = LoggerFactory.getLogger(CsvReader.class.getName());
     private TypeDescriptor sourceType = TypeDescriptor.valueOf(String.class);
 
+    private static String BEGIN = "header";
+    private static String END = "end";
+
     @Override
     public <E> List<E> read(InputStream is, Class<E> clazz) {
         Reader in = new InputStreamReader(is);
@@ -28,10 +31,11 @@ public class CsvReader implements DataReader {
             Iterable<CSVRecord> records = CSVFormat.EXCEL.parse(in);
             boolean hasColMeta = false;
             String[] header = null;
+            // 一行行的数据源
             List<String[]> rows = new ArrayList<>();
             for (CSVRecord record : records) {
-                // server前面的数据无效
-                if ("server".equalsIgnoreCase(record.get(0))) {
+                // BEGIN前面的数据无效
+                if (BEGIN.equalsIgnoreCase(record.get(0))) {
                     header = readRecord(record);
                     hasColMeta = true;
                     continue;
@@ -41,7 +45,7 @@ public class CsvReader implements DataReader {
                 }
                 rows.add(readRecord(record));
 
-                if ("end".equalsIgnoreCase(record.get(0))) {
+                if (END.equalsIgnoreCase(record.get(0))) {
                     // 结束符号
                     break;
                 }
