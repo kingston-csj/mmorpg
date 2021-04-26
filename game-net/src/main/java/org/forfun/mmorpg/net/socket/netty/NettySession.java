@@ -68,11 +68,12 @@ public class NettySession implements IdSession {
                 // ----------------消息协议格式-------------------------
                 // packetLength |cmd   | body
                 // short         short    byte[]
-                // 其中 packetLength长度占2位，由编码链 LengthFieldPrepender(2) 提供
+                // 其中 packetLength长度占2位
                 short cmd = MessageFactory.getInstance().getMessageId(packet.getClass());
                 byte[] body = messageSerializer.getEncoder().writeMessageBody(packet);
                 int size = 2 + body.length;
                 ByteBuf send = Unpooled.buffer(size);
+                send.writeInt(size);
                 // 写入cmd类型
                 send.writeShort(cmd);
                 send.writeBytes(body);

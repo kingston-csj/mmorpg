@@ -1,21 +1,23 @@
 package org.forfun.mmorpg.framework.net.netty;
 
 import com.google.gson.Gson;
-import org.forfun.mmorpg.game.base.GameContext;
-import org.forfun.mmorpg.net.socket.IdSession;
-import org.forfun.mmorpg.net.message.MessageFactory;
-import org.forfun.mmorpg.net.message.Message;
-import org.forfun.mmorpg.net.message.WebSocketFrame;
-import org.forfun.mmorpg.net.socket.netty.ChannelType;
-import org.forfun.mmorpg.net.socket.netty.ChannelUtils;
-import org.forfun.mmorpg.net.socket.netty.NettySession;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import org.forfun.mmorpg.game.base.GameContext;
+import org.forfun.mmorpg.net.message.Message;
+import org.forfun.mmorpg.net.message.MessageFactory;
+import org.forfun.mmorpg.net.message.WebSocketFrame;
+import org.forfun.mmorpg.net.socket.IdSession;
+import org.forfun.mmorpg.net.socket.netty.ChannelType;
+import org.forfun.mmorpg.net.socket.netty.ChannelUtils;
+import org.forfun.mmorpg.net.socket.netty.NettySession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@ChannelHandler.Sharable
 public class MyWebSocketHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
 
     private static Logger logger = LoggerFactory.getLogger(MyWebSocketHandler.class);

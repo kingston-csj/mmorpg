@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.PostConstruct;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,7 @@ public class MinaSocketServer implements SocketServerNode {
     private List<NodeConfig> nodeConfigs = new ArrayList<>();
 
     @Override
+    @PostConstruct
     public void init() {
         if (serverConfig.getServerPort() > 0) {
             nodeConfigs.add(NodeConfig.valueOf("*", serverConfig.getServerPort()));

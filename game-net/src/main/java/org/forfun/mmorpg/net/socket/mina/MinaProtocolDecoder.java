@@ -42,7 +42,7 @@ public class MinaProtocolDecoder extends CumulativeProtocolDecoder {
 
         // 消息元信息常量, short表示cmd
         final int metaSize = 2;
-        byte cmd = in.get();
+        short cmd = in.getShort();
         byte[] body = new byte[length - metaSize];
         in.get(body);
         Class<?> msgClazz = MessageFactory.getInstance().getMessageMeta(cmd);

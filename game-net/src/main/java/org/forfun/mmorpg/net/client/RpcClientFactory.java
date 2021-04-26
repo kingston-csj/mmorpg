@@ -8,11 +8,11 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.LengthFieldPrepender;
 import org.forfun.mmorpg.net.dispatcher.IMessageDispatcher;
 import org.forfun.mmorpg.net.message.codec.SerializerFactory;
 import org.forfun.mmorpg.net.socket.IdSession;
 import org.forfun.mmorpg.net.socket.netty.ChannelType;
+import org.forfun.mmorpg.net.socket.netty.NettyPacketDecoder;
 import org.forfun.mmorpg.net.socket.netty.NettySession;
 
 import java.net.InetSocketAddress;
@@ -38,9 +38,8 @@ public class RpcClientFactory {
                 @Override
                 protected void initChannel(SocketChannel arg0) throws Exception {
                     ChannelPipeline pipeline = arg0.pipeline();
-                    pipeline.addLast(new ClientPacketDecoder(1024 * 10, 0, 2, 0, 2));
-                    pipeline.addLast(new LengthFieldPrepender(2));
-                    pipeline.addLast(new ClientPacketEncoder());
+                    pipeline.addLast(new NettyPacketDecoder(messageSerializer.getDecoder()));
+//                    pipeline.addLast(new NettyPacketEncoder(messageSerializer.getEncoder()));
                     pipeline.addLast((new MsgIoHandler(messageDispatcher, messageSerializer)));
                 }
 

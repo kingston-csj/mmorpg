@@ -25,8 +25,18 @@ public class ClientStartup {
         SerializerFactory serializerFactory = ClientSerializerHelper.getInstance().getSerializerFactory();
         IMessageDispatcher msgDispatcher = new IMessageDispatcher() {
             @Override
-            public void handle(IdSession session, Message message) {
+            public void onSessionCreated(IdSession session) {
+
+            }
+
+            @Override
+            public void dispatch(IdSession session, Message message) {
                 System.err.println("收到消息<-- " + message.getClass().getSimpleName() + "=" + JsonUtil.object2String(message));
+            }
+
+            @Override
+            public void onSessionClosed(IdSession session) {
+
             }
         };
 

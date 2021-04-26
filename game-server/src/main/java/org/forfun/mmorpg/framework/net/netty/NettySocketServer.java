@@ -9,7 +9,6 @@ import io.netty.channel.epoll.EpollEventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.timeout.IdleStateHandler;
 import org.forfun.mmorpg.framework.net.NodeConfig;
 import org.forfun.mmorpg.game.ServerConfig;
@@ -89,8 +88,7 @@ public class NettySocketServer implements SocketServerNode {
         @Override
         protected void initChannel(SocketChannel arg0) throws Exception {
             ChannelPipeline pipeline = arg0.pipeline();
-            pipeline.addLast(new NettyPacketDecoder(serializerFactory.getDecoder(), 1024 * 10, 0, 2, 0, 2));
-            pipeline.addLast(new LengthFieldPrepender(2));
+            pipeline.addLast(new NettyPacketDecoder(serializerFactory.getDecoder()));
 //            pipeline.addLast(new NettyPacketEncoder(serializerFactory.getEncoder()));
             // 客户端300秒没收发包，便会触发UserEventTriggered事件到IdleEventHandler
             pipeline.addLast(new IdleStateHandler(0, 0, 300));

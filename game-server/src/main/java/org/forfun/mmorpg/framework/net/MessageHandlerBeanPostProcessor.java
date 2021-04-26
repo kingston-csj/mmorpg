@@ -48,7 +48,6 @@ public class MessageHandlerBeanPostProcessor implements BeanPostProcessor, Appli
                                         clz.getName(), method.getName()));
                     }
                     short key = buildKey(module, cmdMeta);
-
                     CmdExecutor cmdExecutor = CmdExecutor.valueOf(method, method.getParameterTypes(), bean);
                     messageDispatcher.registerMethodInvoke(key, cmdExecutor);
                 }

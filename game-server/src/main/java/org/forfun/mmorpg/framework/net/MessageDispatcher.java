@@ -3,11 +3,12 @@ package org.forfun.mmorpg.framework.net;
 
 import org.forfun.mmorpg.game.base.GameContext;
 import org.forfun.mmorpg.net.dispatcher.IDispatch;
+import org.forfun.mmorpg.net.dispatcher.IMessageDispatcher;
 import org.forfun.mmorpg.net.dispatcher.MessageEvent;
-import org.forfun.mmorpg.net.socket.IdSession;
-import org.forfun.mmorpg.net.message.MessageFactory;
 import org.forfun.mmorpg.net.message.CmdExecutor;
 import org.forfun.mmorpg.net.message.Message;
+import org.forfun.mmorpg.net.message.MessageFactory;
+import org.forfun.mmorpg.net.socket.IdSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -16,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class MessageDispatcher {
+public class MessageDispatcher implements IMessageDispatcher {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -30,16 +31,12 @@ public class MessageDispatcher {
         MODULE_CMD_HANDLERS.put(key, executor);
     }
 
+    @Override
     public void onSessionCreated(IdSession session) {
 
     }
 
-    /**
-     * message entrance, in which io thread dispatch messages
-     *
-     * @param session
-     * @param message
-     */
+    @Override
     public void dispatch(IdSession session, Message message) {
         short cmd = MessageFactory.getInstance().getMessageId(message.getClass());
 
@@ -84,7 +81,7 @@ public class MessageDispatcher {
         return result;
     }
 
-
+    @Override
     public void onSessionClosed(IdSession session) {
 
     }

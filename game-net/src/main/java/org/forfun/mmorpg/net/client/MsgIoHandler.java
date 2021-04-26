@@ -45,7 +45,7 @@ public class MsgIoHandler extends ChannelInboundHandlerAdapter {
         final Channel channel = context.channel();
         IdSession session = ChannelUtils.getSessionBy(channel);
 
-        messageDispatcher.handle(session, packet);
+        messageDispatcher.dispatch(session, packet);
     }
 
     @Override
