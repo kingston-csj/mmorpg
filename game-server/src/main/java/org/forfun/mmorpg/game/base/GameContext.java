@@ -2,6 +2,7 @@ package org.forfun.mmorpg.game.base;
 
 import org.forfun.mmorpg.framework.net.MessageDispatcher;
 import org.forfun.mmorpg.game.ServerConfig;
+import org.forfun.mmorpg.game.ServerType;
 import org.forfun.mmorpg.game.account.AccountService;
 import org.forfun.mmorpg.game.asyncdb.AsyncDbService;
 import org.forfun.mmorpg.game.buff.service.BuffService;
@@ -22,6 +23,8 @@ import java.util.Map;
 
 @Component
 public class GameContext implements ApplicationContextAware {
+
+	public static ServerType serverType;
 
 	private static GameContext self;
 

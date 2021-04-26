@@ -12,23 +12,23 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
- * 游戏主服务器入口
+ * 网关启动入口
  */
 @SpringBootApplication(scanBasePackages = {"org.forfun.mmorpg.framework", "org.forfun.mmorpg.game"})
 @EnableCaching
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-public class ServerStartup {
+public class GateStartup {
 
-    private static Logger logger = LoggerFactory.getLogger(ServerStartup.class);
+    private static Logger logger = LoggerFactory.getLogger(GateStartup.class);
 
     public static void main(String[] args) throws Exception {
-        GameContext.serverType = ServerType.GAME;
+        GameContext.serverType = ServerType.GATE;
 
         logger.error("[{}]启动开始", GameContext.serverType.name);
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
 
-        SpringApplication app = new SpringApplication(ServerStartup.class);
+        SpringApplication app = new SpringApplication(GateStartup.class);
         app.setBannerMode(Banner.Mode.OFF);
         app.run(args);
 

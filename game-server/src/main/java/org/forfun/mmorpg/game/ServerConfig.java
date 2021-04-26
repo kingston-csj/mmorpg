@@ -3,16 +3,17 @@ package org.forfun.mmorpg.game;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Component
-@PropertySource({ "classpath:server.properties" })
+//@PropertySource({ "classpath:server.properties" })
 @Getter
 @Setter
+@DependsOn("serverConfigFactory")
 public class ServerConfig {
 
 	/** 服务器端口 */
@@ -24,7 +25,7 @@ public class ServerConfig {
 	private String serverIp;
 
 	/** 服务器端口 */
-	@Value("${socket.port}")
+	@Value("${socket.port:0}")
 	private int serverPort;
 
 	/** rpc内部端口 */
@@ -32,11 +33,11 @@ public class ServerConfig {
 	private int rpcPort;
 
 	/** webSocket端口 */
-	@Value("${webSocket.port}")
+	@Value("${webSocket.port:0}")
 	private int webSocketPort;
 
 	/** 后台服务端口 */
-	@Value("${http.port}")
+	@Value("${http.port:0}")
 	private int httpPort;
 
 	/** 后台服务端口 */
