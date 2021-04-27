@@ -18,7 +18,7 @@ public class ServerConfigFactory {
     @PostConstruct
     public void init() throws IOException {
         switch (GameContext.serverType) {
-            case GATE -> environment.getPropertySources().addLast(new ResourcePropertySource("file:gate/server.properties"));
+            case GATE -> environment.getPropertySources().addLast(new ResourcePropertySource("file:config/gate.properties"));
             case GAME -> environment.getPropertySources().addLast(new ResourcePropertySource("file:config/server.properties"));
         }
     }

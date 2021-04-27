@@ -41,7 +41,6 @@ public class MyWebSocketHandler extends SimpleChannelInboundHandler<TextWebSocke
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
         // TODO messageCodec
-        System.out.println("handlerAdded");
         if (!ChannelUtils.addChannelSession(ctx.channel(), new NettySession(null, ctx.channel(), ChannelType.WEB_SOCKET))) {
             ctx.channel().close();
             logger.error("Duplicate session,IP=[{}]", ChannelUtils.getIp(ctx.channel()));

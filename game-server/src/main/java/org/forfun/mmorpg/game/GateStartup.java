@@ -1,4 +1,3 @@
-
 package org.forfun.mmorpg.game;
 
 import org.apache.commons.lang3.time.StopWatch;
@@ -8,15 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
  * 网关启动入口
  */
 @SpringBootApplication(scanBasePackages = {"org.forfun.mmorpg.framework", "org.forfun.mmorpg.game"})
-@EnableCaching
-@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class GateStartup {
 
     private static Logger logger = LoggerFactory.getLogger(GateStartup.class);

@@ -2,7 +2,7 @@ package org.forfun.mmorpg.client;
 
 import org.forfun.mmorpg.common.util.JsonUtil;
 import org.forfun.mmorpg.game.ConfigScanPaths;
-import org.forfun.mmorpg.net.client.ClientCfg;
+import org.forfun.mmorpg.net.HostPort;
 import org.forfun.mmorpg.net.client.RpcClientFactory;
 import org.forfun.mmorpg.net.dispatcher.IMessageDispatcher;
 import org.forfun.mmorpg.net.message.Message;
@@ -18,9 +18,9 @@ public class ClientStartup {
     public static void main(String[] args) throws Exception {
         MessageFactory.getInstance().init(ConfigScanPaths.MESSAGE_BASE_PATH);
 
-        ClientCfg clientCfg = new ClientCfg();
-        clientCfg.setIpAddr(ClientConfigs.REMOTE_SERVER_IP);
-        clientCfg.setPort(ClientConfigs.REMOTE_SERVER_PORT);
+        HostPort hostPort = new HostPort();
+        hostPort.setHost(ClientConfigs.REMOTE_SERVER_IP);
+        hostPort.setPort(ClientConfigs.REMOTE_SERVER_PORT);
 
         SerializerFactory serializerFactory = ClientSerializerHelper.getInstance().getSerializerFactory();
         IMessageDispatcher msgDispatcher = new IMessageDispatcher() {
@@ -41,7 +41,7 @@ public class ClientStartup {
         };
 
         RpcClientFactory clientFactory = new RpcClientFactory(msgDispatcher, serializerFactory);
-        IdSession session = clientFactory.createSession(clientCfg);
+        IdSession session = clientFactory.createSession(hostPort);
         ClientRobot robot = new ClientRobot(session);
         robot.login();
         robot.selectedPlayer(10000L);

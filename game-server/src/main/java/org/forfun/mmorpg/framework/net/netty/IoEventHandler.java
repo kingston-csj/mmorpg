@@ -26,7 +26,10 @@ public class IoEventHandler extends ChannelInboundHandlerAdapter {
                 new NettySession(GameContext.getMessageSerializer(), ctx.channel(), ChannelType.SOCKET))) {
             ctx.channel().close();
             logger.error("Duplicate session,IP=[{}]", ChannelUtils.getIp(ctx.channel()));
+            return;
         }
+        IdSession session = ChannelUtils.getSessionBy(ctx.channel());
+        GameContext.getMessageDispatcher().onSessionClosed(session);
     }
 
     @Override
@@ -43,6 +46,8 @@ public class IoEventHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         GameContext.getSessionManager().ungisterPlayerChannel(ctx.channel());
+        IdSession session = ChannelUtils.getSessionBy(ctx.channel());
+        GameContext.getMessageDispatcher().onSessionClosed(session);
     }
 
     @Override

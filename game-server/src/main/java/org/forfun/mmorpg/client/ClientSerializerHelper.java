@@ -18,15 +18,13 @@ public class ClientSerializerHelper {
     static {
         try {
             String codecType = PropertiesLoaderUtils.loadAllProperties("application.properties").getProperty("game.socket.codec");
-            if ("json".equalsIgnoreCase(codecType)) {
-                serializerFactory = new JsonSerializerFactory();
-            } else if ("protostuff".equalsIgnoreCase(codecType)) {
-                serializerFactory = new ProtostuffSerializerFactory();
-            } else if ("protobuf".equalsIgnoreCase(codecType)) {
-                serializerFactory = new ProtobufSerializerFactory();
-            } else {
-                serializerFactory = new ReflectSerializerFactory();
-            }
+
+            serializerFactory = switch (codecType) {
+                case "json" -> new JsonSerializerFactory();
+                case "protostuff" -> new ProtostuffSerializerFactory();
+                case "protobuf" -> new ProtobufSerializerFactory();
+                default -> new ReflectSerializerFactory();
+            };
         } catch (Exception e) {
             e.printStackTrace();
         }

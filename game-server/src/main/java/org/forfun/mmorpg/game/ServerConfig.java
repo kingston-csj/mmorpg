@@ -36,11 +36,11 @@ public class ServerConfig {
 	@Value("${webSocket.port:0}")
 	private int webSocketPort;
 
-	/** 后台服务端口 */
+	/** 管理后台服务端口 */
 	@Value("${http.port:0}")
 	private int httpPort;
 
-	/** 后台服务端口 */
+	/** 管理后台ip白名单列表 */
 	@Value("${admin.http.ips}")
 	private String adminIps;
 
@@ -51,8 +51,8 @@ public class ServerConfig {
 			Set<String> tmpIps = new HashSet<>();
 			for (String ip : adminIps.split(";")) {
 				tmpIps.add(ip);
-				adminWhiteIps = tmpIps;
 			}
+			adminWhiteIps = tmpIps;
 		}
 		return adminWhiteIps;
 	}

@@ -15,7 +15,7 @@ public enum IdKey {
     /**
      * 战场房间号
      */
-    Match(3, false),
+    MATCH(3, false),
 
     ;
 

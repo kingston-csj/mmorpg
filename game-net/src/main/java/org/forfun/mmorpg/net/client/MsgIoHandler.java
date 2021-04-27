@@ -35,6 +35,9 @@ public class MsgIoHandler extends ChannelInboundHandlerAdapter {
             ctx.channel().close();
             logger.error("Duplicate session,IP=[{}]", ChannelUtils.getIp(ctx.channel()));
         }
+
+        IdSession session = ChannelUtils.getSessionBy(ctx.channel());
+        messageDispatcher.onSessionCreated(session);
     }
 
     @Override
@@ -50,6 +53,9 @@ public class MsgIoHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        logger.info("channel[{}] inactive", ctx.channel());
+        IdSession session = ChannelUtils.getSessionBy(ctx.channel());
+        messageDispatcher.onSessionClosed(session);
     }
 
     @Override

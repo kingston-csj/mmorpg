@@ -11,9 +11,9 @@ import org.apache.mina.transport.socket.SocketSessionConfig;
 import org.apache.mina.transport.socket.nio.NioProcessor;
 import org.apache.mina.transport.socket.nio.NioSession;
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
-import org.forfun.mmorpg.framework.net.NodeConfig;
 import org.forfun.mmorpg.game.ServerConfig;
 import org.forfun.mmorpg.game.base.GameContext;
+import org.forfun.mmorpg.net.HostPort;
 import org.forfun.mmorpg.net.message.codec.SerializerFactory;
 import org.forfun.mmorpg.net.socket.SocketServerNode;
 import org.forfun.mmorpg.net.socket.mina.MessageCodecFactory;
@@ -47,16 +47,16 @@ public class MinaSocketServer implements SocketServerNode {
     @Autowired
     private ServerConfig serverConfig;
 
-    private List<NodeConfig> nodeConfigs = new ArrayList<>();
+    private List<HostPort> nodes = new ArrayList<>();
 
     @Override
     @PostConstruct
     public void init() {
         if (serverConfig.getServerPort() > 0) {
-            nodeConfigs.add(NodeConfig.valueOf("*", serverConfig.getServerPort()));
+            nodes.add(HostPort.valueOf("*", serverConfig.getServerPort()));
         }
         if (serverConfig.getRpcPort() > 0) {
-            nodeConfigs.add(NodeConfig.valueOf("*", serverConfig.getRpcPort()));
+            nodes.add(HostPort.valueOf("*", serverConfig.getRpcPort()));
         }
     }
 
@@ -83,7 +83,7 @@ public class MinaSocketServer implements SocketServerNode {
         //设置端口号
         acceptor.setDefaultLocalAddress(new InetSocketAddress(serverPort));
         //启动监听
-        for (NodeConfig node : nodeConfigs) {
+        for (HostPort node : nodes) {
             logger.info("socket服务已启动，正在监听用户的请求@port:" + node.getPort() + "......");
             acceptor.bind(new InetSocketAddress(node.getPort()));
         }

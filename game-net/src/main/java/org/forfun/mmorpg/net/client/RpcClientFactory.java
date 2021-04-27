@@ -8,6 +8,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import org.forfun.mmorpg.net.HostPort;
 import org.forfun.mmorpg.net.dispatcher.IMessageDispatcher;
 import org.forfun.mmorpg.net.message.codec.SerializerFactory;
 import org.forfun.mmorpg.net.socket.IdSession;
@@ -30,7 +31,7 @@ public class RpcClientFactory {
         this.messageSerializer = messageSerializer;
     }
 
-    public IdSession createSession(ClientCfg clientCfg) throws Exception {
+    public IdSession createSession(HostPort hostPort) throws Exception {
         try {
             Bootstrap b = new Bootstrap();
             b.group(group).channel(NioSocketChannel.class).handler(new ChannelInitializer<SocketChannel>() {
@@ -45,7 +46,7 @@ public class RpcClientFactory {
 
             });
 
-            ChannelFuture f = b.connect(new InetSocketAddress(clientCfg.getIpAddr(), clientCfg.getPort())).sync();
+            ChannelFuture f = b.connect(new InetSocketAddress(hostPort.getHost(), hostPort.getPort())).sync();
             IdSession session = new NettySession(messageSerializer, f.channel(), ChannelType.SOCKET);
             return session;
         } catch (Exception e) {

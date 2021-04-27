@@ -33,6 +33,7 @@ public class ServerSocketIoHandler extends IoHandlerAdapter  {
     @Override
     public void sessionClosed(IoSession session) throws Exception {
         IdSession userSession = (IdSession) session.getAttribute(MinaSessionProperties.UserSession);
+        GameContext.getMessageDispatcher().onSessionClosed(userSession);
     }
 
     @Override

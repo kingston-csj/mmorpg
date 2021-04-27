@@ -10,8 +10,8 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
-import org.forfun.mmorpg.framework.net.NodeConfig;
 import org.forfun.mmorpg.game.ServerConfig;
+import org.forfun.mmorpg.net.HostPort;
 import org.forfun.mmorpg.net.message.codec.SerializerFactory;
 import org.forfun.mmorpg.net.socket.SocketServerNode;
 import org.forfun.mmorpg.net.socket.netty.NettyPacketDecoder;
@@ -41,16 +41,16 @@ public class NettySocketServer implements SocketServerNode {
     @Autowired
     private SerializerFactory serializerFactory;
 
-    private List<NodeConfig> nodeConfigs = new ArrayList<>();
+    private List<HostPort> nodeConfigs = new ArrayList<>();
 
     @Override
     @PostConstruct
     public void init() {
         if (serverConfig.getServerPort() > 0) {
-            nodeConfigs.add(NodeConfig.valueOf("*", serverConfig.getServerPort()));
+            nodeConfigs.add(HostPort.valueOf("*", serverConfig.getServerPort()));
         }
         if (serverConfig.getRpcPort() > 0) {
-            nodeConfigs.add(NodeConfig.valueOf("*", serverConfig.getRpcPort()));
+            nodeConfigs.add(HostPort.valueOf("*", serverConfig.getRpcPort()));
         }
     }
 
@@ -61,7 +61,7 @@ public class NettySocketServer implements SocketServerNode {
             b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class).option(ChannelOption.SO_BACKLOG, 1024)
                     .childHandler(new NettySocketServer.ChildChannelHandler());
 
-            for (NodeConfig node : nodeConfigs) {
+            for (HostPort node : nodeConfigs) {
                 logger.info("socket服务已启动，正在监听用户的请求@port:" + node.getPort() + "......");
                 b.bind(new InetSocketAddress(node.getPort())).sync();
             }
