@@ -1,6 +1,6 @@
 rootProject.name = 'mmorpg'
 
-include 'game-common', 'game-server', 'game-net', 'game-csv'
+include 'game-common', 'game-server', 'game-net', 'game-data'
 
 // 修改子项目的build文件名，重名很难查找
 rootProject.children.each {

@@ -1,4 +1,4 @@
-package org.forfun.mmorpg.csv;
+package com.forfun.mmorpg.data;
 
 import lombok.Getter;
 import lombok.Setter;

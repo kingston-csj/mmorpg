@@ -1,4 +1,4 @@
-package org.forfun.mmorpg.csv.reader;
+package org.forfun.mmorpg.data.reader;
 
 import java.io.InputStream;
 import java.util.List;
@@ -7,6 +7,7 @@ public interface DataReader {
 
     /**
      * 将输入流转为bean集合
+     *
      * @param is
      * @param clazz
      * @param <E>

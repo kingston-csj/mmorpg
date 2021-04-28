@@ -1,13 +1,11 @@
-package org.forfun.mmorpg.csv;
+package com.forfun.mmorpg.data;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 
 @Component
 public class AppContext implements ApplicationContextAware {
@@ -19,6 +17,10 @@ public class AppContext implements ApplicationContextAware {
      */
     private static ApplicationContext applicationContext = null;
 
+    public static <E> E getBean(Class<?> e) {
+        return (E) applicationContext.getBean(e);
+    }
+
     @PostConstruct
     private void init() {
         self = this;
@@ -29,10 +31,4 @@ public class AppContext implements ApplicationContextAware {
         AppContext.applicationContext = applicationContext;
     }
 
-    @Resource
-    public ConversionService serverConfig;
-
-    public final static ConversionService getConversionService() {
-        return self.serverConfig;
-    }
 }

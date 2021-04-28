@@ -1,11 +1,13 @@
-package org.forfun.mmorpg.csv.reader;
+package org.forfun.mmorpg.data.reader;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
-import org.forfun.mmorpg.csv.AppContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
 
@@ -16,13 +18,17 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CsvReader implements DataReader {
+public class CsvReader implements DataReader, ApplicationContextAware {
 
-    private static Logger logger = LoggerFactory.getLogger(CsvReader.class.getName());
-    private TypeDescriptor sourceType = TypeDescriptor.valueOf(String.class);
+    private static final Logger logger = LoggerFactory.getLogger(CsvReader.class.getName());
+    private static final String BEGIN = "header";
+    private static final String END = "end";
+    private final TypeDescriptor sourceType = TypeDescriptor.valueOf(String.class);
+    private ApplicationContext applicationContext;
 
-    private static String BEGIN = "header";
-    private static String END = "end";
+    public CsvReader() {
+        System.out.println();
+    }
 
     @Override
     public <E> List<E> read(InputStream is, Class<E> clazz) {
@@ -52,7 +58,7 @@ public class CsvReader implements DataReader {
             }
 
             List<E> data = new ArrayList<>(rows.size());
-            ConversionService conversionService = AppContext.getConversionService();
+            ConversionService conversionService = applicationContext.getBean(ConversionService.class);
             for (int i = 0; i < rows.size(); i++) {
                 String[] record = rows.get(i);
                 E obj = clazz.newInstance();
@@ -84,5 +90,10 @@ public class CsvReader implements DataReader {
             columns[i] = record.get(i + 1);
         }
         return columns;
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 }
