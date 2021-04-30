@@ -1,5 +1,4 @@
-package org.forfun.mmorpg.data;
-
+package org.forfun.mmorpg.data.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -8,10 +7,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 标记一个字段或者方法为索引
+ * 标记一个类代表配置表(P表示Prototype，原型)
  */
 @Documented
-@Target({ElementType.FIELD, ElementType.METHOD})
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Index {
+public @interface PTable {
 }

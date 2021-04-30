@@ -1,5 +1,8 @@
 package org.forfun.mmorpg.data;
 
+import org.apache.commons.lang3.StringUtils;
+import org.forfun.mmorpg.data.annotation.Index;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
@@ -14,14 +17,22 @@ class FieldIndexMeta implements IndexMeta {
 
     private final Field field;
 
+    private String name;
+
     FieldIndexMeta(Field field) {
+        Index index = field.getAnnotation(Index.class);
         this.field = field;
         this.field.setAccessible(true);
+        if (StringUtils.isNotEmpty(index.name())) {
+            name= index.name();
+        } else {
+            name = field.getName();
+        }
     }
 
     @Override
     public String getName() {
-        return field.getName();
+        return name;
     }
 
     @Override
@@ -39,14 +50,21 @@ class MethodIndexMeta implements IndexMeta {
 
     private final Method method;
 
-    MethodIndexMeta(Method method) {
+    private String name;
+
+    MethodIndexMeta(Index index, Method method) {
         this.method = method;
         this.method.setAccessible(true);
+        if (StringUtils.isNotEmpty(index.name())) {
+            name= index.name();
+        } else {
+            name = method.getName();
+        }
     }
 
     @Override
     public String getName() {
-        return method.getName();
+        return name;
     }
 
     @Override

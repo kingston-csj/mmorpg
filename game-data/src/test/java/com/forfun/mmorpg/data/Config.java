@@ -1,5 +1,7 @@
 package com.forfun.mmorpg.data;
 
+import org.forfun.mmorpg.data.DataManager;
+import org.forfun.mmorpg.data.ResourceConfiguration;
 import org.forfun.mmorpg.data.convertor.JsonToArrayConvertor;
 import org.forfun.mmorpg.data.convertor.JsonToListConvertor;
 import org.forfun.mmorpg.data.convertor.JsonToMapConvertor;
@@ -26,6 +28,18 @@ public class Config {
     public DataReader createDataReader() {
         DataReader reader = new CsvReader();
         return reader;
+    }
+
+    @Bean
+    public ResourceConfiguration createResourceConfiguration() {
+        ResourceConfiguration configuration = new ResourceConfiguration();
+        configuration.setSuffix(".csv");
+        return configuration;
+    }
+
+    @Bean
+    public DataManager createDataManager() {
+        return new DataManager();
     }
 
 }

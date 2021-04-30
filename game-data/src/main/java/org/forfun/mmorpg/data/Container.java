@@ -1,6 +1,7 @@
 package org.forfun.mmorpg.data;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,33 +11,43 @@ public class Container<K, V> {
     private final Map<K, V> data = new HashMap<>();
 
     /**
-     * index1_index2@id1_id2 --> List<V>
+     * name@id --> List<V>
      */
     private final Map<String, List<V>> indexMapper = new HashMap<>();
 
 
-    private final Map<String, IndexMeta> indexMetaMap = new HashMap<>();
+    public void inject(TableDefinition definition, List<V> records) {
+        records.forEach(row -> {
+            K id = (K) definition.getIdMeta().getValue(row);
+            data.put(id, row);
 
-    public void init(Class<?> clazz) {
-        Arrays.stream(clazz.getDeclaredFields()).filter(f -> f.getAnnotation(Index.class) != null)
-                .forEach(f -> {
-                    IndexMeta indexMeta = new FieldIndexMeta(f);
-                    String key = indexMeta.getName();
-                    if (indexMetaMap.put(key, indexMeta) != null) {
-                        throw new RuntimeException(String.format("%s类索引重复-->%s", clazz.getName(), key));
-                    }
-                    indexMetaMap.put(key, indexMeta);
-                });
+            for (Map.Entry<String, IndexMeta> entry : definition.getIndexMetaMap().entrySet()) {
+                IndexMeta indexMeta = entry.getValue();
+                String index = indexMeta.getName();
+                Object val = indexMeta.getValue(row);
+                String key = indexKey(index, val);
+                indexMapper.putIfAbsent(key, new ArrayList<>());
+                indexMapper.get(key).add(row);
+            }
+        });
 
-        Arrays.stream(clazz.getDeclaredMethods()).filter(m -> m.getAnnotation(Index.class) != null)
-                .forEach(m -> {
-                    IndexMeta indexMeta = new MethodIndexMeta(m);
-                    String key = indexMeta.getName();
-                    if (indexMetaMap.put(key, indexMeta) != null) {
-                        throw new RuntimeException(String.format("%s类索引重复-->%s", clazz.getName(), key));
-                    }
-                    indexMetaMap.put(key, indexMeta);
-                });
+    }
+
+    public List<V> getRecordsBy(String name, Object index) {
+        String key = indexKey(name, index);
+        return indexMapper.getOrDefault(key, Collections.EMPTY_LIST);
+    }
+
+    public List<V> getAllRecords() {
+        return new ArrayList<>(data.values());
+    }
+
+    public V getRecord(K id) {
+        return data.get(id);
+    }
+
+    private String indexKey(String name, Object index) {
+        return name + "@" + index;
     }
 
 }
