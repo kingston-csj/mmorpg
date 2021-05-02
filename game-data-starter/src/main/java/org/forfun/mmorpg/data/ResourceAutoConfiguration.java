@@ -1,21 +1,34 @@
-package com.forfun.mmorpg.data;
+package org.forfun.mmorpg.data;
 
-import org.forfun.mmorpg.data.DataManager;
-import org.forfun.mmorpg.data.ResourceConfiguration;
 import org.forfun.mmorpg.data.convertor.JsonToArrayConvertor;
 import org.forfun.mmorpg.data.convertor.JsonToListConvertor;
 import org.forfun.mmorpg.data.convertor.JsonToMapConvertor;
 import org.forfun.mmorpg.data.reader.CsvReader;
 import org.forfun.mmorpg.data.reader.DataReader;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.format.support.DefaultFormattingConversionService;
 
-@Configuration
-public class Config {
+import javax.annotation.Resource;
 
-    @Bean(name = "conversionService")
+@Configuration
+@EnableConfigurationProperties(ResourceProperties.class)
+public class ResourceAutoConfiguration {
+
+    @Resource
+    private ResourceProperties properties;
+
+    @Bean
+    @ConditionalOnMissingBean
+    public DataReader createDataReader() {
+        return new CsvReader();
+    }
+
+    @Bean(name = "dataConversionService")
+//    @ConditionalOnMissingBean
     public ConversionService createConversionService() {
         DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
         conversionService.addConverter(new JsonToListConvertor());
@@ -25,21 +38,9 @@ public class Config {
     }
 
     @Bean
-    public DataReader createDataReader() {
-        DataReader reader = new CsvReader();
-        return reader;
-    }
-
-    @Bean
-    public ResourceConfiguration createResourceConfiguration() {
-        ResourceConfiguration configuration = new ResourceConfiguration();
-        configuration.setSuffix(".csv");
-        return configuration;
-    }
-
-    @Bean
     public DataManager createDataManager() {
-        return new DataManager();
+        DataManager dataManager = new DataManager();
+        return dataManager;
     }
 
 }

@@ -1,23 +1,26 @@
 package org.forfun.mmorpg.data;
 
+import org.forfun.mmorpg.common.util.ClassScanner;
 import org.forfun.mmorpg.data.annotation.PTable;
 import org.forfun.mmorpg.data.reader.DataReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 public class DataManager {
 
     @Autowired
-    private ResourceConfiguration configuration;
+    private ResourceProperties configuration;
 
     @Autowired
     private DataReader dataReader;
@@ -26,6 +29,12 @@ public class DataManager {
 
     private final ConcurrentMap<Class, Container> data = new ConcurrentHashMap<>();
 
+    @PostConstruct
+    private void init() {
+        Set<Class<?>> classSet = ClassScanner.listClassesWithAnnotation(configuration.getScanPath(), PTable.class);
+        classSet.forEach(this::registerContainer);
+    }
+    
     public void registerContainer(Class table) {
         if (table == null) {
             throw new NullPointerException("");

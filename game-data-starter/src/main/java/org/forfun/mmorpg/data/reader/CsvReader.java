@@ -26,10 +26,6 @@ public class CsvReader implements DataReader, ApplicationContextAware {
     private final TypeDescriptor sourceType = TypeDescriptor.valueOf(String.class);
     private ApplicationContext applicationContext;
 
-    public CsvReader() {
-        System.out.println();
-    }
-
     @Override
     public <E> List<E> read(InputStream is, Class<E> clazz) {
         Reader in = new InputStreamReader(is);
