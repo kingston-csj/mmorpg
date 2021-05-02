@@ -2,7 +2,7 @@ package org.forfun.mmorpg.data;
 
 import java.lang.reflect.Field;
 
-public interface IdMeta {
+interface IdMeta {
 
     String getName();
 

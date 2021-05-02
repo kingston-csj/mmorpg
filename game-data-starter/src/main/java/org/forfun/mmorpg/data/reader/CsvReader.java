@@ -24,6 +24,7 @@ public class CsvReader implements DataReader, ApplicationContextAware {
     private static final String BEGIN = "header";
     private static final String END = "end";
     private final TypeDescriptor sourceType = TypeDescriptor.valueOf(String.class);
+
     private ApplicationContext applicationContext;
 
     @Override
@@ -32,58 +33,79 @@ public class CsvReader implements DataReader, ApplicationContextAware {
         try {
             Iterable<CSVRecord> records = CSVFormat.EXCEL.parse(in);
             boolean hasColMeta = false;
-            String[] header = null;
+            CsvHeader[] header = null;
             // 一行行的数据源
-            List<String[]> rows = new ArrayList<>();
+            List<CsvColumn[]> rows = new ArrayList<>();
             for (CSVRecord record : records) {
                 // BEGIN前面的数据无效
                 if (BEGIN.equalsIgnoreCase(record.get(0))) {
-                    header = readRecord(record);
+                    header = readCsvHeader(clazz, record);
                     hasColMeta = true;
                     continue;
                 }
                 if (!hasColMeta) {
                     continue;
                 }
-                rows.add(readRecord(record));
-
+                rows.add(readCsvRow(header, record));
                 if (END.equalsIgnoreCase(record.get(0))) {
                     // 结束符号
                     break;
                 }
             }
-
-            List<E> data = new ArrayList<>(rows.size());
-            ConversionService conversionService = applicationContext.getBean(ConversionService.class);
-            for (int i = 0; i < rows.size(); i++) {
-                String[] record = rows.get(i);
-                E obj = clazz.newInstance();
-                for (int j = 0; j < header.length; j++) {
-                    String colName = header[j];
-                    if (StringUtils.isEmpty(colName)) {
-                        continue;
-                    }
-
-                    Field field = clazz.getDeclaredField(colName);
-                    field.setAccessible(true);
-                    Object fieldVal = conversionService.convert(record[j], sourceType, new TypeDescriptor(field));
-                    field.set(obj, fieldVal);
-                }
-                data.add(obj);
-            }
-
-            return data;
+            return readRecords(clazz, rows);
         } catch (Exception e) {
             logger.error("", e);
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
-    private String[] readRecord(CSVRecord record) {
-        String[] columns;
-        columns = new String[record.size() - 1];
+    private <E> List<E> readRecords(Class<E> clazz, List<CsvColumn[]> rows) throws Exception {
+        List<E> records = new ArrayList<>(rows.size());
+        ConversionService conversionService = applicationContext.getBean(ConversionService.class);
+        for (int i = 0; i < rows.size(); i++) {
+            CsvColumn[] record = rows.get(i);
+            E obj = clazz.newInstance();
+
+            for (CsvColumn column : record) {
+                String colName = column.header.column;
+                if (StringUtils.isEmpty(colName)) {
+                    continue;
+                }
+
+                Field field = clazz.getDeclaredField(colName);
+                field.setAccessible(true);
+                Object fieldVal = conversionService.convert(column.value, sourceType, new TypeDescriptor(field));
+                field.set(obj, fieldVal);
+            }
+
+            records.add(obj);
+        }
+        return records;
+    }
+
+    private CsvHeader[] readCsvHeader(Class clazz, CSVRecord record) throws NoSuchFieldException {
+        CsvHeader[] columns = new CsvHeader[record.size() - 1];
         for (int i = 0; i < columns.length; i++) {
-            columns[i] = record.get(i + 1);
+            CsvHeader header = new CsvHeader();
+            header.column = record.get(i + 1);
+            if (StringUtils.isNotEmpty(header.column)) {
+                header.field = clazz.getDeclaredField(header.column);
+                header.field.setAccessible(true);
+            }
+
+            columns[i] = header;
+        }
+        return columns;
+    }
+
+    private CsvColumn[] readCsvRow(CsvHeader[] headers, CSVRecord record) {
+        CsvColumn[] columns = new CsvColumn[record.size() - 1];
+        for (int i = 0; i < columns.length; i++) {
+            CsvColumn column = new CsvColumn();
+            column.header = headers[i];
+            column.value = record.get(i + 1);
+            columns[i] = column;
+
         }
         return columns;
     }
@@ -92,4 +114,20 @@ public class CsvReader implements DataReader, ApplicationContextAware {
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }
+
+    static class CsvHeader {
+
+        String column;
+
+        Field field;
+    }
+
+    static class CsvColumn {
+
+        CsvHeader header;
+
+        String value;
+    }
 }
+
+

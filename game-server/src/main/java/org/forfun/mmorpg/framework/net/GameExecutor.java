@@ -37,11 +37,11 @@ public class GameExecutor {
     @PostConstruct
     private void init() {
         for (int i = 0; i < CORE_SIZE; i++) {
-            ThreadFactory threadFactory = new NamedThreadFactory("message-task-handler");
+            ThreadFactory threadFactory = new NamedThreadFactory("message-business");
             workerPool[i] = Executors.newSingleThreadExecutor(threadFactory);
         }
         instance = this;
-        new NamedThreadFactory("message-task-monitor").newThread(new TaskMonitor()).start();
+        new NamedThreadFactory("message-business-monitor").newThread(new TaskMonitor()).start();
     }
 
     public static GameExecutor getInstance() {

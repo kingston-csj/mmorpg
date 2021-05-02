@@ -37,7 +37,7 @@ public class CodecFactoryAutoConfiguration {
      */
     @Bean
 //    @ConditionalOnExpression(("'${game.socket.codec}'.equalsIgnoreCase('reflect')"))
-    @ConditionalOnMissingBean(value = SerializerFactory.class)
+    @ConditionalOnMissingBean()
     public SerializerFactory createReflectSerializerFactory() {
         return new ReflectSerializerFactory();
     }

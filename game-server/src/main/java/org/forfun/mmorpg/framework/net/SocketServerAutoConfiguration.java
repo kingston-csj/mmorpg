@@ -13,7 +13,7 @@ public class SocketServerAutoConfiguration {
 
     @Bean
     @ConditionalOnExpression(("'${game.socket.name}'.equalsIgnoreCase('mina')"))
-    public MinaSocketServer createMina() {
+    public SocketServerNode createMina() {
         return new MinaSocketServer();
     }
 
@@ -23,8 +23,8 @@ public class SocketServerAutoConfiguration {
      */
     @Bean
 //    @ConditionalOnExpression(("'${game.socket.name}'.equalsIgnoreCase('netty')"))
-    @ConditionalOnMissingBean(value = SocketServerNode.class)
-    public NettySocketServer createNetty() {
+    @ConditionalOnMissingBean()
+    public SocketServerNode createNetty() {
         return new NettySocketServer();
     }
 

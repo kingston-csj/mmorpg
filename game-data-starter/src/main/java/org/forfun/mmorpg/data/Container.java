@@ -1,12 +1,13 @@
 package org.forfun.mmorpg.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Container<K, V> {
+class Container<K extends Serializable & Comparable<K>, V> {
 
     private final Map<K, V> data = new HashMap<>();
 
@@ -16,7 +17,7 @@ public class Container<K, V> {
     private final Map<String, List<V>> indexMapper = new HashMap<>();
 
 
-    public void inject(TableDefinition definition, List<V> records) {
+    void inject(TableDefinition definition, List<V> records) {
         records.forEach(row -> {
             K id = (K) definition.getIdMeta().getValue(row);
             data.put(id, row);

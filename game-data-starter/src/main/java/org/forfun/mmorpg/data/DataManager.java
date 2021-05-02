@@ -3,12 +3,15 @@ package org.forfun.mmorpg.data;
 import org.forfun.mmorpg.common.util.ClassScanner;
 import org.forfun.mmorpg.data.annotation.PTable;
 import org.forfun.mmorpg.data.reader.DataReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +20,12 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+/**
+ * 数据读取对外暴露的唯一API
+ */
 public class DataManager {
+
+    private Logger logger = LoggerFactory.getLogger(DataManager.class.getName());
 
     @Autowired
     private ResourceProperties configuration;
@@ -34,7 +42,7 @@ public class DataManager {
         Set<Class<?>> classSet = ClassScanner.listClassesWithAnnotation(configuration.getScanPath(), PTable.class);
         classSet.forEach(this::registerContainer);
     }
-    
+
     public void registerContainer(Class table) {
         if (table == null) {
             throw new NullPointerException("");
@@ -42,30 +50,40 @@ public class DataManager {
         if (table.getAnnotation(PTable.class) == null) {
             throw new IllegalStateException(table.getName() + "没有PTable注解");
         }
-        TableDefinition definition = new TableDefinition(table);
+        var definition = new TableDefinition(table);
         String tableName = table.getSimpleName().toLowerCase();
         tableDefinitions.put(tableName, definition);
 
         reload(tableName);
     }
 
+    /**
+     * 表格数据重载（基于引用替换，无锁操作）
+     *
+     * @param table
+     */
     public void reload(String table) {
         table = table.toLowerCase();
         TableDefinition definition = tableDefinitions.get(table);
         if (definition == null) {
             throw new IllegalStateException(table + "不属于配置表");
         }
-        Resource resource = new ClassPathResource(table + configuration.getSuffix());
-        List<?> records = null;
         try {
-            records = dataReader.read(resource.getInputStream(), definition.getClazz());
-        } catch (IOException e) {
-            throw new IllegalStateException(table + "无法读取");
-        }
-        Container container = new Container<>();
-        container.inject(definition, records);
+            Resource resource = new ClassPathResource(table + configuration.getSuffix());
+            List<?> records = null;
+            try {
+                records = dataReader.read(resource.getInputStream(), definition.getClazz());
+            } catch (IOException e) {
+                throw new IllegalStateException(table + "无法读取");
+            }
+            Container container = new Container<>();
+            container.inject(definition, records);
 
-        data.put(definition.getClazz(), container);
+            data.put(definition.getClazz(), container);
+        } catch (Exception e) {
+            logger.error("", e);
+            throw new RuntimeException(table + "配置异常", e);
+        }
     }
 
     public <E> List<E> queryAll(Class<E> clazz) {
@@ -86,7 +104,7 @@ public class DataManager {
         if (!data.containsKey(clazz)) {
             return null;
         }
-        return (E) data.get(clazz).getRecord(id);
+        return (E) data.get(clazz).getRecord((Serializable) id);
     }
 
 }
