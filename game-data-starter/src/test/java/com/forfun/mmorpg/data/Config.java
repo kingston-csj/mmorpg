@@ -5,8 +5,8 @@ import org.forfun.mmorpg.data.ResourceProperties;
 import org.forfun.mmorpg.data.convertor.JsonToArrayConvertor;
 import org.forfun.mmorpg.data.convertor.JsonToListConvertor;
 import org.forfun.mmorpg.data.convertor.JsonToMapConvertor;
-import org.forfun.mmorpg.data.reader.CsvReader;
 import org.forfun.mmorpg.data.reader.DataReader;
+import org.forfun.mmorpg.data.reader.ExcelDataReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.ConversionService;
@@ -26,14 +26,14 @@ public class Config {
 
     @Bean
     public DataReader createDataReader() {
-        DataReader reader = new CsvReader();
+        DataReader reader = new ExcelDataReader();
         return reader;
     }
 
     @Bean
     public ResourceProperties createResourceConfiguration() {
         ResourceProperties configuration = new ResourceProperties();
-        configuration.setSuffix(".csv");
+        configuration.setSuffix(".xlsx");
         return configuration;
     }
 

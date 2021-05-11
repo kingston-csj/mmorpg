@@ -73,4 +73,5 @@ class TableDefinition {
     public Class getClazz() {
         return clazz;
     }
+
 }

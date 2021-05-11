@@ -23,12 +23,12 @@ import java.util.concurrent.ConcurrentMap;
 /**
  * 数据读取对外暴露的唯一API
  */
-public class DataManager {
+public class DataManager implements DataRepository {
 
     private Logger logger = LoggerFactory.getLogger(DataManager.class.getName());
 
     @Autowired
-    private ResourceProperties configuration;
+    private ResourceProperties properties;
 
     @Autowired
     private DataReader dataReader;
@@ -39,7 +39,7 @@ public class DataManager {
 
     @PostConstruct
     private void init() {
-        Set<Class<?>> classSet = ClassScanner.listClassesWithAnnotation(configuration.getScanPath(), PTable.class);
+        Set<Class<?>> classSet = ClassScanner.listClassesWithAnnotation(properties.getScanPath(), PTable.class);
         classSet.forEach(this::registerContainer);
     }
 
@@ -50,18 +50,14 @@ public class DataManager {
         if (table.getAnnotation(PTable.class) == null) {
             throw new IllegalStateException(table.getName() + "没有PTable注解");
         }
-        var definition = new TableDefinition(table);
+        TableDefinition definition = new TableDefinition(table);
         String tableName = table.getSimpleName().toLowerCase();
         tableDefinitions.put(tableName, definition);
 
         reload(tableName);
     }
 
-    /**
-     * 表格数据重载（基于引用替换，无锁操作）
-     *
-     * @param table
-     */
+    @Override
     public void reload(String table) {
         table = table.toLowerCase();
         TableDefinition definition = tableDefinitions.get(table);
@@ -69,7 +65,7 @@ public class DataManager {
             throw new IllegalStateException(table + "不属于配置表");
         }
         try {
-            Resource resource = new ClassPathResource(table + configuration.getSuffix());
+            Resource resource = new ClassPathResource(properties.getLocation() + table + properties.getSuffix());
             List<?> records = null;
             try {
                 records = dataReader.read(resource.getInputStream(), definition.getClazz());
@@ -86,6 +82,15 @@ public class DataManager {
         }
     }
 
+    @Override
+    public <E> E queryById(Class<E> clazz, Object id) {
+        if (!data.containsKey(clazz)) {
+            return null;
+        }
+        return (E) data.get(clazz).getRecord((Serializable) id);
+    }
+
+    @Override
     public <E> List<E> queryAll(Class<E> clazz) {
         if (!data.containsKey(clazz)) {
             return Collections.EMPTY_LIST;
@@ -93,18 +98,12 @@ public class DataManager {
         return data.get(clazz).getAllRecords();
     }
 
+    @Override
     public <E> List<E> queryByIndex(Class<E> clazz, String name, Object index) {
         if (!data.containsKey(clazz)) {
             return Collections.EMPTY_LIST;
         }
         return data.get(clazz).getRecordsBy(name, index);
-    }
-
-    public <E> E queryById(Class<E> clazz, Object id) {
-        if (!data.containsKey(clazz)) {
-            return null;
-        }
-        return (E) data.get(clazz).getRecord((Serializable) id);
     }
 
 }

@@ -18,9 +18,9 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CsvReader implements DataReader, ApplicationContextAware {
+public class CsvDataReader implements DataReader, ApplicationContextAware {
 
-    private static final Logger logger = LoggerFactory.getLogger(CsvReader.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(CsvDataReader.class.getName());
     private static final String BEGIN = "header";
     private static final String END = "end";
     private final TypeDescriptor sourceType = TypeDescriptor.valueOf(String.class);

@@ -2,18 +2,18 @@ package org.forfun.mmorpg.data;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "game.data",ignoreInvalidFields=true)
+@ConfigurationProperties(prefix = "game.data", ignoreInvalidFields = true)
 public class ResourceProperties {
 
     /**
      * 资源根目录
      */
-    private String location="resource";
+    private String location = "";
 
     /**
      * 文件后缀(默认)
      */
-    private String suffix = ".csv";
+    private String suffix = ".xlsx";
 
     private String scanPath = "org.forfun.mmorpg";
 

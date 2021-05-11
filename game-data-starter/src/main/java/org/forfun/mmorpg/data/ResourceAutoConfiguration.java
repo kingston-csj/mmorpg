@@ -3,7 +3,7 @@ package org.forfun.mmorpg.data;
 import org.forfun.mmorpg.data.convertor.JsonToArrayConvertor;
 import org.forfun.mmorpg.data.convertor.JsonToListConvertor;
 import org.forfun.mmorpg.data.convertor.JsonToMapConvertor;
-import org.forfun.mmorpg.data.reader.CsvReader;
+import org.forfun.mmorpg.data.reader.CsvDataReader;
 import org.forfun.mmorpg.data.reader.DataReader;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -24,7 +24,7 @@ public class ResourceAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public DataReader createDataReader() {
-        return new CsvReader();
+        return new CsvDataReader();
     }
 
     @Bean(name = "dataConversionService")
