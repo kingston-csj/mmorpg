@@ -8,8 +8,6 @@ import java.lang.annotation.Target;
 
 /**
  * gm命令处理器
- * 
- *
  *
  */
 @Documented

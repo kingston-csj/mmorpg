@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 
-
 @Component
 public class GmHandlerBeanPostProcessor implements BeanPostProcessor, ApplicationContextAware, Ordered {
 
