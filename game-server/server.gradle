@@ -46,8 +46,6 @@ dependencies {
 
     compile ('org.springframework.boot:spring-boot-starter-aop')
 
-//    compile ('org.springframework.shell:spring-shell-starter:2.0.0.RELEASE')
-	
 //	compile ('org.springframework.boot:spring-boot-devtools')
 
     compile ('org.springframework.boot:spring-boot-starter-cache')

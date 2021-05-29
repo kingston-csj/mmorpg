@@ -1,7 +1,7 @@
 package org.forfun.mmorpg.net.dispatcher;
 
-import org.forfun.mmorpg.net.message.Message;
 import org.forfun.mmorpg.net.socket.IdSession;
+import org.forfun.mmorpg.protocol.Message;
 
 public interface IMessageDispatcher {
 

@@ -2,7 +2,7 @@ package org.forfun.mmorpg.test.codec;
 
 
 import org.forfun.mmorpg.net.message.Message;
-import org.forfun.mmorpg.net.socket.annotation.MessageMeta;
+import org.forfun.mmorpg.protocol.annotation.MessageMeta;
 
 @MessageMeta(cmd = 1)
 public class BaseVo implements Message {

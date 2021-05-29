@@ -2,8 +2,8 @@ package org.forfun.mmorpg.net.socket.mina;
 
 import org.apache.mina.core.session.IoSession;
 import org.forfun.mmorpg.net.dispatcher.IDispatch;
-import org.forfun.mmorpg.net.message.Message;
 import org.forfun.mmorpg.net.socket.IdSession;
+import org.forfun.mmorpg.protocol.Message;
 
 import java.util.HashMap;
 import java.util.Map;

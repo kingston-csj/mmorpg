@@ -3,9 +3,9 @@ package org.forfun.mmorpg.net.socket.netty;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
-import org.forfun.mmorpg.net.message.Message;
-import org.forfun.mmorpg.net.message.MessageFactory;
-import org.forfun.mmorpg.net.message.codec.IMessageEncoder;
+import org.forfun.mmorpg.protocol.MessageFactory;
+import org.forfun.mmorpg.protocol.codec.IMessageEncoder;
+import org.forfun.mmorpg.protocol.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

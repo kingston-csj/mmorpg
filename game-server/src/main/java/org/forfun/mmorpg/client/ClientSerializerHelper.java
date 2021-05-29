@@ -1,12 +1,12 @@
 package org.forfun.mmorpg.client;
 
-import org.forfun.mmorpg.net.message.codec.IMessageDecoder;
-import org.forfun.mmorpg.net.message.codec.IMessageEncoder;
-import org.forfun.mmorpg.net.message.codec.SerializerFactory;
-import org.forfun.mmorpg.net.message.codec.impl.json.JsonSerializerFactory;
-import org.forfun.mmorpg.net.message.codec.impl.protobuf.ProtobufSerializerFactory;
-import org.forfun.mmorpg.net.message.codec.impl.protostuff.ProtostuffSerializerFactory;
-import org.forfun.mmorpg.net.message.codec.impl.reflect.ReflectSerializerFactory;
+import org.forfun.mmorpg.protocol.codec.IMessageDecoder;
+import org.forfun.mmorpg.protocol.codec.IMessageEncoder;
+import org.forfun.mmorpg.protocol.codec.SerializerFactory;
+import org.forfun.mmorpg.protocol.codec.impl.json.JsonSerializerFactory;
+import org.forfun.mmorpg.protocol.codec.impl.protobuf.ProtobufSerializerFactory;
+import org.forfun.mmorpg.protocol.codec.impl.protostuff.ProtostuffSerializerFactory;
+import org.forfun.mmorpg.protocol.codec.impl.reflect.ReflectSerializerFactory;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 public class ClientSerializerHelper {

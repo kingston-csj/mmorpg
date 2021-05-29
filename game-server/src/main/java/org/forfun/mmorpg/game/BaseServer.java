@@ -2,9 +2,9 @@ package org.forfun.mmorpg.game;
 
 import org.forfun.mmorpg.framework.net.GameExecutor;
 import org.forfun.mmorpg.game.base.GameContext;
-import org.forfun.mmorpg.net.message.MessageFactory;
-import org.forfun.mmorpg.net.message.codec.Preprocessed;
-import org.forfun.mmorpg.net.message.codec.SerializerFactory;
+import org.forfun.mmorpg.protocol.MessageFactory;
+import org.forfun.mmorpg.protocol.codec.Preprocessed;
+import org.forfun.mmorpg.protocol.codec.SerializerFactory;
 import org.forfun.mmorpg.net.socket.SocketServerNode;
 import org.springframework.stereotype.Component;
 

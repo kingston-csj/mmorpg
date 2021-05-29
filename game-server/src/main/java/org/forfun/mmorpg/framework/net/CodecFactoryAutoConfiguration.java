@@ -1,10 +1,10 @@
 package org.forfun.mmorpg.framework.net;
 
-import org.forfun.mmorpg.net.message.codec.SerializerFactory;
-import org.forfun.mmorpg.net.message.codec.impl.json.JsonSerializerFactory;
-import org.forfun.mmorpg.net.message.codec.impl.protobuf.ProtobufSerializerFactory;
-import org.forfun.mmorpg.net.message.codec.impl.protostuff.ProtostuffSerializerFactory;
-import org.forfun.mmorpg.net.message.codec.impl.reflect.ReflectSerializerFactory;
+import org.forfun.mmorpg.protocol.codec.SerializerFactory;
+import org.forfun.mmorpg.protocol.codec.impl.json.JsonSerializerFactory;
+import org.forfun.mmorpg.protocol.codec.impl.protobuf.ProtobufSerializerFactory;
+import org.forfun.mmorpg.protocol.codec.impl.protostuff.ProtostuffSerializerFactory;
+import org.forfun.mmorpg.protocol.codec.impl.reflect.ReflectSerializerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;

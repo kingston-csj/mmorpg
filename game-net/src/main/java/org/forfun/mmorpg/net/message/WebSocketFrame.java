@@ -1,6 +1,8 @@
 package org.forfun.mmorpg.net.message;
 
 import com.google.gson.Gson;
+import org.forfun.mmorpg.protocol.Message;
+import org.forfun.mmorpg.protocol.MessageFactory;
 
 public class WebSocketFrame {
 

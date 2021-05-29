@@ -1,10 +1,10 @@
 package org.forfun.mmorpg.game.base;
 
+import io.netty.channel.Channel;
 import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
 import org.forfun.mmorpg.net.socket.IdSession;
-import org.forfun.mmorpg.net.message.Message;
 import org.forfun.mmorpg.net.socket.netty.ChannelUtils;
-import io.netty.channel.Channel;
+import org.forfun.mmorpg.protocol.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

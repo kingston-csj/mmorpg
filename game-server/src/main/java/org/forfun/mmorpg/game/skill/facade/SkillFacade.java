@@ -9,7 +9,7 @@ import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
 import org.forfun.mmorpg.game.player.event.PlayerLevelUpEvent;
 import org.forfun.mmorpg.game.player.event.PlayerLoginEvent;
 import org.forfun.mmorpg.game.skill.message.RespPlayerSkills;
-import org.forfun.mmorpg.net.socket.annotation.ModuleMeta;
+import org.forfun.mmorpg.protocol.annotation.ModuleMeta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 

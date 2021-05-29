@@ -1,12 +1,12 @@
 package org.forfun.mmorpg.framework.net.mina;
 
-import org.forfun.mmorpg.game.base.GameContext;
-import org.forfun.mmorpg.net.socket.IdSession;
-import org.forfun.mmorpg.net.message.Message;
-import org.forfun.mmorpg.net.socket.mina.MinaSession;
-import org.forfun.mmorpg.net.socket.mina.MinaSessionProperties;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IoSession;
+import org.forfun.mmorpg.game.base.GameContext;
+import org.forfun.mmorpg.net.socket.IdSession;
+import org.forfun.mmorpg.net.socket.mina.MinaSession;
+import org.forfun.mmorpg.net.socket.mina.MinaSessionProperties;
+import org.forfun.mmorpg.protocol.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

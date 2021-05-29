@@ -1,7 +1,7 @@
 package org.forfun.mmorpg.test.codec;
 
 
-import org.forfun.mmorpg.net.socket.annotation.MessageMeta;
+import org.forfun.mmorpg.protocol.annotation.MessageMeta;
 
 @MessageMeta(cmd = 2)
 public class PlayerVo extends BaseVo {

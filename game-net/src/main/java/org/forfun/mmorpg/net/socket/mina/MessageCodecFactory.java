@@ -1,6 +1,6 @@
 package org.forfun.mmorpg.net.socket.mina;
 
-import org.forfun.mmorpg.net.message.codec.SerializerFactory;
+import org.forfun.mmorpg.protocol.codec.SerializerFactory;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolCodecFactory;
 import org.apache.mina.filter.codec.ProtocolDecoder;

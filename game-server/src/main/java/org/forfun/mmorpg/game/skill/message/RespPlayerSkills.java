@@ -1,12 +1,12 @@
 package org.forfun.mmorpg.game.skill.message;
 
 import com.baidu.bjf.remoting.protobuf.annotation.Protobuf;
-import org.forfun.mmorpg.game.skill.service.SkillService;
-import org.forfun.mmorpg.net.socket.annotation.MessageMeta;
-import org.forfun.mmorpg.net.message.Message;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.forfun.mmorpg.game.skill.service.SkillService;
+import org.forfun.mmorpg.protocol.annotation.MessageMeta;
+import org.forfun.mmorpg.protocol.Message;
 
 import java.util.List;
 

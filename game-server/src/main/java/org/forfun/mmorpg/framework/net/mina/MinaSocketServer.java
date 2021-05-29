@@ -14,7 +14,7 @@ import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 import org.forfun.mmorpg.game.ServerConfig;
 import org.forfun.mmorpg.game.base.GameContext;
 import org.forfun.mmorpg.net.HostPort;
-import org.forfun.mmorpg.net.message.codec.SerializerFactory;
+import org.forfun.mmorpg.protocol.codec.SerializerFactory;
 import org.forfun.mmorpg.net.socket.SocketServerNode;
 import org.forfun.mmorpg.net.socket.mina.MessageCodecFactory;
 import org.slf4j.Logger;

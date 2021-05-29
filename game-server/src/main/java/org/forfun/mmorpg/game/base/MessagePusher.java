@@ -1,7 +1,7 @@
 package org.forfun.mmorpg.game.base;
 
 import org.forfun.mmorpg.net.socket.IdSession;
-import org.forfun.mmorpg.net.message.Message;
+import org.forfun.mmorpg.protocol.Message;
 
 import java.util.Collection;
 

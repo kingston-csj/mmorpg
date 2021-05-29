@@ -1,14 +1,14 @@
 package org.forfun.mmorpg.net.socket;
 
-import org.forfun.mmorpg.net.dispatcher.IDispatch;
-import org.forfun.mmorpg.net.message.Message;
-import org.forfun.mmorpg.net.socket.netty.NettySession;
 import io.netty.channel.Channel;
+import org.forfun.mmorpg.net.dispatcher.IDispatch;
+import org.forfun.mmorpg.protocol.Message;
+import org.forfun.mmorpg.net.socket.netty.NettySession;
 
 /**
  * 玩家登录session，不与任何nio框架绑定
  *
- *
+ * @see org.forfun.mmorpg.net.socket.mina.MinaSession
  * @see NettySession
  * @see Channel
  */

@@ -3,12 +3,12 @@ package org.forfun.mmorpg.net;
 public class HostPort {
 
     /**
-     * ip地址
+     * ip address
      */
     private String host;
 
     /**
-     * 端口
+     * socket port
      */
     private int port;
 

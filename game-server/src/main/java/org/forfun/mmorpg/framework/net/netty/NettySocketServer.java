@@ -12,7 +12,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
 import org.forfun.mmorpg.game.ServerConfig;
 import org.forfun.mmorpg.net.HostPort;
-import org.forfun.mmorpg.net.message.codec.SerializerFactory;
+import org.forfun.mmorpg.protocol.codec.SerializerFactory;
 import org.forfun.mmorpg.net.socket.SocketServerNode;
 import org.forfun.mmorpg.net.socket.netty.NettyPacketDecoder;
 import org.slf4j.Logger;

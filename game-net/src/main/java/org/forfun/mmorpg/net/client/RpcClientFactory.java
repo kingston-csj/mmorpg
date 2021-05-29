@@ -10,7 +10,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import org.forfun.mmorpg.net.HostPort;
 import org.forfun.mmorpg.net.dispatcher.IMessageDispatcher;
-import org.forfun.mmorpg.net.message.codec.SerializerFactory;
+import org.forfun.mmorpg.protocol.codec.SerializerFactory;
 import org.forfun.mmorpg.net.socket.IdSession;
 import org.forfun.mmorpg.net.socket.netty.ChannelType;
 import org.forfun.mmorpg.net.socket.netty.NettyPacketDecoder;

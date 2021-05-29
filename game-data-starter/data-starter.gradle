@@ -4,10 +4,6 @@ repositories {
     mavenCentral()
 }
 
-//apply plugin: 'org.springframework.boot'
-//apply plugin: 'idea'
-//apply plugin: 'java'
-
 dependencies {
     compile(project(":game-common"))
 
@@ -20,7 +16,6 @@ dependencies {
 
     compileOnly('org.springframework.boot:spring-boot-starter:2.4.0')
     testCompile ('org.springframework.boot:spring-boot-starter-test:2.4.0')
-
 
 }
 

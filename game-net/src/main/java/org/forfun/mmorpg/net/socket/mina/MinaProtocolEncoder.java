@@ -1,11 +1,12 @@
 package org.forfun.mmorpg.net.socket.mina;
 
-import org.forfun.mmorpg.net.message.codec.IMessageEncoder;
-import org.forfun.mmorpg.net.message.Message;
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolEncoder;
 import org.apache.mina.filter.codec.ProtocolEncoderOutput;
+import org.forfun.mmorpg.protocol.MessageFactory;
+import org.forfun.mmorpg.protocol.codec.IMessageEncoder;
+import org.forfun.mmorpg.protocol.Message;
 
 /**
  *
@@ -50,7 +51,7 @@ public class MinaProtocolEncoder implements ProtocolEncoder {
         final int metaSize = 2;
         // 消息内容长度
         buffer.putInt(body.length + metaSize);
-        short cmd = message.getCmd();
+        short cmd = MessageFactory.getInstance().getMessageId(message.getClass());
         // 写入cmd类型
         buffer.putShort(cmd);
 

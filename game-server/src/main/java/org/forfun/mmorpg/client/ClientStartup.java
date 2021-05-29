@@ -5,10 +5,10 @@ import org.forfun.mmorpg.game.ConfigScanPaths;
 import org.forfun.mmorpg.net.HostPort;
 import org.forfun.mmorpg.net.client.RpcClientFactory;
 import org.forfun.mmorpg.net.dispatcher.IMessageDispatcher;
-import org.forfun.mmorpg.net.message.Message;
-import org.forfun.mmorpg.net.message.MessageFactory;
-import org.forfun.mmorpg.net.message.codec.SerializerFactory;
 import org.forfun.mmorpg.net.socket.IdSession;
+import org.forfun.mmorpg.protocol.Message;
+import org.forfun.mmorpg.protocol.MessageFactory;
+import org.forfun.mmorpg.protocol.codec.SerializerFactory;
 
 /**
  * 客户端模拟器启动程序

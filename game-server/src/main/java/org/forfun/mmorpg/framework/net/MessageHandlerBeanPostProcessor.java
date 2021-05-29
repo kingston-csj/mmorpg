@@ -1,10 +1,10 @@
 package org.forfun.mmorpg.framework.net;
 
 
-import org.forfun.mmorpg.net.socket.annotation.MessageMeta;
-import org.forfun.mmorpg.net.socket.annotation.ModuleMeta;
 import org.forfun.mmorpg.net.message.CmdExecutor;
-import org.forfun.mmorpg.net.message.Message;
+import org.forfun.mmorpg.protocol.Message;
+import org.forfun.mmorpg.protocol.annotation.MessageMeta;
+import org.forfun.mmorpg.protocol.annotation.ModuleMeta;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;

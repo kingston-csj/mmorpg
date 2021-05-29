@@ -5,7 +5,7 @@ import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
 import org.forfun.mmorpg.game.gm.GmDispatcher;
 import org.forfun.mmorpg.game.gm.message.ReqGmCommand;
 import org.forfun.mmorpg.net.socket.IdSession;
-import org.forfun.mmorpg.net.socket.annotation.ModuleMeta;
+import org.forfun.mmorpg.protocol.annotation.ModuleMeta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 

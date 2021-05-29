@@ -5,11 +5,11 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.forfun.mmorpg.game.base.GameContext;
-import org.forfun.mmorpg.net.message.Message;
 import org.forfun.mmorpg.net.socket.IdSession;
 import org.forfun.mmorpg.net.socket.netty.ChannelType;
 import org.forfun.mmorpg.net.socket.netty.ChannelUtils;
 import org.forfun.mmorpg.net.socket.netty.NettySession;
+import org.forfun.mmorpg.protocol.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

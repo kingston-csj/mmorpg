@@ -14,8 +14,8 @@ import org.forfun.mmorpg.game.player.message.ReqSelectPlayer;
 import org.forfun.mmorpg.game.player.message.ResPlayerLogin;
 import org.forfun.mmorpg.game.player.service.LoginService;
 import org.forfun.mmorpg.net.socket.IdSession;
-import org.forfun.mmorpg.net.socket.annotation.MessageMapping;
-import org.forfun.mmorpg.net.socket.annotation.ModuleMeta;
+import org.forfun.mmorpg.protocol.annotation.MessageMapping;
+import org.forfun.mmorpg.protocol.annotation.ModuleMeta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 

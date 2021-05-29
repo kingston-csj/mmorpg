@@ -1,8 +1,8 @@
 package org.forfun.mmorpg.test.codec;
 
 import org.forfun.mmorpg.game.ConfigScanPaths;
-import org.forfun.mmorpg.net.message.MessageFactory;
-import org.forfun.mmorpg.net.message.codec.impl.reflect.Codec;
+import org.forfun.mmorpg.protocol.MessageFactory;
+import org.forfun.mmorpg.protocol.codec.impl.reflect.Codec;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import org.junit.BeforeClass;
