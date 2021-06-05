@@ -16,7 +16,7 @@ public class HelloService {
         Callback callback = new Callback() {
             @Override
             public void onMessageReceive(Message callBack) {
-                System.out.println("receive <<- " );
+                System.out.println("receive <<- " + callBack);
             }
 
             @Override

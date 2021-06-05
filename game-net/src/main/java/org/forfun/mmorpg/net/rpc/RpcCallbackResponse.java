@@ -1,6 +1,6 @@
 package org.forfun.mmorpg.net.rpc;
 
-public abstract class RpcCallbackMessage implements RpcMessage {
+public abstract class RpcCallbackResponse implements RpcMessage {
 
     protected int index;
 

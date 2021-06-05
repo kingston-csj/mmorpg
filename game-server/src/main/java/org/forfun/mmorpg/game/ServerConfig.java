@@ -17,7 +17,7 @@ import java.util.Set;
 public class ServerConfig {
 
 	/** 服务器端口 */
-	@Value("${socket.id}")
+	@Value("${socket.id:0}")
 	private int serverId;
 
 	/** 服务器ip */

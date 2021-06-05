@@ -2,6 +2,7 @@ package org.forfun.mmorpg.game;
 
 import org.apache.commons.lang3.time.StopWatch;
 import org.forfun.mmorpg.game.base.GameContext;
+import org.forfun.mmorpg.game.cross.service.HelloService;
 import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
 import org.forfun.mmorpg.game.vip.model.VipRight;
 import org.slf4j.Logger;
@@ -51,6 +52,8 @@ public class ServerStartup {
         PlayerEnt player = GameContext.getPlayerService().getPlayer(10000L);
         player.setVipRight(vipRight);
         GameContext.getPlayerService().savePlayer(player);
+
+        GameContext.getBean(HelloService.class).sayHello();
     }
 
 }

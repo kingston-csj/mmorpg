@@ -5,7 +5,7 @@ import org.forfun.mmorpg.framework.net.CallbackHandler;
 import org.forfun.mmorpg.game.base.GameContext;
 import org.forfun.mmorpg.game.cross.service.RpcClientRouter;
 import org.forfun.mmorpg.game.logger.LoggerUtils;
-import org.forfun.mmorpg.net.rpc.RpcCallbackMessage;
+import org.forfun.mmorpg.net.rpc.RpcCallbackRequest;
 import org.forfun.mmorpg.net.socket.IdSession;
 import org.forfun.mmorpg.protocol.Message;
 
@@ -25,7 +25,7 @@ public class CrossMessageUtil {
         }
     }
 
-    public static void sendToCenter(RpcCallbackMessage message, Callback callBack) {
+    public static void sendToCenter(RpcCallbackRequest message, Callback callBack) {
         RpcClientRouter clientRouter = GameContext.getBean(RpcClientRouter.class);
         IdSession session = clientRouter.getCenterSession();
         if (session == null) {
