@@ -1,6 +1,8 @@
 package org.forfun.mmorpg.protocol.codec.impl.protobuf;
 
 
+import com.baidu.bjf.remoting.protobuf.ProtobufProxy;
+import org.forfun.mmorpg.protocol.MessageFactory;
 import org.forfun.mmorpg.protocol.codec.IMessageDecoder;
 import org.forfun.mmorpg.protocol.codec.IMessageEncoder;
 import org.forfun.mmorpg.protocol.codec.Preprocessed;
@@ -14,8 +16,8 @@ public class ProtobufSerializerFactory implements SerializerFactory, Preprocesse
 
     @Override
     public void preCompile() {
-//        MessageFactory.getInstance().listAllMessages().forEach(c ->
-//                ProtobufProxy.create(c));
+        MessageFactory.getInstance().listAllMessages().forEach(c ->
+                ProtobufProxy.create(c));
     }
 
     @Override

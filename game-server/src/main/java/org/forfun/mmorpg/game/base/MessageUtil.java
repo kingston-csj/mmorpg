@@ -6,7 +6,7 @@ import org.forfun.mmorpg.protocol.Message;
 import java.util.Collection;
 
 
-public class MessagePusher {
+public class MessageUtil {
 
 	public static void pushMessage(long playerId, Message message) {
 		IdSession session = GameContext.getSessionManager().getSessionBy(playerId);

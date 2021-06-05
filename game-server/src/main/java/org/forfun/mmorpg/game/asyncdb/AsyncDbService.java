@@ -2,6 +2,8 @@ package org.forfun.mmorpg.game.asyncdb;
 
 import com.google.common.collect.Sets;
 import org.forfun.mmorpg.common.util.thread.NamedThreadFactory;
+import org.forfun.mmorpg.game.ServerType;
+import org.forfun.mmorpg.game.base.GameContext;
 import org.forfun.mmorpg.game.database.user.BaseEntity;
 import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
 import org.forfun.mmorpg.game.logger.LoggerUtils;
@@ -35,6 +37,10 @@ public class AsyncDbService {
     }
 
 	public void saveToDb(BaseEntity entity) {
+        if (GameContext.serverType != ServerType.GAME) {
+            // only game server can saving data
+            return;
+        }
 		if (entity instanceof PlayerEnt) {
 			playerWorker.add2Queue(entity);
 		} else {

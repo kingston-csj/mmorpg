@@ -8,6 +8,8 @@ public enum ServerType {
 
     FIGHT(2, "战斗服"),
 
+    CENTRE(10, "中心服"),
+
     ;
 
     ServerType(int type, String name) {

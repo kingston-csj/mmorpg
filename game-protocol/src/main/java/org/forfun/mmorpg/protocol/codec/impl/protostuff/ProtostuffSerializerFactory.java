@@ -1,6 +1,7 @@
 package org.forfun.mmorpg.protocol.codec.impl.protostuff;
 
 
+import org.forfun.mmorpg.protocol.MessageFactory;
 import org.forfun.mmorpg.protocol.codec.IMessageDecoder;
 import org.forfun.mmorpg.protocol.codec.IMessageEncoder;
 import org.forfun.mmorpg.protocol.codec.Preprocessed;
@@ -14,8 +15,8 @@ public class ProtostuffSerializerFactory implements SerializerFactory, Preproces
 
     @Override
     public void preCompile() {
-//        MessageFactory.getInstance().listAllMessages().forEach(c ->
-//                ProtostuffCodecUtil.getSchema(c));
+        MessageFactory.getInstance().listAllMessages().forEach(c ->
+                ProtostuffCodecUtil.getSchema(c));
     }
 
     @Override

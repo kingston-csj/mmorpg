@@ -6,6 +6,7 @@ import org.forfun.mmorpg.net.dispatcher.IDispatch;
 import org.forfun.mmorpg.net.dispatcher.IMessageDispatcher;
 import org.forfun.mmorpg.net.dispatcher.MessageEvent;
 import org.forfun.mmorpg.net.message.CmdExecutor;
+import org.forfun.mmorpg.net.rpc.RpcCallbackMessage;
 import org.forfun.mmorpg.net.socket.IdSession;
 import org.forfun.mmorpg.protocol.Message;
 import org.forfun.mmorpg.protocol.MessageFactory;
@@ -43,6 +44,12 @@ public class MessageDispatcher implements IMessageDispatcher {
         CmdExecutor cmdExecutor = MODULE_CMD_HANDLERS.get(cmd);
         if (cmdExecutor == null) {
             logger.error("message executor missed, cmd={}", cmd);
+            return;
+        }
+
+        if (message instanceof RpcCallbackMessage) {
+            RpcCallbackMessage callbackMessage = (RpcCallbackMessage) message;
+            CallbackHandler.fillCallback(callbackMessage.getIndex(), message);
             return;
         }
 

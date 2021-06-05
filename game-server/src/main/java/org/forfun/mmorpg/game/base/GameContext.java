@@ -1,5 +1,6 @@
 package org.forfun.mmorpg.game.base;
 
+import lombok.Setter;
 import org.forfun.mmorpg.framework.net.MessageDispatcher;
 import org.forfun.mmorpg.game.ServerConfig;
 import org.forfun.mmorpg.game.ServerType;
@@ -16,12 +17,12 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import java.lang.annotation.Annotation;
 import java.util.Collection;
 import java.util.Map;
 
 @Component
+@Setter(onMethod = @__(@Autowired))
 public class GameContext implements ApplicationContextAware {
 
 	public static ServerType serverType;
@@ -41,70 +42,60 @@ public class GameContext implements ApplicationContextAware {
 		GameContext.applicationContext = applicationContext;
 	}
 
-	@Resource
 	public ServerConfig serverConfig;
 
 	public final static ServerConfig getServerConfig() {
 		return self.serverConfig;
 	}
 
-	@Resource
 	private AsyncDbService asyncDbService;
 
 	public final static AsyncDbService getAysncDbService() {
 		return self.asyncDbService;
 	}
 
-	@Resource
 	private SessionManager sessionManager;
 
 	public final static SessionManager getSessionManager() {
 		return self.sessionManager;
 	}
 
-	@Resource
 	private PlayerService playerService;
 
 	public static PlayerService getPlayerService() {
 		return self.playerService;
 	}
 
-	@Resource
 	private AccountService accountService;
 
 	public static AccountService getAccountService() {
 		return self.accountService;
 	}
 
-	@Resource
 	private SchedulerManager schedulerManager;
 
 	public static SchedulerManager getSchedulerManager() {
 		return self.schedulerManager;
 	}
 
-	@Autowired
 	private BuffService buffService;
 
 	public static BuffService getBuffService() {
 		return self.buffService;
 	}
 
-	@Autowired
 	private MessageDispatcher messageDispatcher;
 
 	public static MessageDispatcher getMessageDispatcher() {
 		return self.messageDispatcher;
 	}
 
-	@Autowired
 	private SerializerFactory messageSerializer;
 
 	public static SerializerFactory getMessageSerializer() {
 		return self.messageSerializer;
 	}
 
-	@Autowired
 	private ScriptService scriptService;
 
 	public static ScriptService getScriptService() {

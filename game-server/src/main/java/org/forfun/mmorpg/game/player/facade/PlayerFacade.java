@@ -32,8 +32,8 @@ public class PlayerFacade {
 		loginService.handleAccountLogin(session, request.getAccountId(), request.getPassword());
 	}
 
-	public void reqSelectPlayer(IdSession session, ReqSelectPlayer requst) {
-		loginService.handleSelectPlayer(session, requst.getPlayerId());
+	public void reqSelectPlayer(IdSession session, ReqSelectPlayer request) {
+		loginService.handleSelectPlayer(session, request.getPlayerId());
 	}
 
 	public void reqPlayerLogin(IdSession session, ReqPlayerLogin request) {

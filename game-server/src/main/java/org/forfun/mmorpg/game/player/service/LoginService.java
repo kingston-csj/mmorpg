@@ -3,7 +3,7 @@ package org.forfun.mmorpg.game.player.service;
 import org.forfun.mmorpg.game.account.AccountService;
 import org.forfun.mmorpg.game.account.model.AccountProfile;
 import org.forfun.mmorpg.game.base.GameContext;
-import org.forfun.mmorpg.game.base.MessagePusher;
+import org.forfun.mmorpg.game.base.MessageUtil;
 import org.forfun.mmorpg.game.database.user.entity.AccountEnt;
 import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
 import org.forfun.mmorpg.game.player.message.ResAccountLogin;
@@ -54,7 +54,7 @@ public class LoginService {
 
 		ResAccountLogin loginMessage = new ResAccountLogin();
 		loginMessage.setPlayers(players);
-		MessagePusher.pushMessage(session, loginMessage);
+		MessageUtil.pushMessage(session, loginMessage);
 
 	}
 

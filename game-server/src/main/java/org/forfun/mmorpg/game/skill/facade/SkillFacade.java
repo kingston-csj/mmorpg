@@ -2,7 +2,7 @@ package org.forfun.mmorpg.game.skill.facade;
 
 import org.forfun.mmorpg.framework.eventbus.Subscribe;
 import org.forfun.mmorpg.game.Modules;
-import org.forfun.mmorpg.game.base.MessagePusher;
+import org.forfun.mmorpg.game.base.MessageUtil;
 import org.forfun.mmorpg.game.database.config.container.ConfigSkillContainer;
 import org.forfun.mmorpg.game.database.config.domain.ConfigSkill;
 import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
@@ -41,7 +41,7 @@ public class SkillFacade {
 		System.err.println("角色" + player.getId() + "登录，准备下发技能列表");
 		RespPlayerSkills resp = new RespPlayerSkills();
 		resp.setSkills(Collections.singletonList(1));
-		MessagePusher.pushMessage(player.getId(), resp);
+		MessageUtil.pushMessage(player.getId(), resp);
 	}
 
 }
