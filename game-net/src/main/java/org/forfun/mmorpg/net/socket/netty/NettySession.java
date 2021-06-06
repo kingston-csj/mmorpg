@@ -6,12 +6,12 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import org.forfun.mmorpg.net.dispatcher.IDispatch;
-import org.forfun.mmorpg.protocol.MessageFactory;
 import org.forfun.mmorpg.net.message.WebSocketFrame;
-import org.forfun.mmorpg.protocol.codec.SerializerFactory;
 import org.forfun.mmorpg.net.socket.IdSession;
 import org.forfun.mmorpg.net.socket.SessionCloseReason;
 import org.forfun.mmorpg.protocol.Message;
+import org.forfun.mmorpg.protocol.MessageFactory;
+import org.forfun.mmorpg.protocol.codec.SerializerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +23,7 @@ import java.util.Map;
  */
 public class NettySession implements IdSession {
 
-    private static final Logger logger = LoggerFactory.getLogger(NettySession.class);
+    private static final Logger logger = LoggerFactory.getLogger(IdSession.class);
 
     /**
      * 网络连接channel
@@ -129,6 +129,7 @@ public class NettySession implements IdSession {
      *
      * @param reason {@link SessionCloseReason}
      */
+    @Override
     public void close(SessionCloseReason reason) {
         try {
             if (this.channel == null) {
@@ -141,6 +142,7 @@ public class NettySession implements IdSession {
                 logger.info("session[{}] already close, reason is {}", getOwnerId(), reason);
             }
         } catch (Exception e) {
+            logger.error("", e);
         }
     }
 
@@ -155,5 +157,10 @@ public class NettySession implements IdSession {
         }
 
     };
+
+    @Override
+    public boolean isValid() {
+        return channel != null && channel.isActive();
+    }
 
 }

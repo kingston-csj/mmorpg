@@ -2,8 +2,8 @@ package org.forfun.mmorpg.net.socket;
 
 import io.netty.channel.Channel;
 import org.forfun.mmorpg.net.dispatcher.IDispatch;
-import org.forfun.mmorpg.protocol.Message;
 import org.forfun.mmorpg.net.socket.netty.NettySession;
+import org.forfun.mmorpg.protocol.Message;
 
 /**
  * 玩家登录session，不与任何nio框架绑定
@@ -50,5 +50,9 @@ public interface IdSession {
     IDispatch getDispatcher();
 
     void bindDispatcher(IDispatch dispatcher);
+
+    void close(SessionCloseReason reason);
+
+    boolean isValid();
 
 }

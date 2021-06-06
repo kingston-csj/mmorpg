@@ -6,6 +6,12 @@ public interface ConstantCross {
 
     int CMD_RESP_HELLO = 2;
 
-    int CMD_REQ_SERVER_LOGIN = 3;
+    int CMD_RPC_NODE = 3;
+
+    int CMD_REQ_SERVER_LOGIN = 4;
+
+    int CMD_RESP_SERVER_LOGIN = 5;
+
+    int CMD_HEART_BEAT = 6;
 
 }

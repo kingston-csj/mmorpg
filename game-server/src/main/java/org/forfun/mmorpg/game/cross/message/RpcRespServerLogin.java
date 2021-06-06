@@ -8,22 +8,15 @@ import org.forfun.mmorpg.protocol.annotation.MessageMeta;
 
 @Getter
 @Setter
-@MessageMeta(cmd = ConstantCross.CMD_REQ_SERVER_LOGIN)
-public class RpcReqServerLogin implements RpcMessage {
+@MessageMeta(cmd = ConstantCross.CMD_RESP_SERVER_LOGIN)
+public class RpcRespServerLogin implements RpcMessage {
 
-    private int targetSid;
-
-    private int fromSid;
+    private int remoteSid;
 
     private int serverType;
 
-    /**
-     * connection password
-     */
-    private String sign;
-
     @Override
     public int targetServerId() {
-        return targetSid;
+        return remoteSid;
     }
 }

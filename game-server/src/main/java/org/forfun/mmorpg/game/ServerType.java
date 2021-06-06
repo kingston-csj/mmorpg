@@ -17,9 +17,9 @@ public enum ServerType {
         this.name = name;
     }
 
-    int type;
+    public int type;
 
-    String name;
+    public String name;
 
     public static ServerType of(int type) {
         for (ServerType value : ServerType.values()) {

@@ -7,14 +7,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * Center Server entrance
  */
 @SpringBootApplication(scanBasePackages = {"org.forfun.mmorpg.framework", "org.forfun.mmorpg.game"})
-public class CentreStartup {
+@EnableScheduling
+public class CenterStartup {
 
-    private static Logger logger = LoggerFactory.getLogger(CentreStartup.class);
+    private static Logger logger = LoggerFactory.getLogger(CenterStartup.class);
 
     public static void main(String[] args) throws Exception {
         GameContext.serverType = ServerType.CENTRE;
@@ -23,7 +25,7 @@ public class CentreStartup {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
 
-        SpringApplication app = new SpringApplication(CentreStartup.class);
+        SpringApplication app = new SpringApplication(CenterStartup.class);
         app.setBannerMode(Banner.Mode.OFF);
         app.run(args);
 

@@ -34,12 +34,14 @@ public class CrossMessageUtil {
         int index = idFactory.getAndIncrement();
         message.setIndex(index);
         CallbackHandler.registerCallback(index, callBack);
-        session.sendPacket(message);
+
         ScheduledFuture future = GameContext.getSchedulerManager().schedule(() -> {
             LoggerUtils.error("跨服消息回调超时", message.getClass().getSimpleName());
             callBack.onError();
             CallbackHandler.removeCallback(index);
         }, 5000);
         callBack.setFuture(future);
+
+        session.sendPacket(message);
     }
 }

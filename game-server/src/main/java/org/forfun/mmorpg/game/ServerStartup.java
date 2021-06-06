@@ -2,7 +2,6 @@ package org.forfun.mmorpg.game;
 
 import org.apache.commons.lang3.time.StopWatch;
 import org.forfun.mmorpg.game.base.GameContext;
-import org.forfun.mmorpg.game.cross.service.HelloService;
 import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
 import org.forfun.mmorpg.game.vip.model.VipRight;
 import org.slf4j.Logger;
@@ -12,6 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.util.Set;
 
@@ -21,6 +21,7 @@ import java.util.Set;
 @SpringBootApplication(scanBasePackages = {"org.forfun.mmorpg.framework", "org.forfun.mmorpg.game"})
 @EnableCaching
 @EnableAspectJAutoProxy(proxyTargetClass = true)
+@EnableScheduling
 public class ServerStartup {
 
     private static Logger logger = LoggerFactory.getLogger(ServerStartup.class);
@@ -52,8 +53,6 @@ public class ServerStartup {
         PlayerEnt player = GameContext.getPlayerService().getPlayer(10000L);
         player.setVipRight(vipRight);
         GameContext.getPlayerService().savePlayer(player);
-
-        GameContext.getBean(HelloService.class).sayHello();
     }
 
 }
