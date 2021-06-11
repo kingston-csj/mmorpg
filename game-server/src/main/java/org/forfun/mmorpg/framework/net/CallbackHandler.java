@@ -21,9 +21,8 @@ public class CallbackHandler {
         Callback callback = callbacks.remove(index);
         if (callback != null) {
             if (!callback.getFuture().isDone()) {
-                callback.getFuture().cancel(false);
+                callback.getFuture().complete(message);
             }
-            callback.onMessageReceive(message);
         }
     }
 }

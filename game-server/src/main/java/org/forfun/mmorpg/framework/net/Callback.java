@@ -1,29 +1,19 @@
 package org.forfun.mmorpg.framework.net;
 
-import org.forfun.mmorpg.protocol.Message;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ScheduledFuture;
 
-public abstract class Callback {
+@Getter
+@Setter
+public class Callback {
 
     /**
      * 超时任务
      */
-    protected ScheduledFuture future;
+    protected ScheduledFuture timeout;
 
-    /**
-     * 请求方接受回调消息的业务处理
-     * @param callBack
-     */
-    public abstract void onMessageReceive(Message callBack);
-
-    public abstract void onError();
-
-    public ScheduledFuture getFuture() {
-        return future;
-    }
-
-    public void setFuture(ScheduledFuture future) {
-        this.future = future;
-    }
+    protected CompletableFuture future;
 }

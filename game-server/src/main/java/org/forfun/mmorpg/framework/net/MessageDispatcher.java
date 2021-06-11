@@ -42,7 +42,7 @@ public class MessageDispatcher implements IMessageDispatcher {
         short cmd = MessageFactory.getInstance().getMessageId(message.getClass());
         if (message instanceof RpcCallbackResponse) {
             RpcCallbackResponse callbackMessage = (RpcCallbackResponse) message;
-            CallbackHandler.fillCallback(callbackMessage.getIndex(), message);
+            CallbackHandler.fillCallback(callbackMessage.getCallbackId(), message);
             return;
         }
         CmdExecutor cmdExecutor = MODULE_CMD_HANDLERS.get(cmd);

@@ -61,7 +61,7 @@ public class RpcBaseFacade {
 
     public void sayHello(IdSession session, RpcReqHello request) {
         RpcRespHello response = new RpcRespHello();
-        response.setIndex(request.getIndex());
+        response.setCallbackId(request.getCallbackId());
         response.setContent("hello world");
         session.sendPacket(response);
     }

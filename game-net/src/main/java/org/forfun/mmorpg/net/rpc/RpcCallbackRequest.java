@@ -2,13 +2,13 @@ package org.forfun.mmorpg.net.rpc;
 
 public abstract class RpcCallbackRequest implements RpcMessage {
 
-    protected int index;
+    protected int callbackId;
 
-    public void setIndex(int index) {
-        this.index = index;
+    public void setCallbackId(int callbackId) {
+        this.callbackId = callbackId;
     }
 
-    public int getIndex() {
-        return index;
+    public int getCallbackId() {
+        return callbackId;
     }
 }
