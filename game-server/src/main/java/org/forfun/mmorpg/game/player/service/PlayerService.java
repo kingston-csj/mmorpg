@@ -133,6 +133,5 @@ public class PlayerService implements CommonValueReloadListener {
 
 	@Override
 	public void afterReload() {
-		System.out.println("--reload--");
 	}
 }

@@ -15,8 +15,4 @@ public class RpcRespServerLogin implements RpcMessage {
 
     private int serverType;
 
-    @Override
-    public int targetServerId() {
-        return remoteSid;
-    }
 }

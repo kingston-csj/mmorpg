@@ -10,6 +10,9 @@ import java.util.concurrent.ScheduledFuture;
 @Setter
 public class Callback {
 
+
+    public static int TIME_OUT = 5000;
+
     /**
      * 超时任务
      */

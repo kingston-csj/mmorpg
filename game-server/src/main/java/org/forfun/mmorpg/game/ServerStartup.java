@@ -1,19 +1,21 @@
 package org.forfun.mmorpg.game;
 
 import org.apache.commons.lang3.time.StopWatch;
+import org.forfun.mmorpg.common.util.NumberUtil;
 import org.forfun.mmorpg.game.base.GameContext;
-import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
-import org.forfun.mmorpg.game.vip.model.VipRight;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.scheduling.annotation.EnableScheduling;
-
-import java.util.Set;
 
 /**
  * 游戏主服务器入口
@@ -27,7 +29,10 @@ public class ServerStartup {
     private static Logger logger = LoggerFactory.getLogger(ServerStartup.class);
 
     public static void main(String[] args) throws Exception {
-        GameContext.serverType = ServerType.GAME;
+        String type = (String) PropertiesLoaderUtils.loadProperties(new FileSystemResource("config/common.properties")).get("server.type");
+        ServerType serverType = ServerType.of(NumberUtil.intValue(type));
+
+        GameContext.serverType = serverType;
 
         logger.error("[{}]启动开始", GameContext.serverType.name);
         StopWatch stopWatch = new StopWatch();
@@ -39,21 +44,23 @@ public class ServerStartup {
 
         GameContext.getBean(BaseServer.class).start();
 
-        internalLoad();
+        // better code ??!!
+        ServerLayer container = null;
+        switch (serverType) {
+            case GAME ->  container = new GameServerLayer();
+            case CENTRE -> container = new CenterServerLayer();
+            case FIGHT -> container = new FightServerLayer();
+        }
+        ApplicationContext applicationContext = GameContext.getApplicationContext();
+        ConfigurableApplicationContext configurableApplicationContext = (ConfigurableApplicationContext) applicationContext;
+        DefaultListableBeanFactory defaultListableBeanFactory = (DefaultListableBeanFactory) configurableApplicationContext.getBeanFactory();
+        defaultListableBeanFactory.registerSingleton("serverLayer", container);
+        container.init();
 
         stopWatch.stop();
         logger.error("[{}]启动成功，耗时[{}]秒", GameContext.serverType.name, stopWatch.getTime() / 1000);
     }
 
-    private static void internalLoad() {
-        VipRight vipRight = new VipRight();
-        vipRight.setLevel(999);
-        vipRight.setExp(123456);
-        vipRight.getRewardedIds().addAll(Set.of(1, 2, 3));
-        PlayerEnt player = GameContext.getPlayerService().getPlayer(10000L);
-        player.setVipRight(vipRight);
-        GameContext.getPlayerService().savePlayer(player);
-    }
 
 }
 

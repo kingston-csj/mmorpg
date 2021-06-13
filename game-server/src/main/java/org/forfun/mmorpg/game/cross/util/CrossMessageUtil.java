@@ -50,8 +50,7 @@ public class CrossMessageUtil {
             LoggerUtils.error("跨服消息[{}]回调超时", message.getClass().getSimpleName());
             CallbackHandler.removeCallback(index);
             callback.getFuture().completeExceptionally(new RpcTimeoutException());
-
-        }, 5000);
+        }, Callback.TIME_OUT);
         callback.setTimeout(timeout);
 
         session.sendPacket(message);

@@ -13,8 +13,4 @@ public class RpcReqHello extends RpcCallbackRequest {
 
     private String content;
 
-    @Override
-    public int targetServerId() {
-        return 0;
-    }
 }

@@ -7,6 +7,8 @@ import org.forfun.mmorpg.game.ServerConfig;
 import org.forfun.mmorpg.game.base.GameContext;
 import org.forfun.mmorpg.game.cross.message.RpcReqServerLogin;
 import org.forfun.mmorpg.game.cross.message.RpcServerNode;
+import org.forfun.mmorpg.game.cross.router.BalanceStrategy;
+import org.forfun.mmorpg.game.cross.router.RobinBalanceStrategy;
 import org.forfun.mmorpg.game.logger.LoggerUtils;
 import org.forfun.mmorpg.net.HostPort;
 import org.forfun.mmorpg.net.client.RpcClientFactory;
@@ -27,10 +29,24 @@ public class RpcClientRouter {
 
     private ConcurrentMap<Integer, RpcServerNode> nodes = Maps.newConcurrentMap();
 
+    private BalanceStrategy fightBalanceStrategy = new RobinBalanceStrategy();
+
     @Autowired
     private CrossConfig crossConfig;
 
     public IdSession getSession(int targetSid) {
+        return servers.get(targetSid);
+    }
+
+    public void checkAndRegisterConnections() {
+        listRpcNodes().forEach(node -> {
+            if (!isSessionCreated(node.getSid())) {
+                createSession(node.getSid());
+            }
+        });
+    }
+
+    private IdSession createSession(int targetSid) {
         if (servers.containsKey(targetSid)) {
             return servers.get(targetSid);
         }
@@ -44,7 +60,7 @@ public class RpcClientRouter {
                 hostPort.setPort(crossConfig.getCenterPort());
                 try {
                     IdSession session = clientFactory.createSession(hostPort);
-                    RpcReqServerLogin reqServerLogin = buildServerLoginReq();
+                    RpcReqServerLogin reqServerLogin = buildServerLoginRequest();
                     session.sendPacket(reqServerLogin);
                 } catch (Exception e) {
                     LoggerUtils.error("", e);
@@ -74,7 +90,7 @@ public class RpcClientRouter {
         nodes.put(serverId, node);
     }
 
-    private RpcReqServerLogin buildServerLoginReq() {
+    private RpcReqServerLogin buildServerLoginRequest() {
         RpcReqServerLogin login = new RpcReqServerLogin();
         ServerConfig serverConfig = GameContext.getServerConfig();
         login.setServerType(GameContext.serverType.type);
@@ -87,6 +103,19 @@ public class RpcClientRouter {
 
     public IdSession getCenterSession() {
         return getSession(crossConfig.getCenterId());
+    }
+
+    /**
+     * choose next stateless fight server based on {@link BalanceStrategy} BalanceStrategy
+     *
+     * @return
+     */
+    public IdSession nextFightSession() {
+        int choose = fightBalanceStrategy.next(servers.keySet().stream().collect(Collectors.toList()));
+        if (choose <= 0) {
+            return null;
+        }
+        return getSession(choose);
     }
 
 }

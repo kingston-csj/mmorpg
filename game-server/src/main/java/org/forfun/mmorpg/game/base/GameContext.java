@@ -23,7 +23,7 @@ import java.util.Map;
 
 @Component
 @Setter(onMethod = @__(@Autowired))
-public class GameContext implements ApplicationContextAware {
+public final class GameContext implements ApplicationContextAware {
 
 	public static ServerType serverType;
 
@@ -116,6 +116,10 @@ public class GameContext implements ApplicationContextAware {
 
 	public final static Map<String, Object> getBeansWithAnnotation(Class<? extends Annotation> annotationType) {
 		return applicationContext.getBeansWithAnnotation(annotationType);
+	}
+
+	public static ApplicationContext getApplicationContext() {
+		return applicationContext;
 	}
 
 }

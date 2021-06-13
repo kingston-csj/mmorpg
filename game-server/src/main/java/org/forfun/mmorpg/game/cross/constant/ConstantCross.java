@@ -14,4 +14,7 @@ public interface ConstantCross {
 
     int CMD_HEART_BEAT = 6;
 
+    String RPC_SOURCE_SERVER = "RPC_SOURCE_SERVER";
+
+
 }

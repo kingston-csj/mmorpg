@@ -13,8 +13,4 @@ public class RpcRespHello extends RpcCallbackResponse {
 
     private String content;
 
-    @Override
-    public int targetServerId() {
-        return 0;
-    }
 }

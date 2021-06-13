@@ -22,8 +22,4 @@ public class RpcReqServerLogin implements RpcMessage {
      */
     private String sign;
 
-    @Override
-    public int targetServerId() {
-        return targetSid;
-    }
 }

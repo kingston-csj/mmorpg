@@ -7,10 +7,4 @@ import org.forfun.mmorpg.protocol.Message;
  */
 public interface RpcMessage extends Message {
 
-    /**
-     * rpc remote serverId
-     * @return
-     */
-    int targetServerId();
-
 }

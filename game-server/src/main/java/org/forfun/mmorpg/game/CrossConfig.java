@@ -12,13 +12,13 @@ import org.springframework.stereotype.Component;
 @DependsOn("serverConfigFactory")
 public class CrossConfig {
 
-	@Value("${center.id}")
+	@Value("${rpc.center.id}")
 	private int centerId;
 
-	@Value("${center.ip}")
+	@Value("${rpc.center.ip}")
 	private String centerIp;
 
-	@Value("${center.port}")
+	@Value("${rpc.center.port}")
 	private int centerPort;
 
 	@Value("${rpc.signKey}")

@@ -5,6 +5,7 @@ import org.forfun.mmorpg.game.CrossConfig;
 import org.forfun.mmorpg.game.Modules;
 import org.forfun.mmorpg.game.ServerType;
 import org.forfun.mmorpg.game.base.GameContext;
+import org.forfun.mmorpg.game.cross.constant.ConstantCross;
 import org.forfun.mmorpg.game.cross.event.RpcConnectedEvent;
 import org.forfun.mmorpg.game.cross.message.RpcReqHello;
 import org.forfun.mmorpg.game.cross.message.RpcReqServerLogin;
@@ -51,11 +52,7 @@ public class RpcBaseFacade {
      */
     @Scheduled(cron = "0/30 * * * * ? ")
     public void tickCheck() {
-        clientRouter.listRpcNodes().forEach(node -> {
-            if (!clientRouter.isSessionCreated(node.getSid())) {
-                clientRouter.getSession(node.getSid());
-            }
-        });
+        clientRouter.checkAndRegisterConnections();
     }
 
 
@@ -80,6 +77,7 @@ public class RpcBaseFacade {
         }
 
         clientRouter.registerSession(request.getFromSid(), session);
+        session.setAttribute(ConstantCross.RPC_SOURCE_SERVER, request.getFromSid());
         RpcRespServerLogin resp = new RpcRespServerLogin();
         resp.setRemoteSid(GameContext.getServerConfig().getServerId());
         session.sendPacket(resp);
