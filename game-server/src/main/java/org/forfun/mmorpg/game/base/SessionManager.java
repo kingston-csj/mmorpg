@@ -80,7 +80,7 @@ public class SessionManager {
 	/**
 	 * 注销用户通信渠道
 	 */
-	public void ungisterPlayerChannel(Channel context) {
+	public void unRegisterPlayerChannel(Channel context) {
 		if (context == null) {
 			return;
 		}

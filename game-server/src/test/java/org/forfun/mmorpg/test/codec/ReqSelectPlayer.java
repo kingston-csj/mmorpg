@@ -1,6 +1,6 @@
 package org.forfun.mmorpg.test.codec;
 
-import org.forfun.mmorpg.net.message.Message;
+import org.forfun.mmorpg.protocol.Message;
 import org.forfun.mmorpg.protocol.annotation.MessageMeta;
 
 import java.util.Arrays;

@@ -45,7 +45,7 @@ public class IoEventHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        GameContext.getSessionManager().ungisterPlayerChannel(ctx.channel());
+        GameContext.getSessionManager().unRegisterPlayerChannel(ctx.channel());
         IdSession session = ChannelUtils.getSessionBy(ctx.channel());
         GameContext.getMessageDispatcher().onSessionClosed(session);
     }

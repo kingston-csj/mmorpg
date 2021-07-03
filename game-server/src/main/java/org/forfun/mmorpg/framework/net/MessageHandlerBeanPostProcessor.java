@@ -61,6 +61,7 @@ public class MessageHandlerBeanPostProcessor implements BeanPostProcessor, Appli
 
     /**
      * 参数属于{@link Message}则代表是客户端请求映射方法
+     *
      * @param method
      * @return
      */
@@ -93,9 +94,9 @@ public class MessageHandlerBeanPostProcessor implements BeanPostProcessor, Appli
     }
 
     private short buildKey(short module, byte cmd) {
-        short key = (short)(Math.abs(module) * 100 + cmd);
+        short key = (short) (Math.abs(module) * 100 + cmd);
         if (module < 0) {
-            key = (short) (0 - key);
+            key = (short) (-key);
         }
         return key;
     }

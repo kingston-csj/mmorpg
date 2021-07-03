@@ -14,6 +14,10 @@ public interface ConstantCross {
 
     int CMD_HEART_BEAT = 6;
 
+    int CMD_G2C_FETCH_FIGHT_SERVER_NODES = 7;
+
+    int CMD_C2G_FETCH_FIGHT_SERVER_NODES = 8;
+
     String RPC_SOURCE_SERVER = "RPC_SOURCE_SERVER";
 
 

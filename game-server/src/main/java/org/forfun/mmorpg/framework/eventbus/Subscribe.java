@@ -7,8 +7,6 @@ import java.lang.annotation.Target;
 
 /**
  * 事件订阅
- * 
- *
  *
  */
 @Retention(RetentionPolicy.RUNTIME)

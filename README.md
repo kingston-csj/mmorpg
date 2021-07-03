@@ -8,16 +8,7 @@ mmorpg，是一个用java编写的分布式高性能mmorpg手游服务端框架�
 * 分布式部署，无状态战斗服支持横向拓展
 * 框架提供多种组件，可以直接二次开发业务逻辑  
 * 提供热更机制以及jmx接口，方便对生产项目进行监控与维护    
-* 尽可能使用springboot组件进行搭建    
-
-
-
-## 使用spring/springboot的组件 
-名称 | 用途 
-----|------
-spring cache | 数据缓存 
-SpringDataJpa | 多数据源orm工具  
-springmvc | 管理后台接口
+* 尽可能使用spring/springboot组件进行搭建    
 
 
 ## ToDoList  

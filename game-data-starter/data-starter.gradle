@@ -14,7 +14,7 @@ dependencies {
     compile 'org.apache.poi:poi:3.17'
     compile 'org.apache.poi:poi-ooxml:3.17'
 
-    compileOnly('org.springframework.boot:spring-boot-starter:2.4.0')
+    compileOnly('org.springframework.boot:spring-boot-starter:2.4.1')
     testCompile ('org.springframework.boot:spring-boot-starter-test:2.4.0')
 
 }

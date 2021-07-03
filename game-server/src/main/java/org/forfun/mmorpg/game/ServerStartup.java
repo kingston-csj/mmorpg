@@ -17,6 +17,9 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import java.util.Collections;
+import java.util.Properties;
+
 /**
  * 游戏主服务器入口
  */
@@ -29,8 +32,8 @@ public class ServerStartup {
     private static Logger logger = LoggerFactory.getLogger(ServerStartup.class);
 
     public static void main(String[] args) throws Exception {
-        String type = (String) PropertiesLoaderUtils.loadProperties(new FileSystemResource("config/common.properties")).get("server.type");
-        ServerType serverType = ServerType.of(NumberUtil.intValue(type));
+        Properties commonProperty = PropertiesLoaderUtils.loadProperties(new FileSystemResource("config/common.properties"));
+        ServerType serverType = ServerType.of(NumberUtil.intValue(commonProperty.get("server.type")));
 
         GameContext.serverType = serverType;
 
@@ -40,6 +43,8 @@ public class ServerStartup {
 
         SpringApplication app = new SpringApplication(ServerStartup.class);
         app.setBannerMode(Banner.Mode.OFF);
+        app.setDefaultProperties(Collections
+                .singletonMap("server.port", NumberUtil.intValue(commonProperty.get("server.port")) + serverType.type));
         app.run(args);
 
         GameContext.getBean(BaseServer.class).start();
@@ -47,7 +52,7 @@ public class ServerStartup {
         // better code ??!!
         ServerLayer container = null;
         switch (serverType) {
-            case GAME ->  container = new GameServerLayer();
+            case GAME -> container = new GameServerLayer();
             case CENTRE -> container = new CenterServerLayer();
             case FIGHT -> container = new FightServerLayer();
         }

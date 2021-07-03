@@ -8,7 +8,7 @@ import org.forfun.mmorpg.game.base.GameContext;
 import org.forfun.mmorpg.game.cross.message.RpcReqServerLogin;
 import org.forfun.mmorpg.game.cross.message.RpcServerNode;
 import org.forfun.mmorpg.game.cross.router.BalanceStrategy;
-import org.forfun.mmorpg.game.cross.router.RobinBalanceStrategy;
+import org.forfun.mmorpg.game.cross.router.RoundBalanceStrategy;
 import org.forfun.mmorpg.game.logger.LoggerUtils;
 import org.forfun.mmorpg.net.HostPort;
 import org.forfun.mmorpg.net.client.RpcClientFactory;
@@ -29,7 +29,7 @@ public class RpcClientRouter {
 
     private ConcurrentMap<Integer, RpcServerNode> nodes = Maps.newConcurrentMap();
 
-    private BalanceStrategy fightBalanceStrategy = new RobinBalanceStrategy();
+    private BalanceStrategy fightBalanceStrategy = new RoundBalanceStrategy();
 
     @Autowired
     private CrossConfig crossConfig;
@@ -82,12 +82,17 @@ public class RpcClientRouter {
         return nodes.values().stream().collect(Collectors.toList());
     }
 
+    public List<RpcServerNode> listRpcNodes(int serverType) {
+        return nodes.entrySet().stream().filter(e -> e.getValue().getType() == serverType)
+                .map(e -> e.getValue()).collect(Collectors.toList());
+    }
+
     public void registerSession(int targetSid, IdSession session) {
         servers.put(targetSid, session);
     }
 
-    public void registerRpcNode(int serverId, RpcServerNode node) {
-        nodes.put(serverId, node);
+    public void registerRpcNode(RpcServerNode node) {
+        nodes.put(node.getSid(), node);
     }
 
     private RpcReqServerLogin buildServerLoginRequest() {

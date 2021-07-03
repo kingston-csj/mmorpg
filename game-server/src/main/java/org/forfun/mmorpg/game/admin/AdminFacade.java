@@ -9,10 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/admin")
 public class AdminFacade {
 
-    public AdminFacade() {
-        System.out.println();
-    }
-
     @RequestMapping("/shutDown")
     public SimplyReply shutDown() {
         LoggerSystem.HTTP_COMMAND.getLogger().info("收到后台命令，准备停服");
@@ -24,5 +20,6 @@ public class AdminFacade {
 
         return SimplyReply.valueOfSucc("发出关服信号，5s后开始执行!");
     }
+
 
 }

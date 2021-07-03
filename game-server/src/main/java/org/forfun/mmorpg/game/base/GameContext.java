@@ -7,6 +7,7 @@ import org.forfun.mmorpg.game.ServerType;
 import org.forfun.mmorpg.game.account.AccountService;
 import org.forfun.mmorpg.game.asyncdb.AsyncDbService;
 import org.forfun.mmorpg.game.buff.service.BuffService;
+import org.forfun.mmorpg.game.cross.service.RpcClientRouter;
 import org.forfun.mmorpg.game.player.service.PlayerService;
 import org.forfun.mmorpg.game.script.ScriptService;
 import org.forfun.mmorpg.protocol.codec.SerializerFactory;
@@ -100,6 +101,12 @@ public final class GameContext implements ApplicationContextAware {
 
 	public static ScriptService getScriptService() {
 		return self.scriptService;
+	}
+
+	private RpcClientRouter rpcClientRouter;
+
+	public static RpcClientRouter getRpcClientRouter() {
+		return self.rpcClientRouter;
 	}
 
 	public final static <T> T getBean(Class<T> clazz) {

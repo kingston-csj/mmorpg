@@ -5,7 +5,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class RobinBalanceStrategy implements BalanceStrategy {
+public class RoundBalanceStrategy implements BalanceStrategy {
 
     private AtomicInteger counter = new AtomicInteger();
 
