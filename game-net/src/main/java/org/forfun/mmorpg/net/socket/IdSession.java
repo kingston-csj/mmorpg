@@ -6,7 +6,7 @@ import org.forfun.mmorpg.net.socket.netty.NettySession;
 import org.forfun.mmorpg.protocol.Message;
 
 /**
- * 玩家登录session，不与任何nio框架绑定
+ * 点对点登录session，不与任何nio框架绑定
  *
  * @see org.forfun.mmorpg.net.socket.mina.MinaSession
  * @see NettySession
@@ -28,7 +28,6 @@ public interface IdSession {
      */
     void sendPacket(byte[] packet);
 
-    long getOwnerId();
 
     /**
      * 更新属性值

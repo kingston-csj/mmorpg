@@ -95,11 +95,6 @@ public class NettySession implements IdSession {
     }
 
     @Override
-    public long getOwnerId() {
-        return 0;
-    }
-
-    @Override
     public Object setAttribute(String key, Object value) {
         return this.attrs.put(key, value);
     }
@@ -137,9 +132,9 @@ public class NettySession implements IdSession {
             }
             if (channel.isOpen()) {
                 channel.close();
-                logger.info("close session[{}], reason is {}", getOwnerId(), reason);
+                logger.info("close session[{}], reason is {}", this, reason);
             } else {
-                logger.info("session[{}] already close, reason is {}", getOwnerId(), reason);
+                logger.info("session[{}] already close, reason is {}", this, reason);
             }
         } catch (Exception e) {
             logger.error("", e);

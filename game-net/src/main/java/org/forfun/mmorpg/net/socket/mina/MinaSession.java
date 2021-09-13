@@ -40,11 +40,6 @@ public class MinaSession implements IdSession {
     }
 
     @Override
-    public long getOwnerId() {
-        return 0L;
-    }
-
-    @Override
     public Object getAttribute(String key) {
         return attrs.get(key);
     }
@@ -85,9 +80,9 @@ public class MinaSession implements IdSession {
             }
             if (session.isConnected()) {
                 session.close();
-                logger.info("close session[{}], reason is {}", getOwnerId(), reason);
+                logger.info("close session[{}], reason is {}", this, reason);
             } else {
-                logger.info("session[{}] already close, reason is {}", getOwnerId(), reason);
+                logger.info("session[{}] already close, reason is {}", this, reason);
             }
         } catch (Exception e) {
             logger.error("", e);
