@@ -16,9 +16,9 @@ public abstract class Codec {
 
 	private final static MessageCodec messageSerializer = new MessageCodec();
 
-	public static Map<Integer, ArrayCodec.SerializerMeta> idMetas = new HashMap<>();
+	public static Map<Integer, SerializerMeta> idMetas = new HashMap<>();
 
-	public static Map<Class<?>, ArrayCodec.SerializerMeta> classMetas = new HashMap<>();
+	public static Map<Class<?>, SerializerMeta> classMetas = new HashMap<>();
 
 	private static int nextId = -1;
 
@@ -59,7 +59,7 @@ public abstract class Codec {
 		return getSerializerMeta(clazz).getCodec();
 	}
 
-	public static ArrayCodec.SerializerMeta getSerializerMeta(Class<?> clazz) {
+	public static SerializerMeta getSerializerMeta(Class<?> clazz) {
 		if (classMetas.containsKey(clazz)) {
 			return classMetas.get(clazz);
 		}
@@ -70,8 +70,8 @@ public abstract class Codec {
 		return registerClassAndId(id, clazz, messageSerializer);
 	}
 
-	public static ArrayCodec.SerializerMeta registerClassAndId(int id, Class<?> clazz, Codec codec) {
-		ArrayCodec.SerializerMeta meta = new ArrayCodec.SerializerMeta(codec, clazz, id);
+	public static SerializerMeta registerClassAndId(int id, Class<?> clazz, Codec codec) {
+		SerializerMeta meta = new SerializerMeta(codec, clazz, id);
 		idMetas.put(id, meta);
 		classMetas.put(clazz, meta);
 		codec.onRegister(clazz);

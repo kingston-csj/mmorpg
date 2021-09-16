@@ -13,7 +13,7 @@ public class CollectionCodec extends Codec {
 
     @Override
     public Object decode(ByteBuffer in, Class<?> type, Class<?> wrapper) {
-        int size = ArrayCodec.ByteBuffUtil.readShort(in);
+        int size = ByteBuffUtil.readShort(in);
         int modifier = type.getModifiers();
         Collection<Object> result = null;
 
@@ -43,12 +43,12 @@ public class CollectionCodec extends Codec {
     @Override
     public void encode(ByteBuffer out, Object value, Class<?> wrapper) {
         if (value == null) {
-            ArrayCodec.ByteBuffUtil.writeShort(out, (short) 0);
+            ByteBuffUtil.writeShort(out, (short) 0);
             return;
         }
         Collection<Object> collection = (Collection) value;
         int size = collection.size();
-        ArrayCodec.ByteBuffUtil.writeShort(out, (short) size);
+        ByteBuffUtil.writeShort(out, (short) size);
 
         for (Object elem : collection) {
             Class<?> clazz = elem.getClass();

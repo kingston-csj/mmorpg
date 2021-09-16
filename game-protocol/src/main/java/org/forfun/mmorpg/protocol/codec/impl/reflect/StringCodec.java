@@ -6,12 +6,12 @@ public class StringCodec extends Codec {
 
 	@Override
 	public String decode(ByteBuffer in, Class<?> type, Class<?> wrapper) {
-		return ArrayCodec.ByteBuffUtil.readUtf8(in);
+		return ByteBuffUtil.readUtf8(in);
 	}
 
 	@Override
 	public void encode(ByteBuffer out, Object value, Class<?> wrapper) {
-		ArrayCodec.ByteBuffUtil.writeUtf8(out, (String)value);
+		ByteBuffUtil.writeUtf8(out, (String)value);
 	}
 
 }

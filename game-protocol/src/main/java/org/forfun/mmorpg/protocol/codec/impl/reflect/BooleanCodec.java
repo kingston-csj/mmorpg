@@ -6,12 +6,12 @@ public class BooleanCodec extends Codec {
 
 	@Override
 	public Boolean decode(ByteBuffer in, Class<?> type, Class<?> wrapper) {
-		return ArrayCodec.ByteBuffUtil.readBoolean(in);
+		return ByteBuffUtil.readBoolean(in);
 	}
 
 	@Override
 	public void encode(ByteBuffer out, Object value, Class<?> wrapper) {
-		ArrayCodec.ByteBuffUtil.writeBoolean(out, (boolean)value);
+		ByteBuffUtil.writeBoolean(out, (boolean)value);
 	}
 
 }
