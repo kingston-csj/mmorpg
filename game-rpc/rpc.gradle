@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+}
+
+group 'org.forfun.mmorpg'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+
+    compile(project(":game-common"))
+    compile(project(":game-protocol"))
+
+    compile('org.springframework.boot:spring-boot-starter:2.4.1')
+    compile 'org.apache.rocketmq:rocketmq-spring-boot-starter:2.2.0'
+
+    compile 'io.protostuff:protostuff-core'
+    compile 'io.protostuff:protostuff-runtime'
+}
+
+test {
+    useJUnitPlatform()
+}
