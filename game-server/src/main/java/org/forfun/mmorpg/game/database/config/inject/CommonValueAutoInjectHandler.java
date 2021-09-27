@@ -9,7 +9,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.PostConstruct;
 import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Component
@@ -22,23 +25,43 @@ public class CommonValueAutoInjectHandler {
     @Qualifier("gameConversion")
     private ConversionService conversionService;
 
+    private Map<Class<?>, ConfigValueParser> parserTable = new HashMap<>();
+
+    @PostConstruct
+    private void init() {
+        parserTable.put(NullInject.class, new NullInject());
+        parserTable.put(IntArrayConfigValueParser.class, new IntArrayConfigValueParser());
+    }
+
     public Object postBeanAfterInject(Object bean) {
         if (needInject(bean)) {
             Field[] fields = bean.getClass().getDeclaredFields();
             for (Field field : fields) {
                 CommonValueInject annotation = field.getAnnotation(CommonValueInject.class);
                 if (annotation != null) {
+                    ReflectionUtils.makeAccessible(field);
+
                     String dbName = StringUtils.isEmpty(annotation.alias()) ? field.getName() : annotation.alias();
                     ConfigCommonValue commonValue = container.queryOne(dbName);
                     if (commonValue == null) {
                         new IllegalStateException(bean.getClass().getSimpleName() + " commonValue为空,key =" + field.getName());
                     }
-                    Object fileValue = conversionService.convert(commonValue.getValue(), field.getType());
-                    ReflectionUtils.makeAccessible(field);
-                    try {
-                        field.set(bean, fileValue);
-                    } catch (IllegalAccessException ignore) {
-                        //
+                    Object property = commonValue.getValue();
+                    if (annotation.parser() != NullInject.class) {
+                        ConfigValueParser parser = parserTable.get(annotation.parser());
+                        property = parser.convert((String) property);
+                        try {
+                            field.set(bean, property);
+                        } catch (IllegalAccessException ignore) {
+                            //
+                        }
+                    } else {
+                        Object fileValue = conversionService.convert(commonValue.getValue(), field.getType());
+                        try {
+                            field.set(bean, fileValue);
+                        } catch (IllegalAccessException ignore) {
+                            //
+                        }
                     }
                 }
             }

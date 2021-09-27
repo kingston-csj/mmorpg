@@ -12,4 +12,6 @@ public @interface CommonValueInject {
      * @return
      */
     String alias() default "";
+
+    Class<? extends ConfigValueParser> parser() default NullInject.class;
 }
