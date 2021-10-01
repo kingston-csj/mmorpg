@@ -16,7 +16,7 @@ import java.net.InetSocketAddress;
 
 public class RpcClient {
 
-    private EventLoopGroup group = new NioEventLoopGroup(4);
+    private static EventLoopGroup group = new NioEventLoopGroup(2);
 
     private RpcClientOptions clientOptions;
 
@@ -51,8 +51,4 @@ public class RpcClient {
         return clientOptions;
     }
 
-    public static void main(String[] args) throws Exception {
-
-
-    }
 }

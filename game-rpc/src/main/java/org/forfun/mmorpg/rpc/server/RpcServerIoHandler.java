@@ -15,6 +15,12 @@ public class RpcServerIoHandler extends ChannelInboundHandlerAdapter {
 
     private final static Logger logger = LoggerFactory.getLogger(RpcServerIoHandler.class);
 
+    RpcServiceRegistry rpcRegistry;
+
+    public RpcServerIoHandler(RpcServiceRegistry rpcRegistry) {
+        this.rpcRegistry = rpcRegistry;
+    }
+
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
     }
@@ -25,7 +31,7 @@ public class RpcServerIoHandler extends ChannelInboundHandlerAdapter {
         logger.info("receive pact, content is {}", packet.getClass().getSimpleName());
 
         final Channel channel = context.channel();
-        RpcServerContext.getBean(RpcServiceRegistry.class).dispatch(channel, (RpcDataPackage) msg);
+        rpcRegistry.dispatch(channel, (RpcDataPackage) msg);
     }
 
     @Override

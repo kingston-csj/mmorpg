@@ -6,6 +6,8 @@ public class RpcResponseData {
 
     private Object response;
 
+    private String errorText;
+
     public long getIndex() {
         return index;
     }
@@ -20,5 +22,13 @@ public class RpcResponseData {
 
     public void setResponse(Object response) {
         this.response = response;
+    }
+
+    public String getErrorText() {
+        return errorText;
+    }
+
+    public void setErrorText(String errorText) {
+        this.errorText = errorText;
     }
 }

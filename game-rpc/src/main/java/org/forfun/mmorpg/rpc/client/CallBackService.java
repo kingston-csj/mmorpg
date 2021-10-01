@@ -1,6 +1,7 @@
 package org.forfun.mmorpg.rpc.client;
 
 import org.forfun.mmorpg.common.util.thread.NamedThreadFactory;
+import org.forfun.mmorpg.rpc.data.RpcResponseData;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -83,17 +84,18 @@ public class CallBackService {
         }
     }
 
-    public void fillCallBack(long index, Object message) {
+    public void fillCallBack(long index, RpcResponseData message) {
         RequestResponseFuture future = remove(index);
         if (future == null) {
             return;
         }
-        RequestCallback callback = future.getRequestCallback();
-        if (callback != null) {
-            callback.onSuccess(message);
-        }
         if (future != null) {
-            future.putResponseMessage(message);
+            String errorText = message.getErrorText();
+            if (errorText != null && errorText.length() > 0) {
+                Throwable t = new RuntimeException(errorText);
+                future.setCause(t);
+            }
+            future.putResponseMessage(message.getResponse());
         }
     }
 

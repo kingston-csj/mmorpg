@@ -28,7 +28,7 @@ public class RpcClientIoHandler extends ChannelInboundHandlerAdapter {
         final Channel channel = context.channel();
 
         RpcResponseData responseData = ProtostuffCodecUtil.deserializer(packet.getData(), RpcResponseData.class);
-        CallBackService.getInstance().fillCallBack(responseData.getIndex(), responseData.getResponse());
+        CallBackService.getInstance().fillCallBack(responseData.getIndex(), responseData);
     }
 
     @Override

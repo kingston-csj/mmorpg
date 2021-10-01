@@ -23,6 +23,7 @@ public class RpcClientProxy<T> implements InvocationHandler {
     private Class<T> instanceClazz;
 
     public RpcClientProxy(RpcClient rpcClient, Class<T> clazz) throws Exception {
+        this.rpcClient = rpcClient;
         this.session= rpcClient.createSession();
         this.instanceClazz = clazz;
     }
@@ -34,27 +35,27 @@ public class RpcClientProxy<T> implements InvocationHandler {
         String serviceSignature = ServiceSignatureUtil.makeSignature(serviceName, methodName);
 
         long index = idFactory.getAndIncrement();
-
         RpcRequestData request = new RpcRequestData();
         request.setIndex(index);
         request.setServiceName(serviceSignature);
         request.setExtraParams(args);
-
         RpcDataPackage rpcData = RpcDataPackage.newRequest(request);
 
-        int timeout = 5000;
-
-        final RequestResponseFuture future = new RequestResponseFuture(index,  timeout,null);
+        long timeout = rpcClient.getClientOptions().getTimeout();
+        final RequestResponseFuture future = new RequestResponseFuture(index,  timeout);
         try {
             CallBackService.getInstance().register(index, future);
             session.writeAndFlush(rpcData);
-            Object responseMessage = future.waitResponseMessage(timeout);
+            RequestResponseFuture responseMessage = future.waitResponseMessage(timeout);
             if (responseMessage == null) {
                 CallTimeoutException exception = new CallTimeoutException("send request message  failed");
                 future.setCause(exception);
                 throw exception;
             } else {
-                return responseMessage;
+                if (responseMessage.getCause() != null) {
+                    throw responseMessage.getCause();
+                }
+                return responseMessage.getResponseMsg();
             }
         } catch (InterruptedException e) {
             future.setCause(e);

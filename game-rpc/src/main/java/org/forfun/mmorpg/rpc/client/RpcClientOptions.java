@@ -6,6 +6,8 @@ public class RpcClientOptions {
 
     private int port;
 
+    private long timeout = 5000;
+
     public String getIpAddr() {
         return ipAddr;
     }
@@ -20,5 +22,13 @@ public class RpcClientOptions {
 
     public void setPort(int port) {
         this.port = port;
+    }
+
+    public long getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(long timeout) {
+        this.timeout = timeout;
     }
 }

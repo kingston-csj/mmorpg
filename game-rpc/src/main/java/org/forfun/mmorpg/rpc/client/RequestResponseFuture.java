@@ -7,32 +7,24 @@ import java.util.concurrent.TimeUnit;
 public class RequestResponseFuture {
 
     private final long correlationId;
-    private final RequestCallback requestCallback;
     private final long beginTimestamp = System.currentTimeMillis();
     private CountDownLatch countDownLatch = new CountDownLatch(1);
     private volatile Object responseMsg = null;
     private volatile Throwable cause = null;
     private long timeoutMillis;
 
-    public RequestResponseFuture(long correlationId, long timeOut, RequestCallback requestCallback) {
+    public RequestResponseFuture(long correlationId, long timeOut) {
         this.correlationId = correlationId;
-        this.requestCallback = requestCallback;
         this.timeoutMillis = timeOut;
     }
 
     public void executeRequestCallback() {
-        if (this.requestCallback != null) {
-            if (this.cause == null) {
-                this.requestCallback.onSuccess(this.responseMsg);
-            } else {
-                this.requestCallback.onError(this.cause);
-            }
-        }
+        this.cause = new CallTimeoutException(correlationId + " timeout");
     }
 
-    public Object waitResponseMessage(long timeout) throws InterruptedException {
+    public RequestResponseFuture waitResponseMessage(long timeout) throws InterruptedException {
         this.countDownLatch.await(timeout, TimeUnit.MILLISECONDS);
-        return this.responseMsg;
+        return this;
     }
 
     public void putResponseMessage(Object responseMsg) {
@@ -44,20 +36,8 @@ public class RequestResponseFuture {
         return this.correlationId;
     }
 
-    public RequestCallback getRequestCallback() {
-        return this.requestCallback;
-    }
-
     public long getBeginTimestamp() {
         return this.beginTimestamp;
-    }
-
-    public CountDownLatch getCountDownLatch() {
-        return this.countDownLatch;
-    }
-
-    public void setCountDownLatch(CountDownLatch countDownLatch) {
-        this.countDownLatch = countDownLatch;
     }
 
     public Object getResponseMsg() {

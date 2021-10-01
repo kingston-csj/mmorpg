@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
 
-public class RpcServer  {
+public class RpcServer {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -26,10 +26,13 @@ public class RpcServer  {
     private EventLoopGroup bossGroup = useEpoll() ? new EpollEventLoopGroup(1) : new NioEventLoopGroup(1);
     private EventLoopGroup workerGroup = useEpoll() ? new EpollEventLoopGroup(CORE_SIZE) : new NioEventLoopGroup(CORE_SIZE);
 
+    private RpcServiceRegistry rpcRegistry;
+
     private RpcServerOptions rpcOptions;
 
-    public  RpcServer(RpcServerOptions serverOptions) {
+    public RpcServer(RpcServerOptions serverOptions, RpcServiceRegistry rpcRegistry) {
         this.rpcOptions = serverOptions;
+        this.rpcRegistry = rpcRegistry;
     }
 
 
@@ -44,7 +47,7 @@ public class RpcServer  {
             b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class).option(ChannelOption.SO_BACKLOG, 1024)
                     .childHandler(new ChildChannelHandler());
             System.out.println("rpc服务已启动，正在监听用户的请求@port:" + rpcOptions.getPort() + "......");
-                b.bind(new InetSocketAddress(rpcOptions.getPort())).sync();
+            b.bind(new InetSocketAddress(rpcOptions.getPort())).sync();
         } catch (Exception e) {
             logger.error("", e);
             bossGroup.shutdownGracefully();
@@ -69,7 +72,7 @@ public class RpcServer  {
             ChannelPipeline pipeline = arg0.pipeline();
             pipeline.addLast(new MessageEncoder());
             pipeline.addLast(new MessageDecoder());
-            pipeline.addLast(new RpcServerIoHandler());
+            pipeline.addLast(new RpcServerIoHandler(rpcRegistry));
         }
     }
 
