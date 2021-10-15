@@ -19,7 +19,7 @@ public class CrossMessageUtil {
 
     private static AtomicInteger idFactory = new AtomicInteger(1);
 
-    public static void sendToCenter(Message message) {
+    public static void requestToCenter(Message message) {
         RpcClientRouter clientRouter = GameContext.getBean(RpcClientRouter.class);
         IdSession session = clientRouter.getCenterSession();
         if (session == null) {
@@ -30,7 +30,7 @@ public class CrossMessageUtil {
     }
 
 
-    public static CompletableFuture<RpcCallbackResponse> sendToCenter(RpcCallbackRequest message) {
+    public static CompletableFuture<RpcCallbackResponse> requestToCenter(RpcCallbackRequest message) {
         RpcClientRouter clientRouter = GameContext.getBean(RpcClientRouter.class);
         IdSession session = clientRouter.getCenterSession();
         if (session == null) {
@@ -41,7 +41,6 @@ public class CrossMessageUtil {
         message.setCallbackId(index);
 
         CompletableFuture future = new CompletableFuture();
-
         Callback callback = new Callback();
         callback.setFuture(future);
         CallbackHandler.registerCallback(index, callback);

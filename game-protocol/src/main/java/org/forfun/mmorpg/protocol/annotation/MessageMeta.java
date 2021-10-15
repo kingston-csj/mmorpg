@@ -12,7 +12,6 @@ import java.lang.annotation.Target;
 /**
  * The annotation type is used in {@link Message} to
  * specify module and cmd of the given message.
- * 
  *
  */
 @Documented

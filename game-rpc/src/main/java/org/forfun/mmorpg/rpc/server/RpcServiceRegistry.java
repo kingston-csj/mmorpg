@@ -66,9 +66,11 @@ public class RpcServiceRegistry {
         try {
             Object response = handler.getMethod().invoke(handler.getService(), requestData.getExtraParams());
             responseData.setResponse(response);
-            channel.writeAndFlush(RpcDataPackage.newResponse(responseData));
         } catch (Exception e) {
+            responseData.setErrorText(e.getMessage());
             e.printStackTrace();
+        } finally {
+            channel.writeAndFlush(RpcDataPackage.newResponse(responseData));
         }
     }
 

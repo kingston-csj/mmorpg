@@ -11,7 +11,7 @@ public class HelloService {
         RpcReqHello req = new RpcReqHello();
         req.setContent("hello, game");
 
-        CrossMessageUtil.sendToCenter(req).thenAccept(m -> {
+        CrossMessageUtil.requestToCenter(req).thenAccept(m -> {
             System.out.println(m);
         });
     }

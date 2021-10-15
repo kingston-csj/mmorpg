@@ -3,6 +3,7 @@ package org.forfun.mmorpg.game.cross.facade;
 import org.forfun.mmorpg.framework.eventbus.EventBus;
 import org.forfun.mmorpg.game.CrossConfig;
 import org.forfun.mmorpg.game.Modules;
+import org.forfun.mmorpg.game.ServerLayer;
 import org.forfun.mmorpg.game.ServerType;
 import org.forfun.mmorpg.game.base.GameContext;
 import org.forfun.mmorpg.game.cross.constant.ConstantCross;
@@ -12,6 +13,8 @@ import org.forfun.mmorpg.game.cross.message.RpcReqServerLogin;
 import org.forfun.mmorpg.game.cross.message.RpcRespHello;
 import org.forfun.mmorpg.game.cross.message.RpcRespServerLogin;
 import org.forfun.mmorpg.game.cross.message.RpcServerNode;
+import org.forfun.mmorpg.game.cross.message.Rpc_C2G_FetchFightServerNodes;
+import org.forfun.mmorpg.game.cross.message.Rpc_G2C_FetchFightServerNodes;
 import org.forfun.mmorpg.game.cross.service.HelloService;
 import org.forfun.mmorpg.game.cross.service.RpcClientRouter;
 import org.forfun.mmorpg.game.logger.LoggerUtils;
@@ -23,6 +26,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 
 @Controller
 @ModuleMeta(module = Modules.CROSS)
@@ -43,7 +47,7 @@ public class RpcBaseFacade {
             node.setIp(crossConfig.getCenterIp());
             node.setPort(crossConfig.getCenterPort());
             node.setType(ServerType.CENTRE.type);
-            clientRouter.registerRpcNode(centerId, node);
+            clientRouter.registerRpcNode(node);
         }
     }
 
@@ -51,8 +55,21 @@ public class RpcBaseFacade {
      * check rpc connection per period
      */
     @Scheduled(cron = "0/30 * * * * ? ")
-    public void tickCheck() {
+    public void checkConnection() {
         clientRouter.checkAndRegisterConnections();
+    }
+
+    /**
+     * check rpc connection per period
+     */
+    @Scheduled(cron = "0/59 * * * * ? ")
+    public void checkDirectory() {
+        if (GameContext.serverType == ServerType.GAME) {
+            IdSession centerSession = GameContext.getBean(RpcClientRouter.class).getCenterSession();
+            if (centerSession != null) {
+                centerSession.sendPacket(new Rpc_G2C_FetchFightServerNodes());
+            }
+        }
     }
 
 
@@ -92,6 +109,33 @@ public class RpcBaseFacade {
         clientRouter.registerSession(response.getRemoteSid(), session);
         GameContext.getBean(HelloService.class).sayHello();
         EventBus.getInstance().asyncPost(RpcConnectedEvent.valueOf(response.getRemoteSid(), response.getServerType()));
+
+        GameContext.getBean(ServerLayer.class).onCenterServerConnected();
+    }
+
+
+    /**
+     * 游戏服 -> 中心服
+     * 请求战斗服列表
+     * @param session
+     * @param request
+     */
+    public void reqLoginServer(IdSession session, Rpc_G2C_FetchFightServerNodes request) {
+        List<RpcServerNode> fightNodes = clientRouter.listRpcNodes(ServerType.FIGHT.type);
+        Rpc_C2G_FetchFightServerNodes response = new Rpc_C2G_FetchFightServerNodes();
+        response.setFightNodes(fightNodes);
+        session.sendPacket(response);
+    }
+
+    /**
+     * 中心服 -> 游戏服
+     * 推送全量战斗服列表
+     * @param session
+     * @param response
+     */
+    public void respLoginServer(IdSession session, Rpc_C2G_FetchFightServerNodes response) {
+        List<RpcServerNode> fightNodes = response.getFightNodes();
+        fightNodes.forEach(clientRouter::registerRpcNode);
     }
 
 }

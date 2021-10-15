@@ -2,6 +2,7 @@ package org.forfun.mmorpg.game.database.user.entity;
 
 import org.forfun.mmorpg.game.asyncdb.DelayPersistence;
 import org.forfun.mmorpg.game.base.GameContext;
+import org.forfun.mmorpg.game.battle.model.BattleContext;
 import org.forfun.mmorpg.game.database.converter.JpaObjectConverter;
 import org.forfun.mmorpg.game.database.user.BaseEntity;
 import org.forfun.mmorpg.game.database.user.dao.PlayerDao;
@@ -18,6 +19,7 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "playerent")
@@ -45,6 +47,9 @@ public class PlayerEnt extends Creature implements BaseEntity<Long>, DelayPersis
     @Column
     @Convert(converter = JpaObjectConverter.class)
     private VipRight vipRight;
+
+    @Transient
+    private BattleContext battleContext;
 
     @Override
     public CrudRepository<PlayerEnt, Long> getCrudRepository() {

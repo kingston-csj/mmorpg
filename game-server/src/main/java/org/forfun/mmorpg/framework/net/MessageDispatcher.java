@@ -1,7 +1,10 @@
 package org.forfun.mmorpg.framework.net;
 
 
+import org.forfun.mmorpg.game.ServerType;
 import org.forfun.mmorpg.game.base.GameContext;
+import org.forfun.mmorpg.game.battle.model.BattleMessage;
+import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
 import org.forfun.mmorpg.net.dispatcher.IDispatch;
 import org.forfun.mmorpg.net.dispatcher.IMessageDispatcher;
 import org.forfun.mmorpg.net.dispatcher.MessageEvent;
@@ -49,6 +52,23 @@ public class MessageDispatcher implements IMessageDispatcher {
         if (cmdExecutor == null) {
             logger.error("message executor missed, cmd={}", cmd);
             return;
+        }
+
+        if (message instanceof BattleMessage) {
+            if (GameContext.serverType == ServerType.GAME) {
+                PlayerEnt player = (PlayerEnt) session.getAttribute("PLAYER");
+                BattleMessage battleMessage = (BattleMessage) message;
+                int battleSid = battleMessage.getBattleServerId(player);
+                if (battleSid > 0) {
+                    IdSession crossSession = GameContext.getRpcClientRouter().getSession(battleSid);
+                    if (crossSession == null) {
+                        logger.error("fight server is unreachable", cmd);
+                        return;
+                    }
+                    crossSession.sendPacket(battleMessage);
+                    return;
+                }
+            }
         }
 
         Object[] params = convertToMethodParams(session, cmdExecutor.getParams(), message);
