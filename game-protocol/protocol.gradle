@@ -12,15 +12,14 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 
-    compile(project(":game-common"))
+    implementation(project(":game-common"))
 
-    compile("org.codehaus.jackson:jackson-core-asl")
-    compile("org.codehaus.jackson:jackson-mapper-asl")
+    implementation("com.fasterxml.jackson.core:jackson-databind")
 
-    compile 'com.baidu:jprotobuf'
+    implementation 'com.baidu:jprotobuf'
 
-    compile 'io.protostuff:protostuff-core'
-    compile 'io.protostuff:protostuff-runtime'
+    implementation 'io.protostuff:protostuff-core'
+    implementation 'io.protostuff:protostuff-runtime'
 
 }
 

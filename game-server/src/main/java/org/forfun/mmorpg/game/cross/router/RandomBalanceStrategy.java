@@ -1,6 +1,6 @@
 package org.forfun.mmorpg.game.cross.router;
 
-import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Random;

@@ -5,10 +5,10 @@ ext {
 
 	nettyVersion         = "4.1.33.Final"
 	minaVersion 		 = "2.0.7"
-    springBootVersion 	 = '2.4.0'
+    springBootVersion 	 = '2.5.8'
     gsonVersion 		 = "2.8.0"
     mysqlVersion 		 = "5.1.6"
-	jacksonVersion		 = "1.8.5"
+	jacksonVersion		 = "2.12.1"
 	protostuffVersion    = "1.5.9"
 	protobufVersion 	 = "1.11.7"
 }
@@ -18,6 +18,12 @@ allprojects {
 	version = 1.0
 	apply plugin: "eclipse"
 	apply plugin: "idea"
+
+	task clearTemp(type: Delete) {
+		delete "${projectDir}/build"
+		delete "${projectDir}/out"
+	}
+
 }
 
 subprojects {
@@ -33,13 +39,14 @@ buildscript {
 		maven { url 'https://repo.spring.io/libs-milestone' }
 	}
 	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:2.4.1")
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:2.6.0")
 	}
 }
 
 configure(allprojects) { project ->
 
 	apply plugin: "java"
+	apply plugin: "java-library"
 
 	def commonCompilerArgs =
 			["-Xlint:serial", "-Xlint:cast", "-Xlint:classfile", "-Xlint:dep-ann",
@@ -87,31 +94,28 @@ configure(allprojects) { project ->
 		compileOnly 'org.projectlombok:lombok:1.18.6'
 		annotationProcessor 'org.projectlombok:lombok:1.18.6'
 	
-		compile  'org.projectlombok:lombok:1.16.12'	
-		
-		compile ("com.google.code.gson:gson:${gsonVersion}")
+		implementation ("com.google.code.gson:gson:${gsonVersion}")
 
-		compile ("io.netty:netty-all:${nettyVersion}")
+		implementation ("io.netty:netty-all:${nettyVersion}")
 
-		compile ("org.apache.mina:mina-core:${minaVersion}")
+		implementation ("org.apache.mina:mina-core:${minaVersion}")
 
-		compile ("org.codehaus.jackson:jackson-core-asl:${jacksonVersion}")
-		compile ("org.codehaus.jackson:jackson-mapper-asl:${jacksonVersion}")
+		api ("com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}")
 
-		compile ("com.baidu:jprotobuf:${protobufVersion}")
+		implementation ("com.baidu:jprotobuf:${protobufVersion}")
 
-		compile ("io.protostuff:protostuff-core:${protostuffVersion}")
-		compile ("io.protostuff:protostuff-runtime:${protostuffVersion}")
+		implementation ("io.protostuff:protostuff-core:${protostuffVersion}")
+		implementation ("io.protostuff:protostuff-runtime:${protostuffVersion}")
 
-		compile ("mysql:mysql-connector-java:${mysqlVersion}")	
-		
-		compile 'org.apache.commons:commons-lang3:3.1'	
-		
-		compile 'org.codehaus.groovy:groovy-all:2.4.11'
+		implementation ("mysql:mysql-connector-java:${mysqlVersion}")
 
-		compile 'com.google.guava:guava:30.1-jre'
+		implementation 'org.apache.commons:commons-lang3:3.1'
 
-	    testCompile 'junit:junit:4.12'
+		implementation 'org.codehaus.groovy:groovy-all:2.4.11'
+
+		implementation 'com.google.guava:guava:30.1-jre'
+
+		testImplementation 'junit:junit:4.12'
 	}
 
 

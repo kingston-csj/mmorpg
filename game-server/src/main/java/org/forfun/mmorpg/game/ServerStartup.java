@@ -49,6 +49,12 @@ public class ServerStartup {
 
         GameContext.getBean(BaseServer.class).start();
 
+//        NettySocketServer
+
+//        JacksonFeature
+//        OrderedFormContentFilter filter = new OrderedFormContentFilter();
+//        filter.for
+
         // better code ??!!
         ServerLayer container = null;
         switch (serverType) {

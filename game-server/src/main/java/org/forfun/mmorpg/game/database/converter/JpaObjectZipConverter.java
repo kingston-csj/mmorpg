@@ -1,7 +1,7 @@
 package org.forfun.mmorpg.game.database.converter;
 
+import com.fasterxml.jackson.databind.JavaType;
 import org.forfun.mmorpg.game.util.ZipUtil;
-import org.codehaus.jackson.type.JavaType;
 
 import java.io.IOException;
 

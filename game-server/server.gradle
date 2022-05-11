@@ -7,50 +7,56 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'groovy'
 
 dependencies {
-	compile(project(":game-common"))
-    compile(project(":game-net"))
-    compile(project(":game-data-starter"))
+	implementation(project(":game-common")) {
+        exclude group: "com.fasterxml.jackson.core", module: "jackson-databind"
+
+    }
+    api(project(":game-net"))
+    implementation(project(":game-data-starter"))
 
 
-    compile ("org.codehaus.jackson:jackson-core-asl")
-    compile ("org.codehaus.jackson:jackson-mapper-asl")
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
 
-    annotationProcessor 'org.projectlombok:lombok:1.18.2'
-    compileOnly 'org.projectlombok:lombok:1.18.2'
 
-	compile 'com.google.code.gson:gson'
+    annotationProcessor 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok'
 
-	compile 'io.netty:netty-all'
+    implementation 'com.google.code.gson:gson'
 
-    compile 'org.apache.mina:mina-core'
+    implementation 'io.netty:netty-all'
 
-    compile 'com.baidu:jprotobuf'
+    implementation 'org.apache.mina:mina-core'
+
+    implementation 'com.baidu:jprotobuf'
 //    compile 'com.baidu:jprotobuf-precompile-plugin'
 
-    compile 'io.protostuff:protostuff-core'
-    compile 'io.protostuff:protostuff-runtime'
+    implementation 'io.protostuff:protostuff-core'
+    implementation 'io.protostuff:protostuff-runtime'
 
-	compile 'mysql:mysql-connector-java'	
-	
-	compile 'org.apache.commons:commons-lang3'	
-	
-	compile 'org.codehaus.groovy:groovy-all'
-	
-	compile ('org.springframework.boot:spring-boot-starter-data-jpa')
-	
-	testCompile ('org.springframework.boot:spring-boot-starter-test')
-	
-	compile ('org.springframework.boot:spring-boot-starter-actuator')
-	
-	compile ('org.springframework.boot:spring-boot-starter-web')
+    implementation 'mysql:mysql-connector-java'
 
-    compile ('org.springframework.boot:spring-boot-starter-aop')
+    api 'org.apache.commons:commons-lang3'
+    implementation 'commons-codec:commons-codec:1.11'
+
+    implementation 'org.codehaus.groovy:groovy-all'
+
+    implementation ('org.springframework.boot:spring-boot-starter-data-jpa')
+
+    implementation ('org.springframework.boot:spring-boot-starter-test')
+
+    implementation ('org.springframework.boot:spring-boot-starter-actuator')
+
+    implementation ('org.springframework.boot:spring-boot-starter-web') {
+        exclude group: 'com.fasterxml.jackson.core'
+    }
+
+    implementation ('org.springframework.boot:spring-boot-starter-aop')
 
 //	compile ('org.springframework.boot:spring-boot-devtools')
 
-    compile ('org.springframework.boot:spring-boot-starter-cache')
+    implementation ('org.springframework.boot:spring-boot-starter-cache')
 
-    compile ('net.sf.ehcache:ehcache')
+    implementation ('net.sf.ehcache:ehcache')
 
     compileOnly 'org.projectlombok:lombok:1.18.12'
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
@@ -58,9 +64,9 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok:1.18.12'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
 
-    compile 'org.freemarker:freemarker:2.3.31'
+    implementation 'org.freemarker:freemarker:2.3.31'
 
-	compile fileTree(dir:'libs',include:['*.jar'])
+    implementation fileTree(dir:'libs',include:['*.jar'])
 }
 
 
@@ -76,35 +82,35 @@ task clearJar(type: Delete) {
     delete 'build/libs/lib'
 }
 
-task copyJar(type: Copy) {
-    from configurations.runtime
-    into('build/libs/lib')
-}
+//task copyJar(type: Copy) {
+//    from configurations.runtime
+//    into('build/libs/lib')
+//}
+//
+//task copyConfigs(type: Copy) {
+//    from 'src/main/resources/server.properties'
+//    into('build/libs/configs')
+//}
 
-task copyConfigs(type: Copy) {
-    from 'src/main/resources/server.properties'
-    into('build/libs/configs')
-}
 
-
-bootJar {
-	//configurations.runtime.each { println it.path }
-    baseName = 'mmorpg'
-    version = '1.1.0'
-    manifest {
-        attributes "Manifest-Version": 1.0,
-                   'Start-Class': 'org.forfun.mmorpg.ServerStartup',
-                   // 'Spring-Boot-Classes': 'lib',
-                   "Class-Path":"configs/ " + configurations.runtime.collect { "lib/${it.name}" }.join(' ')
-    }
-
-	//enabled = true
-
-    excludes = ['server.properties', "*.jar"]
-
-    dependsOn clearJar
-    dependsOn copyJar
-    dependsOn copyConfigs
-
-}
+//bootJar {
+//	//configurations.runtime.each { println it.path }
+//    baseName = 'mmorpg'
+//    version = '1.1.0'
+//    manifest {
+//        attributes "Manifest-Version": 1.0,
+//                   'Start-Class': 'org.forfun.mmorpg.ServerStartup',
+//                   // 'Spring-Boot-Classes': 'lib',
+//                   "Class-Path":"configs/ " + configurations.runtimeclasspath.collect { "lib/${it.name}" }.join(' ')
+//    }
+//
+//	//enabled = true
+//
+//    excludes = ['server.properties', "*.jar"]
+//
+//    dependsOn clearJar
+//    dependsOn copyJar
+//    dependsOn copyConfigs
+//
+//}
 
