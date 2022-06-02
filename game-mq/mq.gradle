@@ -14,7 +14,7 @@ dependencies {
 
     implementation(project(":game-protocol"))
 
-    implementation('org.springframework.boot:spring-boot-starter:2.4.1')
+    implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
     implementation 'org.apache.rocketmq:rocketmq-spring-boot-starter:2.2.0'
 
 }

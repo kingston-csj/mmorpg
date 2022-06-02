@@ -14,8 +14,8 @@ dependencies {
 
     implementation ("com.fasterxml.jackson.core:jackson-databind")
 
-    annotationProcessor 'org.projectlombok:lombok:1.18.2'
-    compileOnly 'org.projectlombok:lombok:1.18.2'
+    annotationProcessor 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok'
 
     implementation 'io.netty:netty-all'
 

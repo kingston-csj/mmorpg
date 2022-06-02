@@ -14,11 +14,7 @@ dependencies {
     implementation 'org.apache.poi:poi:3.17'
     implementation 'org.apache.poi:poi-ooxml:3.17'
 
-    implementation('org.springframework.boot:spring-boot-starter:2.6.0')
-    testImplementation ('org.springframework.boot:spring-boot-starter-test:2.6.0')
+    implementation ("org.springframework.boot:spring-boot-starter:${springBootVersion}")
+    testImplementation ("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
 
-}
-
-test {
-    useJUnitPlatform()
 }

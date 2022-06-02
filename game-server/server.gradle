@@ -36,7 +36,7 @@ dependencies {
     implementation 'mysql:mysql-connector-java'
 
     api 'org.apache.commons:commons-lang3'
-    implementation 'commons-codec:commons-codec:1.11'
+    implementation 'commons-codec:commons-codec:1.10'
 
     implementation 'org.codehaus.groovy:groovy-all'
 
@@ -46,9 +46,7 @@ dependencies {
 
     implementation ('org.springframework.boot:spring-boot-starter-actuator')
 
-    implementation ('org.springframework.boot:spring-boot-starter-web') {
-        exclude group: 'com.fasterxml.jackson.core'
-    }
+    implementation ('org.springframework.boot:spring-boot-starter-web')
 
     implementation ('org.springframework.boot:spring-boot-starter-aop')
 
@@ -57,12 +55,6 @@ dependencies {
     implementation ('org.springframework.boot:spring-boot-starter-cache')
 
     implementation ('net.sf.ehcache:ehcache')
-
-    compileOnly 'org.projectlombok:lombok:1.18.12'
-    annotationProcessor 'org.projectlombok:lombok:1.18.12'
-
-    testCompileOnly 'org.projectlombok:lombok:1.18.12'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
 
     implementation 'org.freemarker:freemarker:2.3.31'
 
