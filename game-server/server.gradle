@@ -7,12 +7,17 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'groovy'
 
 dependencies {
-	implementation(project(":game-common")) {
-        exclude group: "com.fasterxml.jackson.core", module: "jackson-databind"
-
-    }
-    api(project(":game-net"))
     implementation(project(":game-data-starter"))
+
+    implementation ("io.github.jforgame:jforgame-commons:${jforgameVersion}"){
+        exclude (group: 'org.apache.logging.log4j')
+    }
+    implementation ("io.github.jforgame:jforgame-socket-netty:${jforgameVersion}"){
+        exclude (group: 'org.apache.logging.log4j')
+    }
+    implementation ("io.github.jforgame:jforgame-codec-struct:${jforgameVersion}"){
+        exclude (group: 'org.apache.logging.log4j')
+    }
 
 
     implementation 'com.fasterxml.jackson.core:jackson-databind'
@@ -20,6 +25,8 @@ dependencies {
 
     annotationProcessor 'org.projectlombok:lombok'
     compileOnly 'org.projectlombok:lombok'
+
+    implementation 'com.google.code.gson:gson'
 
     implementation 'com.google.code.gson:gson'
 

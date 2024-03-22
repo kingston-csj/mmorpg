@@ -18,7 +18,8 @@ mmorpg，是一个用java编写的分布式高性能mmorpg手游服务端框架�
 * 更多基础设施与业务演示  
 
 ## 与jforgame项目的主要不同之处 
-* JDK使用了版本15
+* JDK使用了版本17
+* 网络通信使用jforgame组件
 * 使用spring-boot框架，力求最便利使用spring组件
 * 依赖管理选用了gradle
 * 重点用于演示场景及技能系统  

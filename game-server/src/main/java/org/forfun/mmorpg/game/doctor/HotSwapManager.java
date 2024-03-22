@@ -4,11 +4,11 @@ import java.lang.management.ManagementFactory;
 
 import javax.annotation.PostConstruct;
 
+import jforgame.commons.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import org.forfun.mmorpg.common.util.FileUtil;
 import com.sun.tools.attach.VirtualMachine;
 
 import groovy.lang.GroovyClassLoader;
@@ -52,7 +52,7 @@ public class HotSwapManager {
 	public String hotSwapScript() {
 		try {
 			String filePath = "hotswap/CommonScript.java";
-			String clazzFile = FileUtil.readText(filePath);
+			String clazzFile = FileUtils.readFullText(filePath);
 			@SuppressWarnings({ "resource", "unchecked" })
 			Class<IScript> clazz = new GroovyClassLoader().parseClass(clazzFile);
 			clazz.newInstance();

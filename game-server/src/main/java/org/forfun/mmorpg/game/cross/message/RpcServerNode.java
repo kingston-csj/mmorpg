@@ -1,16 +1,17 @@
 package org.forfun.mmorpg.game.cross.message;
 
+import jforgame.socket.share.annotation.MessageMeta;
+import jforgame.socket.share.message.Message;
 import lombok.Getter;
 import lombok.Setter;
 import org.forfun.mmorpg.game.cross.constant.ConstantCross;
-import org.forfun.mmorpg.protocol.annotation.MessageMeta;
 
 import java.util.Objects;
 
 @Getter
 @Setter
 @MessageMeta(cmd = ConstantCross.CMD_RPC_NODE)
-public class RpcServerNode {
+public class RpcServerNode implements Message {
 
     private int sid;
 

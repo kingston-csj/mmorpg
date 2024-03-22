@@ -1,23 +1,15 @@
 package org.forfun.mmorpg.framework.net;
 
 
-import org.forfun.mmorpg.common.util.thread.NamedThreadFactory;
-import org.forfun.mmorpg.game.logger.LoggerUtils;
-import org.forfun.mmorpg.net.dispatcher.BaseEvent;
-import org.springframework.stereotype.Component;
+import jforgame.commons.thread.NamedThreadFactory;
+import jforgame.socket.share.task.BaseGameTask;
 
-import javax.annotation.PostConstruct;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-@Component
-public class GameExecutor {
 
+public class GameExecutor {
     private static GameExecutor instance;
 
     private final int CORE_SIZE = Runtime.getRuntime().availableProcessors();
@@ -28,34 +20,41 @@ public class GameExecutor {
 
     private final AtomicBoolean run = new AtomicBoolean(true);
 
-    private ConcurrentMap<Thread, BaseEvent> currentTasks = new ConcurrentHashMap<>();
+    private ConcurrentMap<Thread, BaseGameTask> currentTasks = new ConcurrentHashMap<>();
 
     private final long MONITOR_INTERVAL = 5000L;
 
     private final long MAX_EXEC_TIME = 30000L;
 
-    @PostConstruct
     private void init() {
         for (int i = 0; i < CORE_SIZE; i++) {
             ThreadFactory threadFactory = new NamedThreadFactory("message-business");
             workerPool[i] = Executors.newSingleThreadExecutor(threadFactory);
         }
-        instance = this;
         new NamedThreadFactory("message-business-monitor").newThread(new TaskMonitor()).start();
     }
 
     public static GameExecutor getInstance() {
+        if (instance != null) {
+            return instance;
+        }
+        synchronized (GameExecutor.class) {
+            if (instance == null) {
+                instance = new GameExecutor();
+                instance.init();
+            }
+        }
         return instance;
     }
 
     /**
      * @param task
      */
-    public void acceptTask(BaseEvent task) {
+    public void acceptTask(BaseGameTask task) {
         if (task == null) {
             throw new NullPointerException("task is null");
         }
-        int distributeKey = task.dispatchKey() % CORE_SIZE;
+        int distributeKey = (int) (task.getDispatchKey() % CORE_SIZE);
         workerPool[distributeKey].submit(new Runnable() {
             @Override
             public void run() {
@@ -85,13 +84,12 @@ public class GameExecutor {
                 } catch (InterruptedException e) {
                 }
 
-                for (Map.Entry<Thread, BaseEvent> entry : currentTasks.entrySet()) {
+                for (Map.Entry<Thread, BaseGameTask> entry : currentTasks.entrySet()) {
                     Thread t = entry.getKey();
-                    BaseEvent task = entry.getValue();
+                    BaseGameTask task = entry.getValue();
                     if (task != null) {
                         long now = System.currentTimeMillis();
                         if (now - task.getStartTime() > MAX_EXEC_TIME) {
-                            LoggerUtils.error("[{}]执行任务超时", task.getName());
                         }
                     }
                 }

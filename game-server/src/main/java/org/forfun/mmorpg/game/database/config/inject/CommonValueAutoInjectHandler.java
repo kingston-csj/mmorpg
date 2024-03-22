@@ -44,7 +44,7 @@ public class CommonValueAutoInjectHandler {
                     String dbName = StringUtils.isEmpty(annotation.alias()) ? field.getName() : annotation.alias();
                     ConfigCommonValue commonValue = container.queryOne(dbName);
                     if (commonValue == null) {
-                        new IllegalStateException(bean.getClass().getSimpleName() + " commonValue为空,key =" + field.getName());
+                       throw  new IllegalStateException(bean.getClass().getSimpleName() + " commonValue为空,key =" + field.getName());
                     }
                     Object property = commonValue.getValue();
                     if (annotation.parser() != NullInject.class) {

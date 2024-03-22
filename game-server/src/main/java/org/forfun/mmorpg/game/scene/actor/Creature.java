@@ -50,7 +50,7 @@ public abstract class Creature extends SceneActor {
 	}
 
 	public int dispatchKey() {
-		return mapId;
+		return mapId + lineId;
 	}
 
 	public int dispatchLine() {

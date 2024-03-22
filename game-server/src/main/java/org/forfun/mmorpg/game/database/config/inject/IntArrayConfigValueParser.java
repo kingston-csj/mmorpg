@@ -1,6 +1,7 @@
 package org.forfun.mmorpg.game.database.config.inject;
 
-import org.forfun.mmorpg.common.util.NumberUtil;
+
+import jforgame.commons.NumberUtil;
 
 public class IntArrayConfigValueParser implements ConfigValueParser<int[]> {
 

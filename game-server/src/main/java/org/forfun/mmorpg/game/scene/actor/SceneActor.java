@@ -1,24 +1,18 @@
 package org.forfun.mmorpg.game.scene.actor;
 
 import org.forfun.mmorpg.game.ai.fsm.Scene;
-import org.forfun.mmorpg.net.dispatcher.IDispatch;
 
 /**
  * 场景里的各种演员
  *
  */
-public abstract class SceneActor extends GameObject implements IDispatch {
+public abstract class SceneActor extends GameObject {
 
 	protected int mapId;
 
 	protected int lineId;
 
 	private Scene scene;
-
-	@Override
-	public int dispatchKey() {
-		return mapId;
-	}
 
 	public Scene getScene() {
 		return scene;

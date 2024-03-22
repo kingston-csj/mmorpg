@@ -1,9 +1,9 @@
 package org.forfun.mmorpg.game;
 
+import jforgame.socket.share.IdSession;
 import org.forfun.mmorpg.game.base.GameContext;
 import org.forfun.mmorpg.game.cross.message.Rpc_G2C_FetchFightServerNodes;
 import org.forfun.mmorpg.game.cross.service.RpcClientRouter;
-import org.forfun.mmorpg.net.socket.IdSession;
 
 public class GameServerLayer implements ServerLayer {
 
@@ -22,7 +22,7 @@ public class GameServerLayer implements ServerLayer {
     public void onCenterServerConnected() {
         IdSession centerSession = GameContext.getBean(RpcClientRouter.class).getCenterSession();
         if (centerSession != null) {
-            centerSession.sendPacket(new Rpc_G2C_FetchFightServerNodes());
+            centerSession.send(new Rpc_G2C_FetchFightServerNodes());
         }
     }
 }

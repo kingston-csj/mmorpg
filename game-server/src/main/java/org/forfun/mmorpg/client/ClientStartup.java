@@ -1,14 +1,15 @@
 package org.forfun.mmorpg.client;
 
-import org.forfun.mmorpg.common.util.JsonUtil;
+import jforgame.codec.struct.StructMessageCodec;
+import jforgame.socket.client.SocketClient;
+import jforgame.socket.netty.support.client.TcpSocketClient;
+import jforgame.socket.share.HostAndPort;
+import jforgame.socket.share.IdSession;
+import jforgame.socket.share.SocketIoDispatcher;
+import jforgame.socket.share.SocketIoDispatcherAdapter;
+import org.forfun.mmorpg.framework.net.GameMessageFactory;
 import org.forfun.mmorpg.game.ConfigScanPaths;
-import org.forfun.mmorpg.net.HostPort;
-import org.forfun.mmorpg.net.client.RpcClientFactory;
-import org.forfun.mmorpg.net.dispatcher.IMessageDispatcher;
-import org.forfun.mmorpg.net.socket.IdSession;
-import org.forfun.mmorpg.protocol.Message;
-import org.forfun.mmorpg.protocol.MessageFactory;
-import org.forfun.mmorpg.protocol.codec.SerializerFactory;
+import org.forfun.mmorpg.game.util.JsonUtil;
 
 /**
  * 客户端模拟器启动程序
@@ -16,32 +17,26 @@ import org.forfun.mmorpg.protocol.codec.SerializerFactory;
 public class ClientStartup {
 
     public static void main(String[] args) throws Exception {
-        MessageFactory.getInstance().init(ConfigScanPaths.MESSAGE_BASE_PATH);
 
-        HostPort hostPort = new HostPort();
+        HostAndPort hostPort = new HostAndPort();
         hostPort.setHost(ClientConfigs.REMOTE_SERVER_IP);
         hostPort.setPort(ClientConfigs.REMOTE_SERVER_PORT);
 
-        SerializerFactory serializerFactory = ClientSerializerHelper.getInstance().getSerializerFactory();
-        IMessageDispatcher msgDispatcher = new IMessageDispatcher() {
-            @Override
-            public void onSessionCreated(IdSession session) {
 
-            }
-
+        SocketIoDispatcher msgDispatcher = new SocketIoDispatcherAdapter() {
             @Override
-            public void dispatch(IdSession session, Message message) {
+            public void dispatch(IdSession session, Object message) {
                 System.err.println("收到消息<-- " + message.getClass().getSimpleName() + "=" + JsonUtil.object2String(message));
             }
-
             @Override
-            public void onSessionClosed(IdSession session) {
-
+            public void exceptionCaught(IdSession session, Throwable cause) {
+                cause.printStackTrace();
             }
         };
 
-        RpcClientFactory clientFactory = new RpcClientFactory(msgDispatcher, serializerFactory);
-        IdSession session = clientFactory.createSession(hostPort);
+        SocketClient socketClient = new TcpSocketClient(msgDispatcher,new GameMessageFactory(ConfigScanPaths.MESSAGE_BASE_PATH), new StructMessageCodec(), hostPort);
+        IdSession session = socketClient.openSession();
+
         ClientRobot robot = new ClientRobot(session);
         robot.login();
         robot.selectedPlayer(10000L);

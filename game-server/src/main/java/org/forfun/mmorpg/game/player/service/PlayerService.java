@@ -1,6 +1,7 @@
 package org.forfun.mmorpg.game.player.service;
 
 import com.google.common.collect.Sets;
+import jforgame.socket.share.IdSession;
 import lombok.extern.java.Log;
 import org.forfun.mmorpg.game.account.model.AccountProfile;
 import org.forfun.mmorpg.game.base.GameContext;
@@ -14,7 +15,6 @@ import org.forfun.mmorpg.game.logger.LoggerUtils;
 import org.forfun.mmorpg.game.player.message.ResPlayerLogin;
 import org.forfun.mmorpg.game.player.model.PlayerProfile;
 import org.forfun.mmorpg.game.script.impl.LoginScript;
-import org.forfun.mmorpg.net.socket.IdSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -88,7 +88,7 @@ public class PlayerService implements CommonValueReloadListener {
 	public ResPlayerLogin login(IdSession session, long playerId) {
 		PlayerEnt player = new PlayerEnt();
 		GameContext.getScriptService().getScript(LoginScript.class).onLogin(player);
-		session.bindDispatcher(player);
+//		session.bindDispatcher(player);
 		return new ResPlayerLogin();
 	}
 

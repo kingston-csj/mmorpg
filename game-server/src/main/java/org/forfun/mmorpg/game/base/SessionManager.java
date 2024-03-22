@@ -1,97 +1,63 @@
 package org.forfun.mmorpg.game.base;
 
-import io.netty.channel.Channel;
+import jforgame.commons.NumberUtil;
+import jforgame.socket.share.IdSession;
+import org.apache.mina.core.session.AttributeKey;
+import org.apache.mina.core.session.IoSession;
 import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
-import org.forfun.mmorpg.net.socket.IdSession;
-import org.forfun.mmorpg.net.socket.netty.ChannelUtils;
-import org.forfun.mmorpg.protocol.Message;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.util.Map;
+import java.net.InetSocketAddress;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
 public class SessionManager {
 
-	private Logger logger = LoggerFactory.getLogger(SessionManager.class);
+	/** distributeKey auto generator  */
+	private AtomicInteger distributeKeyGenerator = new AtomicInteger();
+	/** key=playerId, value=session */
+	private ConcurrentMap<Long, IdSession> player2sessions = new ConcurrentHashMap<>();
 
-	/** 缓存通信上下文环境对应的登录用户（主要用于服务） */
-	private Map<IdSession, Long> session2Players = new ConcurrentHashMap<>();
 
-	/** 缓存用户id与对应的会话 */
-	private ConcurrentMap<Long, IdSession> player2Sessions = new ConcurrentHashMap<>();
-
-	/**
-	 * 向单一在线用户发送数据包
-	 */
-	public void sendPacketTo(IdSession session, Message pact) {
-		if (pact == null || session == null)
-			return;
-		session.sendPacket(pact);
-	}
-
-	public void sendPacketTo(PlayerEnt player, Message pact) {
-		IdSession session = player2Sessions.get(player.getId());
-		if (session != null) {
-			session.sendPacket(pact);
-		}
-	}
-
-	public void sendPacketTo(Long playerId, Message pact) {
-		if (pact == null || playerId <= 0)
-			return;
-
-		IdSession session = player2Sessions.get(playerId);
-		if (session != null) {
-			session.sendPacket(pact);
-		}
+	public void registerNewPlayer(PlayerEnt player, IdSession session) {
+		//biding playerId to session
+		session.setAttribute(IdSession.ID, player.getId());
+		session.setAttribute("PLAYER", player);
+		this.player2sessions.put(player.getId(), session);
 	}
 
 	/**
-	 * 向所有在线用户发送数据包
+	 * get session's playerId
+	 * @param session
+	 * @return
 	 */
-	public void sendPacketToAllUsers(Message pact) {
-		if (pact == null)
-			return;
-
-		player2Sessions.values().forEach((session) -> session.sendPacket(pact));
-	}
-
-	public IdSession getSessionBy(long playerId) {
-		return this.player2Sessions.get(playerId);
-	}
-
 	public long getPlayerIdBy(IdSession session) {
-//		return this.session2Players.get(session);
+		if (session != null) {
+			return NumberUtil.longValue(session.getId());
+		}
 		return 0;
 	}
 
-	public boolean registerSession(PlayerEnt player, IdSession session) {
-		session.setAttribute("PLAYER", player);
-		player2Sessions.put(player.getId(), session);
-
-		logger.info("[{}] registered...", player.getId());
-		return true;
+	public IdSession getSessionBy(long playerId) {
+		return player2sessions.get(playerId);
 	}
 
 	/**
-	 * 注销用户通信渠道
+	 * get appointed sessionAttr
 	 */
-	public void unRegisterPlayerChannel(Channel context) {
-		if (context == null) {
-			return;
-		}
-		IdSession session = ChannelUtils.getSessionBy(context);
-		Long playerId = session2Players.remove(session);
-		if (playerId != null) {
-			player2Sessions.remove(playerId);
-		}
-		if (session != null) {
-//			session.close(SessionCloseReason.OVER_TIME);
-		}
+	@SuppressWarnings("unchecked")
+	public <T> T getSessionAttr(IoSession session, AttributeKey attrKey, Class<T> attrType) {
+		return (T)session.getAttribute(attrKey, attrType);
+	}
+
+	public int getNextSessionId() {
+		return this.distributeKeyGenerator.getAndIncrement();
+	}
+
+	public String getRemoteIp(IoSession session) {
+		return ((InetSocketAddress)session.getRemoteAddress()).getAddress().getHostAddress();
 	}
 
 }

@@ -1,7 +1,7 @@
 package org.forfun.mmorpg.game.asyncdb;
 
 import com.google.common.collect.Sets;
-import org.forfun.mmorpg.common.util.thread.NamedThreadFactory;
+import jforgame.commons.thread.NamedThreadFactory;
 import org.forfun.mmorpg.game.ServerType;
 import org.forfun.mmorpg.game.base.GameContext;
 import org.forfun.mmorpg.game.database.user.BaseEntity;

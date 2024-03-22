@@ -1,5 +1,8 @@
 package org.forfun.mmorpg.game.player.facade;
 
+import jforgame.socket.share.IdSession;
+import jforgame.socket.share.annotation.MessageRoute;
+import jforgame.socket.share.annotation.RequestHandler;
 import org.forfun.mmorpg.framework.eventbus.EventBus;
 import org.forfun.mmorpg.game.Modules;
 import org.forfun.mmorpg.game.base.GameContext;
@@ -13,21 +16,18 @@ import org.forfun.mmorpg.game.player.message.ReqPlayerLogin;
 import org.forfun.mmorpg.game.player.message.ReqSelectPlayer;
 import org.forfun.mmorpg.game.player.message.ResPlayerLogin;
 import org.forfun.mmorpg.game.player.service.LoginService;
-import org.forfun.mmorpg.net.socket.IdSession;
-import org.forfun.mmorpg.protocol.annotation.MessageMapping;
-import org.forfun.mmorpg.protocol.annotation.ModuleMeta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller
-@ModuleMeta(module = Modules.PLAYER)
+@MessageRoute(module = Modules.PLAYER)
 public class PlayerFacade {
 	
 	
 	@Autowired
 	private LoginService loginService;
 
-	@MessageMapping
+	@RequestHandler
 	public void reqAccountLogin(IdSession session, ReqAccountLogin request) {
 		loginService.handleAccountLogin(session, request.getAccountId(), request.getPassword());
 	}
@@ -40,7 +40,7 @@ public class PlayerFacade {
 		long playerId = request.getPlayerId();
 		System.out.println("角色[" + playerId + "]登录");
 
-		session.sendPacket(new ResPlayerLogin());
+		session.send(new ResPlayerLogin());
 
 		PlayerEnt player = new PlayerEnt();
 		player.setId(playerId);

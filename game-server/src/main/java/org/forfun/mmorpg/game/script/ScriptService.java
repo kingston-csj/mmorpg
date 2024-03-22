@@ -1,7 +1,7 @@
 package org.forfun.mmorpg.game.script;
 
-import org.forfun.mmorpg.common.util.FileUtil;
 import groovy.lang.GroovyClassLoader;
+import jforgame.commons.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
@@ -27,7 +27,7 @@ public class ScriptService {
         Resource fileResource = new ClassPathResource("groovy");
         // 优先resource下的脚本文件
         for (File file : fileResource.getFile().listFiles()) {
-            String code = FileUtil.readText(file.getAbsolutePath());
+            String code = FileUtils.readFullText(file.getAbsolutePath());
             String fileName = file.getName().substring(0, file.getName().lastIndexOf("."));
             Class groovyClass = loader.parseClass(code, fileName);
             IScript groovyObject = (IScript) groovyClass.newInstance();

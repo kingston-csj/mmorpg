@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-import org.forfun.mmorpg.common.util.thread.NamedThreadFactory;
+import jforgame.commons.thread.NamedThreadFactory;
 import org.forfun.mmorpg.game.logger.LoggerUtils;
 import org.springframework.stereotype.Component;
 

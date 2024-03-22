@@ -1,6 +1,6 @@
 package org.forfun.mmorpg.game.asyncdb;
 
-import org.forfun.mmorpg.common.util.thread.NamedThreadFactory;
+import jforgame.commons.thread.NamedThreadFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;

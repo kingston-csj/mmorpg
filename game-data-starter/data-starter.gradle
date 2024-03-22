@@ -5,8 +5,9 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":game-common"))
-
+    implementation ("io.github.jforgame:jforgame-commons:${jforgameVersion}"){
+        exclude (group: 'org.apache.logging.log4j')
+    }
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
     implementation 'org.apache.commons:commons-csv:1.8'

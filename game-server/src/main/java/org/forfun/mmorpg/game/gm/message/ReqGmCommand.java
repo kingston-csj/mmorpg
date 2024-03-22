@@ -1,10 +1,10 @@
 package org.forfun.mmorpg.game.gm.message;
 
 import com.baidu.bjf.remoting.protobuf.annotation.Protobuf;
+import jforgame.socket.share.annotation.MessageMeta;
+import jforgame.socket.share.message.Message;
 import lombok.Getter;
 import lombok.Setter;
-import org.forfun.mmorpg.protocol.annotation.MessageMeta;
-import org.forfun.mmorpg.protocol.Message;
 
 @MessageMeta(cmd = 1)
 @Getter

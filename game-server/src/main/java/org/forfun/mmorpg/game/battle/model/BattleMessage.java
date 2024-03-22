@@ -1,7 +1,7 @@
 package org.forfun.mmorpg.game.battle.model;
 
+import jforgame.socket.share.message.Message;
 import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
-import org.forfun.mmorpg.protocol.Message;
 
 public interface BattleMessage extends Message {
 

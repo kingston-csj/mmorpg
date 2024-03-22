@@ -11,7 +11,7 @@ ext {
 	jacksonVersion		 = "2.12.1"
 	protostuffVersion    = "1.5.9"
 	protobufVersion 	 = "1.11.7"
-
+	jforgameVersion  	 = "1.0.0"
 
 
 }
@@ -96,11 +96,10 @@ configure(allprojects) { project ->
 
 	dependencies {
 		api ("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
-
 		api 'org.apache.commons:commons-lang3:3.4'
 		compileOnly 'org.projectlombok:lombok:1.18.30'
 		annotationProcessor 'org.projectlombok:lombok:1.18.30'
-	
+
 		implementation ("com.google.code.gson:gson:${gsonVersion}")
 
 		implementation ("io.netty:netty-all:${nettyVersion}")

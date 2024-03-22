@@ -1,5 +1,6 @@
 package org.forfun.mmorpg.game.player.service;
 
+import jforgame.socket.share.IdSession;
 import org.forfun.mmorpg.game.account.AccountService;
 import org.forfun.mmorpg.game.account.model.AccountProfile;
 import org.forfun.mmorpg.game.base.GameContext;
@@ -9,7 +10,6 @@ import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
 import org.forfun.mmorpg.game.player.message.ResAccountLogin;
 import org.forfun.mmorpg.game.player.message.vo.PlayerLoginVo;
 import org.forfun.mmorpg.game.player.model.PlayerProfile;
-import org.forfun.mmorpg.net.socket.IdSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -71,7 +71,7 @@ public class LoginService {
 			// 绑定session与玩家id
 			session.setAttribute("playerId", playerId);
 			// 加入在线列表
-			GameContext.getSessionManager().registerSession(player, session);
+			GameContext.getSessionManager().registerNewPlayer(player, session);
 		}
 	}
 

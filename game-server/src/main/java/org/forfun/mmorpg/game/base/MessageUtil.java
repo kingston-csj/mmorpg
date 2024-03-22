@@ -1,7 +1,8 @@
 package org.forfun.mmorpg.game.base;
 
-import org.forfun.mmorpg.net.socket.IdSession;
-import org.forfun.mmorpg.protocol.Message;
+
+import jforgame.socket.share.IdSession;
+import jforgame.socket.share.message.Message;
 
 import java.util.Collection;
 
@@ -23,7 +24,7 @@ public class MessageUtil {
 		if (session == null || message == null) {
 			return;
 		}
-		session.sendPacket(message);
+		session.send(message);
 	}
 
 
@@ -31,7 +32,7 @@ public class MessageUtil {
 		if (session == null || message == null) {
 			return;
 		}
-		session.sendPacket(message);
+		session.send(message);
 	}
 
 }

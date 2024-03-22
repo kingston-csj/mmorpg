@@ -1,6 +1,7 @@
 package org.forfun.mmorpg.game.monitor.jmx;
 
-import org.forfun.mmorpg.common.util.FileUtil;
+
+import jforgame.commons.FileUtils;
 
 import javax.management.JMX;
 import javax.management.MBeanServerConnection;
@@ -44,7 +45,7 @@ public class JmxClient {
                 "org.forfun.mmorpg.game.monitor.jmx:name=gameMonitor,type=GameMonitor");
         final GameMonitorMBean mBean = JMX.newMBeanProxy(mBeanConnection, objectName, GameMonitorMBean.class);
 
-        String script = FileUtil.readText("hotswap/groovy.txt");
+        String script = FileUtils.readFullText("hotswap/groovy.txt");
         System.err.println("script:\n" + script);
 
         System.err.println(mBean.execGroovyScript(script));

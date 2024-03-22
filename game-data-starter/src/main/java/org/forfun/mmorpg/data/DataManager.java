@@ -1,6 +1,6 @@
 package org.forfun.mmorpg.data;
 
-import org.forfun.mmorpg.common.util.ClassScanner;
+import jforgame.commons.ClassScanner;
 import org.forfun.mmorpg.data.annotation.PTable;
 import org.forfun.mmorpg.data.reader.DataReader;
 import org.slf4j.Logger;

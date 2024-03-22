@@ -1,5 +1,7 @@
 package org.forfun.mmorpg.game.cross.facade;
 
+import jforgame.socket.share.IdSession;
+import jforgame.socket.share.annotation.MessageRoute;
 import org.forfun.mmorpg.framework.eventbus.EventBus;
 import org.forfun.mmorpg.game.CrossConfig;
 import org.forfun.mmorpg.game.Modules;
@@ -8,28 +10,19 @@ import org.forfun.mmorpg.game.ServerType;
 import org.forfun.mmorpg.game.base.GameContext;
 import org.forfun.mmorpg.game.cross.constant.ConstantCross;
 import org.forfun.mmorpg.game.cross.event.RpcConnectedEvent;
-import org.forfun.mmorpg.game.cross.message.RpcReqHello;
-import org.forfun.mmorpg.game.cross.message.RpcReqServerLogin;
-import org.forfun.mmorpg.game.cross.message.RpcRespHello;
-import org.forfun.mmorpg.game.cross.message.RpcRespServerLogin;
-import org.forfun.mmorpg.game.cross.message.RpcServerNode;
-import org.forfun.mmorpg.game.cross.message.Rpc_C2G_FetchFightServerNodes;
-import org.forfun.mmorpg.game.cross.message.Rpc_G2C_FetchFightServerNodes;
-import org.forfun.mmorpg.game.cross.service.HelloService;
+import org.forfun.mmorpg.game.cross.message.*;
 import org.forfun.mmorpg.game.cross.service.RpcClientRouter;
 import org.forfun.mmorpg.game.logger.LoggerUtils;
-import org.forfun.mmorpg.net.socket.IdSession;
-import org.forfun.mmorpg.net.socket.SessionCloseReason;
-import org.forfun.mmorpg.protocol.annotation.ModuleMeta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
-@ModuleMeta(module = Modules.CROSS)
+@MessageRoute(module = Modules.CROSS)
 public class RpcBaseFacade {
 
     @Autowired
@@ -56,7 +49,7 @@ public class RpcBaseFacade {
      */
     @Scheduled(cron = "0/30 * * * * ? ")
     public void checkConnection() {
-        clientRouter.checkAndRegisterConnections();
+//        clientRouter.checkAndRegisterConnections();
     }
 
     /**
@@ -67,17 +60,9 @@ public class RpcBaseFacade {
         if (GameContext.serverType == ServerType.GAME) {
             IdSession centerSession = GameContext.getBean(RpcClientRouter.class).getCenterSession();
             if (centerSession != null) {
-                centerSession.sendPacket(new Rpc_G2C_FetchFightServerNodes());
+                centerSession.send(new Rpc_G2C_FetchFightServerNodes());
             }
         }
-    }
-
-
-    public void sayHello(IdSession session, RpcReqHello request) {
-        RpcRespHello response = new RpcRespHello();
-        response.setCallbackId(request.getCallbackId());
-        response.setContent("hello world");
-        session.sendPacket(response);
     }
 
     /**
@@ -89,7 +74,11 @@ public class RpcBaseFacade {
         String md5 = request.getFromSid() + "_" + crossConfig.getSign();
         if (md5.equals(request.getSign())) {
             LoggerUtils.error("服务器[{}]登录失败，md5验证不通过", request.getFromSid());
-            session.close(SessionCloseReason.ILLEGAL_LOGIN);
+            try {
+                session.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             return;
         }
 
@@ -97,7 +86,7 @@ public class RpcBaseFacade {
         session.setAttribute(ConstantCross.RPC_SOURCE_SERVER, request.getFromSid());
         RpcRespServerLogin resp = new RpcRespServerLogin();
         resp.setRemoteSid(GameContext.getServerConfig().getServerId());
-        session.sendPacket(resp);
+        session.send(resp);
     }
 
     /**
@@ -107,7 +96,6 @@ public class RpcBaseFacade {
      */
     public void respLoginServer(IdSession session, RpcRespServerLogin response) {
         clientRouter.registerSession(response.getRemoteSid(), session);
-        GameContext.getBean(HelloService.class).sayHello();
         EventBus.getInstance().asyncPost(RpcConnectedEvent.valueOf(response.getRemoteSid(), response.getServerType()));
 
         GameContext.getBean(ServerLayer.class).onCenterServerConnected();
@@ -124,7 +112,7 @@ public class RpcBaseFacade {
         List<RpcServerNode> fightNodes = clientRouter.listRpcNodes(ServerType.FIGHT.type);
         Rpc_C2G_FetchFightServerNodes response = new Rpc_C2G_FetchFightServerNodes();
         response.setFightNodes(fightNodes);
-        session.sendPacket(response);
+        session.send(response);
     }
 
     /**

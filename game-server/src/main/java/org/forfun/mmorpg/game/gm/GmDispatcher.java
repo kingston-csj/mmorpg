@@ -1,8 +1,8 @@
 package org.forfun.mmorpg.game.gm;
 
+import jforgame.socket.share.message.MessageExecutor;
 import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
 import org.forfun.mmorpg.game.logger.LoggerUtils;
-import org.forfun.mmorpg.net.message.CmdExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.ConversionService;
@@ -20,19 +20,19 @@ public class GmDispatcher {
 	private ConversionService conversionService;
 
 	/** [methodName, CmdExecutor] */
-	private static final Map<String, CmdExecutor> GM_HANDLERS = new HashMap<>();
+	private static final Map<String, MessageExecutor> GM_HANDLERS = new HashMap<>();
 
-	public void registerHandler(String key, CmdExecutor executor) {
+	public void registerHandler(String key, MessageExecutor executor) {
 		GM_HANDLERS.put(key, executor);
 	}
 
 	public void dispatch(PlayerEnt player, String[] args) {
 		String method = args[0];
 
-		for (Map.Entry<String, CmdExecutor> entry : GM_HANDLERS.entrySet()) {
+		for (Map.Entry<String, MessageExecutor> entry : GM_HANDLERS.entrySet()) {
 			String targetMethod = entry.getKey();
 			if (method.equalsIgnoreCase(targetMethod)) {
-				CmdExecutor executor = entry.getValue();
+				MessageExecutor executor = entry.getValue();
 				try {
 					// 动态参数要求只能有两个参数，第二个需要是 String[] 类型
 					if (isDynamicParams(executor.getMethod())) {

@@ -16,7 +16,7 @@ public class IdleEventHandler extends ChannelDuplexHandler {
         if (evt instanceof IdleStateEvent) {
             IdleStateEvent e = (IdleStateEvent) evt;
             if (e.state() == IdleState.ALL_IDLE) {
-                GameContext.getSessionManager().unRegisterPlayerChannel(ctx.channel());
+//                GameContext.getSessionManager().unRegisterPlayerChannel(ctx.channel());
             }
         }
     }

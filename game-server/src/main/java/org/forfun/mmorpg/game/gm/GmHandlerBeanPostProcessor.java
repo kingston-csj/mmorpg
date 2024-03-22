@@ -1,6 +1,7 @@
 package org.forfun.mmorpg.game.gm;
 
-import org.forfun.mmorpg.net.message.CmdExecutor;
+import jforgame.socket.share.message.MessageExecutor;
+import jforgame.socket.support.MessageExecuteUnit;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -30,7 +31,7 @@ public class GmHandlerBeanPostProcessor implements BeanPostProcessor, Applicatio
 			for (Method method : methods) {
 				GmHandler mapperAnnotation = method.getAnnotation(GmHandler.class);
 				if (mapperAnnotation != null) {
-					CmdExecutor cmdExecutor = CmdExecutor.valueOf(method, method.getParameterTypes(), bean);
+					MessageExecutor cmdExecutor = MessageExecuteUnit.valueOf(method, method.getParameterTypes(), bean);
 					gmDispatcher.registerHandler(mapperAnnotation.cmd().name(), cmdExecutor);
 				}
 			}
