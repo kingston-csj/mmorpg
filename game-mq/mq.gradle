@@ -12,8 +12,6 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 
-    implementation(project(":game-protocol"))
-
     implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
     implementation 'org.apache.rocketmq:rocketmq-spring-boot-starter:2.2.0'
 

@@ -10,8 +10,8 @@ import io.netty.channel.epoll.EpollEventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import org.forfun.mmorpg.rpc.codec.MessageDecoder;
-import org.forfun.mmorpg.rpc.codec.MessageEncoder;
+import org.forfun.mmorpg.rpc.codec.ProtocolDecoder;
+import org.forfun.mmorpg.rpc.codec.ProtocolEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,8 +70,8 @@ public class RpcServer {
         @Override
         protected void initChannel(SocketChannel arg0) throws Exception {
             ChannelPipeline pipeline = arg0.pipeline();
-            pipeline.addLast(new MessageEncoder());
-            pipeline.addLast(new MessageDecoder());
+            pipeline.addLast(new ProtocolEncoder());
+            pipeline.addLast(new ProtocolDecoder());
             pipeline.addLast(new RpcServerIoHandler(rpcRegistry));
         }
     }

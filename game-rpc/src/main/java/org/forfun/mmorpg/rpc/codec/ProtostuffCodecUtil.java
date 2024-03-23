@@ -1,4 +1,4 @@
-package org.forfun.mmorpg.protocol.codec.impl.protostuff;
+package org.forfun.mmorpg.rpc.codec;
 
 import io.protostuff.LinkedBuffer;
 import io.protostuff.ProtostuffIOUtil;

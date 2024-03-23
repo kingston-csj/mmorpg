@@ -3,18 +3,17 @@ package org.forfun.mmorpg.rpc.codec;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
-import org.forfun.mmorpg.protocol.codec.impl.protostuff.ProtostuffCodecUtil;
 import org.forfun.mmorpg.rpc.data.RpcDataPackage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class MessageDecoder extends ByteToMessageDecoder {
+public class ProtocolDecoder extends ByteToMessageDecoder {
 
     private int maxReceiveBytes = 4096;
 
-    private Logger logger = LoggerFactory.getLogger(MessageDecoder.class);
+    private final Logger logger = LoggerFactory.getLogger(ProtocolDecoder.class);
 
 
     @Override

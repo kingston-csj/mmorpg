@@ -9,8 +9,8 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import org.forfun.mmorpg.rpc.codec.MessageDecoder;
-import org.forfun.mmorpg.rpc.codec.MessageEncoder;
+import org.forfun.mmorpg.rpc.codec.ProtocolDecoder;
+import org.forfun.mmorpg.rpc.codec.ProtocolEncoder;
 
 import java.net.InetSocketAddress;
 
@@ -32,8 +32,8 @@ public class RpcClient {
                 @Override
                 protected void initChannel(SocketChannel arg0) throws Exception {
                     ChannelPipeline pipeline = arg0.pipeline();
-                    pipeline.addLast(new MessageEncoder());
-                    pipeline.addLast(new MessageDecoder());
+                    pipeline.addLast(new ProtocolEncoder());
+                    pipeline.addLast(new ProtocolDecoder());
                     pipeline.addLast(new RpcClientIoHandler());
                 }
             });

@@ -4,15 +4,14 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
-import org.forfun.mmorpg.protocol.codec.impl.protostuff.ProtostuffCodecUtil;
 import org.forfun.mmorpg.rpc.data.RpcDataPackage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class MessageEncoder extends MessageToByteEncoder<Object> {
+public class ProtocolEncoder extends MessageToByteEncoder<Object> {
 
-    private Logger logger = LoggerFactory.getLogger(MessageEncoder.class);
+    private final Logger logger = LoggerFactory.getLogger(ProtocolEncoder.class);
 
     private static ThreadLocal<ByteBuf> localBuf = ThreadLocal.withInitial(() -> Unpooled.buffer(10240));
 
