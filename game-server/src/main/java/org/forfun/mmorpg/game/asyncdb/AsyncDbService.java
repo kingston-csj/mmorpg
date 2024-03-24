@@ -1,6 +1,6 @@
 package org.forfun.mmorpg.game.asyncdb;
 
-import com.google.common.collect.Sets;
+import jforgame.commons.ds.ConcurrentHashSet;
 import jforgame.commons.thread.NamedThreadFactory;
 import org.forfun.mmorpg.game.ServerType;
 import org.forfun.mmorpg.game.base.GameContext;
@@ -55,7 +55,7 @@ public class AsyncDbService {
 
         private BlockingQueue<BaseEntity> queue = new LinkedBlockingDeque<>();
 
-        private Set<String> savingQueue = Sets.newConcurrentHashSet();
+        private Set<String> savingQueue = new ConcurrentHashSet<>();
 
         public void add2Queue(BaseEntity entity) {
             String key = entity.getKey();

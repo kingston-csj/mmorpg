@@ -1,6 +1,6 @@
 package org.forfun.mmorpg.game.player.service;
 
-import com.google.common.collect.Sets;
+import jforgame.commons.ds.ConcurrentHashSet;
 import jforgame.socket.share.IdSession;
 import lombok.extern.java.Log;
 import org.forfun.mmorpg.game.account.model.AccountProfile;
@@ -50,7 +50,7 @@ public class PlayerService implements CommonValueReloadListener {
 	/**
 	 * 在线玩家列表
 	 */
-	private Set<Long> onlines = Sets.newConcurrentHashSet();
+	private Set<Long> onlines = new ConcurrentHashSet<>();
 
 	/** 全服所有角色的简况 */
 	private ConcurrentMap<Long, PlayerProfile> playerProfiles = new ConcurrentHashMap<>();

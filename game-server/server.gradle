@@ -1,6 +1,5 @@
 
-group = "org.forfun.mmorpg.game"
-archivesBaseName = 'game'
+//archivesBaseName = 'game'
 
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'org.springframework.boot'
@@ -9,60 +8,41 @@ apply plugin: 'groovy'
 dependencies {
     implementation(project(":game-data-starter"))
 
-    implementation ("io.github.jforgame:jforgame-commons:${jforgameVersion}"){
+    implementation ("io.github.jforgame:jforgame-commons:${versions.jforgameVersion}"){
         exclude (group: 'org.apache.logging.log4j')
     }
-    implementation ("io.github.jforgame:jforgame-socket-netty:${jforgameVersion}"){
+    implementation ("io.github.jforgame:jforgame-socket-netty:${versions.jforgameVersion}"){
         exclude (group: 'org.apache.logging.log4j')
     }
-    implementation ("io.github.jforgame:jforgame-codec-struct:${jforgameVersion}"){
+    implementation ("io.github.jforgame:jforgame-codec-struct:${versions.jforgameVersion}"){
         exclude (group: 'org.apache.logging.log4j')
     }
 
 
-    implementation 'com.fasterxml.jackson.core:jackson-databind'
-
-
-    annotationProcessor 'org.projectlombok:lombok'
-    compileOnly 'org.projectlombok:lombok'
-
-    implementation 'com.google.code.gson:gson'
-
-    implementation 'com.google.code.gson:gson'
-
-    implementation 'io.netty:netty-all'
-
-    implementation 'org.apache.mina:mina-core'
-
-    implementation 'com.baidu:jprotobuf'
+    implementation dependencyPool.jackson
+    annotationProcessor dependencyPool.lombok
+    compileOnly dependencyPool.lombok
+    implementation dependencyPool.gson
+    implementation dependencyPool.netty
+    implementation dependencyPool.minacore
+    implementation dependencyPool.jprotobuf
 //    compile 'com.baidu:jprotobuf-precompile-plugin'
-
-    implementation 'io.protostuff:protostuff-core'
-    implementation 'io.protostuff:protostuff-runtime'
-
-    implementation 'mysql:mysql-connector-java'
-
-    api 'org.apache.commons:commons-lang3'
+    implementation dependencyPool.protostuffcore
+    implementation dependencyPool.protostuffruntime
+    implementation dependencyPool.mysql
+    api dependencyPool.commonslang3
     implementation 'commons-codec:commons-codec:1.10'
-
-    implementation 'org.codehaus.groovy:groovy-all'
+    implementation dependencyPool.groovy
 
     implementation ('org.springframework.boot:spring-boot-starter-data-jpa')
-
     implementation ('org.springframework.boot:spring-boot-starter-test')
-
     implementation ('org.springframework.boot:spring-boot-starter-actuator')
-
     implementation ('org.springframework.boot:spring-boot-starter-web')
-
     implementation ('org.springframework.boot:spring-boot-starter-aop')
-
 //	compile ('org.springframework.boot:spring-boot-devtools')
-
     implementation ('org.springframework.boot:spring-boot-starter-cache')
 
     implementation ('net.sf.ehcache:ehcache')
-
     implementation 'org.freemarker:freemarker:2.3.31'
 
     implementation fileTree(dir:'libs',include:['*.jar'])
@@ -72,7 +52,7 @@ dependencies {
 sourceSets {
     main {
         resources {
-            srcDirs = ["src/main/resources", "env/$profile"]
+//            srcDirs = ["src/main/resources", "env/$profile"]
         }
     }
 }
