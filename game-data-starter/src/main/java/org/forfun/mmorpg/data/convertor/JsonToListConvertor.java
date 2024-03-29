@@ -1,6 +1,6 @@
 package org.forfun.mmorpg.data.convertor;
 
-import org.forfun.mmorpg.data.JsonUtil;
+import jforgame.commons.JsonUtil;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.ConditionalGenericConverter;
 
