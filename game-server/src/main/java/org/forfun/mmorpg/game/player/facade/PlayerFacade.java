@@ -32,10 +32,12 @@ public class PlayerFacade {
 		loginService.handleAccountLogin(session, request.getAccountId(), request.getPassword());
 	}
 
+	@RequestHandler
 	public void reqSelectPlayer(IdSession session, ReqSelectPlayer request) {
 		loginService.handleSelectPlayer(session, request.getPlayerId());
 	}
 
+	@RequestHandler
 	public void reqPlayerLogin(IdSession session, ReqPlayerLogin request) {
 		long playerId = request.getPlayerId();
 		System.out.println("角色[" + playerId + "]登录");

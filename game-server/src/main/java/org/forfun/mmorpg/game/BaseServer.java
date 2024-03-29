@@ -1,7 +1,6 @@
 package org.forfun.mmorpg.game;
 
 import jforgame.socket.share.ServerNode;
-import org.forfun.mmorpg.framework.net.GameExecutor;
 import org.forfun.mmorpg.game.base.GameContext;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +25,5 @@ public class BaseServer {
     }
 
     private static void stop() {
-        GameExecutor.getInstance().shutDown();
     }
 }

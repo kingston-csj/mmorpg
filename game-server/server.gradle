@@ -8,15 +8,9 @@ apply plugin: 'groovy'
 dependencies {
     implementation(project(":game-data-starter"))
 
-    implementation ("io.github.jforgame:jforgame-commons:${versions.jforgameVersion}"){
-        exclude (group: 'org.apache.logging.log4j')
-    }
-    implementation ("io.github.jforgame:jforgame-socket-netty:${versions.jforgameVersion}"){
-        exclude (group: 'org.apache.logging.log4j')
-    }
-    implementation ("io.github.jforgame:jforgame-codec-struct:${versions.jforgameVersion}"){
-        exclude (group: 'org.apache.logging.log4j')
-    }
+    implementation ("io.github.jforgame:jforgame-commons:${versions.jforgameVersion}")
+    implementation ("io.github.jforgame:jforgame-socket-netty:${versions.jforgameVersion}")
+    implementation ("io.github.jforgame:jforgame-codec-struct:${versions.jforgameVersion}")
 
 
     implementation dependencyPool.jackson
