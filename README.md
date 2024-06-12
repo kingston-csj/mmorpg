@@ -37,7 +37,7 @@ mmorpg，是一个用java编写的分布式高性能mmorpg手游服务端框架�
 
 ## 请作者喝杯咖啡
 如果您觉得有所收获，可以请作者喝杯咖啡。大家的支持，促使我不断改进优化，谢谢！  
-![](/screenshots/wx.png "微信收款码")
+![](/screenshots/wx.jpg "微信收款码")
 ![](/screenshots/zfb.jpg "支付宝收款码")
 
 

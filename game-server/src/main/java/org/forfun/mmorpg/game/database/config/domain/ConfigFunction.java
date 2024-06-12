@@ -10,7 +10,7 @@ import org.forfun.mmorpg.game.function.model.FunctionOpenType;
 
 import lombok.Getter;
 
-@Entity
+@Entity(name = "configfunction")
 @Getter
 public class ConfigFunction {
 	

@@ -16,11 +16,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 策划静态表db配置
- * 
- *
  *
  */
 @Configuration
@@ -36,7 +35,7 @@ public class StaticDbConfig {
 	@Primary
 	@Bean(name = "configEntityManager")
 	public EntityManager entityManager(EntityManagerFactoryBuilder builder) {
-		return configEntityManagerFactory(builder).getObject().createEntityManager();
+		return Objects.requireNonNull(configEntityManagerFactory(builder).getObject()).createEntityManager();
 	}
 
 	@Primary
@@ -56,7 +55,7 @@ public class StaticDbConfig {
 	@Primary
 	@Bean(name = "configDbTransactionManager")
 	public PlatformTransactionManager configDbTransactionManager(EntityManagerFactoryBuilder builder) {
-		return new JpaTransactionManager(configEntityManagerFactory(builder).getObject());
+		return new JpaTransactionManager(Objects.requireNonNull(configEntityManagerFactory(builder).getObject()));
 	}
 
 }

@@ -7,7 +7,6 @@ import javax.persistence.Id;
 /**
  * 地图资源
  *
- *
  */
 @Getter
 public class ConfigMap {

@@ -12,7 +12,6 @@ import java.util.Map;
 /**
  * 静态配置数据仓库
  *
- *
  */
 @Component
 public class ConfigResourceRegistry implements ApplicationContextAware {

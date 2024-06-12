@@ -6,7 +6,7 @@ import javax.persistence.Id;
 
 import lombok.Getter;
 
-@Entity
+@Entity(name = "configskill")
 @Getter
 public class ConfigSkill {
 

@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Getter
-@Entity
+@Entity(name = "configcommonvalue")
 public class ConfigCommonValue {
 
     @Id
