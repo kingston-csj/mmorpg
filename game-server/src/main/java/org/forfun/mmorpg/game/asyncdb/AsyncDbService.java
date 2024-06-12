@@ -1,5 +1,7 @@
 package org.forfun.mmorpg.game.asyncdb;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import jforgame.commons.ds.ConcurrentHashSet;
 import jforgame.commons.thread.NamedThreadFactory;
 import org.forfun.mmorpg.game.ServerType;
@@ -9,8 +11,6 @@ import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
 import org.forfun.mmorpg.game.logger.LoggerUtils;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.BlockingQueue;

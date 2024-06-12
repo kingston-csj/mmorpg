@@ -1,5 +1,6 @@
 package org.forfun.mmorpg.game.scene.service;
 
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import org.forfun.mmorpg.game.database.config.container.ConfigMapContainer;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.forfun.mmorpg.game.scene.model.Scene;
 import org.forfun.mmorpg.game.scene.model.WorldMap;
 
-import net.sf.ehcache.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class SceneService {

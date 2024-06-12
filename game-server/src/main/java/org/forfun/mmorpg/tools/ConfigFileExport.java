@@ -3,8 +3,8 @@ package org.forfun.mmorpg.tools;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
+import jakarta.persistence.Id;
 
-import javax.persistence.Id;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;

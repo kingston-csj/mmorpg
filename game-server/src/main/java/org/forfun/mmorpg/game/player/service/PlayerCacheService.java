@@ -21,14 +21,8 @@ public class PlayerCacheService implements EntityCacheService<PlayerEnt, Long> {
     @Cacheable(cacheNames = "player")
     public PlayerEnt getEntity(Long id, Class<PlayerEnt> clazz) {
         log.info("查询角色 " + id);
-        PlayerEnt playerEnt = playerDao.getOne(id);
-        if (playerEnt != null) {
-            PlayerEnt player = new PlayerEnt();
-            player.setId(id);
-            return playerEnt;
-        } else {
-            return null;
-        }
+        var playerEnt = playerDao.findById(id);
+        return playerEnt.orElse(null);
     }
 
     /**

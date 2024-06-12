@@ -1,5 +1,6 @@
 package org.forfun.mmorpg.game.cross.facade;
 
+import jakarta.annotation.PostConstruct;
 import jforgame.socket.share.IdSession;
 import jforgame.socket.share.annotation.MessageRoute;
 import org.forfun.mmorpg.framework.eventbus.EventBus;
@@ -17,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.List;
 

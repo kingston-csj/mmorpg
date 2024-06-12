@@ -42,3 +42,5 @@ out
 test-output
 atlassian-ide-plugin.xml
 .gradletasknamecache
+
+gradle/wrapper/gradle-wrapper.jar

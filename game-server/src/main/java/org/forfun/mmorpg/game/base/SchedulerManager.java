@@ -5,9 +5,9 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import jforgame.commons.thread.NamedThreadFactory;
 import org.forfun.mmorpg.game.logger.LoggerUtils;
 import org.springframework.stereotype.Component;

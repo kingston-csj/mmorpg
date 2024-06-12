@@ -1,8 +1,8 @@
 package org.forfun.mmorpg.game.database.converter;
 
+import jakarta.persistence.AttributeConverter;
 import org.forfun.mmorpg.game.util.JsonUtil;
 
-import javax.persistence.AttributeConverter;
 import java.util.Map;
 
 public class JpaMapConverter implements AttributeConverter<Object,String> {

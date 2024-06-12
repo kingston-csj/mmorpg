@@ -3,9 +3,9 @@ package org.forfun.mmorpg.game.database.converter;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
+import jakarta.persistence.AttributeConverter;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.persistence.AttributeConverter;
 import java.io.IOException;
 
 public class JpaObjectConverter implements AttributeConverter<Object, String> {

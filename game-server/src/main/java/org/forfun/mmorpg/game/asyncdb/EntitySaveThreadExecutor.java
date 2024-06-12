@@ -1,9 +1,9 @@
 package org.forfun.mmorpg.game.asyncdb;
 
+import jakarta.annotation.PostConstruct;
 import jforgame.commons.thread.NamedThreadFactory;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 

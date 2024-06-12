@@ -7,6 +7,7 @@ import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
 import ch.qos.logback.core.ConsoleAppender;
 import ch.qos.logback.core.rolling.RollingFileAppender;
 import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
+import ch.qos.logback.core.spi.ScanException;
 import ch.qos.logback.core.util.OptionHelper;
 import org.slf4j.LoggerFactory;
 
@@ -50,7 +51,12 @@ public class DynamicLoggerBuilder {
         appender.setAppend(true);
         appender.setPrudent(false);
         TimeBasedRollingPolicy policy = new TimeBasedRollingPolicy();
-        String fp = OptionHelper.substVars(DynamicLoggerBuilder.LOG_PATH + name + "/" + name + ".log.%d{yyyy-MM-dd}", context);
+        String fp = null;
+        try {
+            fp = OptionHelper.substVars(DynamicLoggerBuilder.LOG_PATH + name + "/" + name + ".log.%d{yyyy-MM-dd}", context);
+        } catch (ScanException e) {
+            throw new RuntimeException(e);
+        }
 
         policy.setFileNamePattern(fp);
         policy.setMaxHistory(15);

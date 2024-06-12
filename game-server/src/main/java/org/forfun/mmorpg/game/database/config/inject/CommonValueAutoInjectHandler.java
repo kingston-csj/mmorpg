@@ -1,5 +1,6 @@
 package org.forfun.mmorpg.game.database.config.inject;
 
+import jakarta.annotation.PostConstruct;
 import org.forfun.mmorpg.game.database.config.container.ConfigCommonValueContainer;
 import org.forfun.mmorpg.game.database.config.domain.ConfigCommonValue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.PostConstruct;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;

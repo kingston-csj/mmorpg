@@ -6,7 +6,7 @@ ext {
 			profile : System.getProperty("env") ?: "dev",
 			nettyVersion          : "4.1.33.Final",
 			minaVersion 		  : "2.0.7",
-			springBootVersion 	  : '2.6.3',
+			springBootVersion 	  : '3.0.4',
 			gsonVersion 		  : "2.8.0",
 			mysqlVersion 		  : "8.0.28",
 			jacksonVersion		  : "2.12.1",
@@ -63,11 +63,12 @@ subprojects {
 
 buildscript {
 	repositories {
+		maven { url 'https://maven.aliyun.com/repository/public' }
 		maven { url 'https://repo.spring.io/libs-milestone' }
 		mavenCentral()
 	}
 	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:2.6.0")
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:3.0.4")
 	}
 }
 

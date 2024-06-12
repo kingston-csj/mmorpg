@@ -2,8 +2,8 @@ package org.forfun.mmorpg.game.doctor;
 
 import java.lang.management.ManagementFactory;
 
-import javax.annotation.PostConstruct;
 
+import jakarta.annotation.PostConstruct;
 import jforgame.commons.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

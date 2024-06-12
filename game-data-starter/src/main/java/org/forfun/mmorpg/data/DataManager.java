@@ -1,5 +1,6 @@
 package org.forfun.mmorpg.data;
 
+import jakarta.annotation.PostConstruct;
 import jforgame.commons.ClassScanner;
 import org.forfun.mmorpg.data.annotation.PTable;
 import org.forfun.mmorpg.data.reader.DataReader;
@@ -9,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collections;

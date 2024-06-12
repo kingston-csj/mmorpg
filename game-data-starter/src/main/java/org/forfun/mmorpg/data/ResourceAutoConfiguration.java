@@ -1,5 +1,6 @@
 package org.forfun.mmorpg.data;
 
+import jakarta.annotation.Resource;
 import org.forfun.mmorpg.data.convertor.JsonToArrayConvertor;
 import org.forfun.mmorpg.data.convertor.JsonToListConvertor;
 import org.forfun.mmorpg.data.convertor.JsonToMapConvertor;
@@ -12,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.format.support.DefaultFormattingConversionService;
 
-import javax.annotation.Resource;
 
 @Configuration
 @EnableConfigurationProperties(ResourceProperties.class)

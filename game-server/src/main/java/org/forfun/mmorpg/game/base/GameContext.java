@@ -1,5 +1,6 @@
 package org.forfun.mmorpg.game.base;
 
+import jakarta.annotation.PostConstruct;
 import jforgame.socket.share.message.MessageFactory;
 import lombok.Setter;
 import org.forfun.mmorpg.framework.net.MessageIoDispatcher;
@@ -17,7 +18,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.lang.annotation.Annotation;
 import java.util.Collection;
 import java.util.Map;
