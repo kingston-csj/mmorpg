@@ -3,7 +3,6 @@ package org.forfun.mmorpg.game.base;
 import jakarta.annotation.PostConstruct;
 import jforgame.socket.share.message.MessageFactory;
 import lombok.Setter;
-import org.forfun.mmorpg.framework.net.MessageIoDispatcher;
 import org.forfun.mmorpg.game.ServerConfig;
 import org.forfun.mmorpg.game.ServerType;
 import org.forfun.mmorpg.game.account.AccountService;
@@ -47,19 +46,19 @@ public final class GameContext implements ApplicationContextAware {
 
     public ServerConfig serverConfig;
 
-    public final static ServerConfig getServerConfig() {
+    public static ServerConfig getServerConfig() {
         return self.serverConfig;
     }
 
     private AsyncDbService asyncDbService;
 
-    public final static AsyncDbService getAysncDbService() {
+    public static AsyncDbService getAysncDbService() {
         return self.asyncDbService;
     }
 
     private SessionManager sessionManager;
 
-    public final static SessionManager getSessionManager() {
+    public static SessionManager getSessionManager() {
         return self.sessionManager;
     }
 
@@ -86,18 +85,6 @@ public final class GameContext implements ApplicationContextAware {
     public static BuffService getBuffService() {
         return self.buffService;
     }
-
-//	private MessageIoDispatcher messageDispatcher;
-//
-//	public static MessageIoDispatcher getMessageDispatcher() {
-//		return self.messageDispatcher;
-//	}
-
-//	private SerializerFactory messageSerializer;
-//
-//	public static SerializerFactory getMessageSerializer() {
-//		return self.messageSerializer;
-//	}
 
     private MessageFactory messageFactory;
 

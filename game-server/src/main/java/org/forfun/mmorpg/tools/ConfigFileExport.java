@@ -11,6 +11,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,7 +61,7 @@ public class ConfigFileExport {
 
     private static void templateToFile(Configuration cfg, String template, Map<String, String> data, String targetName)
             throws Exception {
-        Writer out = new OutputStreamWriter(new FileOutputStream(targetName), "UTF-8");
+        Writer out = new OutputStreamWriter(new FileOutputStream(targetName), StandardCharsets.UTF_8);
         Template temp = cfg.getTemplate(template);
         temp.process(data, out);
         out.flush();

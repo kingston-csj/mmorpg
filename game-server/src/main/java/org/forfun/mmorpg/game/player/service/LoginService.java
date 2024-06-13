@@ -31,7 +31,7 @@ public class LoginService {
 	 * @param password  账号密码
 	 */
 	public void handleAccountLogin(IdSession session, long accountId, String password) {
-		AccountEnt account = accountService.getAccount(accountId);
+		AccountEnt account = accountService.getEntity(accountId);
 		if (account == null) {
 			account = new AccountEnt();
 			account.setId(accountId);

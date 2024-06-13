@@ -15,19 +15,14 @@ public class AccountService implements EntityCacheService<AccountEnt, Long> {
 	@Autowired
 	private AccountDao accountDao;
 
-	public AccountEnt getAccount(long id) {
-		return getEntity(id,AccountEnt.class);
-	}
-
 	public AccountEnt createNew(AccountEnt account) {
 		return putEntity(account);
 	}
 
 	@Override
 	@Cacheable(cacheNames = "account")
-	public AccountEnt getEntity(Long id, Class<AccountEnt> clazz) {
-		AccountEnt account = accountDao.getOne(id);
-		return account;
+	public AccountEnt getEntity(Long id) {
+		return accountDao.findById(id).orElse(null);
 	}
 
 	@Override

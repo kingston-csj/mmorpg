@@ -19,7 +19,7 @@ public class PlayerCacheService implements EntityCacheService<PlayerEnt, Long> {
 
     @Override
     @Cacheable(cacheNames = "player")
-    public PlayerEnt getEntity(Long id, Class<PlayerEnt> clazz) {
+    public PlayerEnt getEntity(Long id) {
         log.info("查询角色 " + id);
         var playerEnt = playerDao.findById(id);
         return playerEnt.orElse(null);

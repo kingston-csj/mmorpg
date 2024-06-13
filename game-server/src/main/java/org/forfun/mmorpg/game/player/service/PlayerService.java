@@ -73,7 +73,7 @@ public class PlayerService implements CommonValueReloadListener {
 	}
 
 	public PlayerEnt getPlayer(long id) {
-		return playerCacheService.getEntity(id, PlayerEnt.class);
+		return playerCacheService.getEntity(id);
 	}
 
 	/**
@@ -101,7 +101,7 @@ public class PlayerService implements CommonValueReloadListener {
 
 		long accountId = baseInfo.getAccountId();
 		// 必须将account加载并缓存
-		AccountEnt account = GameContext.getAccountService().getAccount(accountId);
+		AccountEnt account = GameContext.getAccountService().getEntity(accountId);
 		accountProfiles.putIfAbsent(accountId, new AccountProfile());
 		AccountProfile accountProfile = accountProfiles.get(accountId);
 		accountProfile.addPlayerProfile(baseInfo);
@@ -112,7 +112,7 @@ public class PlayerService implements CommonValueReloadListener {
 		if (accountProfile != null) {
 			return accountProfile;
 		}
-		AccountEnt account = GameContext.getAccountService().getAccount(accountId);
+		AccountEnt account = GameContext.getAccountService().getEntity(accountId);
 		if (account != null) {
 			accountProfile = new AccountProfile();
 			accountProfile.setAccountId(accountId);

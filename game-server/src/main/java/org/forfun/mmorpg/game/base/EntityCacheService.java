@@ -7,11 +7,11 @@ import java.io.Serializable;
 public interface EntityCacheService<E extends BaseEntity<PK>, PK extends Serializable & Comparable<PK>> {
 
 
-    E getEntity(PK id, Class<E> clazz);
+    E getEntity(PK id);
 
     BaseEntity<PK> putEntity(E entity);
 
-    default BaseEntity<PK> removeEntityBy(PK id) {
+    default BaseEntity<PK> removeEntity(PK id) {
         throw new UnsupportedOperationException();
     }
 }
