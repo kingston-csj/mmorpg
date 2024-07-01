@@ -28,7 +28,9 @@ import org.forfun.mmorpg.game.logger.LoggerUtils;
 @ManagedResource(objectName = "GameMXBean:name=gameMonitor")
 public class GameMonitor implements GameMonitorMBean {
 
-	private Logger logger = LoggerFactory.getLogger(getClass());
+	final ScriptEngineManager engineManager= new ScriptEngineManager();
+
+	final ScriptEngine groovyScriptEngine = engineManager.getEngineByName("groovy");
 
 	@Override
 	@ManagedOperation
@@ -107,9 +109,13 @@ public class GameMonitor implements GameMonitorMBean {
 	public String execGroovyScript(String groovyCode) {
 		String msg = "执行成功";
 		try {
-			ScriptEngineManager engineManager = new ScriptEngineManager();
-			ScriptEngine scriptEngine = engineManager.getEngineByName("groovy");
-			return scriptEngine.eval(groovyCode).toString();
+			synchronized (engineManager) {
+				Object eval = groovyScriptEngine.eval(groovyCode);
+				if (eval != null) {
+					msg = eval.toString();
+				}
+				return msg;
+			}
 		} catch (Exception e) {
 			msg = e.getMessage();
 		}
