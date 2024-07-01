@@ -11,6 +11,7 @@ import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
 import org.forfun.mmorpg.game.logger.LoggerUtils;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.BlockingQueue;
@@ -36,7 +37,7 @@ public class AsyncDbService {
         new NamedThreadFactory("common-save-service").newThread(commonWorker).start();
     }
 
-	public void saveToDb(BaseEntity entity) {
+	public void saveToDb(BaseEntity<? extends Serializable> entity) {
         if (GameContext.serverType != ServerType.GAME) {
             // only game server can saving data
             return;

@@ -4,14 +4,19 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.io.Serializable;
 
-public interface BaseEntity<PK extends Serializable & Comparable<PK>> {
+public interface BaseEntity<ID extends Serializable & Comparable<ID>> {
 
-	<PK> PK getId();
+    ID getId();
 
-	CrudRepository getCrudRepository();
+    /**
+     * springdata jpa没有类似MongoTemplate的工具，只能手动绑定Entity与CrudRepository
+     *
+     * @return
+     */
+    CrudRepository<? extends BaseEntity<ID>, ID>  getCrudRepository();
 
-	default String getKey() {
-		return getClass().getSimpleName() + "@" + getId().toString();
-	}
+    default String getKey() {
+        return getClass().getSimpleName() + "@" + getId().toString();
+    }
 
 }
