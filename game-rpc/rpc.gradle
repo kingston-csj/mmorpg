@@ -3,14 +3,6 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 
-    implementation ("io.github.jforgame:jforgame-commons:${versions.jforgameVersion}"){
-        exclude (group: 'org.apache.logging.log4j')
-    }
-
-    implementation ("io.github.jforgame:jforgame-codec-api:${versions.jforgameVersion}"){
-        exclude (group: 'org.apache.logging.log4j')
-    }
-
     implementation dependencyPool.protostuffcore
     implementation dependencyPool.protostuffruntime
 }

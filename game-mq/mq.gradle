@@ -1,12 +1,12 @@
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
-
-//    implementation ("org.springframework.boot:spring-boot-starter:${versions.springBootVersion}")
     implementation ('org.apache.rocketmq:rocketmq-spring-boot-starter:2.2.0') {
         exclude (group: 'org.springframework.boot')
     }
+    implementation ("org.springframework.boot:spring-boot-starter:${versions.springBootVersion}")
+    implementation dependencyPool.jackson
+    annotationProcessor dependencyPool.lombok
+    compileOnly dependencyPool.lombok
 
 }
 
