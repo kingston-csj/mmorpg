@@ -1,15 +1,17 @@
 package org.forfun.mmorpg.game.database.user.entity;
 
-import org.forfun.mmorpg.game.database.user.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
+import org.forfun.mmorpg.game.base.GameContext;
+import org.forfun.mmorpg.game.database.user.BaseEntity;
+import org.forfun.mmorpg.game.database.user.dao.IdentityDao;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.concurrent.atomic.AtomicLong;
 
 @Getter
 @Setter
-public class IdEntity implements BaseEntity<Integer> {
+public class IdentityEntity implements BaseEntity<Integer> {
 
     private int id;
 
@@ -24,7 +26,7 @@ public class IdEntity implements BaseEntity<Integer> {
 
     @Override
     public CrudRepository getCrudRepository() {
-        return null;
+        return GameContext.getBean(IdentityDao.class);
     }
 
 }

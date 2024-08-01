@@ -2,7 +2,6 @@ package org.forfun.mmorpg.game.database.user.entity;
 
 import jakarta.persistence.Convert;
 import jakarta.persistence.Transient;
-import org.forfun.mmorpg.game.asyncdb.DelayPersistence;
 import org.forfun.mmorpg.game.base.GameContext;
 import org.forfun.mmorpg.game.battle.model.BattleContext;
 import org.forfun.mmorpg.game.database.converter.JpaObjectConverter;
@@ -26,7 +25,7 @@ import jakarta.persistence.Table;
 @Proxy(lazy = false)
 @Getter
 @Setter
-public class PlayerEnt extends Creature implements BaseEntity<Long>, DelayPersistence {
+public class PlayerEnt extends Creature implements BaseEntity<Long> {
 
     @Id
     @Column

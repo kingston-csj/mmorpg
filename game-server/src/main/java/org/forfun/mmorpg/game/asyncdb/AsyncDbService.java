@@ -27,9 +27,9 @@ public class AsyncDbService {
 
     private final AtomicBoolean run = new AtomicBoolean(true);
 
-    private Worker playerWorker = new Worker("player");
+    private final Worker playerWorker = new Worker("player");
 
-    private Worker commonWorker = new Worker("common");
+    private final Worker commonWorker = new Worker("common");
 
     @PostConstruct
     private void init() {
@@ -37,17 +37,17 @@ public class AsyncDbService {
         new NamedThreadFactory("common-save-service").newThread(commonWorker).start();
     }
 
-	public void saveToDb(BaseEntity<? extends Serializable> entity) {
+    public void saveToDb(BaseEntity<? extends Serializable> entity) {
         if (GameContext.serverType != ServerType.GAME) {
             // only game server can saving data
             return;
         }
-		if (entity instanceof PlayerEnt) {
-			playerWorker.add2Queue(entity);
-		} else {
-			commonWorker.add2Queue(entity);
-		}
-	}
+        if (entity instanceof PlayerEnt) {
+            playerWorker.add2Queue(entity);
+        } else {
+            commonWorker.add2Queue(entity);
+        }
+    }
 
 
     private class Worker implements Runnable {
@@ -85,23 +85,26 @@ public class AsyncDbService {
             }
         }
 
-		/**
-		 * 数据真正持久化
-		 *
-		 * @param entity
-		 */
-		@SuppressWarnings("unchecked")
-		private void saveToDb(BaseEntity entity) {
-			try {
-				entity.getCrudRepository().save(entity);
-				String key = entity.getKey();
-                savingQueue.remove(key);
-			} catch (Exception e) {
-				LoggerUtils.error("", e);
-				// 重新放入队列
-				add2Queue(entity);
-			}
-		}
+        /**
+         * 数据真正持久化
+         *
+         * @param entity
+         */
+        @SuppressWarnings("unchecked")
+        private void saveToDb(BaseEntity entity) {
+            try {
+                if (entity.isDelete()) {
+                    entity.getCrudRepository().delete(entity);
+                } else {
+                    entity.getCrudRepository().save(entity);
+                }
+                savingQueue.remove(entity.getKey());
+            } catch (Exception e) {
+                LoggerUtils.error("", e);
+                // 重新放入队列
+                add2Queue(entity);
+            }
+        }
 
         private void saveAllBeforeShutDown() {
             while (!queue.isEmpty()) {
@@ -114,16 +117,16 @@ public class AsyncDbService {
             }
         }
 
-		public void shutDown() {
-			for (; ; ) {
-				if (!queue.isEmpty()) {
-					saveAllBeforeShutDown();
-				} else {
-					break;
-				}
-			}
-			LoggerUtils.error("[" + name + "持久器] 执行全部命令后关闭");
-		}
+        public void shutDown() {
+            for (; ; ) {
+                if (!queue.isEmpty()) {
+                    saveAllBeforeShutDown();
+                } else {
+                    break;
+                }
+            }
+            LoggerUtils.error("[" + name + "持久器] 执行全部命令后关闭");
+        }
     }
 
     @PreDestroy

@@ -1,7 +1,7 @@
 package org.forfun.mmorpg.game.id;
 
 import org.forfun.mmorpg.game.base.GameContext;
-import org.forfun.mmorpg.game.database.user.entity.IdEntity;
+import org.forfun.mmorpg.game.database.user.entity.IdentityEntity;
 
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -9,11 +9,11 @@ public class IdService {
 
     public void init() {
         for (IdKey idKey : IdKey.values()) {
-            IdEntity idEntity = getEntityFromCache(idKey);
-            if (idEntity == null) {
-                idEntity.setValue(getInitSeed());
+            IdentityEntity identityEntity = getEntityFromCache(idKey);
+            if (identityEntity.getValue() == 0) {
+                identityEntity.setValue(getInitSeed());
             }
-            idEntity.setFactory(new AtomicLong(idEntity.getValue()));
+            identityEntity.setFactory(new AtomicLong(identityEntity.getValue()));
         }
     }
 
@@ -28,16 +28,16 @@ public class IdService {
 
     public long getNextKey(IdKey key) {
         // 获取缓存里的cache
-        IdEntity idEntity = getEntityFromCache(key);
-        long nextId = idEntity.getFactory().incrementAndGet();
+        IdentityEntity identityEntity = getEntityFromCache(key);
+        long nextId = identityEntity.getFactory().incrementAndGet();
         if (key.saveToDb) {
-            GameContext.getAysncDbService().saveToDb(idEntity);
+            GameContext.getAysncDbService().saveToDb(identityEntity);
         }
         return nextId;
     }
 
-    private IdEntity getEntityFromCache(IdKey key) {
-        return new IdEntity();
+    private IdentityEntity getEntityFromCache(IdKey key) {
+        return new IdentityEntity();
     }
 
 }

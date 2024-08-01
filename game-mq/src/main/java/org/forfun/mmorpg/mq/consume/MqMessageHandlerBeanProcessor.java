@@ -49,12 +49,6 @@ public class MqMessageHandlerBeanProcessor implements BeanPostProcessor, Applica
         return bean;
     }
 
-    /**
-     * 参数属于{@link Message}则代表是客户端请求映射方法
-     *
-     * @param method
-     * @return
-     */
     private Class getRequestMethodParam(Method method) {
         Class<?>[] parameters = method.getParameterTypes();
         for (Class<?> parameter : parameters) {
