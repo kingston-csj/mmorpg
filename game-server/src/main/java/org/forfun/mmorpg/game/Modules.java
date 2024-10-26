@@ -3,8 +3,9 @@ package org.forfun.mmorpg.game;
 public interface Modules {
 
 	// ------------------底层功能支持模块（-128 ~ -1）-----------------
-	short GM = -1;
-	short CROSS = -2;
+	short BASE = -1;
+	short GM = -2;
+	short CROSS = -3;
 
 	// ------------------业务功能模块（1~326）---------------------
 

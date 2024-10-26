@@ -1,6 +1,6 @@
 package org.forfun.mmorpg.rpc.client;
 
-import org.forfun.mmorpg.common.util.thread.NamedThreadFactory;
+import jforgame.commons.thread.NamedThreadFactory;
 import org.forfun.mmorpg.rpc.data.RpcResponseData;
 
 import java.util.Iterator;

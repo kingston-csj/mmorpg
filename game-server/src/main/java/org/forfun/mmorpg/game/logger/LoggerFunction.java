@@ -14,7 +14,7 @@ public enum LoggerFunction {
 
 
 	public Logger getLogger() {
-		return DynamicLoggerBuilder.getLogger(this.name().toLowerCase());
+		return LoggerBuilder.getLogger(this.name().toLowerCase());
 	}
 
 

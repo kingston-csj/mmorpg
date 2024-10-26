@@ -4,9 +4,9 @@
 
 PacketType = {}
 
-PacketType.ReqPlayerLogin = "102_1";
+PacketType.ReqAccountLogin = "101001";
 
-PacketType.ResPlayerLogin = "102_201";
+PacketType.ResAccountLogin = "101051";
 
 var self = PacketType;
 
@@ -16,7 +16,7 @@ PacketType.bind = function(msgId, handler) {
 	msgHandler[msgId] = handler
 }
 
-self.bind(self.ResPlayerLogin, function(resp) {
+self.bind(self.ResAccountLogin, function(resp) {
 	alert("角色登录成功-->" + resp)
 })
 

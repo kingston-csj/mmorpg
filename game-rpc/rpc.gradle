@@ -5,4 +5,11 @@ dependencies {
 
     implementation dependencyPool.protostuffcore
     implementation dependencyPool.protostuffruntime
+
+    implementation ("io.github.jforgame:jforgame-commons:${versions.jforgameVersion}")
+    implementation ("io.github.jforgame:jforgame-codec-api:${versions.jforgameVersion}")
+
+    implementation dependencyPool.netty
+    implementation dependencyPool.protostuffcore
+    implementation dependencyPool.protostuffruntime
 }

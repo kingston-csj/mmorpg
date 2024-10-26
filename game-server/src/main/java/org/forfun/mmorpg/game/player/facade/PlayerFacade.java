@@ -7,6 +7,7 @@ import org.forfun.mmorpg.framework.eventbus.EventBus;
 import org.forfun.mmorpg.game.Modules;
 import org.forfun.mmorpg.game.base.GameContext;
 import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
+import org.forfun.mmorpg.game.exception.BusinessRequestException;
 import org.forfun.mmorpg.game.gm.GmCommands;
 import org.forfun.mmorpg.game.gm.GmHandler;
 import org.forfun.mmorpg.game.player.event.PlayerLevelUpEvent;
@@ -29,6 +30,9 @@ public class PlayerFacade {
 
 	@RequestHandler
 	public void reqAccountLogin(IdSession session, ReqAccountLogin request) {
+		if (request.getAccountId() > 0) {
+			throw new BusinessRequestException(100);
+		}
 		loginService.handleAccountLogin(session, request.getAccountId(), request.getPassword());
 	}
 

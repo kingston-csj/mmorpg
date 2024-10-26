@@ -4,7 +4,7 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import org.forfun.mmorpg.protocol.codec.impl.protostuff.ProtostuffCodecUtil;
+import org.forfun.mmorpg.rpc.codec.ProtostuffCodecUtil;
 import org.forfun.mmorpg.rpc.data.RpcDataPackage;
 import org.forfun.mmorpg.rpc.data.RpcResponseData;
 import org.slf4j.Logger;

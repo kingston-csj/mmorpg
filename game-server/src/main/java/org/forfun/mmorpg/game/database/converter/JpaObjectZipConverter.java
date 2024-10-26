@@ -1,6 +1,7 @@
 package org.forfun.mmorpg.game.database.converter;
 
 import com.fasterxml.jackson.databind.JavaType;
+import org.apache.commons.lang3.StringUtils;
 import org.forfun.mmorpg.game.util.ZipUtil;
 
 import java.io.IOException;
@@ -12,22 +13,21 @@ public class JpaObjectZipConverter extends JpaObjectConverter {
         try {
             return ZipUtil.compress(MAPPER.writeValueAsString(attribute));
         } catch (Exception e) {
-            return null;
+            throw new RuntimeException(e);
         }
     }
 
     @Override
     public Object convertToEntityAttribute(String dbData) {
-        if (dbData.isEmpty()) {
+        if (StringUtils.isEmpty(dbData)) {
             return null;
         }
         try {
             JavaType type = typeFactory.constructType(Object.class);
             return MAPPER.readValue(ZipUtil.decompress(dbData), type);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
 }
