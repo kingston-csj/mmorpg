@@ -10,7 +10,7 @@
 <script type="text/javascript">
 	
 	ws.init({
-		url : "localhost:9527/ws"
+		url : "localhost:8089/ws"
 	}).connect();
 
 	//当有消息过来的时候触发
@@ -43,7 +43,7 @@
 			};
 			
 			//let encoded = msgpack5().encode(msg)
-			ws.sendBytes(PacketType.ReqAccountLogin, msg);
+			ws.send(PacketType.ReqAccountLogin, msg);
 		}
 	}
 </script>

@@ -1,6 +1,7 @@
 package org.forfun.mmorpg.client;
 
 import jforgame.codec.struct.StructMessageCodec;
+import jforgame.commons.JsonUtil;
 import jforgame.socket.client.SocketClient;
 import jforgame.socket.netty.support.client.TcpSocketClient;
 import jforgame.socket.share.HostAndPort;
@@ -9,7 +10,6 @@ import jforgame.socket.share.SocketIoDispatcher;
 import jforgame.socket.share.SocketIoDispatcherAdapter;
 import org.forfun.mmorpg.framework.net.GameMessageFactory;
 import org.forfun.mmorpg.game.ConfigScanPaths;
-import org.forfun.mmorpg.game.util.JsonUtil;
 
 /**
  * 客户端模拟器启动程序

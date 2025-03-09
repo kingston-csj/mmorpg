@@ -11,10 +11,8 @@ dependencies {
     implementation ("io.github.jforgame:jforgame-codec-struct:${versions.jforgameVersion}")
 
 
-    implementation dependencyPool.jackson
     annotationProcessor dependencyPool.lombok
     compileOnly dependencyPool.lombok
-    implementation dependencyPool.gson
     implementation dependencyPool.netty
     implementation dependencyPool.minacore
     implementation dependencyPool.jprotobuf

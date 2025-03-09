@@ -4,7 +4,6 @@ dependencies {
         exclude (group: 'org.springframework.boot')
     }
     implementation ("org.springframework.boot:spring-boot-starter:${versions.springBootVersion}")
-    implementation dependencyPool.jackson
     annotationProcessor dependencyPool.lombok
     compileOnly dependencyPool.lombok
 
