@@ -1,19 +1,21 @@
 package org.forfun.mmorpg.game.database.config.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jforgame.data.annotation.DataTable;
+import jforgame.data.annotation.Id;
 import lombok.Getter;
 
 
 
 @Getter
-@Entity(name = "configcommonvalue")
+@DataTable(name = "configcommonvalue")
 public class ConfigCommonValue {
 
     @Id
-    private String id;
+    private int id;
 
-    @Column
+    private String key;
+
     private String value;
+
+    private String desc;
 }

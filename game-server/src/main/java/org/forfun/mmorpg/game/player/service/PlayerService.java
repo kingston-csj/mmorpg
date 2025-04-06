@@ -44,9 +44,6 @@ public class PlayerService implements CommonValueReloadListener {
 	@CommonValueInject(alias = "playerMaxLevel")
 	private int maxValue;
 
-	@CommonValueInject(alias = "specialLevels", parser = IntArrayConfigValueParser.class)
-	private int[] specialLevels;
-
 	/**
 	 * 在线玩家列表
 	 */

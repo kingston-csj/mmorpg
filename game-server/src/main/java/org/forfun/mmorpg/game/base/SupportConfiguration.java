@@ -1,16 +1,16 @@
 package org.forfun.mmorpg.game.base;
 
+import jforgame.data.reader.DataReader;
+import jforgame.data.reader.ExcelDataReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.convert.ConversionService;
-import org.springframework.core.convert.support.DefaultConversionService;
 
 @Configuration
 public class SupportConfiguration {
 
-	@Bean("gameConversion")
-	public ConversionService createConversionService() {
-		return new DefaultConversionService();
+	@Bean
+	public DataReader createDataReader() {
+		return new ExcelDataReader();
 	}
 
 }

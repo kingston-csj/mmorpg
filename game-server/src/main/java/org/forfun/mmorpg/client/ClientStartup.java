@@ -8,6 +8,7 @@ import jforgame.socket.share.HostAndPort;
 import jforgame.socket.share.IdSession;
 import jforgame.socket.share.SocketIoDispatcher;
 import jforgame.socket.share.SocketIoDispatcherAdapter;
+import jforgame.socket.share.message.RequestDataFrame;
 import org.forfun.mmorpg.framework.net.GameMessageFactory;
 import org.forfun.mmorpg.game.ConfigScanPaths;
 
@@ -25,7 +26,9 @@ public class ClientStartup {
 
         SocketIoDispatcher msgDispatcher = new SocketIoDispatcherAdapter() {
             @Override
-            public void dispatch(IdSession session, Object message) {
+            public void dispatch(IdSession session, Object frame) {
+                RequestDataFrame dataFrame = (RequestDataFrame) frame;
+                Object message = dataFrame.getMessage();
                 System.err.println("收到消息<-- " + message.getClass().getSimpleName() + "=" + JsonUtil.object2String(message));
             }
             @Override

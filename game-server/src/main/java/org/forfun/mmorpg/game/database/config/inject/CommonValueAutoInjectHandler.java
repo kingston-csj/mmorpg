@@ -1,6 +1,7 @@
 package org.forfun.mmorpg.game.database.config.inject;
 
 import jakarta.annotation.PostConstruct;
+import org.forfun.mmorpg.game.base.GameContext;
 import org.forfun.mmorpg.game.database.config.container.ConfigCommonValueContainer;
 import org.forfun.mmorpg.game.database.config.domain.ConfigCommonValue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @Component
 public class CommonValueAutoInjectHandler {
 
-    @Autowired
-    private ConfigCommonValueContainer container;
 
     @Autowired()
-    @Qualifier("gameConversion")
+    @Qualifier("dataConversionService")
     private ConversionService conversionService;
 
     private Map<Class<?>, ConfigValueParser> parserTable = new HashMap<>();
@@ -34,6 +33,7 @@ public class CommonValueAutoInjectHandler {
     }
 
     public Object postBeanAfterInject(Object bean) {
+        ConfigCommonValueContainer container = GameContext.getDataManager().queryContainer(ConfigCommonValue.class, ConfigCommonValueContainer.class);
         if (needInject(bean)) {
             Field[] fields = bean.getClass().getDeclaredFields();
             for (Field field : fields) {
@@ -42,9 +42,9 @@ public class CommonValueAutoInjectHandler {
                     ReflectionUtils.makeAccessible(field);
 
                     String dbName = StringUtils.isEmpty(annotation.alias()) ? field.getName() : annotation.alias();
-                    ConfigCommonValue commonValue = container.queryOne(dbName);
+                    ConfigCommonValue commonValue = container.getRecordByKey(dbName);
                     if (commonValue == null) {
-                       throw  new IllegalStateException(bean.getClass().getSimpleName() + " commonValue为空,key =" + field.getName());
+                        throw new IllegalStateException(bean.getClass().getSimpleName() + " commonValue为空,key =" + field.getName());
                     }
                     Object property = commonValue.getValue();
                     if (annotation.parser() != NullInject.class) {

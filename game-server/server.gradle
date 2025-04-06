@@ -9,6 +9,7 @@ dependencies {
     implementation ("io.github.jforgame:jforgame-commons:${versions.jforgameVersion}")
     implementation ("io.github.jforgame:jforgame-socket-netty:${versions.jforgameVersion}")
     implementation ("io.github.jforgame:jforgame-codec-struct:${versions.jforgameVersion}")
+    implementation ("io.github.jforgame:jforgame-spring-boot-starter-data:${versions.jforgameVersion}")
 
 
     annotationProcessor dependencyPool.lombok

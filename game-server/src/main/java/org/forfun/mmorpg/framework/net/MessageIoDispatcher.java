@@ -12,6 +12,7 @@ import jforgame.socket.share.ThreadModel;
 import jforgame.socket.share.annotation.MessageRoute;
 import jforgame.socket.share.message.MessageExecutor;
 import jforgame.socket.share.message.MessageFactory;
+import jforgame.socket.share.message.RequestDataFrame;
 import jforgame.socket.share.task.MessageTask;
 import jforgame.socket.support.DefaultMessageParameterConverter;
 import org.forfun.mmorpg.game.ServerType;
@@ -35,8 +36,10 @@ public class MessageIoDispatcher extends ChainedMessageDispatcher {
 
         this.handlerRegister = new CommonMessageHandlerRegister(messageRoutes.values(), messageFactory);
 
-        MessageHandler messageHandler = (session, message) -> {
-            int cmd = GameContext.getMessageFactory().getMessageId(message.getClass());
+        MessageHandler messageHandler = (session, frame) -> {
+            RequestDataFrame dataFrame = (RequestDataFrame) frame;
+            Object message = dataFrame.getMessage();
+            int cmd = messageFactory.getMessageId(message.getClass());
             MessageExecutor cmdExecutor = handlerRegister.getMessageExecutor(cmd);
             if (cmdExecutor == null) {
                 logger.error("message executor missed,  cmd={}", cmd);
@@ -59,7 +62,7 @@ public class MessageIoDispatcher extends ChainedMessageDispatcher {
                 }
             }
 
-            Object[] params = msgParameterConverter.convertToMethodParams(session, cmdExecutor.getParams(), message);
+            Object[] params = msgParameterConverter.convertToMethodParams(session, cmdExecutor.getParams(), dataFrame);
             Object controller = cmdExecutor.getHandler();
 
             Object playerEnt = session.getAttribute("PLAYER");
@@ -68,7 +71,6 @@ public class MessageIoDispatcher extends ChainedMessageDispatcher {
                 dispatchKey = ((PlayerEnt) playerEnt).dispatchKey();
             }
             MessageTask task = MessageTask.valueOf(session, dispatchKey, controller, cmdExecutor.getMethod(), params);
-            task.setRequest(message);
             // 丢到任务消息队列，不在io线程进行业务处理
             threadModel.accept(task);
             return true;

@@ -3,7 +3,7 @@ package org.forfun.mmorpg.game.scene.service;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import org.forfun.mmorpg.game.database.config.container.ConfigMapContainer;
+import org.forfun.mmorpg.game.base.GameContext;
 import org.forfun.mmorpg.game.database.config.domain.ConfigMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,8 +15,6 @@ import org.forfun.mmorpg.game.scene.model.WorldMap;
 @Service
 public class SceneService {
 
-	@Autowired
-	private ConfigMapContainer configMapContainer;
 
 	private ConcurrentMap<Integer, WorldMap> allMaps = new ConcurrentHashMap<>();
 
@@ -24,7 +22,7 @@ public class SceneService {
 	 * 初始化所有普通场景
 	 */
 	public void initNormalScenes() {
-		configMapContainer.queryAllMaps().stream().filter(map -> map.getMapType() == 0).forEach(this::initNormalScenes);
+		GameContext.getDataManager().queryAll(ConfigMap.class).stream().filter(map -> map.getMapType() == 0).forEach(this::initNormalScenes);
 	}
 
 	private void initNormalScenes(ConfigMap configMap) {

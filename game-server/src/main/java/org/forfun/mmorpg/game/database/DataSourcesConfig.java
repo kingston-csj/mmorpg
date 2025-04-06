@@ -15,17 +15,8 @@ import javax.sql.DataSource;
 @Slf4j
 public class DataSourcesConfig {
 
-	@Bean(name = "configDataSource")
-	@Qualifier("configDataSource")
-	@Primary
-	@ConfigurationProperties(prefix = "spring.datasource.configdb")
-	public DataSource primaryDataSource() {
-		log.info("静态数据源建立链接");
-		return DataSourceBuilder.create().build();
-	}
 
 	@Bean(name = "userDataSource")
-	@Qualifier("userDataSource")
 	@ConfigurationProperties(prefix = "spring.datasource.userdb")
 	public DataSource secondaryDataSource() {
 		log.info("动态数据源建立链接");

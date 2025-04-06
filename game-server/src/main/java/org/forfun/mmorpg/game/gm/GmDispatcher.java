@@ -16,7 +16,7 @@ import java.util.Map;
 public class GmDispatcher {
 
 	@Autowired()
-	@Qualifier("gameConversion")
+	@Qualifier("dataConversionService")
 	private ConversionService conversionService;
 
 	/** [methodName, CmdExecutor] */

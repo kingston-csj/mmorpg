@@ -10,7 +10,7 @@ ext {
 			mysqlVersion 		  : "8.0.28",
 			protostuffVersion     : "1.5.9",
 			protobufVersion 	  : "1.11.7",
-			jforgameVersion  	  : "1.2.0",
+			jforgameVersion  	  : "2.2.0",
 	]
 
 	dependencyPool = [

@@ -30,9 +30,6 @@ public class PlayerFacade {
 
 	@RequestHandler
 	public void reqAccountLogin(IdSession session, ReqAccountLogin request) {
-		if (request.getAccountId() > 0) {
-			throw new BusinessRequestException(100);
-		}
 		loginService.handleAccountLogin(session, request.getAccountId(), request.getPassword());
 	}
 
