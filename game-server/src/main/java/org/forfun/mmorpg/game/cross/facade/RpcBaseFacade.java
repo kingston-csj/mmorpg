@@ -3,7 +3,6 @@ package org.forfun.mmorpg.game.cross.facade;
 import jakarta.annotation.PostConstruct;
 import jforgame.socket.share.IdSession;
 import jforgame.socket.share.annotation.MessageRoute;
-import org.forfun.mmorpg.framework.eventbus.EventBus;
 import org.forfun.mmorpg.game.CrossConfig;
 import org.forfun.mmorpg.game.Modules;
 import org.forfun.mmorpg.game.ServerLayer;
@@ -96,7 +95,7 @@ public class RpcBaseFacade {
      */
     public void respLoginServer(IdSession session, RpcRespServerLogin response) {
         clientRouter.registerSession(response.getRemoteSid(), session);
-        EventBus.getInstance().asyncPost(RpcConnectedEvent.valueOf(response.getRemoteSid(), response.getServerType()));
+        GameContext.getEventBus().asyncPost(RpcConnectedEvent.valueOf(response.getRemoteSid(), response.getServerType()));
 
         GameContext.getBean(ServerLayer.class).onCenterServerConnected();
     }

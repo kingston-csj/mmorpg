@@ -1,6 +1,6 @@
 package org.forfun.mmorpg.game.function.facade;
 
-import org.forfun.mmorpg.framework.eventbus.Subscribe;
+import jforgame.commons.eventbus.Subscribe;
 import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
 import org.forfun.mmorpg.game.function.model.FunctionOpenType;
 import org.forfun.mmorpg.game.function.service.FunctionService;

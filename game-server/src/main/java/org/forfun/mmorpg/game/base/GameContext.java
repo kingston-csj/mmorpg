@@ -1,6 +1,7 @@
 package org.forfun.mmorpg.game.base;
 
 import jakarta.annotation.PostConstruct;
+import jforgame.commons.eventbus.EventBus;
 import jforgame.data.DataManager;
 import jforgame.socket.share.message.MessageFactory;
 import lombok.Setter;
@@ -45,10 +46,16 @@ public final class GameContext implements ApplicationContextAware {
         GameContext.applicationContext = applicationContext;
     }
 
-    public ServerConfig serverConfig;
+    private ServerConfig serverConfig;
 
     public static ServerConfig getServerConfig() {
         return self.serverConfig;
+    }
+
+    private EventBus eventBus;
+
+    public static EventBus getEventBus() {
+        return self.eventBus;
     }
 
     private AsyncDbService asyncDbService;

@@ -1,5 +1,6 @@
 package org.forfun.mmorpg.framework.eventbus;
 
+import jforgame.commons.eventbus.EventBus;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;

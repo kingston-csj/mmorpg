@@ -1,6 +1,5 @@
 package org.forfun.mmorpg.game.function.service;
 
-import org.forfun.mmorpg.framework.eventbus.EventBus;
 import org.forfun.mmorpg.game.base.GameContext;
 import org.forfun.mmorpg.game.database.config.domain.ConfigFunction;
 import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
@@ -29,7 +28,7 @@ public class FunctionService {
 
     private void levelOpenFunc(PlayerEnt player, int funcId) {
         GameContext.getPlayerService().savePlayer(player);
-        EventBus.getInstance().post(new PlayerFuncOpenEvent(player));
+        GameContext.getEventBus().post(new PlayerFuncOpenEvent(player));
     }
 
 }

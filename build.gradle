@@ -10,7 +10,7 @@ ext {
 			mysqlVersion 		  : "8.0.28",
 			protostuffVersion     : "1.5.9",
 			protobufVersion 	  : "1.11.7",
-			jforgameVersion  	  : "2.2.0",
+			jforgameVersion  	  : "2.3.0",
 	]
 
 	dependencyPool = [
@@ -27,7 +27,6 @@ ext {
 			mysql: "mysql:mysql-connector-java:${versions.mysqlVersion}",
 			groovy: 'org.codehaus.groovy:groovy-all:2.4.11',
 			guava: 'com.google.guava:guava:30.1-jre',
-			junit: 'junit:junit:4.12'
 	]
 }
 
@@ -53,7 +52,6 @@ subprojects {
 	dependencies {
 //		compileOnly dependencies.lombok
 //		annotationProcessor  ext.dependencies.lombok
-		testImplementation dependencyPool.junit
 	}
 }
 

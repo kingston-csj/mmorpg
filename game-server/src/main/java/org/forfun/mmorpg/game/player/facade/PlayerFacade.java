@@ -3,11 +3,9 @@ package org.forfun.mmorpg.game.player.facade;
 import jforgame.socket.share.IdSession;
 import jforgame.socket.share.annotation.MessageRoute;
 import jforgame.socket.share.annotation.RequestHandler;
-import org.forfun.mmorpg.framework.eventbus.EventBus;
 import org.forfun.mmorpg.game.Modules;
 import org.forfun.mmorpg.game.base.GameContext;
 import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
-import org.forfun.mmorpg.game.exception.BusinessRequestException;
 import org.forfun.mmorpg.game.gm.GmCommands;
 import org.forfun.mmorpg.game.gm.GmHandler;
 import org.forfun.mmorpg.game.player.event.PlayerLevelUpEvent;
@@ -47,7 +45,7 @@ public class PlayerFacade {
 
 		PlayerEnt player = new PlayerEnt();
 		player.setId(playerId);
-		EventBus.getInstance().post(new PlayerLoginEvent(player));
+		GameContext.getEventBus().post(new PlayerLoginEvent(player));
 	}
 
 	@GmHandler(cmd = GmCommands.LEVEL)
@@ -55,7 +53,7 @@ public class PlayerFacade {
 		System.err.println("[gm]修改玩家等级为" + level);
 		player.setLevel(level);
 		GameContext.getPlayerService().savePlayer(player);
-		EventBus.getInstance().post(new PlayerLevelUpEvent(player));
+		GameContext.getEventBus().post(new PlayerLevelUpEvent(player));
 	}
 
 }

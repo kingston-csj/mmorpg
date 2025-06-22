@@ -1,6 +1,6 @@
 package org.forfun.mmorpg.game.player.event;
 
-import org.forfun.mmorpg.framework.eventbus.BaseEvent;
+import jforgame.commons.eventbus.BaseEvent;
 import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
 
 public class PlayerLevelUpEvent implements BaseEvent {

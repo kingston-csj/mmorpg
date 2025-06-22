@@ -1,8 +1,8 @@
 package org.forfun.mmorpg.game.cross.event;
 
+import jforgame.commons.eventbus.BaseEvent;
 import lombok.Getter;
 import lombok.Setter;
-import org.forfun.mmorpg.framework.eventbus.BaseEvent;
 
 @Getter
 @Setter

@@ -33,31 +33,6 @@ CREATE TABLE `accountent`  (
 INSERT INTO `accountent` VALUES (123, 'kingston');
 
 -- ----------------------------
--- Table structure for player
--- ----------------------------
-DROP TABLE IF EXISTS `player`;
-CREATE TABLE `player`  (
-  `id` bigint NULL DEFAULT NULL,
-  `accountId` bigint NULL DEFAULT NULL,
-  `level` int NULL DEFAULT 1,
-  `name` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
-  `job` tinyint NULL DEFAULT 0,
-  `exp` bigint NULL DEFAULT 0,
-  `lastDailyReset` bigint NULL DEFAULT NULL,
-  `vipRightJson` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
-  `platform` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of player
--- ----------------------------
-INSERT INTO `player` VALUES (10000, NULL, 99, 'kingston', 1, 12345, NULL, NULL, NULL);
-INSERT INTO `player` VALUES (2815132638074568705, NULL, 0, 'robot_1000', 0, 0, 1547125647521, 'null', 'null');
-INSERT INTO `player` VALUES (2815132638084726786, NULL, 0, 'robot_1000', 0, 0, 1547125647521, 'null', 'null');
-INSERT INTO `player` VALUES (2815132639352520706, 0, 0, 'robot_1000', 0, 0, 0, 'null', 'null');
-INSERT INTO `player` VALUES (2815132639356715010, 0, 0, 'robot_1000', 0, 0, 0, 'null', 'null');
-
--- ----------------------------
 -- Table structure for playerent
 -- ----------------------------
 DROP TABLE IF EXISTS `playerent`;

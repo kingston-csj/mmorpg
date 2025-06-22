@@ -30,16 +30,8 @@ mmorpg，是一个用java编写的分布式高性能mmorpg手游服务端框架�
 2. 将代码导入带有gradle插件的IDE;    
 3. 启动服务端，入口为ServerStartup类;  
 4. 启动客户端，入口为ClientStartup类;  
-注意：项目使用了lombok库，用于代码简写，开发环境需要下载对应插件，请自行百度
-
 
 欢迎star/fork，欢迎学习/使用，期待一起贡献代码！！
-
-## 请作者喝杯咖啡
-如果您觉得有所收获，可以请作者喝杯咖啡。大家的支持，促使我不断改进优化，谢谢！  
-![](/screenshots/wx.jpg "微信收款码")
-![](/screenshots/zfb.jpg "支付宝收款码")
-
 
 ## 一起交流
 如果您发现bug，或者有任何疑问，请提交issue !!  

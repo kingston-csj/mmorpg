@@ -79,7 +79,7 @@ public class HotSwapManager {
 			String path = "./hotswap/" + classStr[classStr.length - 1] + ".class";
 			System.err.println("path==" + path);
 			// path参数即agentmain()方法的第一个参数
-			vm.loadAgent("libs/hotswap-agent.jar", path);
+			vm.loadAgent("libs/jforgame-hotswap-agent", path);
 			return true;
 		} catch (Exception e) {
 			logger.error("", e);
