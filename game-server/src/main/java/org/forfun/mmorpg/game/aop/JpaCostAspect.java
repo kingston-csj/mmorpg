@@ -9,11 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-@Component
-@Aspect
 /**
  * 监控aop执行长时间耗时
  */
+@Component
+@Aspect
 public class JpaCostAspect {
 
     private Logger logger = LoggerFactory.getLogger(getClass().getName());

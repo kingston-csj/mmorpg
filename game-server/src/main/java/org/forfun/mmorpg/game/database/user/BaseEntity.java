@@ -1,12 +1,11 @@
 package org.forfun.mmorpg.game.database.user;
 
+import jforgame.commons.persist.Entity;
 import org.springframework.data.repository.CrudRepository;
 
 import java.io.Serializable;
 
-public interface BaseEntity<ID extends Serializable & Comparable<ID>> {
-
-    ID getId();
+public interface BaseEntity<ID extends Serializable & Comparable<ID>> extends Entity<ID> {
 
     /**
      * springdata jpa没有类似MongoTemplate的工具，只能手动绑定Entity与CrudRepository

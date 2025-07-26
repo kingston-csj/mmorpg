@@ -3,6 +3,7 @@ package org.forfun.mmorpg.game;
 import jforgame.commons.NumberUtil;
 import org.apache.commons.lang3.time.StopWatch;
 import org.forfun.mmorpg.game.base.GameContext;
+import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
@@ -61,6 +62,10 @@ public class ServerStartup {
         DefaultListableBeanFactory defaultListableBeanFactory = (DefaultListableBeanFactory) configurableApplicationContext.getBeanFactory();
         defaultListableBeanFactory.registerSingleton("serverLayer", container);
         container.init();
+
+//        PlayerEnt player = GameContext.getPlayerService().getPlayer(10000L);
+//        player.setLevel(999);
+//        GameContext.getAysncDbService().saveToDb(player);
 
         stopWatch.stop();
         logger.error("[{}]启动成功，耗时[{}]秒", GameContext.serverType.name, stopWatch.getTime() / 1000);
