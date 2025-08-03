@@ -1,7 +1,7 @@
 package org.forfun.mmorpg.rpc.server;
 
 import io.netty.channel.Channel;
-import org.forfun.mmorpg.protocol.codec.impl.protostuff.ProtostuffCodecUtil;
+import org.forfun.mmorpg.rpc.codec.ProtostuffCodecUtil;
 import org.forfun.mmorpg.rpc.data.RpcDataPackage;
 import org.forfun.mmorpg.rpc.data.RpcRequestData;
 import org.forfun.mmorpg.rpc.data.RpcResponseData;

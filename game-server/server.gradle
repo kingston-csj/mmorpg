@@ -1,40 +1,37 @@
-
 //archivesBaseName = 'game'
 
-apply plugin: 'io.spring.dependency-management'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'groovy'
 
 dependencies {
-    implementation ("io.github.jforgame:jforgame-commons:${versions.jforgameVersion}")
-    implementation ("io.github.jforgame:jforgame-socket-netty:${versions.jforgameVersion}")
-    implementation ("io.github.jforgame:jforgame-codec-struct:${versions.jforgameVersion}")
-    implementation ("io.github.jforgame:jforgame-spring-boot-starter-data:${versions.jforgameVersion}")
+    implementation "io.github.jforgame:jforgame-commons"
+    implementation "io.github.jforgame:jforgame-socket-netty"
+    implementation "io.github.jforgame:jforgame-codec-struct"
+    implementation "io.github.jforgame:jforgame-spring-boot-starter-data"
 
-
-    annotationProcessor dependencyPool.lombok
-    compileOnly dependencyPool.lombok
-    implementation dependencyPool.netty
-    implementation dependencyPool.minacore
-    implementation dependencyPool.jprotobuf
+    annotationProcessor "org.projectlombok:lombok"
+    compileOnly "org.projectlombok:lombok"
+    implementation "io.netty:netty-all"
+    implementation "org.apache.mina:mina-core"
+    implementation "com.baidu:jprotobuf"
 //    compile 'com.baidu:jprotobuf-precompile-plugin'
-    implementation dependencyPool.protostuffcore
-    implementation dependencyPool.protostuffruntime
-    implementation dependencyPool.mysql
-    api dependencyPool.commonslang3
-    implementation 'commons-codec:commons-codec:1.10'
-    implementation dependencyPool.groovy
+    implementation "io.protostuff:protostuff-core"
+    implementation "io.protostuff:protostuff-runtime"
+    implementation "mysql:mysql-connector-java"
+    api "org.apache.commons:commons-lang3"
+    implementation 'commons-codec:commons-codec'
+    implementation "org.codehaus.groovy:groovy-all"
 
-    implementation ('org.springframework.boot:spring-boot-starter-data-jpa')
-    implementation ('org.springframework.boot:spring-boot-starter-test')
-    implementation ('org.springframework.boot:spring-boot-starter-actuator')
-    implementation ('org.springframework.boot:spring-boot-starter-web')
-    implementation ('org.springframework.boot:spring-boot-starter-aop')
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
 //	compile ('org.springframework.boot:spring-boot-devtools')
-    implementation ('org.springframework.boot:spring-boot-starter-cache')
-    implementation 'com.github.ben-manes.caffeine:caffeine:3.1.8'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation 'com.github.ben-manes.caffeine:caffeine'
 
-    implementation 'org.freemarker:freemarker:2.3.31'
+    implementation 'org.freemarker:freemarker'
 
     implementation fileTree(dir:'libs',include:['*.jar'])
 }

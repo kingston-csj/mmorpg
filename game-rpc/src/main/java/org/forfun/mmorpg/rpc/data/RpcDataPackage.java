@@ -1,6 +1,7 @@
 package org.forfun.mmorpg.rpc.data;
 
-import org.forfun.mmorpg.protocol.codec.impl.protostuff.ProtostuffCodecUtil;
+
+import org.forfun.mmorpg.rpc.codec.ProtostuffCodecUtil;
 
 public class RpcDataPackage {
 

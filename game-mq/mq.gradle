@@ -1,11 +1,10 @@
-
 dependencies {
-    implementation ('org.apache.rocketmq:rocketmq-spring-boot-starter:2.2.0') {
+    implementation ('org.apache.rocketmq:rocketmq-spring-boot-starter') {
         exclude (group: 'org.springframework.boot')
     }
-    implementation ("org.springframework.boot:spring-boot-starter:${versions.springBootVersion}")
-    annotationProcessor dependencyPool.lombok
-    compileOnly dependencyPool.lombok
+    implementation "org.springframework.boot:spring-boot-starter"
+    annotationProcessor "org.projectlombok:lombok"
+    compileOnly "org.projectlombok:lombok"
 
 }
 

@@ -1,15 +1,14 @@
-
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 
-    implementation dependencyPool.protostuffcore
-    implementation dependencyPool.protostuffruntime
+    implementation "io.protostuff:protostuff-core"
+    implementation "io.protostuff:protostuff-runtime"
 
-    implementation ("io.github.jforgame:jforgame-commons:${versions.jforgameVersion}")
-    implementation ("io.github.jforgame:jforgame-codec-api:${versions.jforgameVersion}")
+    implementation "io.github.jforgame:jforgame-commons"
+    implementation "io.github.jforgame:jforgame-codec-api"
 
-    implementation dependencyPool.netty
-    implementation dependencyPool.protostuffcore
-    implementation dependencyPool.protostuffruntime
+    implementation "io.netty:netty-all"
+    implementation "io.protostuff:protostuff-core"
+    implementation "io.protostuff:protostuff-runtime"
 }
