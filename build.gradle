@@ -11,22 +11,28 @@ ext {
 			protostuffVersion     : "1.5.9",
 			protobufVersion 	  : "1.11.7",
 			jforgameVersion  	  : "2.4.0",
+			lombokVersion         : "1.18.30",
+			rocketmqVersion       : "2.2.0",
+			caffeineVersion       : "3.1.8",
+			freemarkerVersion     : "2.3.31",
+			junitJupiterVersion   : "5.6.0",
+			commonsCodecVersion   : "1.10",
+			commonsLang3Version   : "3.4",
+			groovyVersion         : "2.4.11",
+			guavaVersion          : "30.1-jre"
 	]
 
 	dependencyPool = [
-			nettyVersion          : "4.1.33.Final",
-//			springboot : "org.springframework.boot:spring-boot-dependencies:${versions.springBootVersion}",
-			commonslang3:  "org.apache.commons:commons-lang3:3.4",
-			lombok: 'org.projectlombok:lombok:1.18.30',
-//			annotationProcessor 'org.projectlombok:lombok:1.18.30'
-			netty:  "io.netty:netty-all:${versions.nettyVersion}",
-			minacore: "org.apache.mina:mina-core:${versions.minaVersion}",
-			jprotobuf: "com.baidu:jprotobuf:${versions.protobufVersion}",
-			protostuffcore: "io.protostuff:protostuff-core:${versions.protostuffVersion}",
-			protostuffruntime: "io.protostuff:protostuff-runtime:${versions.protostuffVersion}",
-			mysql: "mysql:mysql-connector-java:${versions.mysqlVersion}",
-			groovy: 'org.codehaus.groovy:groovy-all:2.4.11',
-			guava: 'com.google.guava:guava:30.1-jre',
+			commonslang3:  "org.apache.commons:commons-lang3",
+			lombok: "org.projectlombok:lombok",
+			netty:  "io.netty:netty-all",
+			minacore: "org.apache.mina:mina-core",
+			jprotobuf: "com.baidu:jprotobuf",
+			protostuffcore: "io.protostuff:protostuff-core",
+			protostuffruntime: "io.protostuff:protostuff-runtime",
+			mysql: "mysql:mysql-connector-java",
+			groovy: "org.codehaus.groovy:groovy-all",
+			guava: "com.google.guava:guava"
 	]
 }
 
@@ -63,6 +69,7 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:3.0.4")
+		classpath 'io.spring.gradle:dependency-management-plugin:1.1.4'
 	}
 }
 
@@ -72,6 +79,7 @@ configure(allprojects) { project ->
 
 	apply plugin: "java"
 	apply plugin: "java-library"
+	apply plugin: 'io.spring.dependency-management'
 
 	def commonCompilerArgs =
 			["-Xlint:serial", "-Xlint:cast", "-Xlint:classfile", "-Xlint:dep-ann",
@@ -103,6 +111,42 @@ configure(allprojects) { project ->
 	repositories {
 	    mavenLocal()
 	    mavenCentral()
+		maven { url 'https://maven.aliyun.com/repository/public' }
+		maven { url 'https://repo.spring.io/libs-milestone' }
+	}
+
+	dependencyManagement {
+		imports {
+			mavenBom "org.springframework.boot:spring-boot-dependencies:${rootProject.ext.versions.springBootVersion}"
+		}
+
+		dependencies {
+			dependencySet(group: 'io.github.jforgame', version: rootProject.ext.versions.jforgameVersion) {
+				entry 'jforgame-commons'
+				entry 'jforgame-socket-netty'
+				entry 'jforgame-codec-struct'
+				entry 'jforgame-spring-boot-starter-data'
+				entry 'jforgame-codec-api'
+			}
+
+			dependency "io.netty:netty-all:${rootProject.ext.versions.nettyVersion}"
+			dependency "org.apache.mina:mina-core:${rootProject.ext.versions.minaVersion}"
+			dependency "com.baidu:jprotobuf:${rootProject.ext.versions.protobufVersion}"
+			dependency "io.protostuff:protostuff-core:${rootProject.ext.versions.protostuffVersion}"
+			dependency "io.protostuff:protostuff-runtime:${rootProject.ext.versions.protostuffVersion}"
+			dependency "mysql:mysql-connector-java:${rootProject.ext.versions.mysqlVersion}"
+			dependency "org.codehaus.groovy:groovy-all:${rootProject.ext.versions.groovyVersion}"
+			dependency "com.google.guava:guava:${rootProject.ext.versions.guavaVersion}"
+			dependency "org.projectlombok:lombok:${rootProject.ext.versions.lombokVersion}"
+			dependency "org.apache.commons:commons-lang3:${rootProject.ext.versions.commonsLang3Version}"
+			dependency "commons-codec:commons-codec:${rootProject.ext.versions.commonsCodecVersion}"
+			dependency "org.apache.rocketmq:rocketmq-spring-boot-starter:${rootProject.ext.versions.rocketmqVersion}"
+			dependency "com.github.ben-manes.caffeine:caffeine:${rootProject.ext.versions.caffeineVersion}"
+			dependency "org.freemarker:freemarker:${rootProject.ext.versions.freemarkerVersion}"
+
+			dependency "org.junit.jupiter:junit-jupiter-api:${rootProject.ext.versions.junitJupiterVersion}"
+			dependency "org.junit.jupiter:junit-jupiter-engine:${rootProject.ext.versions.junitJupiterVersion}"
+		}
 	}
 
 	eclipse {

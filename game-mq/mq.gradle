@@ -3,8 +3,8 @@ dependencies {
         exclude (group: 'org.springframework.boot')
     }
     implementation "org.springframework.boot:spring-boot-starter"
-    annotationProcessor "org.projectlombok:lombok"
-    compileOnly "org.projectlombok:lombok"
+    annotationProcessor dependencyPool.lombok
+    compileOnly dependencyPool.lombok
 
 }
 

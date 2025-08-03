@@ -2,13 +2,13 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 
-    implementation "io.protostuff:protostuff-core"
-    implementation "io.protostuff:protostuff-runtime"
+    implementation dependencyPool.protostuffcore
+    implementation dependencyPool.protostuffruntime
 
     implementation "io.github.jforgame:jforgame-commons"
     implementation "io.github.jforgame:jforgame-codec-api"
 
-    implementation "io.netty:netty-all"
-    implementation "io.protostuff:protostuff-core"
-    implementation "io.protostuff:protostuff-runtime"
+    implementation dependencyPool.netty
+    implementation dependencyPool.protostuffcore
+    implementation dependencyPool.protostuffruntime
 }
