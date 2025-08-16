@@ -1,4 +1,5 @@
-package org.forfun.mmorpg.game.base;
+package org.forfun.mmorpg.framework.cache;
+
 
 import org.forfun.mmorpg.game.database.user.BaseEntity;
 
@@ -9,6 +10,7 @@ public interface EntityCacheService<E extends BaseEntity<ID>, ID extends Seriali
 
     /**
      * 根据id获取实体
+     *
      * @param id
      * @return
      */
@@ -17,6 +19,7 @@ public interface EntityCacheService<E extends BaseEntity<ID>, ID extends Seriali
     /**
      * 更新/插入实体
      * 若实体已存在于数据库，则执行更新操作；否则，执行插入操作
+     *
      * @param entity
      * @return
      */
