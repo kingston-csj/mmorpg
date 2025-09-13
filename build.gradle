@@ -10,7 +10,7 @@ ext {
 			mysqlVersion 		  : "8.0.28",
 			protostuffVersion     : "1.5.9",
 			protobufVersion 	  : "1.11.7",
-			jforgameVersion  	  : "2.4.0",
+			jforgameVersion  	  : "2.5.0",
 			lombokVersion         : "1.18.30",
 			rocketmqVersion       : "2.2.0",
 			caffeineVersion       : "3.1.8",

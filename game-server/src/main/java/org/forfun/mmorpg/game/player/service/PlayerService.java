@@ -1,15 +1,15 @@
 package org.forfun.mmorpg.game.player.service;
 
 import jforgame.commons.ds.ConcurrentHashSet;
+import jforgame.data.common.CommonConfig;
+import jforgame.data.common.CommonValueReloadListener;
 import jforgame.socket.share.IdSession;
+import lombok.Getter;
 import lombok.extern.java.Log;
 import org.forfun.mmorpg.framework.cache.BaseEntityCacheService;
 import org.forfun.mmorpg.framework.cache.EntityCacheAutowired;
 import org.forfun.mmorpg.game.account.model.AccountProfile;
 import org.forfun.mmorpg.game.base.GameContext;
-import org.forfun.mmorpg.game.database.config.inject.CommonValueInject;
-import org.forfun.mmorpg.game.database.config.inject.CommonValueReloadListener;
-import org.forfun.mmorpg.game.database.config.inject.IntArrayConfigValueParser;
 import org.forfun.mmorpg.game.database.user.dao.PlayerDao;
 import org.forfun.mmorpg.game.database.user.entity.AccountEnt;
 import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
@@ -43,7 +43,8 @@ public class PlayerService implements CommonValueReloadListener {
 
     public static final byte CMD_RES_LOGIN = 52;
 
-    @CommonValueInject(alias = "playerMaxLevel")
+    @CommonConfig("playerMaxLevel")
+    @Getter
     private int maxValue;
 
     /**

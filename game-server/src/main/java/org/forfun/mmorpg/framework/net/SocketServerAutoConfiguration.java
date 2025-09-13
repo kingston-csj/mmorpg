@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SocketServerAutoConfiguration {
 
-//    @Bean
+    //    @Bean
 //    @ConditionalOnExpression(("'${game.socket.name}'.equalsIgnoreCase('mina')"))
 //    public ServerNode createMina() {
 //        return new MinaSocketServer();
@@ -25,10 +25,10 @@ public class SocketServerAutoConfiguration {
      * @return
      */
     @Bean
-    public ServerNode createNetty() {
+    public ServerNode createNetty(MessageFactory messageFactory) {
         return TcpSocketServerBuilder.newBuilder()
                 .bindingPort(HostAndPort.valueOf(GameContext.getServerConfig().getServerPort()))
-                .setMessageFactory(GameContext.getMessageFactory())
+                .setMessageFactory(messageFactory)
                 .setMessageCodec(new StructMessageCodec())
                 .setSocketIoDispatcher(new MessageIoDispatcher())
                 .build();

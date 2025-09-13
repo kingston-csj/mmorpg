@@ -11,12 +11,12 @@ public enum FunctionOpenType {
 	/**
 	 * 等级
 	 */
-	LEVEL(1),
+	Level(1),
 	
 	/**
 	 * 任务
 	 */
-	QUEST(2),
+	Quest(2),
 	
 	;
 	

@@ -1,0 +1,5 @@
+×Ö¶Î,Ö÷¼ü,,,,,
+,int,string,string,id,id,id
+HEADER,id,ip,name,gamePort,rpcPort,crossServer
+,10001,127.0.0.1,Game1,9527,9627,80001
+,80001,127.0.0.1,Center1,9528,9628,0

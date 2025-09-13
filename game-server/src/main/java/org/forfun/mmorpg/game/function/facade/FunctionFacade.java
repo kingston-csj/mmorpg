@@ -17,7 +17,7 @@ public class FunctionFacade {
 	@Subscribe
 	public void onPlayerLevelUp(PlayerLevelUpEvent levelUpEvent) {
 		PlayerEnt player = levelUpEvent.getOwner();
-		funcService.checkOpen(player, FunctionOpenType.LEVEL.getType());
+		funcService.checkOpen(player, FunctionOpenType.Level.getType());
 	}
 	
 }

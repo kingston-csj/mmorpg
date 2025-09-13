@@ -3,7 +3,8 @@ package org.forfun.mmorpg.game;
 import jforgame.commons.NumberUtil;
 import org.apache.commons.lang3.time.StopWatch;
 import org.forfun.mmorpg.game.base.GameContext;
-import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
+import org.forfun.mmorpg.game.database.config.domain.ConfigFunction;
+import org.forfun.mmorpg.game.player.service.PlayerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
@@ -66,6 +67,8 @@ public class ServerStartup {
 //        PlayerEnt player = GameContext.getPlayerService().getPlayer(10000L);
 //        player.setLevel(999);
 //        GameContext.getAysncDbService().saveToDb(player);
+//        GameContext.getDataManager().queryById(ConfigCommonValue.class, 1).getDesc();
+        GameContext.getBean(PlayerService.class).getMaxValue();
 
         stopWatch.stop();
         logger.error("[{}]启动成功，耗时[{}]秒", GameContext.serverType.name, stopWatch.getTime() / 1000);

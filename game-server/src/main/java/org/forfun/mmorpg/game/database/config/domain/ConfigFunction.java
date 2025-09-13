@@ -17,8 +17,7 @@ public class ConfigFunction {
 	/**
 	 * 开启类型 {@link FunctionOpenType#getType()}
 	 */
-	@Index
-	private int openType;
+	private FunctionOpenType openType;
 	
 	/**
 	 * 开启类型对应的参数

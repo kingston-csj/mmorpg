@@ -1,0 +1,5 @@
+字段,主键,关键字,描述,值
+EXPORT,both,both,client,both
+,int,int,string,string
+HEADER,id,key,desc,value
+,1,playerMaxLevel,玩家最高等级,999
