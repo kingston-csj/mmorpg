@@ -1,0 +1,37 @@
+server:
+  type: 1
+  # 管理后台命令对外HTTP端口(Tomcat)
+  port: 8080
+
+admin:
+  http:
+    # 管理后台IP地址白名单
+    ips: 127.0.0.1
+
+socket:
+  # socket服务的ID
+  id: 10001
+  # socket服务的IP地址
+  serverIp: ""
+  # socket服务的端口
+  port: 0
+
+# RPC内部通信配置
+rpc:
+  # RPC内部通信端口
+  port: 0
+  # 中心服配置
+  center:
+    id: 999999
+    ip: 127.0.0.1
+    port: 8888
+  # 跨服连接密钥
+  signKey: 5eb4bfea5d024e1d92c19cb6e4baab7d
+
+# HTTP后台的端口
+http:
+  port: 0
+
+# WebSocket服务的端口
+webSocket:
+  port: 0

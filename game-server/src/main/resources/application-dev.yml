@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    userdb:
+      jdbc-url: jdbc:mysql://127.0.0.1:3306/game_user
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      max-active: 10
+      max-idle: 5
+      min-idle: 0
+    

@@ -1,0 +1,9 @@
+socket:
+  # socket服务的ID
+  id: 10000
+  # socket服务的IP地址
+  serverIp: 127.0.0.1
+
+rpc:
+  # rpc内部通信端口
+  port: 9001
