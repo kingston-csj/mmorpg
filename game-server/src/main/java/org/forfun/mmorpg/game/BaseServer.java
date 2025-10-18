@@ -1,6 +1,6 @@
 package org.forfun.mmorpg.game;
 
-import jforgame.socket.share.ServerNode;
+import jforgame.socket.share.server.ServerNode;
 import org.forfun.mmorpg.game.base.GameContext;
 import org.springframework.stereotype.Component;
 

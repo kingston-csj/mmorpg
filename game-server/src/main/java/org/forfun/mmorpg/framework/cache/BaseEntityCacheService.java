@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import jforgame.commons.StringUtil;
+import jforgame.commons.util.StringUtil;
 import org.forfun.mmorpg.game.base.EntityCacheService;
 import org.forfun.mmorpg.game.base.GameContext;
 import org.forfun.mmorpg.game.database.user.BaseEntity;

@@ -1,6 +1,6 @@
 package org.forfun.mmorpg.game.base;
 
-import jforgame.commons.NumberUtil;
+import jforgame.commons.util.NumberUtil;
 import jforgame.socket.share.IdSession;
 import org.apache.mina.core.session.AttributeKey;
 import org.apache.mina.core.session.IoSession;

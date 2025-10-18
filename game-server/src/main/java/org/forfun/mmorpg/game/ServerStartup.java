@@ -1,6 +1,6 @@
 package org.forfun.mmorpg.game;
 
-import jforgame.commons.NumberUtil;
+import jforgame.commons.util.NumberUtil;
 import org.apache.commons.lang3.time.StopWatch;
 import org.forfun.mmorpg.game.base.GameContext;
 import org.slf4j.Logger;
