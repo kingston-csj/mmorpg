@@ -7,15 +7,15 @@ import java.util.Map;
 
 public abstract class ChatChannel {
 
-    private static Map<ChannelType, ChatChannel> channels = new HashMap<>();
+    private static Map<Byte, ChatChannel> channels = new HashMap<>();
 
     public abstract ChannelType getChannelType();
 
     static {
-        channels.put(ChannelType.PRIVATE, new PrivateChatChannel());
+        channels.put(ChannelType.PRIVATE.getType(), new PrivateChatChannel());
     }
 
-    public static ChatChannel getChannel(ChannelType type) {
+    public static ChatChannel getChannel(byte type) {
         return channels.get(type);
     }
 
