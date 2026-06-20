@@ -1,7 +1,7 @@
 spring:
   datasource:
     userdb:
-      jdbc-url: jdbc:mysql://127.0.0.1:3306/game_user
+      jdbc-url: jdbc:mysql://127.0.0.1:3306/game_user_001
       username: root
       password: 123456
       driver-class-name: com.mysql.cj.jdbc.Driver
