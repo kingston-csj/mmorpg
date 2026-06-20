@@ -12,7 +12,6 @@ import org.forfun.mmorpg.game.buff.service.BuffService
 import org.forfun.mmorpg.game.cross.service.RpcClientRouter
 import org.forfun.mmorpg.game.player.service.PlayerService
 import org.forfun.mmorpg.game.script.ScriptService
-import org.springframework.beans.BeansException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationContextAware

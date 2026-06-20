@@ -1,4 +1,4 @@
-package org.forfun.mmorpg.game.exception
+package org.forfun.mmorpg.framework.exception
 
 /**
  * 业务请求执行异常
