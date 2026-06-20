@@ -10,8 +10,7 @@ ext {
 			mysqlVersion 		  : "8.0.28",
 			protostuffVersion     : "1.5.9",
 			protobufVersion 	  : "1.11.7",
-			jforgameVersion  	  : "3.0.0",
-			lombokVersion         : "1.18.30",
+			jforgameVersion  	  : "3.5.0",
 			rocketmqVersion       : "2.2.0",
 			caffeineVersion       : "3.1.8",
 			freemarkerVersion     : "2.3.31",
@@ -24,7 +23,6 @@ ext {
 
 	dependencyPool = [
 			commonslang3:  "org.apache.commons:commons-lang3",
-			lombok: "org.projectlombok:lombok",
 			netty:  "io.netty:netty-all",
 			minacore: "org.apache.mina:mina-core",
 			jprotobuf: "com.baidu:jprotobuf",
@@ -129,6 +127,7 @@ configure(allprojects) { project ->
 				entry 'jforgame-codec-struct'
 				entry 'jforgame-spring-boot-starter-data'
 				entry 'jforgame-codec-api'
+				entry 'jforgame-logger'
 			}
 
 			dependency "io.netty:netty-all:${rootProject.ext.versions.nettyVersion}"

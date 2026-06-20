@@ -6,6 +6,7 @@ apply plugin: 'groovy'
 apply plugin: 'io.spring.dependency-management'
 dependencies {
     implementation "io.github.jforgame:jforgame-commons"
+    implementation "io.github.jforgame:jforgame-logger"
     implementation "io.github.jforgame:jforgame-socket-netty"
     implementation "io.github.jforgame:jforgame-codec-struct"
     implementation "io.github.jforgame:jforgame-spring-boot-starter-data"
