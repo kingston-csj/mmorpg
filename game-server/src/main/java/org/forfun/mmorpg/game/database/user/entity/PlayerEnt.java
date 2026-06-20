@@ -10,8 +10,6 @@ import org.forfun.mmorpg.game.database.user.dao.PlayerDao;
 import org.forfun.mmorpg.game.scene.actor.ActorType;
 import org.forfun.mmorpg.game.scene.actor.Creature;
 import org.forfun.mmorpg.game.vip.model.VipRight;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.Proxy;
 import org.springframework.data.repository.CrudRepository;
 
@@ -23,8 +21,6 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "playerent")
 @Proxy(lazy = false)
-@Getter
-@Setter
 public class PlayerEnt extends Creature implements BaseEntity<Long> {
 
     @Id
@@ -72,6 +68,50 @@ public class PlayerEnt extends Creature implements BaseEntity<Long> {
 
     public boolean isOpenedFunction(int funcId) {
         return false;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(long accountId) {
+        this.accountId = accountId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public VipRight getVipRight() {
+        return vipRight;
+    }
+
+    public void setVipRight(VipRight vipRight) {
+        this.vipRight = vipRight;
+    }
+
+    public BattleContext getBattleContext() {
+        return battleContext;
+    }
+
+    public void setBattleContext(BattleContext battleContext) {
+        this.battleContext = battleContext;
     }
 
 }

@@ -2,10 +2,8 @@ package org.forfun.mmorpg.game.chat.message;
 
 import jforgame.socket.share.annotation.MessageMeta;
 import jforgame.socket.share.message.Message;
-import lombok.Data;
 import org.forfun.mmorpg.game.chat.ChatService;
 
-@Data
 @MessageMeta(cmd = ChatService.CMD_REQ_CHAT)
 public class ReqChat implements Message {
 
@@ -17,5 +15,29 @@ public class ReqChat implements Message {
     private String target;
 
     private String content;
+
+    public byte getChannel() {
+        return channel;
+    }
+
+    public void setChannel(byte channel) {
+        this.channel = channel;
+    }
+
+    public String getTarget() {
+        return target;
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
 }

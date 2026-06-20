@@ -1,14 +1,10 @@
 package org.forfun.mmorpg.game;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 @Component
-@Getter
-@Setter
 @DependsOn("serverConfigFactory")
 public class CrossConfig {
 
@@ -23,4 +19,36 @@ public class CrossConfig {
 
 	@Value("${rpc.signKey}")
 	private String sign;
+
+	public int getCenterId() {
+		return centerId;
+	}
+
+	public void setCenterId(int centerId) {
+		this.centerId = centerId;
+	}
+
+	public String getCenterIp() {
+		return centerIp;
+	}
+
+	public void setCenterIp(String centerIp) {
+		this.centerIp = centerIp;
+	}
+
+	public int getCenterPort() {
+		return centerPort;
+	}
+
+	public void setCenterPort(int centerPort) {
+		this.centerPort = centerPort;
+	}
+
+	public String getSign() {
+		return sign;
+	}
+
+	public void setSign(String sign) {
+		this.sign = sign;
+	}
 }

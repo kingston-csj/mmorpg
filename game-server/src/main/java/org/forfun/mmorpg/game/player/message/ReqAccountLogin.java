@@ -3,12 +3,8 @@ package org.forfun.mmorpg.game.player.message;
 import com.baidu.bjf.remoting.protobuf.annotation.Protobuf;
 import jforgame.socket.share.annotation.MessageMeta;
 import jforgame.socket.share.message.Message;
-import lombok.Getter;
-import lombok.Setter;
 import org.forfun.mmorpg.game.player.service.PlayerService;
 
-@Getter
-@Setter
 @MessageMeta(cmd = PlayerService.CMD_REQ_ACCOUNT_LOGIN)
 public class ReqAccountLogin implements Message {
 
@@ -17,5 +13,21 @@ public class ReqAccountLogin implements Message {
 
 	@Protobuf
 	private String password;
+
+	public long getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(long accountId) {
+		this.accountId = accountId;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 }

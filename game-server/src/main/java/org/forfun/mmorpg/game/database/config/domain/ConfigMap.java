@@ -1,13 +1,11 @@
 package org.forfun.mmorpg.game.database.config.domain;
 
 import jakarta.persistence.Id;
-import lombok.Getter;
 
 /**
  * 地图资源
  *
  */
-@Getter
 public class ConfigMap {
 
     @Id
@@ -33,5 +31,61 @@ public class ConfigMap {
      * 最大分线数量
      */
     private int maxLine;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public byte getMapType() {
+        return mapType;
+    }
+
+    public void setMapType(byte mapType) {
+        this.mapType = mapType;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getCoreLine() {
+        return coreLine;
+    }
+
+    public void setCoreLine(int coreLine) {
+        this.coreLine = coreLine;
+    }
+
+    public int getMaxLine() {
+        return maxLine;
+    }
+
+    public void setMaxLine(int maxLine) {
+        this.maxLine = maxLine;
+    }
 
 }

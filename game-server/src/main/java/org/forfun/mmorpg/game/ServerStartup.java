@@ -3,6 +3,7 @@ package org.forfun.mmorpg.game;
 import jforgame.commons.util.NumberUtil;
 import org.apache.commons.lang3.time.StopWatch;
 import org.forfun.mmorpg.game.base.GameContext;
+import org.forfun.mmorpg.game.player.service.TestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
@@ -55,6 +56,8 @@ public class ServerStartup {
         app.run(args);
 
         GameContext.getBean(BaseServer.class).start();
+
+        GameContext.getBean(TestService.class).hello();
 
         // better code ??!!
         ServerLayer container = null;

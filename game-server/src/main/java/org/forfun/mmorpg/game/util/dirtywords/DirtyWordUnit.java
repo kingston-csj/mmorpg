@@ -1,11 +1,8 @@
 package org.forfun.mmorpg.game.util.dirtywords;
 
-import lombok.Getter;
-
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
 class DirtyWordUnit {
 
     private final String source;
@@ -37,6 +34,16 @@ class DirtyWordUnit {
         return this.indexList.size() == keyWord.length();
     }
 
+    public String getSource() {
+        return source;
+    }
 
+    public String getKeyWord() {
+        return keyWord;
+    }
+
+    public List<Integer> getIndexList() {
+        return indexList;
+    }
 
 }

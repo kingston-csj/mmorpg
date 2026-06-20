@@ -4,8 +4,6 @@ import jforgame.commons.ds.ConcurrentHashSet;
 import jforgame.data.common.CommonConfig;
 import jforgame.data.common.CommonValueReloadListener;
 import jforgame.socket.share.IdSession;
-import lombok.Getter;
-import lombok.extern.java.Log;
 import org.forfun.mmorpg.framework.cache.BaseEntityCacheService;
 import org.forfun.mmorpg.framework.cache.EntityCacheAutowired;
 import org.forfun.mmorpg.game.account.model.AccountProfile;
@@ -25,10 +23,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.logging.Logger;
 
 @Service
-@Log
 public class PlayerService implements CommonValueReloadListener {
+
+    private static final Logger log = Logger.getLogger(PlayerService.class.getName());
 
     public static final byte CMD_REQ_ACCOUNT_LOGIN = 1;
 
@@ -44,7 +44,6 @@ public class PlayerService implements CommonValueReloadListener {
     public static final byte CMD_RES_LOGIN = 52;
 
     @CommonConfig("playerMaxLevel")
-    @Getter
     private int maxValue;
 
     /**
@@ -145,5 +144,9 @@ public class PlayerService implements CommonValueReloadListener {
 
     @Override
     public void afterReload() {
+    }
+
+    public int getMaxValue() {
+        return maxValue;
     }
 }

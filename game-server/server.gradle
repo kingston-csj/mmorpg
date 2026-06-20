@@ -9,8 +9,8 @@ dependencies {
     implementation "io.github.jforgame:jforgame-codec-struct"
     implementation "io.github.jforgame:jforgame-spring-boot-starter-data"
 
-    annotationProcessor dependencyPool.lombok
-    compileOnly dependencyPool.lombok
+//    annotationProcessor dependencyPool.lombok
+//    compileOnly dependencyPool.lombok
     implementation dependencyPool.netty
     implementation dependencyPool.minacore
     implementation dependencyPool.jprotobuf

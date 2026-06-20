@@ -1,6 +1,5 @@
 package org.forfun.mmorpg.game.util.dirtywords;
 
-import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -21,9 +20,7 @@ import java.util.Set;
 public class DirtyWordsReader {
 
     private String ENCODING = "UTF-8";
-    @Getter
     private final Map<Character, List<String>> dirtyWords = new HashMap<>();
-    @Getter
     private int wordCount = 0;
 
     DirtyWordsReader() throws IOException {
@@ -64,6 +61,14 @@ public class DirtyWordsReader {
             List<String> sameFirst = dirtyWords.computeIfAbsent(first, k -> new ArrayList<>());
             sameFirst.add(word);
         }
+    }
+
+    public Map<Character, List<String>> getDirtyWords() {
+        return dirtyWords;
+    }
+
+    public int getWordCount() {
+        return wordCount;
     }
 
 }

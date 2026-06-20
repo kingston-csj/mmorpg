@@ -1,15 +1,34 @@
 package org.forfun.mmorpg.game.player.message.vo;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class PlayerLoginVo {
 
 	private long id;
 	private String name;
 	/** 角色战力 */
 	private long fighting;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public long getFighting() {
+		return fighting;
+	}
+
+	public void setFighting(long fighting) {
+		this.fighting = fighting;
+	}
 
 }

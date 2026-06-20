@@ -4,7 +4,6 @@ import jakarta.annotation.PostConstruct;
 import jforgame.commons.eventbus.EventBus;
 import jforgame.data.DataManager;
 import jforgame.socket.share.message.MessageFactory;
-import lombok.Setter;
 import org.forfun.mmorpg.game.ServerConfig;
 import org.forfun.mmorpg.game.ServerType;
 import org.forfun.mmorpg.game.account.AccountService;
@@ -24,7 +23,6 @@ import java.util.Collection;
 import java.util.Map;
 
 @Component
-@Setter(onMethod = @__(@Autowired))
 public final class GameContext implements ApplicationContextAware {
 
     public static ServerType serverType;
@@ -52,10 +50,20 @@ public final class GameContext implements ApplicationContextAware {
         return self.serverConfig;
     }
 
+    @Autowired
+    public void setServerConfig(ServerConfig serverConfig) {
+        this.serverConfig = serverConfig;
+    }
+
     private EventBus eventBus;
 
     public static EventBus getEventBus() {
         return self.eventBus;
+    }
+
+    @Autowired
+    public void setEventBus(EventBus eventBus) {
+        this.eventBus = eventBus;
     }
 
     private AsyncDbService asyncDbService;
@@ -64,10 +72,20 @@ public final class GameContext implements ApplicationContextAware {
         return self.asyncDbService;
     }
 
+    @Autowired
+    public void setAsyncDbService(AsyncDbService asyncDbService) {
+        this.asyncDbService = asyncDbService;
+    }
+
     private SessionManager sessionManager;
 
     public static SessionManager getSessionManager() {
         return self.sessionManager;
+    }
+
+    @Autowired
+    public void setSessionManager(SessionManager sessionManager) {
+        this.sessionManager = sessionManager;
     }
 
     private DataManager dataManager;
@@ -76,10 +94,20 @@ public final class GameContext implements ApplicationContextAware {
         return self.dataManager;
     }
 
+    @Autowired
+    public void setDataManager(DataManager dataManager) {
+        this.dataManager = dataManager;
+    }
+
     private PlayerService playerService;
 
     public static PlayerService getPlayerService() {
         return self.playerService;
+    }
+
+    @Autowired
+    public void setPlayerService(PlayerService playerService) {
+        this.playerService = playerService;
     }
 
     private AccountService accountService;
@@ -88,10 +116,20 @@ public final class GameContext implements ApplicationContextAware {
         return self.accountService;
     }
 
+    @Autowired
+    public void setAccountService(AccountService accountService) {
+        this.accountService = accountService;
+    }
+
     private SchedulerManager schedulerManager;
 
     public static SchedulerManager getSchedulerManager() {
         return self.schedulerManager;
+    }
+
+    @Autowired
+    public void setSchedulerManager(SchedulerManager schedulerManager) {
+        this.schedulerManager = schedulerManager;
     }
 
     private BuffService buffService;
@@ -100,10 +138,20 @@ public final class GameContext implements ApplicationContextAware {
         return self.buffService;
     }
 
+    @Autowired
+    public void setBuffService(BuffService buffService) {
+        this.buffService = buffService;
+    }
+
     private MessageFactory messageFactory;
 
     public static MessageFactory getMessageFactory() {
         return self.messageFactory;
+    }
+
+    @Autowired
+    public void setMessageFactory(MessageFactory messageFactory) {
+        this.messageFactory = messageFactory;
     }
 
     private ScriptService scriptService;
@@ -112,10 +160,20 @@ public final class GameContext implements ApplicationContextAware {
         return self.scriptService;
     }
 
+    @Autowired
+    public void setScriptService(ScriptService scriptService) {
+        this.scriptService = scriptService;
+    }
+
     private RpcClientRouter rpcClientRouter;
 
     public static RpcClientRouter getRpcClientRouter() {
         return self.rpcClientRouter;
+    }
+
+    @Autowired
+    public void setRpcClientRouter(RpcClientRouter rpcClientRouter) {
+        this.rpcClientRouter = rpcClientRouter;
     }
 
     public static <T> T getBean(Class<T> clazz) {

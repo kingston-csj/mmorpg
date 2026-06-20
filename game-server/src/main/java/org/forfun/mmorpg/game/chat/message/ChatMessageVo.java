@@ -1,9 +1,7 @@
 package org.forfun.mmorpg.game.chat.message;
 
 import jforgame.socket.share.annotation.MessageMeta;
-import lombok.Data;
 
-@Data
 @MessageMeta()
 public class ChatMessageVo {
 
@@ -42,4 +40,68 @@ public class ChatMessageVo {
      * 聊天内容
      */
     private String content;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public byte getChannel() {
+        return channel;
+    }
+
+    public void setChannel(byte channel) {
+        this.channel = channel;
+    }
+
+    public String getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
+    }
+
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
+    }
+
+    public int getSenderHead() {
+        return senderHead;
+    }
+
+    public void setSenderHead(int senderHead) {
+        this.senderHead = senderHead;
+    }
+
+    public String getReceiverId() {
+        return receiverId;
+    }
+
+    public void setReceiverId(String receiverId) {
+        this.receiverId = receiverId;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 }

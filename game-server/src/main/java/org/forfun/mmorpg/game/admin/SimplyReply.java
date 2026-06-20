@@ -1,10 +1,5 @@
 package org.forfun.mmorpg.game.admin;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class SimplyReply {
 
 	private int status;
@@ -22,6 +17,22 @@ public class SimplyReply {
 		reply.status = code;
 		reply.msg = msg;
 		return reply;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 
 }

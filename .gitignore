@@ -43,4 +43,8 @@ test-output
 atlassian-ide-plugin.xml
 .gradletasknamecache
 
+nul
+
+# 注意：下面这行会让 gradle-wrapper.jar 无法提交，导致克隆者拿到空 jar。
+# wrapper jar 应该纳入版本控制，建议删除下面这行。
 gradle/wrapper/gradle-wrapper.jar

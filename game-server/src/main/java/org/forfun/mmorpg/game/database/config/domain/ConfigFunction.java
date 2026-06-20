@@ -3,12 +3,10 @@ package org.forfun.mmorpg.game.database.config.domain;
 import jforgame.data.annotation.DataTable;
 import jforgame.data.annotation.Id;
 import jforgame.data.annotation.Index;
-import lombok.Getter;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.forfun.mmorpg.game.function.model.FunctionOpenType;
 
 @DataTable(name = "configfunction")
-@Getter
 public class ConfigFunction {
 	
 	@Id
@@ -26,6 +24,30 @@ public class ConfigFunction {
 
 	public int getOpenMainParam() {
 		return NumberUtils.toInt(openParams);
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public FunctionOpenType getOpenType() {
+		return openType;
+	}
+
+	public void setOpenType(FunctionOpenType openType) {
+		this.openType = openType;
+	}
+
+	public String getOpenParams() {
+		return openParams;
+	}
+
+	public void setOpenParams(String openParams) {
+		this.openParams = openParams;
 	}
 
 }
