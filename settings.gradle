@@ -1,9 +1,8 @@
+pluginManagement {
+    plugins {
+        id 'org.jetbrains.kotlin.jvm' version '2.2.0'
+    }
+}
 rootProject.name = 'mmorpg'
 
-include'game-server','game-mq'
-
-// 修改子项目的build文件名，重名很难查找
-rootProject.children.each {
-	it.buildFileName = it.name - "game-" + ".gradle"
-}
-
+include'game-server'

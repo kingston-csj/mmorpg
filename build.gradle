@@ -62,7 +62,8 @@ subprojects {
 }
 
 buildscript {
-	repositories {
+    ext.kotlin_version = '2.2.0'
+    repositories {
 		maven { url 'https://maven.aliyun.com/repository/public' }
 		maven { url 'https://repo.spring.io/libs-milestone' }
 		mavenCentral()
@@ -70,9 +71,10 @@ buildscript {
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:3.0.4")
 		classpath 'io.spring.gradle:dependency-management-plugin:1.1.4'
-	}
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
 }
-
+apply plugin: 'kotlin'
 
 
 configure(allprojects) { project ->
@@ -171,6 +173,14 @@ configure(allprojects) { project ->
 	// 	}
 	// }
 
+}
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
+compileKotlin {
 }
 
 

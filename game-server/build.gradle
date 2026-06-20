@@ -1,6 +1,7 @@
 //archivesBaseName = 'game'
 
 apply plugin: 'org.springframework.boot'
+apply plugin: 'kotlin'
 apply plugin: 'groovy'
 apply plugin: 'io.spring.dependency-management'
 dependencies {
@@ -34,6 +35,7 @@ dependencies {
     implementation 'org.freemarker:freemarker'
 
     implementation fileTree(dir:'libs',include:['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
 
 
@@ -47,6 +49,20 @@ sourceSets {
 
 task clearJar(type: Delete) {
     delete 'build/libs/lib'
+}
+buildscript {
+    ext.kotlin_version = '2.2.0'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+repositories {
+    mavenCentral()
+}
+compileKotlin {
 }
 
 //task copyJar(type: Copy) {
