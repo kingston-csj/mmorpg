@@ -1,0 +1,41 @@
+spring:
+  jmx:
+    default-domain: mmorpg
+  application:
+    admin:
+      enabled: true
+  profiles:
+    active: dev
+  jpa:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+        dialect: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: false
+  cache:
+    type: caffeine
+    caffeine:
+      spec: initialCapacity=100,maximumSize=1000,expireAfterWrite=300s
+
+management:
+  endpoints:
+    jmx:
+      unique-names: true
+  security:
+    enabled: false
+
+game:
+  socket:
+    name: netty
+
+jforgame:
+  data:
+    suffix: .xlsx
+    location: config/excel/
+    tableScanPath: org.forfun.mmorpg.game.database.config
+    containerScanPath: org.forfun.mmorpg.game.database.config.container
+    commonTableName: configcommonvalue

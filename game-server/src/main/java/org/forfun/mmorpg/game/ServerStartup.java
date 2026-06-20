@@ -1,11 +1,11 @@
 package org.forfun.mmorpg.game;
 
-import jforgame.commons.NumberUtil;
+import jforgame.commons.util.NumberUtil;
 import org.apache.commons.lang3.time.StopWatch;
 import org.forfun.mmorpg.game.base.GameContext;
-import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
@@ -15,7 +15,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.util.Collections;
@@ -33,19 +32,26 @@ public class ServerStartup {
     private static Logger logger = LoggerFactory.getLogger(ServerStartup.class);
 
     public static void main(String[] args) throws Exception {
-        Properties commonProperty = PropertiesLoaderUtils.loadProperties(new FileSystemResource("config/common.properties"));
-        ServerType serverType = ServerType.of(NumberUtil.intValue(commonProperty.get("server.type")));
+        YamlPropertiesFactoryBean yamlFactory = new YamlPropertiesFactoryBean();
+        yamlFactory.setResources(new FileSystemResource("config/common.yml")); // 改为yml文件路径
+        Properties commonProperty = yamlFactory.getObject(); // 获取解析后的Properties对象
 
+        ServerType serverType = ServerType.of(
+                NumberUtil.intValue(commonProperty.get("server.type"))
+        );
         GameContext.serverType = serverType;
 
         logger.error("[{}]启动开始", GameContext.serverType.name);
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
 
+        // 启动Spring应用
         SpringApplication app = new SpringApplication(ServerStartup.class);
         app.setBannerMode(Banner.Mode.OFF);
-        app.setDefaultProperties(Collections
-                .singletonMap("server.port", NumberUtil.intValue(commonProperty.get("server.port")) + serverType.type));
+        app.setDefaultProperties(Collections.singletonMap(
+                "server.port",
+                NumberUtil.intValue(commonProperty.get("server.port")) + serverType.type
+        ));
         app.run(args);
 
         GameContext.getBean(BaseServer.class).start();
@@ -66,6 +72,7 @@ public class ServerStartup {
 //        PlayerEnt player = GameContext.getPlayerService().getPlayer(10000L);
 //        player.setLevel(999);
 //        GameContext.getAysncDbService().saveToDb(player);
+//        GameContext.getDataManager().queryById(ConfigCommonValue.class, 1).getDesc();
 
         stopWatch.stop();
         logger.error("[{}]启动成功，耗时[{}]秒", GameContext.serverType.name, stopWatch.getTime() / 1000);

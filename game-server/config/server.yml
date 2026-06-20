@@ -1,0 +1,22 @@
+server:
+  type: 1
+
+socket:
+  # socket服务的ID
+  id: 10001
+  # socket服务的IP地址
+  serverIp: 127.0.0.1
+  # socket服务的端口
+  port: 8089
+
+rpc:
+  # rpc内部通信端口
+  port: 9001
+
+http:
+  # http后台的端口
+  port: 10086
+
+webSocket:
+  # webSocket服务的端口
+  port: 8989

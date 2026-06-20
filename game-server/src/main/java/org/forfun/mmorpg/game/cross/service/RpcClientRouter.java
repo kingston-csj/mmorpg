@@ -1,11 +1,12 @@
 package org.forfun.mmorpg.game.cross.service;
 
 import jforgame.codec.struct.StructMessageCodec;
-import jforgame.commons.JsonUtil;
+import jforgame.commons.util.JsonUtil;
 import jforgame.socket.client.SocketClient;
-import jforgame.socket.netty.support.client.TcpSocketClient;
+import jforgame.socket.netty.client.TcpSocketClient;
 import jforgame.socket.share.HostAndPort;
 import jforgame.socket.share.IdSession;
+import jforgame.socket.share.RequestContext;
 import jforgame.socket.share.SocketIoDispatcher;
 import jforgame.socket.share.SocketIoDispatcherAdapter;
 import org.apache.commons.codec.digest.Md5Crypt;
@@ -57,8 +58,8 @@ public class RpcClientRouter {
         }
         SocketIoDispatcher msgDispatcher = new SocketIoDispatcherAdapter() {
             @Override
-            public void dispatch(IdSession session, Object message) {
-                System.err.println("收到消息<-- " + message.getClass().getSimpleName() + "=" + JsonUtil.object2String(message));
+            public void dispatch(IdSession session, RequestContext requestContext) {
+                System.err.println("收到消息<-- " + requestContext.getRequest().getClass().getSimpleName() + "=" + JsonUtil.object2String(requestContext.getRequest()));
             }
             @Override
             public void exceptionCaught(IdSession session, Throwable cause) {

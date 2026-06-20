@@ -17,7 +17,7 @@ public class FunctionService {
 
 
     public void checkOpen(PlayerEnt player, int type) {
-        Collection<ConfigFunction> targets = GameContext.getDataManager().queryByIndex(ConfigFunction.class,"openType", FunctionOpenType.LEVEL.getType());
+        Collection<ConfigFunction> targets = GameContext.getDataManager().queryByIndex(ConfigFunction.class,"openType", FunctionOpenType.Level.getType());
         targets.stream().filter(func -> !player.isOpenedFunction(func.getId()))
                 .forEach(func -> {
                     if (player.getLevel() >= func.getOpenMainParam()) {

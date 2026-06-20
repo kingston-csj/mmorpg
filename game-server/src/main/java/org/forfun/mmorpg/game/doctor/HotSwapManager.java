@@ -4,7 +4,7 @@ import java.lang.management.ManagementFactory;
 
 
 import jakarta.annotation.PostConstruct;
-import jforgame.commons.FileUtils;
+import jforgame.commons.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -52,7 +52,7 @@ public class HotSwapManager {
 	public String hotSwapScript() {
 		try {
 			String filePath = "hotswap/CommonScript.java";
-			String clazzFile = FileUtils.readFullText(filePath);
+			String clazzFile = FileUtil.readFullText(filePath);
 			@SuppressWarnings({ "resource", "unchecked" })
 			Class<IScript> clazz = new GroovyClassLoader().parseClass(clazzFile);
 			clazz.newInstance();

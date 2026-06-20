@@ -1,14 +1,14 @@
 package org.forfun.mmorpg.client;
 
 import jforgame.codec.struct.StructMessageCodec;
-import jforgame.commons.JsonUtil;
+import jforgame.commons.util.JsonUtil;
 import jforgame.socket.client.SocketClient;
-import jforgame.socket.netty.support.client.TcpSocketClient;
+import jforgame.socket.netty.client.TcpSocketClient;
 import jforgame.socket.share.HostAndPort;
 import jforgame.socket.share.IdSession;
+import jforgame.socket.share.RequestContext;
 import jforgame.socket.share.SocketIoDispatcher;
 import jforgame.socket.share.SocketIoDispatcherAdapter;
-import jforgame.socket.share.message.RequestDataFrame;
 import org.forfun.mmorpg.framework.net.GameMessageFactory;
 import org.forfun.mmorpg.game.ConfigScanPaths;
 
@@ -26,18 +26,18 @@ public class ClientStartup {
 
         SocketIoDispatcher msgDispatcher = new SocketIoDispatcherAdapter() {
             @Override
-            public void dispatch(IdSession session, Object frame) {
-                RequestDataFrame dataFrame = (RequestDataFrame) frame;
-                Object message = dataFrame.getMessage();
+            public void dispatch(IdSession session, RequestContext frame) {
+                Object message = frame.getRequest();
                 System.err.println("收到消息<-- " + message.getClass().getSimpleName() + "=" + JsonUtil.object2String(message));
             }
+
             @Override
             public void exceptionCaught(IdSession session, Throwable cause) {
                 cause.printStackTrace();
             }
         };
 
-        SocketClient socketClient = new TcpSocketClient(msgDispatcher,new GameMessageFactory(ConfigScanPaths.MESSAGE_BASE_PATH), new StructMessageCodec(), hostPort);
+        SocketClient socketClient = new TcpSocketClient(msgDispatcher, new GameMessageFactory(ConfigScanPaths.MESSAGE_BASE_PATH), new StructMessageCodec(), hostPort);
         IdSession session = socketClient.openSession();
 
         ClientRobot robot = new ClientRobot(session);

@@ -1,0 +1,4 @@
+字段,主键,模块,频道,内容
+,int,int,int,string
+HEADER,id,module,channel,content
+,1001,基础,0,功能暂未开放

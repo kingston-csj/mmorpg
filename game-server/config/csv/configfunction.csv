@@ -1,0 +1,4 @@
+﻿字段,主键,功能,开启类型,开启条件
+,int,string,int,string
+HEADER,id,name,openType,openTarget
+,1,宝石,1,60

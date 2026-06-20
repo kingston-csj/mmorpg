@@ -1,6 +1,6 @@
 package org.forfun.mmorpg.game.logger;
 
-import jforgame.commons.JsonUtil;
+import jforgame.commons.util.JsonUtil;
 import org.slf4j.Logger;
 
 public class LoggerUtils {

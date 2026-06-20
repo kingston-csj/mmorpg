@@ -17,5 +17,7 @@ public interface Modules {
 	short ACTIVITY = 3;
 	/** 技能 */
 	short SKILL = 4;
+	/** 聊天 */
+	short CHAT = 5;
 
 }
