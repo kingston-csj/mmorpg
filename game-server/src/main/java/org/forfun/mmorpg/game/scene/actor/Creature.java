@@ -1,5 +1,6 @@
 package org.forfun.mmorpg.game.scene.actor;
 
+import jakarta.persistence.Transient;
 import org.forfun.mmorpg.game.attribute.AttributeContainer;
 import org.forfun.mmorpg.game.attribute.AttributeType;
 import org.forfun.mmorpg.game.buff.model.BuffContainer;
@@ -11,10 +12,13 @@ import org.forfun.mmorpg.game.scene.model.Life;
  */
 public abstract class Creature extends SceneActor {
 
+    @Transient
 	private BuffContainer buffContainer;
-	
+
+    @Transient
 	private AttributeContainer attrContainer = new AttributeContainer();
 
+    @Transient
 	private Life life;
 
 	public long getHp() {

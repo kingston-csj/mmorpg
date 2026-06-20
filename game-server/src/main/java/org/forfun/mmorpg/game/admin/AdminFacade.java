@@ -18,7 +18,7 @@ public class AdminFacade {
             Runtime.getRuntime().exit(0);
         }, 5 * 1000);
 
-        return SimplyReply.valueOfSucc("发出关服信号，5s后开始执行!");
+        return SimplyReply.Companion.succ("发出关服信号，5s后开始执行!");
     }
 
 

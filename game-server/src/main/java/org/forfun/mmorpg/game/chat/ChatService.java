@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class ChatService {
 
-    public static final byte CMD_REQ_CHAT = 1;
+    public static final int CMD_REQ_CHAT = 1;
 
-    public static final byte CMD_RES_CHAT = 51;
+    public static final int CMD_RES_CHAT = 51;
 
-    public static final byte CMD_PUSH_NEW_MESSAGES = 99;
+    public static final int CMD_PUSH_NEW_MESSAGES = 99;
 
     public void sendMessage(PlayerEnt player, byte channel, long receiverId, String content) {
         TextChatMessage textMsg = new TextChatMessage();

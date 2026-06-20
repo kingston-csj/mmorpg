@@ -57,7 +57,7 @@ public class ServerStartup {
 
         GameContext.getBean(BaseServer.class).start();
 
-        GameContext.getBean(TestService.class).hello();
+        System.out.println(GameContext.getBean(TestService.class).hello());;
 
         // better code ??!!
         ServerLayer container = null;

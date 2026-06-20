@@ -6,11 +6,12 @@ import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
 public interface BattleMessage extends Message {
 
     default int getBattleServerId(PlayerEnt player) {
-        BattleContext battleContext = player.getBattleContext();
-        if (battleContext == null) {
-            return 0;
-        }
-        return battleContext.getFightSid();
+//        if (battleContext == null) {
+//        BattleContext battleContext = player.getBattleContext();
+//            return 0;
+//        }
+//        return battleContext.getFightSid();
+        return 0;
     }
 
     long getPlayerId();

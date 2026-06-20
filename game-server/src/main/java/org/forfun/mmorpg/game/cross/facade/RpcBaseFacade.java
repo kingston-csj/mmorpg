@@ -95,7 +95,7 @@ public class RpcBaseFacade {
      */
     public void respLoginServer(IdSession session, RpcRespServerLogin response) {
         clientRouter.registerSession(response.getRemoteSid(), session);
-        GameContext.getEventBus().asyncPost(RpcConnectedEvent.valueOf(response.getRemoteSid(), response.getServerType()));
+        GameContext.getEventBus().asyncPost(RpcConnectedEvent.Companion.valueOf(response.getRemoteSid(), response.getServerType()));
 
         GameContext.getBean(ServerLayer.class).onCenterServerConnected();
     }

@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import java.util.Objects;
 import java.util.Set;
 
 public class IpHandler implements HandlerInterceptor {
@@ -16,7 +17,7 @@ public class IpHandler implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        Set<String> whiteIps = GameContext.getServerConfig().getAdminIps();
+        Set<String> whiteIps = Objects.requireNonNull(GameContext.getServerConfig()).getAdminWhiteIpsSet();
         String realIp = IpUtil.getRealIp(request);
         boolean isSafe = whiteIps.contains(realIp);
         if (!isSafe) {

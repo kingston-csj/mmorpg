@@ -43,6 +43,7 @@ test-output
 atlassian-ide-plugin.xml
 .gradletasknamecache
 
+.kotlin
 nul
 
 # 注意：下面这行会让 gradle-wrapper.jar 无法提交，导致克隆者拿到空 jar。

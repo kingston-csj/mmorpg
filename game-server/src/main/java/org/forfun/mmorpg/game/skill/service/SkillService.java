@@ -5,5 +5,5 @@ import org.springframework.stereotype.Service;
 @Service
 public class SkillService {
 
-    public static final byte CMD_RESP_SKILLS = 50;
+    public static final int CMD_RESP_SKILLS = 50;
 }

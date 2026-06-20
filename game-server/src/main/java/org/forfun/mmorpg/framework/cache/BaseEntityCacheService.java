@@ -53,6 +53,7 @@ public abstract class BaseEntityCacheService<E extends BaseEntity<ID>, ID extend
 
     @Override
     @Cacheable(cacheResolver = "entityCacheResolver", key = "#p0")
+    @SuppressWarnings("all")
     public E getEntity(ID id) {
         // 命名约定: PlayerEnt -> playerDao
         String repositoryBeanName = getEntityClass().getSimpleName().replace("Ent", "Dao");

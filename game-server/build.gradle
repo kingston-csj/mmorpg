@@ -36,6 +36,9 @@ dependencies {
 
     implementation fileTree(dir:'libs',include:['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    // Hibernate 检测到 Kotlin 实体时会使用 kotlin-reflect 解析元数据（KClasses 等），
+    // 缺失会在创建 JpaRepository bean 时报 kotlin/reflect/full/KClasses NoClassDefFoundError
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 }
 
 

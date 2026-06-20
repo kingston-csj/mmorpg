@@ -1,11 +1,11 @@
 package org.forfun.mmorpg.framework.net;
 
+import jforgame.commons.util.ClassScanner;
 import jforgame.socket.share.annotation.MessageMeta;
 import jforgame.socket.share.annotation.MessageRoute;
 import jforgame.socket.share.message.Message;
 import jforgame.socket.share.message.MessageFactory;
 import jforgame.socket.support.DefaultMessageFactory;
-import org.forfun.mmorpg.game.util.ClassScanner;
 
 import java.util.Collection;
 import java.util.Set;
