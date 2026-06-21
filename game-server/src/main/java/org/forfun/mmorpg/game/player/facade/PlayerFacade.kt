@@ -32,7 +32,7 @@ class PlayerFacade {
 
     @RequestHandler
     fun reqSelectPlayer(session: IdSession?, request: ReqSelectPlayer) {
-        loginService!!.handleSelectPlayer(session, request.getPlayerId())
+        loginService!!.handleSelectPlayer(session, request.playerId)
     }
 
     @RequestHandler
@@ -43,7 +43,7 @@ class PlayerFacade {
         session.send(ResPlayerLogin())
 
         val player = PlayerEnt()
-        player.setId(playerId)
+        player.id = playerId
         getEventBus()!!.post(PlayerLoginEvent(player))
     }
 

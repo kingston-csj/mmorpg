@@ -9,7 +9,7 @@ import org.forfun.mmorpg.game.skill.service.SkillService
 class RespPlayerSkills : Message {
 
     @Protobuf
-    var skills: MutableList<Int>? = null
+    var skills: List<Int>? = null
 
     override fun toString(): String {
         return "RespPlayerSkills{skills=$skills}"

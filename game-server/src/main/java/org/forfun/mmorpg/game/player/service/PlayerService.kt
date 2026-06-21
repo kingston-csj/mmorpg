@@ -14,7 +14,6 @@ import org.forfun.mmorpg.game.database.user.entity.PlayerEnt
 import org.forfun.mmorpg.game.logger.LoggerUtils
 import org.forfun.mmorpg.game.player.message.ResPlayerLogin
 import org.forfun.mmorpg.game.player.model.PlayerProfile
-import org.forfun.mmorpg.game.script.impl.LoginScript
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.HashSet
@@ -38,7 +37,7 @@ class PlayerService : CommonValueReloadListener {
     /**
      * 在线玩家列表
      */
-    private val onlines: MutableSet<Long> = ConcurrentHashSet()
+    val onlines: MutableSet<Long> = ConcurrentHashSet()
 
     /**
      * 全服所有角色的简况
@@ -78,7 +77,6 @@ class PlayerService : CommonValueReloadListener {
 
     fun login(session: IdSession, playerId: Long): ResPlayerLogin {
         val player = PlayerEnt()
-        GameContext.getScriptService()!!.getScript(LoginScript::class.java).onLogin(player)
         return ResPlayerLogin()
     }
 
