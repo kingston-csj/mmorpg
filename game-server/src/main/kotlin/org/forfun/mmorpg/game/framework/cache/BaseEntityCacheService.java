@@ -1,4 +1,4 @@
-package org.forfun.mmorpg.framework.cache;
+package org.forfun.mmorpg.game.framework.cache;
 
 
 import java.io.Serializable;
@@ -7,6 +7,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import jforgame.commons.util.StringUtil;
+import org.forfun.mmorpg.framework.cache.EntityBuilder;
 import org.forfun.mmorpg.game.base.EntityCacheService;
 import org.forfun.mmorpg.game.base.GameContext;
 import org.forfun.mmorpg.game.database.user.BaseEntity;
@@ -90,7 +91,7 @@ public abstract class BaseEntityCacheService<E extends BaseEntity<ID>, ID extend
     public E getOrCreate(ID id, EntityBuilder<E> builder) {
         // spring cache内部调用方法，是不会触发aop缓存的
         // 避免内部方法调用，确保缓存生效
-        EntityCacheService self = GameContext.getBean(getBeanName(), BaseEntityCacheService.class);
+        EntityCacheService self = GameContext.getBean(getBeanName(), org.forfun.mmorpg.framework.cache.BaseEntityCacheService.class);
         Optional<E> optional =   self.getEntity(id);
         if (optional.isEmpty()) {
             int index = Math.abs(id.hashCode()) % locks.length;
@@ -107,7 +108,7 @@ public abstract class BaseEntityCacheService<E extends BaseEntity<ID>, ID extend
                 lock.unlock();
             }
         }
-        return optional.get();
+        return null;
     }
 
     /**

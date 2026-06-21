@@ -1,4 +1,4 @@
-package org.forfun.mmorpg.framework.net;
+package org.forfun.mmorpg.game.framework.net;
 
 
 import jforgame.socket.share.ChainedMessageDispatcher;

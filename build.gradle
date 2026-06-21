@@ -2,73 +2,72 @@
 
 ext {
 
-	versions = [
-			profile : System.getProperty("env") ?: "dev",
-			nettyVersion          : "4.1.33.Final",
-			minaVersion 		  : "2.0.7",
-			springBootVersion 	  : '3.0.4',
-			mysqlVersion 		  : "8.0.28",
-			protostuffVersion     : "1.5.9",
-			protobufVersion 	  : "1.11.7",
-			jforgameVersion  	  : "3.5.0",
-			rocketmqVersion       : "2.2.0",
-			caffeineVersion       : "3.1.8",
-			freemarkerVersion     : "2.3.31",
-			junitJupiterVersion   : "5.6.0",
-			commonsCodecVersion   : "1.10",
-			commonsLang3Version   : "3.4",
-			groovyVersion         : "2.4.11",
-			guavaVersion          : "30.1-jre"
-	]
+    versions = [
+            profile : System.getProperty("env") ?: "dev",
+            nettyVersion          : "4.1.33.Final",
+            minaVersion 		  : "2.0.7",
+            springBootVersion 	  : '3.0.4',
+            mysqlVersion 		  : "8.0.28",
+            protostuffVersion     : "1.5.9",
+            protobufVersion 	  : "1.11.7",
+            jforgameVersion  	  : "3.5.0",
+            rocketmqVersion       : "2.2.0",
+            caffeineVersion       : "3.1.8",
+            freemarkerVersion     : "2.3.31",
+            junitJupiterVersion   : "5.6.0",
+            commonsCodecVersion   : "1.10",
+            commonsLang3Version   : "3.4",
+            groovyVersion         : "2.4.11",
+            guavaVersion          : "30.1-jre"
+    ]
 
-	dependencyPool = [
-			commonslang3:  "org.apache.commons:commons-lang3",
-			netty:  "io.netty:netty-all",
-			minacore: "org.apache.mina:mina-core",
-			jprotobuf: "com.baidu:jprotobuf",
-			protostuffcore: "io.protostuff:protostuff-core",
-			protostuffruntime: "io.protostuff:protostuff-runtime",
-			mysql: "mysql:mysql-connector-java",
-			groovy: "org.codehaus.groovy:groovy-all",
-			guava: "com.google.guava:guava"
-	]
+    dependencyPool = [
+            commonslang3:  "org.apache.commons:commons-lang3",
+            netty:  "io.netty:netty-all",
+            minacore: "org.apache.mina:mina-core",
+            jprotobuf: "com.baidu:jprotobuf",
+            protostuffcore: "io.protostuff:protostuff-core",
+            protostuffruntime: "io.protostuff:protostuff-runtime",
+            mysql: "mysql:mysql-connector-java",
+            groovy: "org.codehaus.groovy:groovy-all",
+            guava: "com.google.guava:guava"
+    ]
 }
 
 allprojects {
-	group = "org.forfun.mmorpg"
-	version = 1.0
-	apply plugin: "eclipse"
-	apply plugin: "idea"
-	apply plugin: "java"
+    group = "org.forfun.mmorpg"
+    version = 1.0
+    apply plugin: "idea"
+    apply plugin: "java"
 
-	task clearTemp(type: Delete) {
-		delete "${projectDir}/build"
-		delete "${projectDir}/out"
-	}
+    task clearTemp(type: Delete) {
+        delete "${projectDir}/build"
+        delete "${projectDir}/out"
+    }
 
 }
 
 subprojects {
-	ext.configDir = new File(rootDir, "check")
-	//apply from: "$rootDir/check/checkstyle/checkstyle.gradle"
-	//apply from: "$rootDir/check/pmd/pmd.gradle"
-	apply plugin: "java-library"
-	dependencies {
+    ext.configDir = new File(rootDir, "check")
+    //apply from: "$rootDir/check/checkstyle/checkstyle.gradle"
+    //apply from: "$rootDir/check/pmd/pmd.gradle"
+    apply plugin: "java-library"
+    dependencies {
 //		compileOnly dependencies.lombok
 //		annotationProcessor  ext.dependencies.lombok
-	}
+    }
 }
 
 buildscript {
     ext.kotlin_version = '2.2.0'
     repositories {
-		maven { url 'https://maven.aliyun.com/repository/public' }
-		maven { url 'https://repo.spring.io/libs-milestone' }
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:3.0.4")
-		classpath 'io.spring.gradle:dependency-management-plugin:1.1.4'
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://repo.spring.io/libs-milestone' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:3.0.4")
+        classpath 'io.spring.gradle:dependency-management-plugin:1.1.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -77,100 +76,93 @@ apply plugin: 'kotlin'
 
 configure(allprojects) { project ->
 
-	apply plugin: "java"
-	apply plugin: "java-library"
-	apply plugin: 'io.spring.dependency-management'
+    apply plugin: "java"
+    apply plugin: "java-library"
+    apply plugin: 'io.spring.dependency-management'
 
-	def commonCompilerArgs =
-			["-Xlint:serial", "-Xlint:cast", "-Xlint:classfile", "-Xlint:dep-ann",
-			 "-Xlint:divzero", "-Xlint:empty", "-Xlint:finally", "-Xlint:overrides",
-			 "-Xlint:path", "-Xlint:processing", "-Xlint:static", "-Xlint:try", "-Xlint:-options"]
+    def commonCompilerArgs =
+            ["-Xlint:serial", "-Xlint:cast", "-Xlint:classfile", "-Xlint:dep-ann",
+             "-Xlint:divzero", "-Xlint:empty", "-Xlint:finally", "-Xlint:overrides",
+             "-Xlint:path", "-Xlint:processing", "-Xlint:static", "-Xlint:try", "-Xlint:-options"]
 
-	//"-Xlint:deprecation", "-Werror"
-	compileJava.options*.compilerArgs = commonCompilerArgs +
-			["-Xlint:varargs", "-Xlint:fallthrough", "-Xlint:rawtypes",
-			  "-Xlint:unchecked"]
+    //"-Xlint:deprecation", "-Werror"
+    compileJava.options*.compilerArgs = commonCompilerArgs +
+            ["-Xlint:varargs", "-Xlint:fallthrough", "-Xlint:rawtypes",
+             "-Xlint:unchecked"]
 
-	compileTestJava.options*.compilerArgs = commonCompilerArgs +
-			["-Xlint:-varargs", "-Xlint:-fallthrough", "-Xlint:-rawtypes",
-			 "-Xlint:-deprecation", "-Xlint:-unchecked"]
+    compileTestJava.options*.compilerArgs = commonCompilerArgs +
+            ["-Xlint:-varargs", "-Xlint:-fallthrough", "-Xlint:-rawtypes",
+             "-Xlint:-deprecation", "-Xlint:-unchecked"]
 
-	compileJava {
-		sourceCompatibility = JavaVersion.VERSION_17
-		targetCompatibility = JavaVersion.VERSION_17
-		options.encoding = "UTF-8"
-	}
+    compileJava {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+        options.encoding = "UTF-8"
+    }
 
-	compileTestJava {
-		sourceCompatibility = JavaVersion.VERSION_17
-		targetCompatibility = JavaVersion.VERSION_17
-		options.encoding = "UTF-8"
-		options.compilerArgs += "-parameters"
-	}
+    compileTestJava {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+        options.encoding = "UTF-8"
+        options.compilerArgs += "-parameters"
+    }
 
-	repositories {
-	    mavenLocal()
-	    mavenCentral()
-		maven { url 'https://maven.aliyun.com/repository/public' }
-		maven { url 'https://repo.spring.io/libs-milestone' }
-	}
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://repo.spring.io/libs-milestone' }
+    }
 
-	dependencyManagement {
-		imports {
-			mavenBom "org.springframework.boot:spring-boot-dependencies:${rootProject.ext.versions.springBootVersion}"
-		}
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:${rootProject.ext.versions.springBootVersion}"
+        }
 
-		dependencies {
-			dependencySet(group: 'io.github.jforgame', version: rootProject.ext.versions.jforgameVersion) {
-				entry 'jforgame-commons'
-				entry 'jforgame-socket-netty'
-				entry 'jforgame-codec-struct'
-				entry 'jforgame-spring-boot-starter-data'
-				entry 'jforgame-codec-api'
-				entry 'jforgame-logger'
-			}
+        dependencies {
+            dependencySet(group: 'io.github.jforgame', version: rootProject.ext.versions.jforgameVersion) {
+                entry 'jforgame-commons'
+                entry 'jforgame-socket-netty'
+                entry 'jforgame-codec-struct'
+                entry 'jforgame-spring-boot-starter-data'
+                entry 'jforgame-codec-api'
+                entry 'jforgame-logger'
+            }
 
-			dependency "io.netty:netty-all:${rootProject.ext.versions.nettyVersion}"
-			dependency "org.apache.mina:mina-core:${rootProject.ext.versions.minaVersion}"
-			dependency "com.baidu:jprotobuf:${rootProject.ext.versions.protobufVersion}"
-			dependency "io.protostuff:protostuff-core:${rootProject.ext.versions.protostuffVersion}"
-			dependency "io.protostuff:protostuff-runtime:${rootProject.ext.versions.protostuffVersion}"
-			dependency "mysql:mysql-connector-java:${rootProject.ext.versions.mysqlVersion}"
-			dependency "org.codehaus.groovy:groovy-all:${rootProject.ext.versions.groovyVersion}"
-			dependency "com.google.guava:guava:${rootProject.ext.versions.guavaVersion}"
-			dependency "org.projectlombok:lombok:${rootProject.ext.versions.lombokVersion}"
-			dependency "org.apache.commons:commons-lang3:${rootProject.ext.versions.commonsLang3Version}"
-			dependency "commons-codec:commons-codec:${rootProject.ext.versions.commonsCodecVersion}"
-			dependency "org.apache.rocketmq:rocketmq-spring-boot-starter:${rootProject.ext.versions.rocketmqVersion}"
-			dependency "com.github.ben-manes.caffeine:caffeine:${rootProject.ext.versions.caffeineVersion}"
-			dependency "org.freemarker:freemarker:${rootProject.ext.versions.freemarkerVersion}"
+            dependency "io.netty:netty-all:${rootProject.ext.versions.nettyVersion}"
+            dependency "org.apache.mina:mina-core:${rootProject.ext.versions.minaVersion}"
+            dependency "com.baidu:jprotobuf:${rootProject.ext.versions.protobufVersion}"
+            dependency "io.protostuff:protostuff-core:${rootProject.ext.versions.protostuffVersion}"
+            dependency "io.protostuff:protostuff-runtime:${rootProject.ext.versions.protostuffVersion}"
+            dependency "mysql:mysql-connector-java:${rootProject.ext.versions.mysqlVersion}"
+            dependency "org.codehaus.groovy:groovy-all:${rootProject.ext.versions.groovyVersion}"
+            dependency "com.google.guava:guava:${rootProject.ext.versions.guavaVersion}"
+            dependency "org.projectlombok:lombok:${rootProject.ext.versions.lombokVersion}"
+            dependency "org.apache.commons:commons-lang3:${rootProject.ext.versions.commonsLang3Version}"
+            dependency "commons-codec:commons-codec:${rootProject.ext.versions.commonsCodecVersion}"
+            dependency "org.apache.rocketmq:rocketmq-spring-boot-starter:${rootProject.ext.versions.rocketmqVersion}"
+            dependency "com.github.ben-manes.caffeine:caffeine:${rootProject.ext.versions.caffeineVersion}"
+            dependency "org.freemarker:freemarker:${rootProject.ext.versions.freemarkerVersion}"
 
-			dependency "org.junit.jupiter:junit-jupiter-api:${rootProject.ext.versions.junitJupiterVersion}"
-			dependency "org.junit.jupiter:junit-jupiter-engine:${rootProject.ext.versions.junitJupiterVersion}"
-		}
-	}
+            dependency "org.junit.jupiter:junit-jupiter-api:${rootProject.ext.versions.junitJupiterVersion}"
+            dependency "org.junit.jupiter:junit-jupiter-engine:${rootProject.ext.versions.junitJupiterVersion}"
+        }
+    }
 
-	eclipse {
-	    classpath {
-	        downloadJavadoc = false
-	        downloadSources = true
-	    }
-	}
+    // apply plugin: 'findbugs'
 
-	// apply plugin: 'findbugs'
+    // findbugs {
+    // 	toolVersion == '2.0.1'
+    // 	ignoreFailures = true
+    // 	effort = 'max'
+    // }
 
-	// findbugs {
-	// 	toolVersion == '2.0.1'
-	// 	ignoreFailures = true
-	// 	effort = 'max'
-	// }
-
-	// tasks.withType(FindBugs) {
-	// 	reports {
-	// 		xml.enabled = false
-	// 		html.enabled = true
-	// 	}
-	// }
+    // tasks.withType(FindBugs) {
+    // 	reports {
+    // 		xml.enabled = false
+    // 		html.enabled = true
+    // 	}
+    // }
 
 }
 repositories {

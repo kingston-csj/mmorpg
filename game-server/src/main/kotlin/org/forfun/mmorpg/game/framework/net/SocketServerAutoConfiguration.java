@@ -1,10 +1,12 @@
-package org.forfun.mmorpg.framework.net;
+package org.forfun.mmorpg.game.framework.net;
 
 import jforgame.codec.struct.StructMessageCodec;
 import jforgame.socket.netty.server.TcpSocketServerBuilder;
 import jforgame.socket.server.ServerNode;
 import jforgame.socket.share.HostAndPort;
 import jforgame.socket.share.message.MessageFactory;
+import org.forfun.mmorpg.framework.net.GameMessageFactory;
+import org.forfun.mmorpg.framework.net.MessageIoDispatcher;
 import org.forfun.mmorpg.game.ConfigScanPaths;
 import org.forfun.mmorpg.game.base.GameContext;
 import org.springframework.context.annotation.Bean;

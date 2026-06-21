@@ -1,4 +1,6 @@
-package org.forfun.mmorpg.framework.cache;
+package org.forfun.mmorpg.game.framework.cache;
+
+import org.forfun.mmorpg.framework.cache.BaseEntityCacheService;
 
 public interface EntityCacheServiceFactory {
 

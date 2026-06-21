@@ -1,6 +1,8 @@
-package org.forfun.mmorpg.framework.cache;
+package org.forfun.mmorpg.game.framework.cache;
 
 
+import org.forfun.mmorpg.framework.cache.BaseEntityCacheService;
+import org.forfun.mmorpg.framework.cache.EntityCacheServiceFactory;
 import org.forfun.mmorpg.game.database.user.BaseEntity;
 import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.cglib.proxy.MethodInterceptor;
@@ -14,13 +16,13 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class EntityCacheServiceFactoryImpl implements EntityCacheServiceFactory {
     private final Enhancer enhancer = new Enhancer();
-    private final Map<Class<? extends BaseEntity<?>>, BaseEntityCacheService<?, ?>> cache = new ConcurrentHashMap<>();
+    private final Map<Class<? extends BaseEntity<?>>, org.forfun.mmorpg.framework.cache.BaseEntityCacheService<?, ?>> cache = new ConcurrentHashMap<>();
 
     @Override
     @SuppressWarnings({"unchecked", "rawtypes"})
-    public BaseEntityCacheService create(Class entityClass) {
+    public org.forfun.mmorpg.framework.cache.BaseEntityCacheService create(Class entityClass) {
         // 使用 CGLIB 创建动态子类
-        enhancer.setSuperclass(BaseEntityCacheService.class);
+        enhancer.setSuperclass(org.forfun.mmorpg.framework.cache.BaseEntityCacheService.class);
         enhancer.setCallback(new MethodInterceptor() {
             @Override
             public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
@@ -38,7 +40,7 @@ public class EntityCacheServiceFactoryImpl implements EntityCacheServiceFactory 
         });
 
         @SuppressWarnings("unchecked")
-        BaseEntityCacheService service =
+        org.forfun.mmorpg.framework.cache.BaseEntityCacheService service =
                 (BaseEntityCacheService) enhancer.create();
 
         // 缓存服务实例
