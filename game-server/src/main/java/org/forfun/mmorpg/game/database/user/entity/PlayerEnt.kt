@@ -16,7 +16,6 @@ import org.springframework.data.repository.CrudRepository
 
 @Entity
 @Table(name = "playerent")
-@Proxy(lazy = false)
 // 默认采用 FIELD 访问，确保 vipRight 上的 @field:Convert 生效（否则 Hibernate 会把
 // VipRight 当成原生列类型，抛 Could not determine recommended JdbcType）
 @Access(AccessType.FIELD)

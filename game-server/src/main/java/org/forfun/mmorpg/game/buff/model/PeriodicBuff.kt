@@ -23,7 +23,7 @@ abstract class PeriodicBuff : Buff() {
 
     private fun registerFrameTask() {
         cancleFrameTask()
-        periodicTask = GameContext.getSchedulerManager()?.schedule({
+        periodicTask = GameContext.getSchedulerManager().schedule({
             enterFrame()
         }, periodicInterval.toLong())
     }

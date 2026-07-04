@@ -37,7 +37,9 @@ open class ServerStartup {
             val serverType = ServerType.of(
                 commonProperty!!["server.type"] as Int
             )
-            GameContext.serverType = serverType
+            if (serverType != null) {
+                GameContext.serverType = serverType
+            }
 
             logger.error("[${GameContext.serverType!!.desc}]启动开始")
             val stopWatch = StopWatch()

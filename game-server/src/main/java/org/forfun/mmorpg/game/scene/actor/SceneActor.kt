@@ -15,4 +15,8 @@ abstract class SceneActor : GameObject {
 
     abstract val type: ActorType
 
+    var posX: Double = 0.0
+
+    var posY: Double = 0.0
+
 }

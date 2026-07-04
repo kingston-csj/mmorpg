@@ -21,8 +21,8 @@ class IdService {
         //----------long类型8个字节64个比特位----------------
         // 高16位          	| 低48位
         // serverId           自增长号
-        val serverId = GameContext.getServerConfig()?.serverId
-        return serverId?.toLong()?.shl(48) ?: 0
+        val serverId = GameContext.getServerConfig().serverId
+        return serverId.toLong().shl(48)
     }
 
     fun getNextKey(key: IdKey): Long {
@@ -32,7 +32,7 @@ class IdService {
             ?: throw IllegalStateException("IdentityEnt.factory未初始化，无法生成ID")
         val nextId = factory.incrementAndGet()
         if (key.saveToDb) {
-            GameContext.getAysncDbService()?.saveToDb(identityEnt)
+            GameContext.getAysncDbService().saveToDb(identityEnt)
         }
         return nextId
     }

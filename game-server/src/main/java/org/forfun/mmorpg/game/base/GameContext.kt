@@ -21,11 +21,12 @@ class GameContext private constructor() : ApplicationContextAware {
 
     companion object {
         @JvmField
+        @Volatile
         var serverType: ServerType? = null
 
         private lateinit var self: GameContext
 
-        var applicationContext: ApplicationContext? = null
+        lateinit var applicationContext: ApplicationContext
 
         @JvmStatic
         fun setSelf(context: GameContext) {
@@ -33,130 +34,133 @@ class GameContext private constructor() : ApplicationContextAware {
         }
 
         @JvmStatic
-        fun getServerConfig(): ServerConfig? = self.serverConfig
+        fun getServerType(): ServerType = serverType!!
 
         @JvmStatic
-        fun getEventBus(): EventBus? = self.eventBus
+        fun getServerConfig(): ServerConfig = self.serverConfig
 
         @JvmStatic
-        fun getAysncDbService(): AsyncDbService? = self.asyncDbService
+        fun getEventBus(): EventBus = self.eventBus
 
         @JvmStatic
-        fun getSessionManager(): SessionManager? = self.sessionManager
+        fun getAysncDbService(): AsyncDbService = self.asyncDbService
 
         @JvmStatic
-        fun getDataManager(): DataManager? = self.dataManager
+        fun getSessionManager(): SessionManager = self.sessionManager
 
         @JvmStatic
-        fun getPlayerService(): PlayerService? = self.playerService
+        fun getDataManager(): DataManager = self.dataManager
 
         @JvmStatic
-        fun getAccountService(): AccountService? = self.accountService
+        fun getPlayerService(): PlayerService = self.playerService
 
         @JvmStatic
-        fun getSchedulerManager(): SchedulerManager? = self.schedulerManager
+        fun getAccountService(): AccountService = self.accountService
 
         @JvmStatic
-        fun getBuffService(): BuffService? = self.buffService
+        fun getSchedulerManager(): SchedulerManager = self.schedulerManager
 
         @JvmStatic
-        fun getMessageFactory(): MessageFactory? = self.messageFactory
+        fun getBuffService(): BuffService = self.buffService
 
         @JvmStatic
-        fun getRpcClientRouter(): RpcClientRouter? = self.rpcClientRouter
+        fun getMessageFactory(): MessageFactory = self.messageFactory
+
+        @JvmStatic
+        fun getRpcClientRouter(): RpcClientRouter = self.rpcClientRouter
 
         @JvmStatic
         fun <T : Any> getBean(clazz: Class<T>): T {
-            return applicationContext!!.getBean(clazz)
+            return applicationContext.getBean(clazz)
         }
 
         @JvmStatic
         fun <T : Any> getBeansOfType(clazz: Class<T>): Collection<T> {
-            return applicationContext!!.getBeansOfType(clazz).values
+            return applicationContext.getBeansOfType(clazz).values
         }
 
         @JvmStatic
         fun <T : Any> getBean(name: String, requiredType: Class<T>): T {
-            return applicationContext!!.getBean(name, requiredType)
+            return applicationContext.getBean(name, requiredType)
         }
 
         @JvmStatic
         fun getBeansWithAnnotation(annotationType: Class<out Annotation>): Map<String, Any> {
-            return applicationContext!!.getBeansWithAnnotation(annotationType)
+            return applicationContext.getBeansWithAnnotation(annotationType)
         }
     }
 
-    private var serverConfig: ServerConfig? = null
+    private lateinit var serverConfig: ServerConfig
 
     @Autowired
     fun setServerConfig(serverConfig: ServerConfig) {
         this.serverConfig = serverConfig
     }
 
-    private var eventBus: EventBus? = null
+    private lateinit var eventBus: EventBus
 
     @Autowired
     fun setEventBus(eventBus: EventBus) {
         this.eventBus = eventBus
     }
 
-    private var asyncDbService: AsyncDbService? = null
+    private lateinit var asyncDbService: AsyncDbService
 
     @Autowired
     fun setAsyncDbService(asyncDbService: AsyncDbService) {
         this.asyncDbService = asyncDbService
     }
 
-    private var sessionManager: SessionManager? = null
+    private lateinit var sessionManager: SessionManager
 
     @Autowired
     fun setSessionManager(sessionManager: SessionManager) {
         this.sessionManager = sessionManager
     }
 
-    private var dataManager: DataManager? = null
+    private lateinit var dataManager: DataManager
 
     @Autowired
     fun setDataManager(dataManager: DataManager) {
         this.dataManager = dataManager
     }
 
-    private var playerService: PlayerService? = null
+    private lateinit var playerService: PlayerService
 
     @Autowired
     fun setPlayerService(playerService: PlayerService) {
         this.playerService = playerService
     }
 
-    private var accountService: AccountService? = null
+    private lateinit var accountService: AccountService
 
     @Autowired
     fun setAccountService(accountService: AccountService) {
         this.accountService = accountService
     }
 
-    private var schedulerManager: SchedulerManager? = null
+    private lateinit var schedulerManager: SchedulerManager
 
     @Autowired
     fun setSchedulerManager(schedulerManager: SchedulerManager) {
         this.schedulerManager = schedulerManager
     }
 
-    private var buffService: BuffService? = null
+    private lateinit var buffService: BuffService
 
     @Autowired
     fun setBuffService(buffService: BuffService) {
         this.buffService = buffService
     }
 
-    private var messageFactory: MessageFactory? = null
+    private lateinit var messageFactory: MessageFactory
 
     @Autowired
     fun setMessageFactory(messageFactory: MessageFactory) {
         this.messageFactory = messageFactory
     }
 
-    private var rpcClientRouter: RpcClientRouter? = null
+    private lateinit var rpcClientRouter: RpcClientRouter
 
     @Autowired
     fun setRpcClientRouter(rpcClientRouter: RpcClientRouter) {

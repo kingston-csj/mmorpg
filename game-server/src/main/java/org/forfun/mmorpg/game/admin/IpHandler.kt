@@ -11,9 +11,9 @@ class IpHandler : HandlerInterceptor {
     private val logger = LoggerFactory.getLogger(IpHandler::class.java)
 
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
-        val whiteIps = GameContext.getServerConfig()?.adminWhiteIpsSet
+        val whiteIps = GameContext.getServerConfig().adminWhiteIpsSet
         val realIp = IpUtil.getRealIp(request)
-        val isSafe = whiteIps?.contains(realIp) == true
+        val isSafe = whiteIps.contains(realIp)
         if (!isSafe) {
             logger.error("ip[$realIp]无法访问后台命令")
         }

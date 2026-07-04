@@ -12,6 +12,23 @@ class ConfigSkill {
     var needLevel: Int = 0
 
     /**
+     * 最大攻击距离
+     */
+    var distance: Int= 0
+
+    /**
+     * 选择区域范围
+     */
+    var selector: Int = 0
+
+    /**
+     * aoe群攻数量
+     */
+    var aoeRange :Int=0;
+
+
+
+    /**
      * 技能效果说明
      */
     var effect: String? = null

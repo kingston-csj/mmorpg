@@ -50,6 +50,6 @@ open class LoginService {
         // 绑定session与玩家id
         session?.setAttribute("playerId", playerId)
         // 加入在线列表
-        GameContext.getSessionManager()?.registerNewPlayer(player, session)
+        GameContext.getSessionManager().registerNewPlayer(player, session)
     }
 }

@@ -26,8 +26,8 @@ open class SkillFacade {
         val player = upEvent.owner
         val nowLevel = 10
 
-        val skills = GameContext.getDataManager()?.queryAll(ConfigSkill::class.java)
-        skills?.filter { it.needLevel < nowLevel }?.forEach { configSkill ->
+        val skills = GameContext.getDataManager().queryAll(ConfigSkill::class.java)
+        skills.filter { it.needLevel < nowLevel }.forEach { configSkill ->
             System.err.println("玩家升级，学会新技能->" + configSkill.name)
         }
 

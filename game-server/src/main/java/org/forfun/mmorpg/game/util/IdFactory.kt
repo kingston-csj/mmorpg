@@ -19,8 +19,7 @@ object IdFactory {
         // 高16位          	| 中32位          |  低16位
         // serverId        系统秒数          自增长号
 
-        val serverId = GameContext.getServerConfig()?.serverId?.toLong()
-        return (serverId?.shl(48))?.or((((System.currentTimeMillis() / 1000) and 0xFFFFFFFF) shl 16))
-            ?.or((generator.getAndIncrement() and 0xFFFF)) ?: 0
+        val serverId = GameContext.getServerConfig().serverId.toLong()
+        return (serverId shl 48) or ((((System.currentTimeMillis() / 1000) and 0xFFFFFFFF) shl 16)) or (generator.getAndIncrement() and 0xFFFF)
     }
 }

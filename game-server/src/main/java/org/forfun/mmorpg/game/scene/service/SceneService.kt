@@ -16,9 +16,9 @@ open class SceneService {
      * 初始化所有普通场景
      */
     fun initNormalScenes() {
-        GameContext.getDataManager()?.queryAll(ConfigMap::class.java)
-            ?.filter { it.mapType.toInt() == 0 }
-            ?.forEach { initNormalScenes(it) }
+        GameContext.getDataManager().queryAll(ConfigMap::class.java)
+            .filter { it.mapType.toInt() == 0 }
+            .forEach { initNormalScenes(it) }
     }
 
     private fun initNormalScenes(configMap: ConfigMap) {

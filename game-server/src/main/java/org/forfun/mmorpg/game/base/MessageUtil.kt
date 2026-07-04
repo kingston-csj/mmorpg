@@ -7,7 +7,7 @@ object MessageUtil {
 
     @JvmStatic
     fun pushMessage(playerId: Long, message: Message) {
-        val session = GameContext.getSessionManager()?.getSessionBy(playerId)
+        val session = GameContext.getSessionManager().getSessionBy(playerId)
         pushMessage(session, message)
     }
 

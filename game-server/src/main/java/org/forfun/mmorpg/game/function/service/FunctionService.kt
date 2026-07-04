@@ -15,13 +15,13 @@ import org.springframework.stereotype.Service
 open class FunctionService {
 
     fun checkOpen(player: PlayerEnt, type: Int) {
-        val targets = GameContext.getDataManager()?.queryByIndex(
+        val targets = GameContext.getDataManager().queryByIndex(
             ConfigFunction::class.java,
             "openType",
             FunctionOpenType.Level.type
         )
-        targets?.filter { !player.isOpenedFunction(it.id) }
-            ?.forEach { func ->
+        targets.filter { !player.isOpenedFunction(it.id) }
+            .forEach { func ->
                 if (player.level >= NumberUtil.intValue(func.openParams)) {
                     levelOpenFunc(player, func.id)
                 }
@@ -29,7 +29,7 @@ open class FunctionService {
     }
 
     private fun levelOpenFunc(player: PlayerEnt, funcId: Int) {
-        GameContext.getPlayerService()?.savePlayer(player)
-        GameContext.getEventBus()!!.post(PlayerFuncOpenEvent(player))
+        GameContext.getPlayerService().savePlayer(player)
+        GameContext.getEventBus().post(PlayerFuncOpenEvent(player))
     }
 }

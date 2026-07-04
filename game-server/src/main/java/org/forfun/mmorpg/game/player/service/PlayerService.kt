@@ -88,7 +88,7 @@ class PlayerService : CommonValueReloadListener {
         playerProfiles.put(baseInfo.playerId, baseInfo)
 
         val accountId = baseInfo.accountId
-        val account = GameContext.getAccountService()!!.getEntity(accountId)
+        val account = GameContext.getAccountService().getEntity(accountId)
         accountProfiles.putIfAbsent(accountId, AccountProfile())
         val accountProfile = accountProfiles[accountId]
         accountProfile!!.addPlayerProfile(baseInfo)
@@ -99,7 +99,7 @@ class PlayerService : CommonValueReloadListener {
         if (accountProfile != null) {
             return accountProfile
         }
-        val account = GameContext.getAccountService()!!.getEntity(accountId)
+        val account = GameContext.getAccountService().getEntity(accountId)
         if (account != null) {
             accountProfile = AccountProfile()
             accountProfile!!.accountId = accountId

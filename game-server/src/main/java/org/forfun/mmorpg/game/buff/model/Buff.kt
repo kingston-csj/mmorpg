@@ -35,7 +35,7 @@ abstract class Buff {
 
     fun registerTimeOutTask() {
         cancleTimeOutTask()
-        timeOutTask = GameContext.getSchedulerManager()?.schedule({
+        timeOutTask = GameContext.getSchedulerManager().schedule({
             destroy()
         }, duration)
     }
@@ -59,7 +59,7 @@ abstract class Buff {
     }
 
     open fun onDestroy() {
-        GameContext.getBuffService()?.removeBuff(owner!!, this)
+        GameContext.getBuffService().removeBuff(owner!!, this)
     }
 
     fun getActiveTime(): Long = activeTime

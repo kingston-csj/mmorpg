@@ -18,7 +18,7 @@ open class GameMonitor : GameMonitorMBean {
     private val groovyScriptEngine = engineManager.getEngineByName("groovy")
 
     override fun getOnlinePlayerSum(): Int {
-        return GameContext.getPlayerService()?.onlines?.size ?: 0
+        return GameContext.getPlayerService().onlines.size
     }
 
     @ManagedOperation(description = "执行groovy脚本")
