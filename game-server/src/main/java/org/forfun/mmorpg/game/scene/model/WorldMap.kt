@@ -22,4 +22,8 @@ class WorldMap {
     fun addScene(id: Long, scene: Scene) {
         scenes[id] = scene
     }
+
+    fun getScenes(): Collection<Scene> {
+        return scenes.values
+    }
 }

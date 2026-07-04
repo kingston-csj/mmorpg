@@ -5,6 +5,7 @@ import org.forfun.mmorpg.game.attribute.AttributeContainer
 import org.forfun.mmorpg.game.attribute.AttributeType
 import org.forfun.mmorpg.game.buff.model.BuffContainer
 import org.forfun.mmorpg.game.scene.actor.SceneActor
+import org.forfun.mmorpg.game.scene.model.AoiObserver
 import org.forfun.mmorpg.game.scene.model.Life
 
 /**
@@ -21,6 +22,9 @@ abstract class Creature : SceneActor() {
     @Transient
     var life: Life? = null
 
+    @Transient
+    val aoiObserver = AoiObserver()
+
     val hp: Long
         get() = life!!.currHp
 
@@ -28,8 +32,6 @@ abstract class Creature : SceneActor() {
         get() = attrContainer.getAttrValue(AttributeType.Attack).toInt()
 
     fun dispatchKey(): Int = mapId + lineId
-
-    fun dispatchLine(): Int = lineId
 
     val isDie: Boolean
         get() = life!!.currHp <= 0

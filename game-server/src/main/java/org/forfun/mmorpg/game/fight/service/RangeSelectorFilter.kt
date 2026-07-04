@@ -38,9 +38,39 @@ sealed class RangeSelectorFilter {
             val axisAngle = 0.0
             val extendAngle = 45.0
             return pool.filter { actor ->
-                AngleUtil.isInSector(attacker.posX, attacker.posY, actor.posX, actor.posY, radius, axisAngle, extendAngle)
+                AngleUtil.isInSector(
+                    attacker.posX,
+                    attacker.posY,
+                    actor.posX,
+                    actor.posY,
+                    radius,
+                    axisAngle,
+                    extendAngle
+                )
             }
         }
     }
+
+    object All : RangeSelectorFilter() {
+        override fun select(context: BattleContext, pool: List<SceneActor>): List<SceneActor> {
+            return pool
+        }
+
+    }
+
+    companion object {
+        /**
+         * 根据类型编码获取对应范围筛选器
+         * type 1=圆形 Circle，type 2=扇形 Sector
+         */
+        fun getByType(type: String): RangeSelectorFilter {
+            return when (type) {
+                "Circle" -> Circle
+                "Sector" -> Sector
+                else -> return All
+            }
+        }
+    }
+
 
 }

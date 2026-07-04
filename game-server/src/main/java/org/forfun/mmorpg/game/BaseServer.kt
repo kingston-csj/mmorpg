@@ -2,6 +2,7 @@ package org.forfun.mmorpg.game
 
 import jforgame.socket.server.ServerNode
 import org.forfun.mmorpg.game.base.GameContext
+import org.forfun.mmorpg.game.scene.service.SceneService
 import org.springframework.stereotype.Component
 
 @Component
@@ -9,7 +10,10 @@ open class BaseServer {
 
     @Throws(Exception::class)
     fun start() {
+        // 基础设施
         initFramework()
+        // 业务设施
+        initBusiness()
 
         Runtime.getRuntime().addShutdownHook(Thread { stop() })
     }
@@ -18,6 +22,13 @@ open class BaseServer {
     private fun initFramework() {
         // NIO socket（多端口）启动
         GameContext.getBean(ServerNode::class.java).start()
+    }
+
+    @Throws(Exception::class)
+    private fun initBusiness() {
+        // 场景
+        GameContext.getBean(SceneService::class.java).initNormalScenes()
+
     }
 
     companion object {

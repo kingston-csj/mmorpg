@@ -5,6 +5,8 @@ import jforgame.socket.netty.server.TcpSocketServerBuilder;
 import jforgame.socket.server.ServerNode;
 import jforgame.socket.share.HostAndPort;
 import jforgame.socket.share.message.MessageFactory;
+import jforgame.threadmodel.ThreadModel;
+import jforgame.threadmodel.dispatch.DispatchThreadModel;
 import org.forfun.mmorpg.game.ConfigScanPaths;
 import org.forfun.mmorpg.game.base.GameContext;
 import org.springframework.context.annotation.Bean;
@@ -37,6 +39,11 @@ public class SocketServerAutoConfiguration {
     @Bean
     public MessageFactory createMessageFactory() {
         return new GameMessageFactory(ConfigScanPaths.MESSAGE_BASE_PATH);
+    }
+
+    @Bean
+    public ThreadModel createThreadModel() {
+        return new DispatchThreadModel();
     }
 
 

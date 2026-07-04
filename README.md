@@ -11,7 +11,7 @@ mmorpg，是一个用java编写的分布式高性能mmorpg手游服务端框架�
 * 尽可能使用spring/springboot组件进行搭建    
 
 
-## ToDoList  
+## 逐步实现  
 * 场景寻路及分屏算法  
 * 主动技能/被动技能实现  
 * buff系统  

@@ -14,19 +14,19 @@ class ConfigSkill {
     /**
      * 最大攻击距离
      */
-    var distance: Int= 0
+    var distance: Int = 0
 
     /**
      * 选择区域范围
      */
-    var selector: Int = 0
+    var selector: String = ""
+
+    var enemyRelation: String = ""
 
     /**
      * aoe群攻数量
      */
-    var aoeRange :Int=0;
-
-
+    var aoeRange: Int = 0;
 
     /**
      * 技能效果说明

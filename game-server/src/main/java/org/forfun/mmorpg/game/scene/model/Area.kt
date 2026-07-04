@@ -40,4 +40,12 @@ class Area(val id: Int) {
     fun getActors(): Collection<SceneActor> {
         return this.actors.values
     }
+
+    fun getActor(id: Long): SceneActor? {
+        return actors[id]
+    }
+
+    fun isEmpty(): Boolean {
+        return actors.isEmpty()
+    }
 }

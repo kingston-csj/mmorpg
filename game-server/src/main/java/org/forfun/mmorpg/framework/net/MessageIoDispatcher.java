@@ -26,7 +26,7 @@ public class MessageIoDispatcher extends ChainedMessageDispatcher {
 
     private MessageHandlerRegister handlerRegister;
 
-    private ThreadModel threadModel = new DispatchThreadModel();
+
 
     public MessageIoDispatcher() {
         MessageFactory messageFactory = GameContext.getMessageFactory();
@@ -66,7 +66,7 @@ public class MessageIoDispatcher extends ChainedMessageDispatcher {
             }
             ClientRequestTask task = ClientRequestTask.valueOf(session, dispatchKey, requestContext);
             // 丢到任务消息队列，不在io线程进行业务处理
-            threadModel.accept(task);
+            GameContext.getBean(DispatchThreadModel.class).accept(task);
             return true;
         };
 

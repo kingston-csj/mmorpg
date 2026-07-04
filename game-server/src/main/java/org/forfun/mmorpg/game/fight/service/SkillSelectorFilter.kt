@@ -20,4 +20,24 @@ sealed class SkillSelectorFilter {
         }
     }
 
+    object All : SkillSelectorFilter() {
+        override fun select(context: BattleContext, pool: List<SceneActor>): List<SceneActor> {
+            return pool
+        }
+
+    }
+
+    companion object {
+        /**
+         * 根据类型编码获取对应范围筛选器
+         * type 1=圆形 Circle，type 2=扇形 Sector
+         */
+        fun getByType(type: String): SkillSelectorFilter {
+            return when (type) {
+                "Enemy" -> Enemy
+                "Friend" -> Friend
+                else -> return All
+            }
+        }
+    }
 }
