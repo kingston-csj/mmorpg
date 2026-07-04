@@ -9,14 +9,14 @@ import org.forfun.mmorpg.game.skill.util.AngleUtil
 /**
  * 几何范围选择器
  */
-sealed class RangeSelectorFilter {
+sealed class SkillRangeSelector {
 
     abstract fun select(context: BattleContext, pool: List<SceneActor>): List<SceneActor>
 
     /**
      * 圆形
      */
-    object Circle : RangeSelectorFilter() {
+    object Circle : SkillRangeSelector() {
         override fun select(context: BattleContext, pool: List<SceneActor>): List<SceneActor> {
             val skillData = GameContext.getDataManager().queryById(ConfigSkill::class.java, context.skillId)
             val radius = skillData.distance.toDouble()
@@ -30,7 +30,7 @@ sealed class RangeSelectorFilter {
     /**
      * 扇形
      */
-    object Sector : RangeSelectorFilter() {
+    object Sector : SkillRangeSelector() {
         override fun select(context: BattleContext, pool: List<SceneActor>): List<SceneActor> {
             val skillData = GameContext.getDataManager().queryById(ConfigSkill::class.java, context.skillId)
             val radius = skillData.distance.toDouble()
@@ -51,7 +51,7 @@ sealed class RangeSelectorFilter {
         }
     }
 
-    object All : RangeSelectorFilter() {
+    object All : SkillRangeSelector() {
         override fun select(context: BattleContext, pool: List<SceneActor>): List<SceneActor> {
             return pool
         }
@@ -63,7 +63,7 @@ sealed class RangeSelectorFilter {
          * 根据类型编码获取对应范围筛选器
          * type 1=圆形 Circle，type 2=扇形 Sector
          */
-        fun getByType(type: String): RangeSelectorFilter {
+        fun getByType(type: String): SkillRangeSelector {
             return when (type) {
                 "Circle" -> Circle
                 "Sector" -> Sector

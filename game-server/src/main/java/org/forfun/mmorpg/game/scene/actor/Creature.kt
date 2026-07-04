@@ -35,4 +35,13 @@ abstract class Creature : SceneActor() {
 
     val isDie: Boolean
         get() = life!!.currHp <= 0
+
+    fun <T, R> myWith(receiver: T, block: T.() -> R): R {
+        // 调用block，把 receiver 作为 this 传入
+        return receiver.block()
+    }
+
+    fun Creature.test():Long {
+        return life!!.currHp
+    }
 }
