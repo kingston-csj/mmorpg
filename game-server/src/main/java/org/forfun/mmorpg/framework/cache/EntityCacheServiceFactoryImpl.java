@@ -17,6 +17,7 @@ public class EntityCacheServiceFactoryImpl implements EntityCacheServiceFactory 
     private final Map<Class<? extends BaseEntity<?>>, BaseEntityCacheService<?, ?>> cache = new ConcurrentHashMap<>();
 
     @Override
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public BaseEntityCacheService create(Class entityClass) {
         // 使用 CGLIB 创建动态子类
         enhancer.setSuperclass(BaseEntityCacheService.class);

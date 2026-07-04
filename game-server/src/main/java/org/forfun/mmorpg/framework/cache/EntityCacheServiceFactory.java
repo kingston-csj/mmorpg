@@ -8,5 +8,6 @@ public interface EntityCacheServiceFactory {
      * @param entityClass
      * @return
      */
+    @SuppressWarnings({"rawtypes"})
     BaseEntityCacheService create(Class entityClass);
 }

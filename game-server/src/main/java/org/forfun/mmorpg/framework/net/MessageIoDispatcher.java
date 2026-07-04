@@ -17,8 +17,8 @@ import jforgame.threadmodel.ThreadModel;
 import jforgame.threadmodel.dispatch.DispatchThreadModel;
 import org.forfun.mmorpg.game.ServerType;
 import org.forfun.mmorpg.game.base.GameContext;
-import org.forfun.mmorpg.game.battle.model.BattleMessage;
 import org.forfun.mmorpg.game.database.user.entity.PlayerEnt;
+import org.forfun.mmorpg.game.model.BattleMessage;
 
 import java.util.Map;
 
@@ -50,7 +50,7 @@ public class MessageIoDispatcher extends ChainedMessageDispatcher {
                     if (battleSid > 0) {
                         IdSession crossSession = GameContext.getRpcClientRouter().getSession(battleSid);
                         if (crossSession == null) {
-                            logger.error("fight server is unreachable", cmd);
+                            logger.error("fight server is unreachable");
                             return false;
                         }
                         crossSession.send(battleMessage);

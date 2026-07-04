@@ -2,6 +2,7 @@ package org.forfun.mmorpg.framework.cache;
 
 
 import java.io.Serializable;
+import java.util.Optional;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -54,21 +55,22 @@ public abstract class BaseEntityCacheService<E extends BaseEntity<ID>, ID extend
     @Override
     @Cacheable(cacheResolver = "entityCacheResolver", key = "#p0")
     @SuppressWarnings("all")
-    public E getEntity(ID id) {
+    public Optional<E> getEntity(ID id) {
         // 命名约定: PlayerEnt -> playerDao
         String repositoryBeanName = getEntityClass().getSimpleName().replace("Ent", "Dao");
         repositoryBeanName = StringUtil.firstLetterToLowerCase(repositoryBeanName);
+        @SuppressWarnings("unchecked")
         JpaRepository<E, ID> repository = GameContext.getBean(repositoryBeanName, JpaRepository.class);
 
-        return repository.findById(id).orElse(null);
+        return repository.findById(id);
     }
 
     @Override
     @CachePut(cacheResolver = "entityCacheResolver", key = "#entity.id")
     public E putEntity(E entity) {
-        // 使用实体自身的 getCrudRepository 方法获取对应的 Repository
+        @SuppressWarnings("unchecked")
         JpaRepository<E, ID> repository = (JpaRepository<E, ID>) entity.getCrudRepository();
-        
+
         // 使用 JpaRepository 保存实体
         E savedEntity = repository.save(entity);
         return savedEntity;
@@ -77,34 +79,35 @@ public abstract class BaseEntityCacheService<E extends BaseEntity<ID>, ID extend
     @Override
     @CacheEvict(cacheResolver = "entityCacheResolver", key = "#p0.id")
     public void removeEntity(E entity) {
-        // 使用实体自身的 getCrudRepository 方法获取对应的 Repository
+        @SuppressWarnings("unchecked")
         JpaRepository<E, ID> repository = (JpaRepository<E, ID>) entity.getCrudRepository();
-        
+
         // 使用 JpaRepository 删除实体
         repository.delete(entity);
     }
 
-    @SuppressWarnings("all")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public E getOrCreate(ID id, EntityBuilder<E> builder) {
         // spring cache内部调用方法，是不会触发aop缓存的
         // 避免内部方法调用，确保缓存生效
         EntityCacheService self = GameContext.getBean(getBeanName(), BaseEntityCacheService.class);
-        E entity = (E) self.getEntity(id);
-        if (entity == null) {
+        Optional<E> optional =   self.getEntity(id);
+        if (optional.isEmpty()) {
             int index = Math.abs(id.hashCode()) % locks.length;
             Lock lock = locks[index];
             lock.lock();
             try {
-                entity = (E) self.getEntity(id);
-                if (entity == null) {
-                    entity = builder.build();
+                optional =   self.getEntity(id);
+                if (optional.isEmpty()) {
+                    E  entity = builder.build();
                     self.putEntity(entity);
+                    return entity;
                 }
             } finally {
                 lock.unlock();
             }
         }
-        return entity;
+        return optional.get();
     }
 
     /**
@@ -114,7 +117,6 @@ public abstract class BaseEntityCacheService<E extends BaseEntity<ID>, ID extend
      * @return
      */
     protected abstract Class<E> getEntityClass();
-    
 
 
 }
