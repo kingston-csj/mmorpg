@@ -11,6 +11,7 @@ import org.forfun.mmorpg.game.database.user.dao.PlayerDao
 import org.forfun.mmorpg.game.vip.model.VipRight
 import org.forfun.mmorpg.game.scene.actor.ActorType
 import org.forfun.mmorpg.game.scene.model.Life
+import org.forfun.mmorpg.game.scene.model.Scene
 import org.hibernate.annotations.Proxy
 import org.springframework.data.repository.CrudRepository
 

@@ -1,11 +1,14 @@
 package org.forfun.mmorpg.game.scene.model
 
 import org.forfun.mmmorpg.game.scene.actor.Creature
+import org.forfun.mmorpg.game.base.GameContext
 import org.forfun.mmorpg.game.database.config.domain.ConfigMap
 import org.forfun.mmorpg.game.scene.actor.ActorType
 import org.forfun.mmorpg.game.scene.actor.SceneActor
 import org.forfun.mmorpg.game.scene.director.SceneDirector
+import org.forfun.mmorpg.game.scene.service.MapBlockLoader
 import org.forfun.mmorpg.game.scene.service.SceneSpawnManager
+import java.util.Random
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.math.abs
 
@@ -25,8 +28,17 @@ class Scene(private val parent: WorldMap, director: SceneDirector? = null) {
     /** 场景分屏 */
     private val areas = ConcurrentHashMap<Int, Area>()
 
-    /** 当前场景的动态阻挡 */
+    /** 当前场景的动态阻挡ID集合 */
     private val dynamicBlocks = HashSet<Int>()
+
+    /** 静态地图阻挡数据 */
+    private lateinit var staticBlockData: MapBlockData
+
+    /** 动态阻挡数据缓存 */
+    private val dynamicBlockCache = mutableMapOf<Int, MapBlockData>()
+
+    /** 当前合并后的阻挡矩阵 */
+    private lateinit var currentBlockData: MapBlockData
 
     lateinit var sceneDirector: SceneDirector
 
@@ -64,19 +76,50 @@ class Scene(private val parent: WorldMap, director: SceneDirector? = null) {
                 areas[index] = area
             }
         }
+
+        loadMapBlocks()
+    }
+
+    private fun loadMapBlocks() {
+        staticBlockData = MapBlockLoader.loadStaticMap(mapId)
+        currentBlockData = staticBlockData.copy()
     }
 
     fun openDynamicBlocks(blockId: Int) {
-        this.dynamicBlocks.add(blockId)
+        if (dynamicBlocks.add(blockId)) {
+            val dynamicData = dynamicBlockCache.computeIfAbsent(blockId) {
+                MapBlockLoader.loadDynamicMap(mapId, blockId)
+            }
+            currentBlockData.merge(dynamicData)
+        }
     }
 
     fun closeDynamicBlocks(blockId: Int) {
-        this.dynamicBlocks.remove(blockId)
+        if (dynamicBlocks.remove(blockId)) {
+            val dynamicData = dynamicBlockCache[blockId]
+            if (dynamicData != null) {
+                rebuildBlockData()
+            }
+        }
     }
 
-    private fun posToAreaIndex(x: Double, y: Double): Int {
-        val col = (x / Area.WIDTH).toInt()
-        val row = (y / Area.HEIGHT).toInt()
+    private fun rebuildBlockData() {
+        currentBlockData = staticBlockData.copy()
+        for (blockId in dynamicBlocks) {
+            val dynamicData = dynamicBlockCache[blockId]
+            if (dynamicData != null) {
+                currentBlockData.merge(dynamicData)
+            }
+        }
+    }
+
+    fun isBlocked(x: Int, y: Int): Boolean {
+        return currentBlockData.isBlock(x, y)
+    }
+
+    private fun posToAreaIndex(x: Short, y: Short): Int {
+        val col = (x.toDouble() / Area.WIDTH).toInt()
+        val row = (y.toDouble() / Area.HEIGHT).toInt()
         return col * 1000 + row
     }
 
@@ -105,8 +148,39 @@ class Scene(private val parent: WorldMap, director: SceneDirector? = null) {
         for (area in areas.values) {
             for (actor in area.getActors()) {
                 if (actor is Creature) {
+                    if (actor.isMoving) {
+                        updatePosition(actor)
+                    }
                     updateAoi(actor)
                 }
+            }
+        }
+    }
+
+    private fun updatePosition(creature: Creature) {
+        val waypoints = creature.waypoints ?: return
+        val speed = creature.moveSpeed
+        val distancePerTick = speed * 0.3
+
+        while (creature.currentWaypointIndex < waypoints.size) {
+            val targetPoint = waypoints[creature.currentWaypointIndex]
+            val dx = targetPoint.x.toDouble() - creature.posX.toDouble()
+            val dy = targetPoint.y.toDouble() - creature.posY.toDouble()
+            val distanceToTarget = kotlin.math.sqrt(dx * dx + dy * dy)
+
+            if (distanceToTarget <= distancePerTick) {
+                creature.posX = targetPoint.x
+                creature.posY = targetPoint.y
+                creature.currentWaypointIndex++
+
+                if (creature.currentWaypointIndex >= waypoints.size) {
+                    creature.stopMove()
+                }
+            } else {
+                val ratio = distancePerTick / distanceToTarget
+                creature.posX = (creature.posX + dx * ratio).toInt().toShort()
+                creature.posY = (creature.posY + dy * ratio).toInt().toShort()
+                break
             }
         }
     }
@@ -124,8 +198,8 @@ class Scene(private val parent: WorldMap, director: SceneDirector? = null) {
      * 十字链表算法
      */
     private fun updateAoi(observer: Creature) {
-        val col = (observer.posX / Area.WIDTH).toInt()
-        val row = (observer.posY / Area.HEIGHT).toInt()
+        val col = (observer.posX.toDouble() / Area.WIDTH).toInt()
+        val row = (observer.posY.toDouble() / Area.HEIGHT).toInt()
 
         val nineAreas = getNineAreas(col, row)
         val allActors = mutableListOf<Creature>()
@@ -148,7 +222,7 @@ class Scene(private val parent: WorldMap, director: SceneDirector? = null) {
         if (observerIndex >= 0) {
             for (i in observerIndex - 1 downTo 0) {
                 val other = allActors[i]
-                val distance = abs(other.posX - observer.posX)
+                val distance = abs(other.posX.toDouble() - observer.posX.toDouble())
                 if (distance <= AOI_RANGE) {
                     currentActors.add(other)
                 } else {
@@ -158,7 +232,7 @@ class Scene(private val parent: WorldMap, director: SceneDirector? = null) {
 
             for (i in observerIndex + 1 until allActors.size) {
                 val other = allActors[i]
-                val distance = abs(other.posX - observer.posX)
+                val distance = abs(other.posX.toDouble() - observer.posX.toDouble())
                 if (distance <= AOI_RANGE) {
                     currentActors.add(other)
                 } else {
@@ -186,13 +260,13 @@ class Scene(private val parent: WorldMap, director: SceneDirector? = null) {
     }
 
     fun actorEnter(actor: SceneActor) {
-        val index = posToAreaIndex(actor.posX, actor.posY)
+        val index = posToAreaIndex(actor.posX.toShort(), actor.posY.toShort())
         areas[index]?.add(actor)
         sceneDirector.onActorEnter(actor)
     }
 
     fun actorLeave(actor: SceneActor) {
-        val index = posToAreaIndex(actor.posX, actor.posY)
+        val index = posToAreaIndex(actor.posX.toShort(), actor.posY.toShort())
         areas[index]?.remove(actor)
         sceneDirector.onActorLeave(actor)
     }
@@ -212,5 +286,31 @@ class Scene(private val parent: WorldMap, director: SceneDirector? = null) {
 
     fun spawnRoundMonsters(round: Int) {
         spawnManager.spawnRoundMonsters(round)
+    }
+
+    fun getRandomBornPoint(): Point {
+        val configMap = GameContext.getDataManager().queryById(ConfigMap::class.java, mapId)
+            ?: return Point(0, 0)
+
+        val centerX = configMap.bornX
+        val centerY = configMap.bornY
+        val range = 5
+
+        val candidates = mutableListOf<Point>()
+        for (dx in -range..range) {
+            for (dy in -range..range) {
+                val x = centerX + dx
+                val y = centerY + dy
+                if (!isBlocked(x, y)) {
+                    candidates.add(Point(x.toShort(), y.toShort()))
+                }
+            }
+        }
+
+        if (candidates.isEmpty()) {
+            return Point(centerX.toShort(), centerY.toShort())
+        }
+
+        return candidates[Random().nextInt(candidates.size)]
     }
 }

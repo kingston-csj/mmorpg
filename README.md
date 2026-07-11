@@ -15,6 +15,7 @@ mmorpg，是一个用java编写的分布式高性能mmorpg手游服务端框架�
 * 场景寻路及分屏算法  
 * 主动技能/被动技能实现  
 * buff系统  
+* 游戏ai  
 * 更多基础设施与业务演示  
 
 ## 与jforgame项目的主要不同之处 
@@ -22,7 +23,7 @@ mmorpg，是一个用java编写的分布式高性能mmorpg手游服务端框架�
 * jforgame注重于造轮子，mmo注重于重用jforgame基础组件
 * 使用spring-boot框架
 * 依赖管理选用了gradle
-* 重点用于演示场景及技能系统  
+* 重点用于演示mmorpg业务场景  
 * 业务代码使用kotlin  
 * 尝试使用一些新技术栈  
 

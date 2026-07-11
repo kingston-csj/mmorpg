@@ -9,6 +9,7 @@ enum class AttributeType(
 ) {
 
     Attack(1, false),
-    Defense(1, false),
-    Hp(1, false)
+    Defense(2, false),
+    Hp(3, false),
+    MoveSpeed(4, false)
 }

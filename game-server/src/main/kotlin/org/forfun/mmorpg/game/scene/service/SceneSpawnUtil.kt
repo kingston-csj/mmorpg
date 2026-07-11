@@ -15,21 +15,21 @@ object SceneSpawnUtil {
         return creator.create(config) as Monster
     }
 
-    fun getRandomX(config: ConfigSceneSpawn): Double {
+    fun getRandomX(config: ConfigSceneSpawn): Short {
         return if (config.spawnRadius > 0) {
             val offset = (random.nextDouble() - 0.5) * 2 * config.spawnRadius
-            config.posX + offset
+            (config.posX + offset).toInt().toShort()
         } else {
-            config.posX.toDouble()
+            config.posX.toShort()
         }
     }
 
-    fun getRandomY(config: ConfigSceneSpawn): Double {
+    fun getRandomY(config: ConfigSceneSpawn): Short {
         return if (config.spawnRadius > 0) {
             val offset = (random.nextDouble() - 0.5) * 2 * config.spawnRadius
-            config.posY + offset
+            (config.posY + offset).toInt().toShort()
         } else {
-            config.posY.toDouble()
+            config.posY.toShort()
         }
     }
 }

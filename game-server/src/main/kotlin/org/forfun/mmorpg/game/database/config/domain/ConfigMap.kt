@@ -43,4 +43,13 @@ class ConfigMap {
      * 场景类型，参考{@link SceneCreateFactory}
      */
     var sceneType = 1;
+
+    /**
+     * 出生点X坐标
+     */
+    var bornX: Int = 0
+    /**
+     * 出生点Y坐标
+     */
+    var bornY: Int = 0
 }
