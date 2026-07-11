@@ -1,8 +1,8 @@
-package org.forfun.mmorpg.game.fight.service
+package org.forfun.mmorpg.game.skill.service
 
 import org.forfun.mmorpg.game.base.GameContext
 import org.forfun.mmorpg.game.database.config.domain.ConfigSkill
-import org.forfun.mmorpg.game.fight.model.BattleContext
+import org.forfun.mmorpg.game.skill.model.BattleContext
 import org.forfun.mmorpg.game.scene.actor.SceneActor
 import org.forfun.mmorpg.game.skill.util.AngleUtil
 

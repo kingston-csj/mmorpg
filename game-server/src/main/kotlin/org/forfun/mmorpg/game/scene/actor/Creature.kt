@@ -1,4 +1,4 @@
-package org.forfun.mmmorpg.game.scene.actor
+package org.forfun.mmorpg.game.scene.actor
 
 import jakarta.persistence.Transient
 import org.forfun.mmorpg.game.attribute.AttributeContainer

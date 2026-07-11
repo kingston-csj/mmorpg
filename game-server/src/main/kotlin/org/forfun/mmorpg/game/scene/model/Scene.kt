@@ -1,9 +1,9 @@
 package org.forfun.mmorpg.game.scene.model
 
-import org.forfun.mmmorpg.game.scene.actor.Creature
 import org.forfun.mmorpg.game.base.GameContext
 import org.forfun.mmorpg.game.database.config.domain.ConfigMap
 import org.forfun.mmorpg.game.scene.actor.ActorType
+import org.forfun.mmorpg.game.scene.actor.Creature
 import org.forfun.mmorpg.game.scene.actor.SceneActor
 import org.forfun.mmorpg.game.scene.director.SceneDirector
 import org.forfun.mmorpg.game.scene.service.MapBlockLoader
@@ -183,10 +183,6 @@ class Scene(private val parent: WorldMap, director: SceneDirector? = null) {
                 break
             }
         }
-    }
-
-    fun getAreas(): Collection<Area> {
-        return areas.values
     }
 
     fun getAliveMonsters(): List<SceneActor> {

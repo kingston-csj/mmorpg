@@ -1,4 +1,4 @@
-package org.forfun.mmorpg.game.fight.model
+package org.forfun.mmorpg.game.skill.model
 
 import org.forfun.mmorpg.game.scene.actor.SceneActor
 import java.util.LinkedList

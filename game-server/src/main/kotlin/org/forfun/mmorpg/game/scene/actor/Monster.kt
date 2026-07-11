@@ -1,6 +1,5 @@
 package org.forfun.mmorpg.game.scene.actor
 
-import org.forfun.mmmorpg.game.scene.actor.Creature
 
 open class Monster : Creature() {
 

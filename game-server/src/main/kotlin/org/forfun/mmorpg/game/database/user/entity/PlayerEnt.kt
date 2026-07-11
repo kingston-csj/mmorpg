@@ -1,7 +1,7 @@
 package org.forfun.mmorpg.game.database.user.entity
 
 import jakarta.persistence.*
-import org.forfun.mmmorpg.game.scene.actor.Creature
+import org.forfun.mmorpg.game.scene.actor.Creature
 import org.forfun.mmorpg.game.attribute.AttributeContainer
 import org.forfun.mmorpg.game.base.GameContext
 import org.forfun.mmorpg.game.buff.model.BuffContainer

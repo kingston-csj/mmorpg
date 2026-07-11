@@ -1,7 +1,7 @@
 package org.forfun.mmorpg.game.buff.model
 
 import io.micrometer.core.instrument.config.validate.PropertyValidator.getDuration
-import org.forfun.mmmorpg.game.scene.actor.Creature
+import org.forfun.mmorpg.game.scene.actor.Creature
 import org.forfun.mmorpg.game.base.GameContext
 import java.util.concurrent.Future
 
@@ -13,7 +13,7 @@ abstract class Buff {
     private var activeTime: Long = 0
 
     /** 持续时长 */
-    var duration: Long = 0
+    var duration: Int = 0
 
     var overlapLayer: Int = 0
 
@@ -37,7 +37,7 @@ abstract class Buff {
         cancleTimeOutTask()
         timeOutTask = GameContext.getSchedulerManager().schedule({
             destroy()
-        }, duration)
+        }, duration.toLong())
     }
 
     fun cancleTimeOutTask() {
