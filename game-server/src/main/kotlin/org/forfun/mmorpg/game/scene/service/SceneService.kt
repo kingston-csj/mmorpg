@@ -47,9 +47,34 @@ open class SceneService {
         for (i in 0 until configMap.coreLine) {
             val scene = Scene(worldMap)
             scene.init()
+            scene.spawnManager.init()
             worldMap.addScene(scene.getId(), scene)
         }
     }
+
+    /**
+     * 创建副本场景
+     */
+    fun createDungeon(mapId: Int): Scene {
+        val configMap = GameContext.getDataManager().queryById(ConfigMap::class.java, mapId)
+            ?: throw IllegalArgumentException("mapId: $mapId is not exist")
+
+        val factory = SceneCreateFactory.entries.firstOrNull { it.type == configMap.mapType.toInt() }
+            ?: throw IllegalArgumentException("mapType: ${configMap.mapType} is not supported")
+
+        val worldMap = allMaps.computeIfAbsent(mapId) { WorldMap() }
+
+        synchronized(worldMap) {
+            val director = factory.director.getDeclaredConstructor().newInstance()
+            val scene = Scene(worldMap, director)
+            scene.lineId = worldMap.generateLineId()
+            scene.init()
+            worldMap.addScene(scene.getId(), scene)
+            return scene
+        }
+    }
+
+
 
     private fun tick() {
         allMaps.forEach { (mapId, map) ->

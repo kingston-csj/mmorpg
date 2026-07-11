@@ -28,4 +28,19 @@ class ConfigMap {
      * 最大分线数量
      */
     var maxLine: Int = 0
+
+    /**
+     * 准备毫秒数，XX后副本开始
+     */
+    var prepareSeconds = 0
+
+    /**
+     * 持续秒数，准备阶段后XX后副本结束
+     */
+    var lastSeconds = 0
+
+    /**
+     * 场景类型，参考{@link SceneCreateFactory}
+     */
+    var sceneType = 1;
 }

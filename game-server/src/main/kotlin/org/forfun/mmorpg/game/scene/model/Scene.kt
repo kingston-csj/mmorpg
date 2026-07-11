@@ -7,22 +7,15 @@ import org.forfun.mmorpg.game.scene.actor.SceneActor
 import org.forfun.mmorpg.game.scene.director.SceneDirector
 import org.forfun.mmorpg.game.scene.service.SceneSpawnManager
 import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.atomic.AtomicLong
 import kotlin.math.abs
 
-class Scene(private val parent: WorldMap) {
+class Scene(private val parent: WorldMap, director: SceneDirector? = null) {
 
     companion object {
-        private val idFactory = AtomicLong()
-
         const val AOI_RANGE = 300.0
     }
 
-    var mapId: Int
-
-    init {
-        mapId = parent.modelId
-    }
+    var mapId: Int = parent.modelId
 
     /**
      * 场景分线号
@@ -37,10 +30,19 @@ class Scene(private val parent: WorldMap) {
 
     lateinit var sceneDirector: SceneDirector
 
+    init {
+        if (director != null) {
+            director.scene = this
+            this.sceneDirector = director
+        } else {
+            this.sceneDirector = SceneDirector(this)
+        }
+    }
+
     /** 当前回合数（副本场景使用） */
     var currentRound: Int = 0
 
-    private val spawnManager = SceneSpawnManager(this)
+    val spawnManager = SceneSpawnManager(this)
 
     private var widthRange = 0
     private var heightRange = 0
@@ -62,8 +64,6 @@ class Scene(private val parent: WorldMap) {
                 areas[index] = area
             }
         }
-
-        spawnManager.init()
     }
 
     fun openDynamicBlocks(blockId: Int) {

@@ -15,7 +15,7 @@ open class SchedulerManager {
 
     companion object {
         @JvmStatic
-        var instance: SchedulerManager? = null
+        lateinit var instance: SchedulerManager
     }
 
     private lateinit var service: ScheduledExecutorService

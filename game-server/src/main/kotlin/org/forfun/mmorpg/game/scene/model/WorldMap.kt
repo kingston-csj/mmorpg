@@ -1,7 +1,7 @@
 package org.forfun.mmorpg.game.scene.model
 
 import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.locks.ReentrantReadWriteLock
+import java.util.concurrent.atomic.AtomicInteger
 
 /**
  *  世界地图模型
@@ -14,8 +14,8 @@ class WorldMap {
     /** 地图模型id */
     var modelId: Int = 0
 
-    /** 读写锁 */
-    private val lock = ReentrantReadWriteLock()
+    /** 分线id生成器 */
+    private val lineIdGenerator = AtomicInteger(0)
 
     fun addScene(id: Int, scene: Scene) {
         scenes[id] = scene
@@ -27,5 +27,9 @@ class WorldMap {
 
     fun getScene(sceneId: Int) :Scene? {
         return scenes[sceneId]
+    }
+
+    fun generateLineId(): Int {
+        return lineIdGenerator.incrementAndGet()
     }
 }
