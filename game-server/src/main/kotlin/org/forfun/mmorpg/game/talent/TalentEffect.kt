@@ -1,4 +1,4 @@
-package org.forfun.mmorpg.game.skill.talent
+package org.forfun.mmorpg.game.talent
 
 import org.forfun.mmorpg.game.database.config.domain.ConfigTalent
 import org.forfun.mmorpg.game.skill.model.BattleContext

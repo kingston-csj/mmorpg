@@ -2,7 +2,7 @@ package org.forfun.mmorpg.game.database.config.domain
 
 import jforgame.data.annotation.DataTable
 import jforgame.data.annotation.Id
-import org.forfun.mmorpg.game.skill.service.TriggerPoint
+import org.forfun.mmorpg.game.talent.model.TriggerPoint
 
 @DataTable(name = "configtalent")
 class ConfigTalent {

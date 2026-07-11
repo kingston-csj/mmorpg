@@ -3,7 +3,7 @@ package org.forfun.mmorpg.game.skill.service
 import org.forfun.mmorpg.game.base.GameContext
 import org.forfun.mmorpg.game.database.config.domain.ConfigSkill
 import org.forfun.mmorpg.game.skill.model.BattleContext
-import org.forfun.mmorpg.game.scene.actor.SceneActor
+import org.forfun.mmorpg.game.scene.actor.Creature
 import org.forfun.mmorpg.game.skill.util.AngleUtil
 
 /**
@@ -11,16 +11,16 @@ import org.forfun.mmorpg.game.skill.util.AngleUtil
  */
 sealed class SkillRangeSelector {
 
-    abstract fun select(context: BattleContext, pool: List<SceneActor>): List<SceneActor>
+    abstract fun select(context: BattleContext, pool: List<Creature>): List<Creature>
 
     /**
      * 圆形
      */
     object Circle : SkillRangeSelector() {
-        override fun select(context: BattleContext, pool: List<SceneActor>): List<SceneActor> {
+        override fun select(context: BattleContext, pool: List<Creature>): List<Creature> {
             val skillData = GameContext.getDataManager().queryById(ConfigSkill::class.java, context.skillId)
             val radius = skillData.distance.toDouble()
-            val attacker = context.attacker
+            val attacker = context.attacker as Creature
             return pool.filter { actor ->
                 AngleUtil.isInCircle(attacker.posX.toDouble(), attacker.posY.toDouble(), actor.posX.toDouble(), actor.posY.toDouble(), radius)
             }
@@ -31,10 +31,10 @@ sealed class SkillRangeSelector {
      * 扇形
      */
     object Sector : SkillRangeSelector() {
-        override fun select(context: BattleContext, pool: List<SceneActor>): List<SceneActor> {
+        override fun select(context: BattleContext, pool: List<Creature>): List<Creature> {
             val skillData = GameContext.getDataManager().queryById(ConfigSkill::class.java, context.skillId)
             val radius = skillData.distance.toDouble()
-            val attacker = context.attacker
+            val attacker = context.attacker as Creature
             val axisAngle = 0.0
             val extendAngle = 45.0
             return pool.filter { actor ->
@@ -52,7 +52,7 @@ sealed class SkillRangeSelector {
     }
 
     object All : SkillRangeSelector() {
-        override fun select(context: BattleContext, pool: List<SceneActor>): List<SceneActor> {
+        override fun select(context: BattleContext, pool: List<Creature>): List<Creature> {
             return pool
         }
 
@@ -71,6 +71,4 @@ sealed class SkillRangeSelector {
             }
         }
     }
-
-
 }

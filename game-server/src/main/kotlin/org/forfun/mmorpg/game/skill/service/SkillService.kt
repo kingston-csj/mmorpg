@@ -1,12 +1,18 @@
 package org.forfun.mmorpg.game.skill.service
 
+import org.forfun.mmorpg.framework.exception.BusinessRequestException
 import org.forfun.mmorpg.game.base.GameContext
 import org.forfun.mmorpg.game.database.config.domain.ConfigSkill
 import org.forfun.mmorpg.game.database.user.entity.PlayerEnt
 import org.forfun.mmorpg.game.skill.model.BattleContext
 import org.forfun.mmorpg.game.scene.actor.Creature
-import org.forfun.mmorpg.game.scene.actor.SceneActor
 import org.forfun.mmorpg.game.attribute.AttributeType
+import org.forfun.mmorpg.game.scene.actor.ActorType
+import org.forfun.mmorpg.game.skill.model.DamageType
+import org.forfun.mmorpg.game.skill.model.SkillType
+import org.forfun.mmorpg.game.system.I18nId
+import org.forfun.mmorpg.game.talent.model.TriggerPoint
+import org.forfun.mmorpg.game.talent.service.TalentService
 import org.springframework.stereotype.Service
 import kotlin.random.Random
 
@@ -23,12 +29,16 @@ open class SkillService {
         val skillData = GameContext.getDataManager().queryById(ConfigSkill::class.java, skillId)
             ?: return
 
+        if (!player.skillBox.hasSkill(skillId)) {
+            throw BusinessRequestException(I18nId.ILLEGAL_ARGUMENT)
+        }
+
         val battleContext = BattleContext(skillId)
         battleContext.attacker = player
 
         talentService.trigger(TriggerPoint.BeforeCasting, battleContext)
 
-        var targets = player.aoiObserver.actors.values.toList()
+        var targets = player.aoiObserver.actors.values.filterIsInstance<Creature>().toList()
         targets = SkillRangeSelector.getByType(skillData.selector).select(battleContext, targets)
         targets = SkillRelationSelector.getByType(skillData.enemyRelation).select(battleContext, targets)
 
@@ -51,12 +61,11 @@ open class SkillService {
         talentService.trigger(TriggerPoint.AfterCasting, battleContext)
     }
 
-    private fun handleDamageSkill(attacker: Creature, skillData: ConfigSkill, targets: List<SceneActor>, context: BattleContext) {
+    private fun handleDamageSkill(attacker: Creature, skillData: ConfigSkill, targets: List<Creature>, context: BattleContext) {
         val damageType = DamageType.valueOf(skillData.damageType)
         talentService.trigger(TriggerPoint.BeforeDamageCalc, context)
 
         for (target in targets) {
-            if (target !is Creature) continue
 
             val finalDamage = calculateDamage(attacker, target, skillData, damageType)
             val isCritical = isCriticalHit(attacker, target)
@@ -104,13 +113,6 @@ open class SkillService {
             finalDamage = (baseDamage * (1 - reduceRatio)).toInt()
         }
 
-        val damageBonus = when (damageType) {
-            DamageType.PHYSICAL -> attacker.attrContainer.getAttrValue(AttributeType.PhysicalDamageBonus).toDouble() / 10000.0
-            DamageType.MAGIC -> attacker.attrContainer.getAttrValue(AttributeType.MagicDamageBonus).toDouble() / 10000.0
-            DamageType.TRUE -> 0.0
-        }
-        finalDamage = (finalDamage * (1 + damageBonus)).toInt()
-
         return Math.max(finalDamage, 1)
     }
 
@@ -121,25 +123,21 @@ open class SkillService {
         return Random.nextDouble() < finalRate
     }
 
-    private fun handleHealSkill(healer: Creature, skillData: ConfigSkill, targets: List<SceneActor>, context: BattleContext) {
+    private fun handleHealSkill(healer: Creature, skillData: ConfigSkill, targets: List<Creature>, context: BattleContext) {
         for (target in targets) {
-            if (target !is Creature) continue
 
             val attackValue = healer.attrContainer.getAttrValue(AttributeType.MagicAttack).toInt()
             val baseHeal = (attackValue * skillData.healCoeff.toDouble() / 10000.0).toInt() + skillData.fixedHeal
-            val healBonus = healer.attrContainer.getAttrValue(AttributeType.HealBonus).toDouble() / 10000.0
-            val finalHeal = (baseHeal * (1 + healBonus)).toInt()
 
-            target.life.currHp = Math.min(target.life.currHp + finalHeal, target.life.maxHp)
+            target.life.currHp = Math.min(target.life.currHp, target.life.maxHp)
             talentService.trigger(TriggerPoint.OnHealed, context)
 
             applyTargetBuff(healer, target, skillData)
         }
     }
 
-    private fun handleBuffSkill(caster: Creature, skillData: ConfigSkill, targets: List<SceneActor>, context: BattleContext) {
+    private fun handleBuffSkill(caster: Creature, skillData: ConfigSkill, targets: List<Creature>, context: BattleContext) {
         for (target in targets) {
-            if (target !is Creature) continue
             applyTargetBuff(caster, target, skillData)
         }
     }
@@ -165,16 +163,4 @@ open class SkillService {
     }
 }
 
-enum class SkillType {
-    DAMAGE,
-    HEAL,
-    BUFF,
-    DEBUFF,
-    SPECIAL
-}
 
-enum class DamageType {
-    PHYSICAL,
-    MAGIC,
-    TRUE
-}

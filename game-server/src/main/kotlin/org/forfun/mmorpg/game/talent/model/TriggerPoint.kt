@@ -1,4 +1,4 @@
-package org.forfun.mmorpg.game.skill.service
+package org.forfun.mmorpg.game.talent.model
 
 enum class TriggerPoint {
     BeforeCasting,

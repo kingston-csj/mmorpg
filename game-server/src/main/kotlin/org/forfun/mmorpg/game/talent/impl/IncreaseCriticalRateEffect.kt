@@ -1,8 +1,8 @@
-package org.forfun.mmorpg.game.skill.talent.impl
+package org.forfun.mmorpg.game.talent.impl
 
 import org.forfun.mmorpg.game.database.config.domain.ConfigTalent
 import org.forfun.mmorpg.game.skill.model.BattleContext
-import org.forfun.mmorpg.game.skill.talent.TalentEffect
+import org.forfun.mmorpg.game.talent.TalentEffect
 import org.forfun.mmorpg.game.scene.actor.Creature
 import org.forfun.mmorpg.game.attribute.AttributeType
 

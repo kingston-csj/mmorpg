@@ -1,4 +1,4 @@
-package org.forfun.mmorpg.game.skill.talent
+package org.forfun.mmorpg.game.talent
 
 object TalentEffectRegistry {
 

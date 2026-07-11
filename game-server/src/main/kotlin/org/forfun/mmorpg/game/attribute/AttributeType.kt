@@ -15,7 +15,7 @@ enum class AttributeType(
     Vitality(4, false),      // 体质，影响最大生命值
     Spirit(5, false),        // 精神，影响最大魔法值
     Attack(6, false),            // 通用攻击力（兼容旧代码）
-    Defense(7, false)            // 通用防御力（兼容旧代码）
+    Defense(7, false),       // 通用防御力（兼容旧代码）
 
     /** 生命与法力 */
     MaxHp(10, false),        // 最大生命值

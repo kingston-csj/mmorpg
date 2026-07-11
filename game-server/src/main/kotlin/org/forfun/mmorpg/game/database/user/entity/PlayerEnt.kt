@@ -12,6 +12,8 @@ import org.forfun.mmorpg.game.vip.model.VipRight
 import org.forfun.mmorpg.game.scene.actor.ActorType
 import org.forfun.mmorpg.game.scene.model.Life
 import org.forfun.mmorpg.game.scene.model.Scene
+import org.forfun.mmorpg.game.skill.model.SkillBox
+import org.forfun.mmorpg.game.talent.model.TalentBox
 import org.hibernate.annotations.Proxy
 import org.springframework.data.repository.CrudRepository
 
@@ -48,7 +50,16 @@ class PlayerEnt() : Creature(), BaseEntity<Long> {
 
     @field:Column
     @field:Convert(converter = JpaObjectConverter::class)
-    var vipRight: VipRight? = null
+    lateinit var vipRight: VipRight
+
+
+    @field:Column
+    @field:Convert(converter = JpaObjectConverter::class)
+    lateinit var talentBox: TalentBox
+
+    @field:Column
+    @field:Convert(converter = JpaObjectConverter::class)
+    lateinit var skillBox: SkillBox
 
 
     @Transient
