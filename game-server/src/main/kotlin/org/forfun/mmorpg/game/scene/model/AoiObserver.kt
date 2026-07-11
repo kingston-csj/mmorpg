@@ -9,4 +9,20 @@ class AoiObserver {
 
     /** 当前可见视野元素 */
     val actors = HashMap<Long, SceneActor>()
+
+
+    /**
+     * 本轮对方出现
+     */
+    fun onSee(target: SceneActor) {
+
+    }
+
+
+    /**
+     * 本轮对方消失
+     */
+    fun onDisappear(target: SceneActor) {
+
+    }
 }

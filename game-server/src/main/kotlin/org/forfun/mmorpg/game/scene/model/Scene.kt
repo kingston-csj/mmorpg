@@ -6,6 +6,7 @@ import org.forfun.mmorpg.game.scene.actor.SceneActor
 import org.forfun.mmorpg.game.scene.director.SceneDirector
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicLong
+import kotlin.math.abs
 
 class Scene(private val parent: WorldMap) {
 
@@ -13,6 +14,12 @@ class Scene(private val parent: WorldMap) {
         private val idFactory = AtomicLong()
 
         const val AOI_RANGE = 300.0
+    }
+
+    var mapId: Int
+
+    init {
+        mapId = parent.modelId
     }
 
     /**
@@ -26,7 +33,7 @@ class Scene(private val parent: WorldMap) {
     /** 当前场景的动态阻挡 */
     private val dynamicBlocks = HashSet<Int>()
 
-    private var sceneDirector: SceneDirector? = null
+    lateinit var sceneDirector: SceneDirector
 
     private var widthRange = 0
     private var heightRange = 0
@@ -112,19 +119,19 @@ class Scene(private val parent: WorldMap) {
             }
         }
 
-
         allActors.sortBy { it.posX }
 
-        observer.aoiObserver.actors.clear()
+        val previousActorsMap = HashMap(observer.aoiObserver.actors)
+        val currentActors = mutableListOf<Creature>()
 
         val observerIndex = allActors.indexOfFirst { it.getId() == observer.getId() }
 
         if (observerIndex >= 0) {
             for (i in observerIndex - 1 downTo 0) {
                 val other = allActors[i]
-                val distance = Math.abs(other.posX - observer.posX)
+                val distance = abs(other.posX - observer.posX)
                 if (distance <= AOI_RANGE) {
-                    observer.aoiObserver.actors[other.getId()] = other
+                    currentActors.add(other)
                 } else {
                     break
                 }
@@ -132,12 +139,29 @@ class Scene(private val parent: WorldMap) {
 
             for (i in observerIndex + 1 until allActors.size) {
                 val other = allActors[i]
-                val distance = Math.abs(other.posX - observer.posX)
+                val distance = abs(other.posX - observer.posX)
                 if (distance <= AOI_RANGE) {
-                    observer.aoiObserver.actors[other.getId()] = other
+                    currentActors.add(other)
                 } else {
                     break
                 }
+            }
+        }
+
+        observer.aoiObserver.actors.clear()
+        for (actor in currentActors) {
+            observer.aoiObserver.actors[actor.getId()] = actor
+        }
+
+        for (actor in currentActors) {
+            if (!previousActorsMap.containsKey(actor.getId())) {
+                observer.aoiObserver.onSee(actor)
+            }
+        }
+
+        for ((prevId, disappeared) in previousActorsMap) {
+            if (!observer.aoiObserver.actors.containsKey(prevId)) {
+                observer.aoiObserver.onDisappear(disappeared)
             }
         }
     }
@@ -145,16 +169,20 @@ class Scene(private val parent: WorldMap) {
     fun actorEnter(actor: SceneActor) {
         val index = posToAreaIndex(actor.posX, actor.posY)
         areas[index]?.add(actor)
-        sceneDirector!!.onActorEnter(actor)
+        sceneDirector.onActorEnter(actor)
     }
 
     fun actorLeave(actor: SceneActor) {
         val index = posToAreaIndex(actor.posX, actor.posY)
         areas[index]?.remove(actor)
-        sceneDirector!!.onActorLeave(actor)
+        sceneDirector.onActorLeave(actor)
     }
 
-    fun getId(): Long {
-        return 0
+    fun getId(): Int {
+        return lineId
+    }
+
+    fun dispatchKey(): Long {
+        return (mapId * 100 + lineId).toLong()
     }
 }

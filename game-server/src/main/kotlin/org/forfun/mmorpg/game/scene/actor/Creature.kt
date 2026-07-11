@@ -14,34 +14,26 @@ import org.forfun.mmorpg.game.scene.model.Life
 abstract class Creature : SceneActor() {
 
     @Transient
-    var buffContainer: BuffContainer? = null
+    lateinit var buffContainer: BuffContainer
 
     @Transient
     var attrContainer = AttributeContainer()
 
     @Transient
-    var life: Life? = null
+    lateinit var life: Life
 
     @Transient
     val aoiObserver = AoiObserver()
 
     val hp: Long
-        get() = life!!.currHp
+        get() = life.currHp
 
     val attack: Int
         get() = attrContainer.getAttrValue(AttributeType.Attack).toInt()
 
-    fun dispatchKey(): Int = mapId + lineId
+    fun dispatchKey(): Int = mapId * 100 + lineId
 
     val isDie: Boolean
-        get() = life!!.currHp <= 0
+        get() = life.currHp <= 0
 
-    fun <T, R> myWith(receiver: T, block: T.() -> R): R {
-        // 调用block，把 receiver 作为 this 传入
-        return receiver.block()
-    }
-
-    fun Creature.test():Long {
-        return life!!.currHp
-    }
 }

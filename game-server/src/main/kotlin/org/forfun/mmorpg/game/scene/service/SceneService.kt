@@ -3,12 +3,13 @@ package org.forfun.mmorpg.game.scene.service
 import jforgame.commons.util.TimeUtil
 import jforgame.threadmodel.ThreadModel
 import jforgame.threadmodel.dispatch.BaseDispatchTask
-import jforgame.threadmodel.dispatch.DispatchThreadModel
 import org.forfun.mmorpg.game.base.GameContext
 import org.forfun.mmorpg.game.base.SchedulerManager
 import org.forfun.mmorpg.game.database.config.domain.ConfigMap
+import org.forfun.mmorpg.game.database.user.entity.PlayerEnt
 import org.forfun.mmorpg.game.scene.model.Scene
 import org.forfun.mmorpg.game.scene.model.WorldMap
+import org.forfun.mmorpg.game.util.ThreadSafaUtil
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.concurrent.ConcurrentHashMap
@@ -51,17 +52,27 @@ open class SceneService {
     }
 
     private fun tick() {
-        allMaps.forEach { (_, map) ->
+        allMaps.forEach { (mapId, map) ->
             map.getScenes().forEach { scene ->
                 val task = object : BaseDispatchTask() {
                     override fun action() {
                         scene.tick()
                     }
                 }.apply {
-                    dispatchKey = scene.getId()
+                    dispatchKey = (mapId * 100 + scene.getId()).toLong()
                 }
                 threadModel.accept(task)
             }
         }
     }
+
+    fun enterScene(player: PlayerEnt, mapId: Int, lineId: Int) {
+        val world = allMaps[mapId] ?: throw IllegalArgumentException("map is null")
+        val scene = world.getScene(lineId) ?: throw IllegalArgumentException("mapId : $mapId lineId: $lineId is null")
+        ThreadSafaUtil.addTask(scene.dispatchKey(), Runnable {
+            scene.actorEnter(player)
+        })
+    }
+
+
 }
