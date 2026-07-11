@@ -2,8 +2,10 @@ package org.forfun.mmorpg.game.scene.model
 
 import org.forfun.mmmorpg.game.scene.actor.Creature
 import org.forfun.mmorpg.game.database.config.domain.ConfigMap
+import org.forfun.mmorpg.game.scene.actor.ActorType
 import org.forfun.mmorpg.game.scene.actor.SceneActor
 import org.forfun.mmorpg.game.scene.director.SceneDirector
+import org.forfun.mmorpg.game.scene.service.SceneSpawnManager
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicLong
 import kotlin.math.abs
@@ -35,8 +37,15 @@ class Scene(private val parent: WorldMap) {
 
     lateinit var sceneDirector: SceneDirector
 
+    /** 当前回合数（副本场景使用） */
+    var currentRound: Int = 0
+
+    private val spawnManager = SceneSpawnManager(this)
+
     private var widthRange = 0
     private var heightRange = 0
+
+    var actors: MutableMap<Long, SceneActor> = HashMap()
 
     fun init() {
         val configMap = ConfigMap()
@@ -53,6 +62,8 @@ class Scene(private val parent: WorldMap) {
                 areas[index] = area
             }
         }
+
+        spawnManager.init()
     }
 
     fun openDynamicBlocks(blockId: Int) {
@@ -98,6 +109,14 @@ class Scene(private val parent: WorldMap) {
                 }
             }
         }
+    }
+
+    fun getAreas(): Collection<Area> {
+        return areas.values
+    }
+
+    fun getAliveMonsters(): List<SceneActor> {
+        return actors.values.filter { it.type == ActorType.Monster }
     }
 
     /**
@@ -184,5 +203,14 @@ class Scene(private val parent: WorldMap) {
 
     fun dispatchKey(): Long {
         return (mapId * 100 + lineId).toLong()
+    }
+
+    fun advanceRound() {
+        currentRound++
+        spawnManager.spawnRoundMonsters(currentRound)
+    }
+
+    fun spawnRoundMonsters(round: Int) {
+        spawnManager.spawnRoundMonsters(round)
     }
 }

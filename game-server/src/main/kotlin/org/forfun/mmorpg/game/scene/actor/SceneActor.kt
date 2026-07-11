@@ -1,17 +1,18 @@
 package org.forfun.mmorpg.game.scene.actor
 
-import org.forfun.mmorpg.game.ai.fsm.Scene
+import org.forfun.mmorpg.game.scene.model.Scene
+
 
 /**
  * 场景里的各种演员
  */
 abstract class SceneActor : GameObject {
 
-    protected var mapId: Int = 0
+    var mapId: Int = 0
 
-    protected var lineId: Int = 0
+    var lineId: Int = 0
 
-    var scene: Scene? = null
+    lateinit var scene: Scene
 
     abstract val type: ActorType
 

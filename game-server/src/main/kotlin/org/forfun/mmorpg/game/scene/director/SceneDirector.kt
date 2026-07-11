@@ -23,6 +23,14 @@ open class SceneDirector {
         }
     }
 
+    fun onActorDead(actor: SceneActor) {
+        if (actor.type == ActorType.Player) {
+            onPlayerDead(actor as PlayerEnt)
+        } else if (actor.type == ActorType.Monster) {
+            onMonsterDead(actor as Monster)
+        }
+    }
+
     protected open fun onPlayerEnter(player: PlayerEnt) {}
 
     protected open fun onMonsterEnter(monster: Monster) {}
@@ -30,4 +38,8 @@ open class SceneDirector {
     protected open fun onPlayerLeave(player: PlayerEnt) {}
 
     protected open fun onMonsterLeave(monster: Monster) {}
+
+    protected open fun onPlayerDead(player: PlayerEnt) {}
+
+    protected open fun onMonsterDead(monster: Monster) {}
 }
